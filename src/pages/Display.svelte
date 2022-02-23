@@ -28,7 +28,7 @@
       <div class="row" style="justify-content:center">
         <div class="card mb-2" style="min-width:300px">
           <div class="card-header">
-            <h5 class="card-title mb-0">Profile Details</h5>
+            <h5 class="card-title mb-0">Detalhes do Perfil</h5>
           </div>
           <div class="card-body text-center">
             <img

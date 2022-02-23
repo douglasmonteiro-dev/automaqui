@@ -11,19 +11,18 @@
   <div class="landing-intro-content container">
     <div class="row align-items-center">
       <div class="col-lg-5 mx-auto">
-        <span class="badge badge-soft-primary p-1">v2.0.0</span>
+        <span class="badge badge-soft-primary p-1">v1.0.0</span>
 
-        <h1 class="my-4">Add multiple links in your Instagram bio</h1>
+        <h1 class="my-4">Adicione vários links a sua bio do Instagram</h1>
 
         <p class="text-lg">
-          Are you tried of changing the link in your instagram bio ?? No more !! <br
-          />
-          Display all your links in one page with a personalized url.
-          <br /> This website has personalized dashboard to add, delete and edit
-          your links.
+          Já tentou mudar o link na bio do seu instagram ?? Não mais !! <br/>
+           Exiba todos os seus links em uma página com um URL personalizado.
+           <br/> Este site possui painel personalizado para adicionar, excluir e editar
+           seus links.
         </p>
 
-        <div class="my-4">
+        <!-- <div class="my-4">
           <div class="d-inline-block mr-3">
             <h2 class="text-dark">1k+</h2>
             <span class="text-muted">Users</span>
@@ -36,20 +35,20 @@
             <h2 class="text-dark">45k+</h2>
             <span class="text-muted">Visits</span>
           </div>
-        </div>
+        </div> -->
         <div class="my-4">
           <a
             href="/register"
             use:link
             replace
-            class="btn btn-primary btn-lg mr-1">Create</a
+            class="btn btn-primary btn-lg mr-1">Criar</a
           >
           <a
             href="/login"
             use:link
             on:click={push}
             replace
-            class="btn btn-outline-primary btn-lg mr-1">Login</a
+            class="btn btn-outline-primary btn-lg mr-1">Entrar</a
           >
         </div>
       </div>

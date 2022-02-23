@@ -6,13 +6,13 @@
           <div class="d-table-cell align-middle">
             <div class="text-center">
               <h1 class="display-1 font-weight-bold">404</h1>
-              <p class="h1">Page not found.</p>
+              <p class="h1">Página não encontrada.</p>
               <p class="h2 font-weight-normal mt-3 mb-4">
-                The page you are looking for might have been removed.
+                A página que você está procurando pode ter sido removida. 
               </p>
-              <a href="/" class="btn btn-primary btn-lg"
-                >Return to website</a
-              >
+              <a href="/" class="btn btn-primary btn-lg">
+                Voltar para o Início
+              </a>
             </div>
           </div>
         </div>

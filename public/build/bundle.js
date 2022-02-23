@@ -1,5 +1,5 @@
 
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 var app = (function () {
     'use strict';
 
@@ -29,6 +29,14 @@ var app = (function () {
     }
     function safe_not_equal(a, b) {
         return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+    }
+    let src_url_equal_anchor;
+    function src_url_equal(element_src, url) {
+        if (!src_url_equal_anchor) {
+            src_url_equal_anchor = document.createElement('a');
+        }
+        src_url_equal_anchor.href = url;
+        return element_src === src_url_equal_anchor.href;
     }
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
@@ -77,12 +85,22 @@ var app = (function () {
         }
         return $$scope.dirty;
     }
-    function update_slot(slot, slot_definition, ctx, $$scope, dirty, get_slot_changes_fn, get_slot_context_fn) {
-        const slot_changes = get_slot_changes(slot_definition, $$scope, dirty, get_slot_changes_fn);
+    function update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn) {
         if (slot_changes) {
             const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
             slot.p(slot_context, slot_changes);
         }
+    }
+    function get_all_dirty_from_scope($$scope) {
+        if ($$scope.ctx.length > 32) {
+            const dirty = [];
+            const length = $$scope.ctx.length / 32;
+            for (let i = 0; i < length; i++) {
+                dirty[i] = -1;
+            }
+            return dirty;
+        }
+        return -1;
     }
     function exclude_internal_props(props) {
         const result = {};
@@ -103,11 +121,138 @@ var app = (function () {
         return action_result && is_function(action_result.destroy) ? action_result.destroy : noop;
     }
 
-    function append(target, node) {
-        target.appendChild(node);
+    // Track which nodes are claimed during hydration. Unclaimed nodes can then be removed from the DOM
+    // at the end of hydration without touching the remaining nodes.
+    let is_hydrating = false;
+    function start_hydrating() {
+        is_hydrating = true;
     }
-    function insert(target, node, anchor) {
-        target.insertBefore(node, anchor || null);
+    function end_hydrating() {
+        is_hydrating = false;
+    }
+    function upper_bound(low, high, key, value) {
+        // Return first index of value larger than input value in the range [low, high)
+        while (low < high) {
+            const mid = low + ((high - low) >> 1);
+            if (key(mid) <= value) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+    function init_hydrate(target) {
+        if (target.hydrate_init)
+            return;
+        target.hydrate_init = true;
+        // We know that all children have claim_order values since the unclaimed have been detached if target is not <head>
+        let children = target.childNodes;
+        // If target is <head>, there may be children without claim_order
+        if (target.nodeName === 'HEAD') {
+            const myChildren = [];
+            for (let i = 0; i < children.length; i++) {
+                const node = children[i];
+                if (node.claim_order !== undefined) {
+                    myChildren.push(node);
+                }
+            }
+            children = myChildren;
+        }
+        /*
+        * Reorder claimed children optimally.
+        * We can reorder claimed children optimally by finding the longest subsequence of
+        * nodes that are already claimed in order and only moving the rest. The longest
+        * subsequence subsequence of nodes that are claimed in order can be found by
+        * computing the longest increasing subsequence of .claim_order values.
+        *
+        * This algorithm is optimal in generating the least amount of reorder operations
+        * possible.
+        *
+        * Proof:
+        * We know that, given a set of reordering operations, the nodes that do not move
+        * always form an increasing subsequence, since they do not move among each other
+        * meaning that they must be already ordered among each other. Thus, the maximal
+        * set of nodes that do not move form a longest increasing subsequence.
+        */
+        // Compute longest increasing subsequence
+        // m: subsequence length j => index k of smallest value that ends an increasing subsequence of length j
+        const m = new Int32Array(children.length + 1);
+        // Predecessor indices + 1
+        const p = new Int32Array(children.length);
+        m[0] = -1;
+        let longest = 0;
+        for (let i = 0; i < children.length; i++) {
+            const current = children[i].claim_order;
+            // Find the largest subsequence length such that it ends in a value less than our current value
+            // upper_bound returns first greater value, so we subtract one
+            // with fast path for when we are on the current longest subsequence
+            const seqLen = ((longest > 0 && children[m[longest]].claim_order <= current) ? longest + 1 : upper_bound(1, longest, idx => children[m[idx]].claim_order, current)) - 1;
+            p[i] = m[seqLen] + 1;
+            const newLen = seqLen + 1;
+            // We can guarantee that current is the smallest value. Otherwise, we would have generated a longer sequence.
+            m[newLen] = i;
+            longest = Math.max(newLen, longest);
+        }
+        // The longest increasing subsequence of nodes (initially reversed)
+        const lis = [];
+        // The rest of the nodes, nodes that will be moved
+        const toMove = [];
+        let last = children.length - 1;
+        for (let cur = m[longest] + 1; cur != 0; cur = p[cur - 1]) {
+            lis.push(children[cur - 1]);
+            for (; last >= cur; last--) {
+                toMove.push(children[last]);
+            }
+            last--;
+        }
+        for (; last >= 0; last--) {
+            toMove.push(children[last]);
+        }
+        lis.reverse();
+        // We sort the nodes being moved to guarantee that their insertion order matches the claim order
+        toMove.sort((a, b) => a.claim_order - b.claim_order);
+        // Finally, we move the nodes
+        for (let i = 0, j = 0; i < toMove.length; i++) {
+            while (j < lis.length && toMove[i].claim_order >= lis[j].claim_order) {
+                j++;
+            }
+            const anchor = j < lis.length ? lis[j] : null;
+            target.insertBefore(toMove[i], anchor);
+        }
+    }
+    function append_hydration(target, node) {
+        if (is_hydrating) {
+            init_hydrate(target);
+            if ((target.actual_end_child === undefined) || ((target.actual_end_child !== null) && (target.actual_end_child.parentElement !== target))) {
+                target.actual_end_child = target.firstChild;
+            }
+            // Skip nodes of undefined ordering
+            while ((target.actual_end_child !== null) && (target.actual_end_child.claim_order === undefined)) {
+                target.actual_end_child = target.actual_end_child.nextSibling;
+            }
+            if (node !== target.actual_end_child) {
+                // We only insert if the ordering of this node should be modified or the parent node is not target
+                if (node.claim_order !== undefined || node.parentNode !== target) {
+                    target.insertBefore(node, target.actual_end_child);
+                }
+            }
+            else {
+                target.actual_end_child = node.nextSibling;
+            }
+        }
+        else if (node.parentNode !== target || node.nextSibling !== null) {
+            target.appendChild(node);
+        }
+    }
+    function insert_hydration(target, node, anchor) {
+        if (is_hydrating && !anchor) {
+            append_hydration(target, node);
+        }
+        else if (node.parentNode !== target || node.nextSibling != anchor) {
+            target.insertBefore(node, anchor || null);
+        }
     }
     function detach(node) {
         node.parentNode.removeChild(node);
@@ -120,9 +265,6 @@ var app = (function () {
     }
     function element(name) {
         return document.createElement(name);
-    }
-    function svg_element(name) {
-        return document.createElementNS('http://www.w3.org/2000/svg', name);
     }
     function text(data) {
         return document.createTextNode(data);
@@ -167,35 +309,90 @@ var app = (function () {
     function children(element) {
         return Array.from(element.childNodes);
     }
-    function claim_element(nodes, name, attributes, svg) {
-        for (let i = 0; i < nodes.length; i += 1) {
-            const node = nodes[i];
-            if (node.nodeName === name) {
-                let j = 0;
-                const remove = [];
-                while (j < node.attributes.length) {
-                    const attribute = node.attributes[j++];
-                    if (!attributes[attribute.name]) {
-                        remove.push(attribute.name);
-                    }
-                }
-                for (let k = 0; k < remove.length; k++) {
-                    node.removeAttribute(remove[k]);
-                }
-                return nodes.splice(i, 1)[0];
-            }
+    function init_claim_info(nodes) {
+        if (nodes.claim_info === undefined) {
+            nodes.claim_info = { last_index: 0, total_claimed: 0 };
         }
-        return svg ? svg_element(name) : element(name);
+    }
+    function claim_node(nodes, predicate, processNode, createNode, dontUpdateLastIndex = false) {
+        // Try to find nodes in an order such that we lengthen the longest increasing subsequence
+        init_claim_info(nodes);
+        const resultNode = (() => {
+            // We first try to find an element after the previous one
+            for (let i = nodes.claim_info.last_index; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (predicate(node)) {
+                    const replacement = processNode(node);
+                    if (replacement === undefined) {
+                        nodes.splice(i, 1);
+                    }
+                    else {
+                        nodes[i] = replacement;
+                    }
+                    if (!dontUpdateLastIndex) {
+                        nodes.claim_info.last_index = i;
+                    }
+                    return node;
+                }
+            }
+            // Otherwise, we try to find one before
+            // We iterate in reverse so that we don't go too far back
+            for (let i = nodes.claim_info.last_index - 1; i >= 0; i--) {
+                const node = nodes[i];
+                if (predicate(node)) {
+                    const replacement = processNode(node);
+                    if (replacement === undefined) {
+                        nodes.splice(i, 1);
+                    }
+                    else {
+                        nodes[i] = replacement;
+                    }
+                    if (!dontUpdateLastIndex) {
+                        nodes.claim_info.last_index = i;
+                    }
+                    else if (replacement === undefined) {
+                        // Since we spliced before the last_index, we decrease it
+                        nodes.claim_info.last_index--;
+                    }
+                    return node;
+                }
+            }
+            // If we can't find any matching node, we create a new one
+            return createNode();
+        })();
+        resultNode.claim_order = nodes.claim_info.total_claimed;
+        nodes.claim_info.total_claimed += 1;
+        return resultNode;
+    }
+    function claim_element_base(nodes, name, attributes, create_element) {
+        return claim_node(nodes, (node) => node.nodeName === name, (node) => {
+            const remove = [];
+            for (let j = 0; j < node.attributes.length; j++) {
+                const attribute = node.attributes[j];
+                if (!attributes[attribute.name]) {
+                    remove.push(attribute.name);
+                }
+            }
+            remove.forEach(v => node.removeAttribute(v));
+            return undefined;
+        }, () => create_element(name));
+    }
+    function claim_element(nodes, name, attributes) {
+        return claim_element_base(nodes, name, attributes, element);
     }
     function claim_text(nodes, data) {
-        for (let i = 0; i < nodes.length; i += 1) {
-            const node = nodes[i];
-            if (node.nodeType === 3) {
-                node.data = '' + data;
-                return nodes.splice(i, 1)[0];
+        return claim_node(nodes, (node) => node.nodeType === 3, (node) => {
+            const dataStr = '' + data;
+            if (node.data.startsWith(dataStr)) {
+                if (node.data.length !== dataStr.length) {
+                    return node.splitText(dataStr.length);
+                }
             }
-        }
-        return text(data);
+            else {
+                node.data = dataStr;
+            }
+        }, () => text(data), true // Text nodes should not update last index since it is likely not worth it to eliminate an increasing subsequence of actual elements
+        );
     }
     function claim_space(nodes) {
         return claim_text(nodes, ' ');
@@ -204,14 +401,19 @@ var app = (function () {
         input.value = value == null ? '' : value;
     }
     function set_style(node, key, value, important) {
-        node.style.setProperty(key, value, important ? 'important' : '');
+        if (value === null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
     }
     function toggle_class(element, name, toggle) {
         element.classList[toggle ? 'add' : 'remove'](name);
     }
-    function custom_event(type, detail) {
+    function custom_event(type, detail, bubbles = false) {
         const e = document.createEvent('CustomEvent');
-        e.initCustomEvent(type, false, false, detail);
+        e.initCustomEvent(type, bubbles, false, detail);
         return e;
     }
 
@@ -266,22 +468,40 @@ var app = (function () {
     function add_render_callback(fn) {
         render_callbacks.push(fn);
     }
-    let flushing = false;
+    // flush() calls callbacks in this order:
+    // 1. All beforeUpdate callbacks, in order: parents before children
+    // 2. All bind:this callbacks, in reverse order: children before parents.
+    // 3. All afterUpdate callbacks, in order: parents before children. EXCEPT
+    //    for afterUpdates called during the initial onMount, which are called in
+    //    reverse order: children before parents.
+    // Since callbacks might update component values, which could trigger another
+    // call to flush(), the following steps guard against this:
+    // 1. During beforeUpdate, any updated components will be added to the
+    //    dirty_components array and will cause a reentrant call to flush(). Because
+    //    the flush index is kept outside the function, the reentrant call will pick
+    //    up where the earlier call left off and go through all dirty components. The
+    //    current_component value is saved and restored so that the reentrant call will
+    //    not interfere with the "parent" flush() call.
+    // 2. bind:this callbacks cannot trigger new flush() calls.
+    // 3. During afterUpdate, any updated components will NOT have their afterUpdate
+    //    callback called a second time; the seen_callbacks set, outside the flush()
+    //    function, guarantees this behavior.
     const seen_callbacks = new Set();
+    let flushidx = 0; // Do *not* move this inside the flush() function
     function flush() {
-        if (flushing)
-            return;
-        flushing = true;
+        const saved_component = current_component;
         do {
             // first, call beforeUpdate functions
             // and update components
-            for (let i = 0; i < dirty_components.length; i += 1) {
-                const component = dirty_components[i];
+            while (flushidx < dirty_components.length) {
+                const component = dirty_components[flushidx];
+                flushidx++;
                 set_current_component(component);
                 update(component.$$);
             }
             set_current_component(null);
             dirty_components.length = 0;
+            flushidx = 0;
             while (binding_callbacks.length)
                 binding_callbacks.pop()();
             // then, once components are updated, call
@@ -301,8 +521,8 @@ var app = (function () {
             flush_callbacks.pop()();
         }
         update_scheduled = false;
-        flushing = false;
         seen_callbacks.clear();
+        set_current_component(saved_component);
     }
     function update($$) {
         if ($$.fragment !== null) {
@@ -439,7 +659,7 @@ var app = (function () {
         }
         component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
     }
-    function init(component, options, instance, create_fragment, not_equal, props, dirty = [-1]) {
+    function init(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
         const parent_component = current_component;
         set_current_component(component);
         const $$ = component.$$ = {
@@ -456,12 +676,14 @@ var app = (function () {
             on_disconnect: [],
             before_update: [],
             after_update: [],
-            context: new Map(parent_component ? parent_component.$$.context : []),
+            context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
             // everything else
             callbacks: blank_object(),
             dirty,
-            skip_bound: false
+            skip_bound: false,
+            root: options.target || parent_component.$$.root
         };
+        append_styles && append_styles($$.root);
         let ready = false;
         $$.ctx = instance
             ? instance(component, options.props || {}, (i, ret, ...rest) => {
@@ -482,6 +704,7 @@ var app = (function () {
         $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
         if (options.target) {
             if (options.hydrate) {
+                start_hydrating();
                 const nodes = children(options.target);
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 $$.fragment && $$.fragment.l(nodes);
@@ -494,6 +717,7 @@ var app = (function () {
             if (options.intro)
                 transition_in(component.$$.fragment);
             mount_component(component, options.target, options.anchor, options.customElement);
+            end_hydrating();
             flush();
         }
         set_current_component(parent_component);
@@ -525,15 +749,15 @@ var app = (function () {
     }
 
     function dispatch_dev(type, detail) {
-        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.35.0' }, detail)));
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.46.4' }, detail), true));
     }
-    function append_dev(target, node) {
+    function append_hydration_dev(target, node) {
         dispatch_dev('SvelteDOMInsert', { target, node });
-        append(target, node);
+        append_hydration(target, node);
     }
-    function insert_dev(target, node, anchor) {
+    function insert_hydration_dev(target, node, anchor) {
         dispatch_dev('SvelteDOMInsert', { target, node, anchor });
-        insert(target, node, anchor);
+        insert_hydration(target, node, anchor);
     }
     function detach_dev(node) {
         dispatch_dev('SvelteDOMRemove', { node });
@@ -624,16 +848,15 @@ var app = (function () {
      */
     function writable(value, start = noop) {
         let stop;
-        const subscribers = [];
+        const subscribers = new Set();
         function set(new_value) {
             if (safe_not_equal(value, new_value)) {
                 value = new_value;
                 if (stop) { // store is ready
                     const run_queue = !subscriber_queue.length;
-                    for (let i = 0; i < subscribers.length; i += 1) {
-                        const s = subscribers[i];
-                        s[1]();
-                        subscriber_queue.push(s, value);
+                    for (const subscriber of subscribers) {
+                        subscriber[1]();
+                        subscriber_queue.push(subscriber, value);
                     }
                     if (run_queue) {
                         for (let i = 0; i < subscriber_queue.length; i += 2) {
@@ -649,17 +872,14 @@ var app = (function () {
         }
         function subscribe(run, invalidate = noop) {
             const subscriber = [run, invalidate];
-            subscribers.push(subscriber);
-            if (subscribers.length === 1) {
+            subscribers.add(subscriber);
+            if (subscribers.size === 1) {
                 stop = start(set) || noop;
             }
             run(value);
             return () => {
-                const index = subscribers.indexOf(subscriber);
-                if (index !== -1) {
-                    subscribers.splice(index, 1);
-                }
-                if (subscribers.length === 0) {
+                subscribers.delete(subscriber);
+                if (subscribers.size === 0) {
                     stop();
                     stop = null;
                 }
@@ -1161,7 +1381,7 @@ var app = (function () {
       )
     }
 
-    /* node_modules\svelte-routing\src\Router.svelte generated by Svelte v3.35.0 */
+    /* node_modules\svelte-routing\src\Router.svelte generated by Svelte v3.46.4 */
 
     function create_fragment$l(ctx) {
     	let current;
@@ -1184,8 +1404,17 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 256) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[8], dirty, null, null);
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 256)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[8],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[8])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[8], dirty, null),
+    						null
+    					);
     				}
     			}
     		},
@@ -1215,18 +1444,18 @@ var app = (function () {
     }
 
     function instance$l($$self, $$props, $$invalidate) {
-    	let $base;
     	let $location;
     	let $routes;
+    	let $base;
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Router", slots, ['default']);
+    	validate_slots('Router', slots, ['default']);
     	let { basepath = "/" } = $$props;
     	let { url = null } = $$props;
     	const locationContext = getContext(LOCATION);
     	const routerContext = getContext(ROUTER);
     	const routes = writable([]);
-    	validate_store(routes, "routes");
-    	component_subscribe($$self, routes, value => $$invalidate(7, $routes = value));
+    	validate_store(routes, 'routes');
+    	component_subscribe($$self, routes, value => $$invalidate(6, $routes = value));
     	const activeRoute = writable(null);
     	let hasActiveRoute = false; // Used in SSR to synchronously set that a Route is active.
 
@@ -1234,8 +1463,8 @@ var app = (function () {
     	// If the `url` prop is given we force the location to it.
     	const location = locationContext || writable(url ? { pathname: url } : globalHistory.location);
 
-    	validate_store(location, "location");
-    	component_subscribe($$self, location, value => $$invalidate(6, $location = value));
+    	validate_store(location, 'location');
+    	component_subscribe($$self, location, value => $$invalidate(5, $location = value));
 
     	// If routerContext is set, the routerBase of the parent Router
     	// will be the base for this Router's descendants.
@@ -1245,8 +1474,8 @@ var app = (function () {
     	? routerContext.routerBase
     	: writable({ path: basepath, uri: basepath });
 
-    	validate_store(base, "base");
-    	component_subscribe($$self, base, value => $$invalidate(5, $base = value));
+    	validate_store(base, 'base');
+    	component_subscribe($$self, base, value => $$invalidate(7, $base = value));
 
     	const routerBase = derived([base, activeRoute], ([base, activeRoute]) => {
     		// If there is no activeRoute, the routerBase will be identical to the base.
@@ -1329,16 +1558,16 @@ var app = (function () {
     		unregisterRoute
     	});
 
-    	const writable_props = ["basepath", "url"];
+    	const writable_props = ['basepath', 'url'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Router> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Router> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ("basepath" in $$props) $$invalidate(3, basepath = $$props.basepath);
-    		if ("url" in $$props) $$invalidate(4, url = $$props.url);
-    		if ("$$scope" in $$props) $$invalidate(8, $$scope = $$props.$$scope);
+    		if ('basepath' in $$props) $$invalidate(3, basepath = $$props.basepath);
+    		if ('url' in $$props) $$invalidate(4, url = $$props.url);
+    		if ('$$scope' in $$props) $$invalidate(8, $$scope = $$props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1366,15 +1595,15 @@ var app = (function () {
     		routerBase,
     		registerRoute,
     		unregisterRoute,
-    		$base,
     		$location,
-    		$routes
+    		$routes,
+    		$base
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("basepath" in $$props) $$invalidate(3, basepath = $$props.basepath);
-    		if ("url" in $$props) $$invalidate(4, url = $$props.url);
-    		if ("hasActiveRoute" in $$props) hasActiveRoute = $$props.hasActiveRoute;
+    		if ('basepath' in $$props) $$invalidate(3, basepath = $$props.basepath);
+    		if ('url' in $$props) $$invalidate(4, url = $$props.url);
+    		if ('hasActiveRoute' in $$props) hasActiveRoute = $$props.hasActiveRoute;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1382,7 +1611,7 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*$base*/ 32) {
+    		if ($$self.$$.dirty & /*$base*/ 128) {
     			// This reactive statement will update all the Routes' path when
     			// the basepath changes.
     			{
@@ -1395,7 +1624,7 @@ var app = (function () {
     			}
     		}
 
-    		if ($$self.$$.dirty & /*$routes, $location*/ 192) {
+    		if ($$self.$$.dirty & /*$routes, $location*/ 96) {
     			// This reactive statement will be run when the Router is created
     			// when there are no Routes and then again the following tick, so it
     			// will not find an active Route in SSR and in the browser it will only
@@ -1413,9 +1642,9 @@ var app = (function () {
     		base,
     		basepath,
     		url,
-    		$base,
     		$location,
     		$routes,
+    		$base,
     		$$scope,
     		slots
     	];
@@ -1451,7 +1680,7 @@ var app = (function () {
     	}
     }
 
-    /* node_modules\svelte-routing\src\Route.svelte generated by Svelte v3.35.0 */
+    /* node_modules\svelte-routing\src\Route.svelte generated by Svelte v3.46.4 */
 
     const get_default_slot_changes$1 = dirty => ({
     	params: dirty & /*routeParams*/ 4,
@@ -1491,7 +1720,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			if_blocks[current_block_type_index].m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -1569,8 +1798,17 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope, routeParams, $location*/ 532) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[9], dirty, get_default_slot_changes$1, get_default_slot_context$1);
+    				if (default_slot.p && (!current || dirty & /*$$scope, routeParams, $location*/ 532)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[9],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[9])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[9], dirty, get_default_slot_changes$1),
+    						get_default_slot_context$1
+    					);
     				}
     			}
     		},
@@ -1644,7 +1882,7 @@ var app = (function () {
     				mount_component(switch_instance, target, anchor);
     			}
 
-    			insert_dev(target, switch_instance_anchor, anchor);
+    			insert_hydration_dev(target, switch_instance_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -1722,7 +1960,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			if (if_block) if_block.m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -1779,14 +2017,14 @@ var app = (function () {
     	let $activeRoute;
     	let $location;
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Route", slots, ['default']);
+    	validate_slots('Route', slots, ['default']);
     	let { path = "" } = $$props;
     	let { component = null } = $$props;
     	const { registerRoute, unregisterRoute, activeRoute } = getContext(ROUTER);
-    	validate_store(activeRoute, "activeRoute");
+    	validate_store(activeRoute, 'activeRoute');
     	component_subscribe($$self, activeRoute, value => $$invalidate(1, $activeRoute = value));
     	const location = getContext(LOCATION);
-    	validate_store(location, "location");
+    	validate_store(location, 'location');
     	component_subscribe($$self, location, value => $$invalidate(4, $location = value));
 
     	const route = {
@@ -1810,9 +2048,9 @@ var app = (function () {
 
     	$$self.$$set = $$new_props => {
     		$$invalidate(13, $$props = assign(assign({}, $$props), exclude_internal_props($$new_props)));
-    		if ("path" in $$new_props) $$invalidate(8, path = $$new_props.path);
-    		if ("component" in $$new_props) $$invalidate(0, component = $$new_props.component);
-    		if ("$$scope" in $$new_props) $$invalidate(9, $$scope = $$new_props.$$scope);
+    		if ('path' in $$new_props) $$invalidate(8, path = $$new_props.path);
+    		if ('component' in $$new_props) $$invalidate(0, component = $$new_props.component);
+    		if ('$$scope' in $$new_props) $$invalidate(9, $$scope = $$new_props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1835,10 +2073,10 @@ var app = (function () {
 
     	$$self.$inject_state = $$new_props => {
     		$$invalidate(13, $$props = assign(assign({}, $$props), $$new_props));
-    		if ("path" in $$props) $$invalidate(8, path = $$new_props.path);
-    		if ("component" in $$props) $$invalidate(0, component = $$new_props.component);
-    		if ("routeParams" in $$props) $$invalidate(2, routeParams = $$new_props.routeParams);
-    		if ("routeProps" in $$props) $$invalidate(3, routeProps = $$new_props.routeProps);
+    		if ('path' in $$props) $$invalidate(8, path = $$new_props.path);
+    		if ('component' in $$props) $$invalidate(0, component = $$new_props.component);
+    		if ('routeParams' in $$props) $$invalidate(2, routeParams = $$new_props.routeParams);
+    		if ('routeProps' in $$props) $$invalidate(3, routeProps = $$new_props.routeProps);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1905,7 +2143,7 @@ var app = (function () {
     	}
     }
 
-    /* node_modules\svelte-routing\src\Link.svelte generated by Svelte v3.35.0 */
+    /* node_modules\svelte-routing\src\Link.svelte generated by Svelte v3.46.4 */
     const file$j = "node_modules\\svelte-routing\\src\\Link.svelte";
 
     function create_fragment$j(ctx) {
@@ -1947,7 +2185,7 @@ var app = (function () {
     			add_location(a, file$j, 40, 0, 1249);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, a, anchor);
+    			insert_hydration_dev(target, a, anchor);
 
     			if (default_slot) {
     				default_slot.m(a, null);
@@ -1962,8 +2200,17 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 32768) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[15], dirty, null, null);
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 32768)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[15],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[15])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[15], dirty, null),
+    						null
+    					);
     				}
     			}
 
@@ -2006,20 +2253,20 @@ var app = (function () {
     	let ariaCurrent;
     	const omit_props_names = ["to","replace","state","getProps"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
-    	let $base;
     	let $location;
+    	let $base;
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Link", slots, ['default']);
+    	validate_slots('Link', slots, ['default']);
     	let { to = "#" } = $$props;
     	let { replace = false } = $$props;
     	let { state = {} } = $$props;
     	let { getProps = () => ({}) } = $$props;
     	const { base } = getContext(ROUTER);
-    	validate_store(base, "base");
-    	component_subscribe($$self, base, value => $$invalidate(13, $base = value));
+    	validate_store(base, 'base');
+    	component_subscribe($$self, base, value => $$invalidate(14, $base = value));
     	const location = getContext(LOCATION);
-    	validate_store(location, "location");
-    	component_subscribe($$self, location, value => $$invalidate(14, $location = value));
+    	validate_store(location, 'location');
+    	component_subscribe($$self, location, value => $$invalidate(13, $location = value));
     	const dispatch = createEventDispatcher();
     	let href, isPartiallyCurrent, isCurrent, props;
 
@@ -2040,11 +2287,11 @@ var app = (function () {
     	$$self.$$set = $$new_props => {
     		$$props = assign(assign({}, $$props), exclude_internal_props($$new_props));
     		$$invalidate(6, $$restProps = compute_rest_props($$props, omit_props_names));
-    		if ("to" in $$new_props) $$invalidate(7, to = $$new_props.to);
-    		if ("replace" in $$new_props) $$invalidate(8, replace = $$new_props.replace);
-    		if ("state" in $$new_props) $$invalidate(9, state = $$new_props.state);
-    		if ("getProps" in $$new_props) $$invalidate(10, getProps = $$new_props.getProps);
-    		if ("$$scope" in $$new_props) $$invalidate(15, $$scope = $$new_props.$$scope);
+    		if ('to' in $$new_props) $$invalidate(7, to = $$new_props.to);
+    		if ('replace' in $$new_props) $$invalidate(8, replace = $$new_props.replace);
+    		if ('state' in $$new_props) $$invalidate(9, state = $$new_props.state);
+    		if ('getProps' in $$new_props) $$invalidate(10, getProps = $$new_props.getProps);
+    		if ('$$scope' in $$new_props) $$invalidate(15, $$scope = $$new_props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -2068,21 +2315,21 @@ var app = (function () {
     		isCurrent,
     		props,
     		onClick,
-    		$base,
+    		ariaCurrent,
     		$location,
-    		ariaCurrent
+    		$base
     	});
 
     	$$self.$inject_state = $$new_props => {
-    		if ("to" in $$props) $$invalidate(7, to = $$new_props.to);
-    		if ("replace" in $$props) $$invalidate(8, replace = $$new_props.replace);
-    		if ("state" in $$props) $$invalidate(9, state = $$new_props.state);
-    		if ("getProps" in $$props) $$invalidate(10, getProps = $$new_props.getProps);
-    		if ("href" in $$props) $$invalidate(0, href = $$new_props.href);
-    		if ("isPartiallyCurrent" in $$props) $$invalidate(11, isPartiallyCurrent = $$new_props.isPartiallyCurrent);
-    		if ("isCurrent" in $$props) $$invalidate(12, isCurrent = $$new_props.isCurrent);
-    		if ("props" in $$props) $$invalidate(1, props = $$new_props.props);
-    		if ("ariaCurrent" in $$props) $$invalidate(2, ariaCurrent = $$new_props.ariaCurrent);
+    		if ('to' in $$props) $$invalidate(7, to = $$new_props.to);
+    		if ('replace' in $$props) $$invalidate(8, replace = $$new_props.replace);
+    		if ('state' in $$props) $$invalidate(9, state = $$new_props.state);
+    		if ('getProps' in $$props) $$invalidate(10, getProps = $$new_props.getProps);
+    		if ('href' in $$props) $$invalidate(0, href = $$new_props.href);
+    		if ('isPartiallyCurrent' in $$props) $$invalidate(11, isPartiallyCurrent = $$new_props.isPartiallyCurrent);
+    		if ('isCurrent' in $$props) $$invalidate(12, isCurrent = $$new_props.isCurrent);
+    		if ('props' in $$props) $$invalidate(1, props = $$new_props.props);
+    		if ('ariaCurrent' in $$props) $$invalidate(2, ariaCurrent = $$new_props.ariaCurrent);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -2090,15 +2337,15 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*to, $base*/ 8320) {
+    		if ($$self.$$.dirty & /*to, $base*/ 16512) {
     			$$invalidate(0, href = to === "/" ? $base.uri : resolve(to, $base.uri));
     		}
 
-    		if ($$self.$$.dirty & /*$location, href*/ 16385) {
+    		if ($$self.$$.dirty & /*$location, href*/ 8193) {
     			$$invalidate(11, isPartiallyCurrent = startsWith($location.pathname, href));
     		}
 
-    		if ($$self.$$.dirty & /*href, $location*/ 16385) {
+    		if ($$self.$$.dirty & /*href, $location*/ 8193) {
     			$$invalidate(12, isCurrent = href === $location.pathname);
     		}
 
@@ -2106,7 +2353,7 @@ var app = (function () {
     			$$invalidate(2, ariaCurrent = isCurrent ? "page" : undefined);
     		}
 
-    		if ($$self.$$.dirty & /*getProps, $location, href, isPartiallyCurrent, isCurrent*/ 23553) {
+    		if ($$self.$$.dirty & /*getProps, $location, href, isPartiallyCurrent, isCurrent*/ 15361) {
     			$$invalidate(1, props = getProps({
     				location: $location,
     				href,
@@ -2130,8 +2377,8 @@ var app = (function () {
     		getProps,
     		isPartiallyCurrent,
     		isCurrent,
-    		$base,
     		$location,
+    		$base,
     		$$scope,
     		slots
     	];
@@ -2221,7 +2468,7 @@ var app = (function () {
       };
     }
 
-    /* src\components\HomeNav.svelte generated by Svelte v3.35.0 */
+    /* src\components\HomeNav.svelte generated by Svelte v3.46.4 */
 
     const file$i = "src\\components\\HomeNav.svelte";
 
@@ -2305,7 +2552,7 @@ var app = (function () {
     			this.h();
     		},
     		h: function hydrate() {
-    			if (img.src !== (img_src_value = "/img/link.png")) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = "/img/link.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "LnkInBio");
     			attr_dev(img, "height", "34px");
     			add_location(img, file$i, 3, 6, 153);
@@ -2334,23 +2581,23 @@ var app = (function () {
     			add_location(nav, file$i, 0, 0, 0);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, nav, anchor);
-    			append_dev(nav, div);
-    			append_dev(div, a0);
-    			append_dev(a0, img);
-    			append_dev(a0, t0);
-    			append_dev(div, t1);
-    			append_dev(div, ul);
-    			append_dev(ul, li);
-    			append_dev(li, a1);
-    			append_dev(a1, span0);
-    			append_dev(span0, t2);
-    			append_dev(a1, t3);
-    			append_dev(a1, span1);
-    			append_dev(span1, t4);
-    			append_dev(div, t5);
-    			append_dev(div, a2);
-    			append_dev(a2, t6);
+    			insert_hydration_dev(target, nav, anchor);
+    			append_hydration_dev(nav, div);
+    			append_hydration_dev(div, a0);
+    			append_hydration_dev(a0, img);
+    			append_hydration_dev(a0, t0);
+    			append_hydration_dev(div, t1);
+    			append_hydration_dev(div, ul);
+    			append_hydration_dev(ul, li);
+    			append_hydration_dev(li, a1);
+    			append_hydration_dev(a1, span0);
+    			append_hydration_dev(span0, t2);
+    			append_hydration_dev(a1, t3);
+    			append_hydration_dev(a1, span1);
+    			append_hydration_dev(span1, t4);
+    			append_hydration_dev(div, t5);
+    			append_hydration_dev(div, a2);
+    			append_hydration_dev(a2, t6);
     		},
     		p: noop,
     		i: noop,
@@ -2373,11 +2620,11 @@ var app = (function () {
 
     function instance$i($$self, $$props) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("HomeNav", slots, []);
+    	validate_slots('HomeNav', slots, []);
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<HomeNav> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<HomeNav> was created with unknown prop '${key}'`);
     	});
 
     	return [];
@@ -2397,7 +2644,7 @@ var app = (function () {
     	}
     }
 
-    /* src\components\Footer.svelte generated by Svelte v3.35.0 */
+    /* src\components\Footer.svelte generated by Svelte v3.46.4 */
 
     const file$h = "src\\components\\Footer.svelte";
 
@@ -2559,32 +2806,32 @@ var app = (function () {
     			add_location(footer, file$h, 0, 0, 0);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, footer, anchor);
-    			append_dev(footer, div3);
-    			append_dev(div3, div2);
-    			append_dev(div2, div0);
-    			append_dev(div0, ul);
-    			append_dev(ul, li0);
-    			append_dev(li0, a0);
-    			append_dev(a0, t0);
-    			append_dev(ul, t1);
-    			append_dev(ul, li1);
-    			append_dev(li1, a1);
-    			append_dev(a1, t2);
-    			append_dev(ul, t3);
-    			append_dev(ul, li2);
-    			append_dev(li2, a2);
-    			append_dev(a2, t4);
-    			append_dev(ul, t5);
-    			append_dev(ul, li3);
-    			append_dev(li3, a3);
-    			append_dev(a3, t6);
-    			append_dev(div2, t7);
-    			append_dev(div2, div1);
-    			append_dev(div1, p);
-    			append_dev(p, t8);
-    			append_dev(p, a4);
-    			append_dev(a4, t9);
+    			insert_hydration_dev(target, footer, anchor);
+    			append_hydration_dev(footer, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, div0);
+    			append_hydration_dev(div0, ul);
+    			append_hydration_dev(ul, li0);
+    			append_hydration_dev(li0, a0);
+    			append_hydration_dev(a0, t0);
+    			append_hydration_dev(ul, t1);
+    			append_hydration_dev(ul, li1);
+    			append_hydration_dev(li1, a1);
+    			append_hydration_dev(a1, t2);
+    			append_hydration_dev(ul, t3);
+    			append_hydration_dev(ul, li2);
+    			append_hydration_dev(li2, a2);
+    			append_hydration_dev(a2, t4);
+    			append_hydration_dev(ul, t5);
+    			append_hydration_dev(ul, li3);
+    			append_hydration_dev(li3, a3);
+    			append_hydration_dev(a3, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, p);
+    			append_hydration_dev(p, t8);
+    			append_hydration_dev(p, a4);
+    			append_hydration_dev(a4, t9);
     		},
     		p: noop,
     		i: noop,
@@ -2607,11 +2854,11 @@ var app = (function () {
 
     function instance$h($$self, $$props) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Footer", slots, []);
+    	validate_slots('Footer', slots, []);
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Footer> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Footer> was created with unknown prop '${key}'`);
     	});
 
     	return [];
@@ -2631,17 +2878,17 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\Home.svelte generated by Svelte v3.35.0 */
+    /* src\pages\Home.svelte generated by Svelte v3.46.4 */
     const file$g = "src\\pages\\Home.svelte";
 
     function create_fragment$g(ctx) {
     	let homenav;
     	let t0;
     	let section;
-    	let div9;
-    	let div8;
     	let div5;
-    	let span0;
+    	let div4;
+    	let div1;
+    	let span;
     	let t1;
     	let t2;
     	let h1;
@@ -2654,40 +2901,18 @@ var app = (function () {
     	let br1;
     	let t7;
     	let t8;
-    	let div3;
     	let div0;
-    	let h20;
+    	let a0;
     	let t9;
     	let t10;
-    	let span1;
+    	let a1;
     	let t11;
     	let t12;
-    	let div1;
-    	let h21;
-    	let t13;
-    	let t14;
-    	let span2;
-    	let t15;
-    	let t16;
+    	let div3;
     	let div2;
-    	let h22;
-    	let t17;
-    	let t18;
-    	let span3;
-    	let t19;
-    	let t20;
-    	let div4;
-    	let a0;
-    	let t21;
-    	let t22;
-    	let a1;
-    	let t23;
-    	let t24;
-    	let div7;
-    	let div6;
     	let img;
     	let img_src_value;
-    	let t25;
+    	let t13;
     	let footer;
     	let current;
     	let mounted;
@@ -2700,55 +2925,33 @@ var app = (function () {
     			create_component(homenav.$$.fragment);
     			t0 = space();
     			section = element("section");
-    			div9 = element("div");
-    			div8 = element("div");
     			div5 = element("div");
-    			span0 = element("span");
-    			t1 = text("v2.0.0");
+    			div4 = element("div");
+    			div1 = element("div");
+    			span = element("span");
+    			t1 = text("v1.0.0");
     			t2 = space();
     			h1 = element("h1");
-    			t3 = text("Add multiple links in your Instagram bio");
+    			t3 = text("Adicione vários links a sua bio do Instagram");
     			t4 = space();
     			p = element("p");
-    			t5 = text("Are you tried of changing the link in your instagram bio ?? No more !! ");
+    			t5 = text("Já tentou mudar o link na bio do seu instagram ?? Não mais !! ");
     			br0 = element("br");
-    			t6 = text("\r\n          Display all your links in one page with a personalized url.\r\n          ");
+    			t6 = text("\r\n           Exiba todos os seus links em uma página com um URL personalizado.\r\n           ");
     			br1 = element("br");
-    			t7 = text(" This website has personalized dashboard to add, delete and edit\r\n          your links.");
+    			t7 = text(" Este site possui painel personalizado para adicionar, excluir e editar\r\n           seus links.");
     			t8 = space();
-    			div3 = element("div");
     			div0 = element("div");
-    			h20 = element("h2");
-    			t9 = text("1k+");
-    			t10 = space();
-    			span1 = element("span");
-    			t11 = text("Users");
-    			t12 = space();
-    			div1 = element("div");
-    			h21 = element("h2");
-    			t13 = text("3.5k+");
-    			t14 = space();
-    			span2 = element("span");
-    			t15 = text("Links added");
-    			t16 = space();
-    			div2 = element("div");
-    			h22 = element("h2");
-    			t17 = text("45k+");
-    			t18 = space();
-    			span3 = element("span");
-    			t19 = text("Visits");
-    			t20 = space();
-    			div4 = element("div");
     			a0 = element("a");
-    			t21 = text("Create");
-    			t22 = space();
+    			t9 = text("Criar");
+    			t10 = space();
     			a1 = element("a");
-    			t23 = text("Login");
-    			t24 = space();
-    			div7 = element("div");
-    			div6 = element("div");
+    			t11 = text("Entrar");
+    			t12 = space();
+    			div3 = element("div");
+    			div2 = element("div");
     			img = element("img");
-    			t25 = space();
+    			t13 = space();
     			create_component(footer.$$.fragment);
     			this.h();
     		},
@@ -2757,210 +2960,126 @@ var app = (function () {
     			t0 = claim_space(nodes);
     			section = claim_element(nodes, "SECTION", { class: true });
     			var section_nodes = children(section);
-    			div9 = claim_element(section_nodes, "DIV", { class: true });
-    			var div9_nodes = children(div9);
-    			div8 = claim_element(div9_nodes, "DIV", { class: true });
-    			var div8_nodes = children(div8);
-    			div5 = claim_element(div8_nodes, "DIV", { class: true });
+    			div5 = claim_element(section_nodes, "DIV", { class: true });
     			var div5_nodes = children(div5);
-    			span0 = claim_element(div5_nodes, "SPAN", { class: true });
-    			var span0_nodes = children(span0);
-    			t1 = claim_text(span0_nodes, "v2.0.0");
-    			span0_nodes.forEach(detach_dev);
-    			t2 = claim_space(div5_nodes);
-    			h1 = claim_element(div5_nodes, "H1", { class: true });
-    			var h1_nodes = children(h1);
-    			t3 = claim_text(h1_nodes, "Add multiple links in your Instagram bio");
-    			h1_nodes.forEach(detach_dev);
-    			t4 = claim_space(div5_nodes);
-    			p = claim_element(div5_nodes, "P", { class: true });
-    			var p_nodes = children(p);
-    			t5 = claim_text(p_nodes, "Are you tried of changing the link in your instagram bio ?? No more !! ");
-    			br0 = claim_element(p_nodes, "BR", {});
-    			t6 = claim_text(p_nodes, "\r\n          Display all your links in one page with a personalized url.\r\n          ");
-    			br1 = claim_element(p_nodes, "BR", {});
-    			t7 = claim_text(p_nodes, " This website has personalized dashboard to add, delete and edit\r\n          your links.");
-    			p_nodes.forEach(detach_dev);
-    			t8 = claim_space(div5_nodes);
-    			div3 = claim_element(div5_nodes, "DIV", { class: true });
-    			var div3_nodes = children(div3);
-    			div0 = claim_element(div3_nodes, "DIV", { class: true });
-    			var div0_nodes = children(div0);
-    			h20 = claim_element(div0_nodes, "H2", { class: true });
-    			var h20_nodes = children(h20);
-    			t9 = claim_text(h20_nodes, "1k+");
-    			h20_nodes.forEach(detach_dev);
-    			t10 = claim_space(div0_nodes);
-    			span1 = claim_element(div0_nodes, "SPAN", { class: true });
-    			var span1_nodes = children(span1);
-    			t11 = claim_text(span1_nodes, "Users");
-    			span1_nodes.forEach(detach_dev);
-    			div0_nodes.forEach(detach_dev);
-    			t12 = claim_space(div3_nodes);
-    			div1 = claim_element(div3_nodes, "DIV", { class: true });
-    			var div1_nodes = children(div1);
-    			h21 = claim_element(div1_nodes, "H2", { class: true });
-    			var h21_nodes = children(h21);
-    			t13 = claim_text(h21_nodes, "3.5k+");
-    			h21_nodes.forEach(detach_dev);
-    			t14 = claim_space(div1_nodes);
-    			span2 = claim_element(div1_nodes, "SPAN", { class: true });
-    			var span2_nodes = children(span2);
-    			t15 = claim_text(span2_nodes, "Links added");
-    			span2_nodes.forEach(detach_dev);
-    			div1_nodes.forEach(detach_dev);
-    			t16 = claim_space(div3_nodes);
-    			div2 = claim_element(div3_nodes, "DIV", { class: true });
-    			var div2_nodes = children(div2);
-    			h22 = claim_element(div2_nodes, "H2", { class: true });
-    			var h22_nodes = children(h22);
-    			t17 = claim_text(h22_nodes, "45k+");
-    			h22_nodes.forEach(detach_dev);
-    			t18 = claim_space(div2_nodes);
-    			span3 = claim_element(div2_nodes, "SPAN", { class: true });
-    			var span3_nodes = children(span3);
-    			t19 = claim_text(span3_nodes, "Visits");
-    			span3_nodes.forEach(detach_dev);
-    			div2_nodes.forEach(detach_dev);
-    			div3_nodes.forEach(detach_dev);
-    			t20 = claim_space(div5_nodes);
     			div4 = claim_element(div5_nodes, "DIV", { class: true });
     			var div4_nodes = children(div4);
-    			a0 = claim_element(div4_nodes, "A", { href: true, replace: true, class: true });
+    			div1 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			span = claim_element(div1_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t1 = claim_text(span_nodes, "v1.0.0");
+    			span_nodes.forEach(detach_dev);
+    			t2 = claim_space(div1_nodes);
+    			h1 = claim_element(div1_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t3 = claim_text(h1_nodes, "Adicione vários links a sua bio do Instagram");
+    			h1_nodes.forEach(detach_dev);
+    			t4 = claim_space(div1_nodes);
+    			p = claim_element(div1_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t5 = claim_text(p_nodes, "Já tentou mudar o link na bio do seu instagram ?? Não mais !! ");
+    			br0 = claim_element(p_nodes, "BR", {});
+    			t6 = claim_text(p_nodes, "\r\n           Exiba todos os seus links em uma página com um URL personalizado.\r\n           ");
+    			br1 = claim_element(p_nodes, "BR", {});
+    			t7 = claim_text(p_nodes, " Este site possui painel personalizado para adicionar, excluir e editar\r\n           seus links.");
+    			p_nodes.forEach(detach_dev);
+    			t8 = claim_space(div1_nodes);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			a0 = claim_element(div0_nodes, "A", { href: true, replace: true, class: true });
     			var a0_nodes = children(a0);
-    			t21 = claim_text(a0_nodes, "Create");
+    			t9 = claim_text(a0_nodes, "Criar");
     			a0_nodes.forEach(detach_dev);
-    			t22 = claim_space(div4_nodes);
-    			a1 = claim_element(div4_nodes, "A", { href: true, replace: true, class: true });
+    			t10 = claim_space(div0_nodes);
+    			a1 = claim_element(div0_nodes, "A", { href: true, replace: true, class: true });
     			var a1_nodes = children(a1);
-    			t23 = claim_text(a1_nodes, "Login");
+    			t11 = claim_text(a1_nodes, "Entrar");
     			a1_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			t12 = claim_space(div4_nodes);
+    			div3 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			img = claim_element(div2_nodes, "IMG", { src: true, alt: true, class: true });
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
     			div4_nodes.forEach(detach_dev);
     			div5_nodes.forEach(detach_dev);
-    			t24 = claim_space(div8_nodes);
-    			div7 = claim_element(div8_nodes, "DIV", { class: true });
-    			var div7_nodes = children(div7);
-    			div6 = claim_element(div7_nodes, "DIV", { class: true });
-    			var div6_nodes = children(div6);
-    			img = claim_element(div6_nodes, "IMG", { src: true, alt: true, class: true });
-    			div6_nodes.forEach(detach_dev);
-    			div7_nodes.forEach(detach_dev);
-    			div8_nodes.forEach(detach_dev);
-    			div9_nodes.forEach(detach_dev);
     			section_nodes.forEach(detach_dev);
-    			t25 = claim_space(nodes);
+    			t13 = claim_space(nodes);
     			claim_component(footer.$$.fragment, nodes);
     			this.h();
     		},
     		h: function hydrate() {
-    			attr_dev(span0, "class", "badge badge-soft-primary p-1");
-    			add_location(span0, file$g, 13, 8, 441);
+    			attr_dev(span, "class", "badge badge-soft-primary p-1");
+    			add_location(span, file$g, 13, 8, 441);
     			attr_dev(h1, "class", "my-4");
     			add_location(h1, file$g, 15, 8, 509);
-    			add_location(br0, file$g, 18, 81, 685);
-    			add_location(br1, file$g, 21, 10, 785);
+    			add_location(br0, file$g, 18, 72, 680);
+    			add_location(br1, file$g, 20, 11, 776);
     			attr_dev(p, "class", "text-lg");
-    			add_location(p, file$g, 17, 8, 583);
-    			attr_dev(h20, "class", "text-dark");
-    			add_location(h20, file$g, 27, 12, 981);
-    			attr_dev(span1, "class", "text-muted");
-    			add_location(span1, file$g, 28, 12, 1025);
-    			attr_dev(div0, "class", "d-inline-block mr-3");
-    			add_location(div0, file$g, 26, 10, 934);
-    			attr_dev(h21, "class", "text-dark");
-    			add_location(h21, file$g, 31, 12, 1139);
-    			attr_dev(span2, "class", "text-muted");
-    			add_location(span2, file$g, 32, 12, 1185);
-    			attr_dev(div1, "class", "d-inline-block mr-3");
-    			add_location(div1, file$g, 30, 10, 1092);
-    			attr_dev(h22, "class", "text-dark");
-    			add_location(h22, file$g, 35, 12, 1300);
-    			attr_dev(span3, "class", "text-muted");
-    			add_location(span3, file$g, 36, 12, 1345);
-    			attr_dev(div2, "class", "d-inline-block");
-    			add_location(div2, file$g, 34, 10, 1258);
-    			attr_dev(div3, "class", "my-4");
-    			add_location(div3, file$g, 25, 8, 904);
+    			add_location(p, file$g, 17, 8, 587);
     			attr_dev(a0, "href", "/register");
     			attr_dev(a0, "replace", "");
     			attr_dev(a0, "class", "btn btn-primary btn-lg mr-1");
-    			add_location(a0, file$g, 40, 10, 1457);
+    			add_location(a0, file$g, 39, 10, 1464);
     			attr_dev(a1, "href", "/login");
     			attr_dev(a1, "replace", "");
     			attr_dev(a1, "class", "btn btn-outline-primary btn-lg mr-1");
-    			add_location(a1, file$g, 46, 10, 1616);
-    			attr_dev(div4, "class", "my-4");
-    			add_location(div4, file$g, 39, 8, 1427);
-    			attr_dev(div5, "class", "col-lg-5 mx-auto");
-    			add_location(div5, file$g, 12, 6, 401);
-    			if (img.src !== (img_src_value = "img/screenshots/mixed.jpg")) attr_dev(img, "src", img_src_value);
+    			add_location(a1, file$g, 45, 10, 1622);
+    			attr_dev(div0, "class", "my-4");
+    			add_location(div0, file$g, 38, 8, 1434);
+    			attr_dev(div1, "class", "col-lg-5 mx-auto");
+    			add_location(div1, file$g, 12, 6, 401);
+    			if (!src_url_equal(img.src, img_src_value = "img/screenshots/mixed.jpg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Dark/Light Bootstrap Admin Template");
     			attr_dev(img, "class", "img-fluid");
-    			add_location(img, file$g, 57, 10, 1958);
-    			attr_dev(div6, "class", "landing-intro-screenshot pb-3");
-    			add_location(div6, file$g, 56, 8, 1903);
-    			attr_dev(div7, "class", "col-lg-7 d-none d-lg-flex mx-auto text-center");
-    			add_location(div7, file$g, 55, 6, 1834);
-    			attr_dev(div8, "class", "row align-items-center");
-    			add_location(div8, file$g, 11, 4, 357);
-    			attr_dev(div9, "class", "landing-intro-content container");
-    			add_location(div9, file$g, 10, 2, 306);
+    			add_location(img, file$g, 56, 10, 1965);
+    			attr_dev(div2, "class", "landing-intro-screenshot pb-3");
+    			add_location(div2, file$g, 55, 8, 1910);
+    			attr_dev(div3, "class", "col-lg-7 d-none d-lg-flex mx-auto text-center");
+    			add_location(div3, file$g, 54, 6, 1841);
+    			attr_dev(div4, "class", "row align-items-center");
+    			add_location(div4, file$g, 11, 4, 357);
+    			attr_dev(div5, "class", "landing-intro-content container");
+    			add_location(div5, file$g, 10, 2, 306);
     			attr_dev(section, "class", "landing-intro landing-bg pt-5 pt-lg-6 pb-5 pb-lg-7");
     			add_location(section, file$g, 9, 0, 234);
     		},
     		m: function mount(target, anchor) {
     			mount_component(homenav, target, anchor);
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, section, anchor);
-    			append_dev(section, div9);
-    			append_dev(div9, div8);
-    			append_dev(div8, div5);
-    			append_dev(div5, span0);
-    			append_dev(span0, t1);
-    			append_dev(div5, t2);
-    			append_dev(div5, h1);
-    			append_dev(h1, t3);
-    			append_dev(div5, t4);
-    			append_dev(div5, p);
-    			append_dev(p, t5);
-    			append_dev(p, br0);
-    			append_dev(p, t6);
-    			append_dev(p, br1);
-    			append_dev(p, t7);
-    			append_dev(div5, t8);
-    			append_dev(div5, div3);
-    			append_dev(div3, div0);
-    			append_dev(div0, h20);
-    			append_dev(h20, t9);
-    			append_dev(div0, t10);
-    			append_dev(div0, span1);
-    			append_dev(span1, t11);
-    			append_dev(div3, t12);
-    			append_dev(div3, div1);
-    			append_dev(div1, h21);
-    			append_dev(h21, t13);
-    			append_dev(div1, t14);
-    			append_dev(div1, span2);
-    			append_dev(span2, t15);
-    			append_dev(div3, t16);
-    			append_dev(div3, div2);
-    			append_dev(div2, h22);
-    			append_dev(h22, t17);
-    			append_dev(div2, t18);
-    			append_dev(div2, span3);
-    			append_dev(span3, t19);
-    			append_dev(div5, t20);
-    			append_dev(div5, div4);
-    			append_dev(div4, a0);
-    			append_dev(a0, t21);
-    			append_dev(div4, t22);
-    			append_dev(div4, a1);
-    			append_dev(a1, t23);
-    			append_dev(div8, t24);
-    			append_dev(div8, div7);
-    			append_dev(div7, div6);
-    			append_dev(div6, img);
-    			insert_dev(target, t25, anchor);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, section, anchor);
+    			append_hydration_dev(section, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, div1);
+    			append_hydration_dev(div1, span);
+    			append_hydration_dev(span, t1);
+    			append_hydration_dev(div1, t2);
+    			append_hydration_dev(div1, h1);
+    			append_hydration_dev(h1, t3);
+    			append_hydration_dev(div1, t4);
+    			append_hydration_dev(div1, p);
+    			append_hydration_dev(p, t5);
+    			append_hydration_dev(p, br0);
+    			append_hydration_dev(p, t6);
+    			append_hydration_dev(p, br1);
+    			append_hydration_dev(p, t7);
+    			append_hydration_dev(div1, t8);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, a0);
+    			append_hydration_dev(a0, t9);
+    			append_hydration_dev(div0, t10);
+    			append_hydration_dev(div0, a1);
+    			append_hydration_dev(a1, t11);
+    			append_hydration_dev(div4, t12);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, img);
+    			insert_hydration_dev(target, t13, anchor);
     			mount_component(footer, target, anchor);
     			current = true;
 
@@ -2990,7 +3109,7 @@ var app = (function () {
     			destroy_component(homenav, detaching);
     			if (detaching) detach_dev(t0);
     			if (detaching) detach_dev(section);
-    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(t13);
     			destroy_component(footer, detaching);
     			mounted = false;
     			run_all(dispose);
@@ -3010,12 +3129,12 @@ var app = (function () {
 
     function instance$g($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Home", slots, []);
+    	validate_slots('Home', slots, []);
     	const push = () => history.push("/create");
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Home> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Home> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$capture_state = () => ({ link, HomeNav, Footer, push });
@@ -3036,7 +3155,15 @@ var app = (function () {
     	}
     }
 
-    var bind = function bind(fn, thisArg) {
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function commonjsRequire (path) {
+    	throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+    }
+
+    var axios$2 = {exports: {}};
+
+    var bind$2 = function bind(fn, thisArg) {
       return function wrap() {
         var args = new Array(arguments.length);
         for (var i = 0; i < args.length; i++) {
@@ -3046,7 +3173,7 @@ var app = (function () {
       };
     };
 
-    /*global toString:true*/
+    var bind$1 = bind$2;
 
     // utils is a library of generic helper functions non-specific to axios
 
@@ -3059,7 +3186,7 @@ var app = (function () {
      * @returns {boolean} True if value is an Array, otherwise false
      */
     function isArray(val) {
-      return toString.call(val) === '[object Array]';
+      return Array.isArray(val);
     }
 
     /**
@@ -3100,7 +3227,7 @@ var app = (function () {
      * @returns {boolean} True if value is an FormData, otherwise false
      */
     function isFormData(val) {
-      return (typeof FormData !== 'undefined') && (val instanceof FormData);
+      return toString.call(val) === '[object FormData]';
     }
 
     /**
@@ -3114,7 +3241,7 @@ var app = (function () {
       if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
         result = ArrayBuffer.isView(val);
       } else {
-        result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+        result = (val) && (val.buffer) && (isArrayBuffer(val.buffer));
       }
       return result;
     }
@@ -3221,7 +3348,7 @@ var app = (function () {
      * @returns {boolean} True if value is a URLSearchParams object, otherwise false
      */
     function isURLSearchParams(val) {
-      return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+      return toString.call(val) === '[object URLSearchParams]';
     }
 
     /**
@@ -3231,7 +3358,7 @@ var app = (function () {
      * @returns {String} The String freed of excess whitespace
      */
     function trim(str) {
-      return str.replace(/^\s*/, '').replace(/\s*$/, '');
+      return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
     }
 
     /**
@@ -3348,7 +3475,7 @@ var app = (function () {
     function extend(a, b, thisArg) {
       forEach(b, function assignValue(val, key) {
         if (thisArg && typeof val === 'function') {
-          a[key] = bind(val, thisArg);
+          a[key] = bind$1(val, thisArg);
         } else {
           a[key] = val;
         }
@@ -3369,7 +3496,7 @@ var app = (function () {
       return content;
     }
 
-    var utils = {
+    var utils$e = {
       isArray: isArray,
       isArrayBuffer: isArrayBuffer,
       isBuffer: isBuffer,
@@ -3394,6 +3521,8 @@ var app = (function () {
       stripBOM: stripBOM
     };
 
+    var utils$d = utils$e;
+
     function encode(val) {
       return encodeURIComponent(val).
         replace(/%3A/gi, ':').
@@ -3411,7 +3540,7 @@ var app = (function () {
      * @param {object} [params] The params to be appended
      * @returns {string} The formatted url
      */
-    var buildURL = function buildURL(url, params, paramsSerializer) {
+    var buildURL$2 = function buildURL(url, params, paramsSerializer) {
       /*eslint no-param-reassign:0*/
       if (!params) {
         return url;
@@ -3420,26 +3549,26 @@ var app = (function () {
       var serializedParams;
       if (paramsSerializer) {
         serializedParams = paramsSerializer(params);
-      } else if (utils.isURLSearchParams(params)) {
+      } else if (utils$d.isURLSearchParams(params)) {
         serializedParams = params.toString();
       } else {
         var parts = [];
 
-        utils.forEach(params, function serialize(val, key) {
+        utils$d.forEach(params, function serialize(val, key) {
           if (val === null || typeof val === 'undefined') {
             return;
           }
 
-          if (utils.isArray(val)) {
+          if (utils$d.isArray(val)) {
             key = key + '[]';
           } else {
             val = [val];
           }
 
-          utils.forEach(val, function parseValue(v) {
-            if (utils.isDate(v)) {
+          utils$d.forEach(val, function parseValue(v) {
+            if (utils$d.isDate(v)) {
               v = v.toISOString();
-            } else if (utils.isObject(v)) {
+            } else if (utils$d.isObject(v)) {
               v = JSON.stringify(v);
             }
             parts.push(encode(key) + '=' + encode(v));
@@ -3461,7 +3590,9 @@ var app = (function () {
       return url;
     };
 
-    function InterceptorManager() {
+    var utils$c = utils$e;
+
+    function InterceptorManager$1() {
       this.handlers = [];
     }
 
@@ -3473,10 +3604,12 @@ var app = (function () {
      *
      * @return {Number} An ID used to remove interceptor later
      */
-    InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+    InterceptorManager$1.prototype.use = function use(fulfilled, rejected, options) {
       this.handlers.push({
         fulfilled: fulfilled,
-        rejected: rejected
+        rejected: rejected,
+        synchronous: options ? options.synchronous : false,
+        runWhen: options ? options.runWhen : null
       });
       return this.handlers.length - 1;
     };
@@ -3486,7 +3619,7 @@ var app = (function () {
      *
      * @param {Number} id The ID that was returned by `use`
      */
-    InterceptorManager.prototype.eject = function eject(id) {
+    InterceptorManager$1.prototype.eject = function eject(id) {
       if (this.handlers[id]) {
         this.handlers[id] = null;
       }
@@ -3500,39 +3633,20 @@ var app = (function () {
      *
      * @param {Function} fn The function to call for each interceptor
      */
-    InterceptorManager.prototype.forEach = function forEach(fn) {
-      utils.forEach(this.handlers, function forEachHandler(h) {
+    InterceptorManager$1.prototype.forEach = function forEach(fn) {
+      utils$c.forEach(this.handlers, function forEachHandler(h) {
         if (h !== null) {
           fn(h);
         }
       });
     };
 
-    var InterceptorManager_1 = InterceptorManager;
+    var InterceptorManager_1 = InterceptorManager$1;
 
-    /**
-     * Transform the data for a request or a response
-     *
-     * @param {Object|String} data The data to be transformed
-     * @param {Array} headers The headers for the request or response
-     * @param {Array|Function} fns A single function or Array of functions
-     * @returns {*} The resulting transformed data
-     */
-    var transformData = function transformData(data, headers, fns) {
-      /*eslint no-param-reassign:0*/
-      utils.forEach(fns, function transform(fn) {
-        data = fn(data, headers);
-      });
+    var utils$b = utils$e;
 
-      return data;
-    };
-
-    var isCancel = function isCancel(value) {
-      return !!(value && value.__CANCEL__);
-    };
-
-    var normalizeHeaderName = function normalizeHeaderName(headers, normalizedName) {
-      utils.forEach(headers, function processHeader(value, name) {
+    var normalizeHeaderName$1 = function normalizeHeaderName(headers, normalizedName) {
+      utils$b.forEach(headers, function processHeader(value, name) {
         if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
           headers[normalizedName] = value;
           delete headers[name];
@@ -3550,7 +3664,7 @@ var app = (function () {
      * @param {Object} [response] The response.
      * @returns {Error} The error.
      */
-    var enhanceError = function enhanceError(error, config, code, request, response) {
+    var enhanceError$2 = function enhanceError(error, config, code, request, response) {
       error.config = config;
       if (code) {
         error.code = code;
@@ -3575,11 +3689,14 @@ var app = (function () {
           stack: this.stack,
           // Axios
           config: this.config,
-          code: this.code
+          code: this.code,
+          status: this.response && this.response.status ? this.response.status : null
         };
       };
       return error;
     };
+
+    var enhanceError$1 = enhanceError$2;
 
     /**
      * Create an Error with the specified message, config, error code, request and response.
@@ -3591,10 +3708,12 @@ var app = (function () {
      * @param {Object} [response] The response.
      * @returns {Error} The created error.
      */
-    var createError = function createError(message, config, code, request, response) {
+    var createError$2 = function createError(message, config, code, request, response) {
       var error = new Error(message);
-      return enhanceError(error, config, code, request, response);
+      return enhanceError$1(error, config, code, request, response);
     };
+
+    var createError$1 = createError$2;
 
     /**
      * Resolve or reject a Promise based on response status.
@@ -3603,12 +3722,12 @@ var app = (function () {
      * @param {Function} reject A function that rejects the promise.
      * @param {object} response The response.
      */
-    var settle = function settle(resolve, reject, response) {
+    var settle$1 = function settle(resolve, reject, response) {
       var validateStatus = response.config.validateStatus;
       if (!response.status || !validateStatus || validateStatus(response.status)) {
         resolve(response);
       } else {
-        reject(createError(
+        reject(createError$1(
           'Request failed with status code ' + response.status,
           response.config,
           null,
@@ -3618,8 +3737,10 @@ var app = (function () {
       }
     };
 
-    var cookies = (
-      utils.isStandardBrowserEnv() ?
+    var utils$a = utils$e;
+
+    var cookies$1 = (
+      utils$a.isStandardBrowserEnv() ?
 
       // Standard browser envs support document.cookie
         (function standardBrowserEnv() {
@@ -3628,15 +3749,15 @@ var app = (function () {
               var cookie = [];
               cookie.push(name + '=' + encodeURIComponent(value));
 
-              if (utils.isNumber(expires)) {
+              if (utils$a.isNumber(expires)) {
                 cookie.push('expires=' + new Date(expires).toGMTString());
               }
 
-              if (utils.isString(path)) {
+              if (utils$a.isString(path)) {
                 cookie.push('path=' + path);
               }
 
-              if (utils.isString(domain)) {
+              if (utils$a.isString(domain)) {
                 cookie.push('domain=' + domain);
               }
 
@@ -3674,11 +3795,11 @@ var app = (function () {
      * @param {string} url The URL to test
      * @returns {boolean} True if the specified URL is absolute, otherwise false
      */
-    var isAbsoluteURL = function isAbsoluteURL(url) {
+    var isAbsoluteURL$1 = function isAbsoluteURL(url) {
       // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
       // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
       // by any combination of letters, digits, plus, period, or hyphen.
-      return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+      return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
     };
 
     /**
@@ -3688,11 +3809,14 @@ var app = (function () {
      * @param {string} relativeURL The relative URL
      * @returns {string} The combined URL
      */
-    var combineURLs = function combineURLs(baseURL, relativeURL) {
+    var combineURLs$1 = function combineURLs(baseURL, relativeURL) {
       return relativeURL
         ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
         : baseURL;
     };
+
+    var isAbsoluteURL = isAbsoluteURL$1;
+    var combineURLs = combineURLs$1;
 
     /**
      * Creates a new URL by combining the baseURL with the requestedURL,
@@ -3703,12 +3827,14 @@ var app = (function () {
      * @param {string} requestedURL Absolute or relative URL to combine
      * @returns {string} The combined full path
      */
-    var buildFullPath = function buildFullPath(baseURL, requestedURL) {
+    var buildFullPath$1 = function buildFullPath(baseURL, requestedURL) {
       if (baseURL && !isAbsoluteURL(requestedURL)) {
         return combineURLs(baseURL, requestedURL);
       }
       return requestedURL;
     };
+
+    var utils$9 = utils$e;
 
     // Headers whose duplicates are ignored by node
     // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -3732,7 +3858,7 @@ var app = (function () {
      * @param {String} headers Headers needing to be parsed
      * @returns {Object} Headers parsed into an object
      */
-    var parseHeaders = function parseHeaders(headers) {
+    var parseHeaders$1 = function parseHeaders(headers) {
       var parsed = {};
       var key;
       var val;
@@ -3740,10 +3866,10 @@ var app = (function () {
 
       if (!headers) { return parsed; }
 
-      utils.forEach(headers.split('\n'), function parser(line) {
+      utils$9.forEach(headers.split('\n'), function parser(line) {
         i = line.indexOf(':');
-        key = utils.trim(line.substr(0, i)).toLowerCase();
-        val = utils.trim(line.substr(i + 1));
+        key = utils$9.trim(line.substr(0, i)).toLowerCase();
+        val = utils$9.trim(line.substr(i + 1));
 
         if (key) {
           if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
@@ -3760,8 +3886,10 @@ var app = (function () {
       return parsed;
     };
 
-    var isURLSameOrigin = (
-      utils.isStandardBrowserEnv() ?
+    var utils$8 = utils$e;
+
+    var isURLSameOrigin$1 = (
+      utils$8.isStandardBrowserEnv() ?
 
       // Standard browser envs have full support of the APIs needed to test
       // whether the request URL is of the same origin as current location.
@@ -3811,7 +3939,7 @@ var app = (function () {
         * @returns {boolean} True if URL shares the same origin, otherwise false
         */
           return function isURLSameOrigin(requestURL) {
-            var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+            var parsed = (utils$8.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
             return (parsed.protocol === originURL.protocol &&
                 parsed.host === originURL.host);
           };
@@ -3825,12 +3953,52 @@ var app = (function () {
         })()
     );
 
+    /**
+     * A `Cancel` is an object that is thrown when an operation is canceled.
+     *
+     * @class
+     * @param {string=} message The message.
+     */
+    function Cancel$3(message) {
+      this.message = message;
+    }
+
+    Cancel$3.prototype.toString = function toString() {
+      return 'Cancel' + (this.message ? ': ' + this.message : '');
+    };
+
+    Cancel$3.prototype.__CANCEL__ = true;
+
+    var Cancel_1 = Cancel$3;
+
+    var utils$7 = utils$e;
+    var settle = settle$1;
+    var cookies = cookies$1;
+    var buildURL$1 = buildURL$2;
+    var buildFullPath = buildFullPath$1;
+    var parseHeaders = parseHeaders$1;
+    var isURLSameOrigin = isURLSameOrigin$1;
+    var createError = createError$2;
+    var defaults$4 = defaults_1;
+    var Cancel$2 = Cancel_1;
+
     var xhr = function xhrAdapter(config) {
       return new Promise(function dispatchXhrRequest(resolve, reject) {
         var requestData = config.data;
         var requestHeaders = config.headers;
+        var responseType = config.responseType;
+        var onCanceled;
+        function done() {
+          if (config.cancelToken) {
+            config.cancelToken.unsubscribe(onCanceled);
+          }
 
-        if (utils.isFormData(requestData)) {
+          if (config.signal) {
+            config.signal.removeEventListener('abort', onCanceled);
+          }
+        }
+
+        if (utils$7.isFormData(requestData)) {
           delete requestHeaders['Content-Type']; // Let the browser set it
         }
 
@@ -3844,28 +4012,19 @@ var app = (function () {
         }
 
         var fullPath = buildFullPath(config.baseURL, config.url);
-        request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
+        request.open(config.method.toUpperCase(), buildURL$1(fullPath, config.params, config.paramsSerializer), true);
 
         // Set the request timeout in MS
         request.timeout = config.timeout;
 
-        // Listen for ready state
-        request.onreadystatechange = function handleLoad() {
-          if (!request || request.readyState !== 4) {
+        function onloadend() {
+          if (!request) {
             return;
           }
-
-          // The request errored out and we didn't get a response, this will be
-          // handled by onerror instead
-          // With one exception: request that using file: protocol, most browsers
-          // will return status as 0 even though it's a successful request
-          if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-            return;
-          }
-
           // Prepare the response
           var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-          var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+          var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
+            request.responseText : request.response;
           var response = {
             data: responseData,
             status: request.status,
@@ -3875,11 +4034,40 @@ var app = (function () {
             request: request
           };
 
-          settle(resolve, reject, response);
+          settle(function _resolve(value) {
+            resolve(value);
+            done();
+          }, function _reject(err) {
+            reject(err);
+            done();
+          }, response);
 
           // Clean up request
           request = null;
-        };
+        }
+
+        if ('onloadend' in request) {
+          // Use onloadend if available
+          request.onloadend = onloadend;
+        } else {
+          // Listen for ready state to emulate onloadend
+          request.onreadystatechange = function handleLoad() {
+            if (!request || request.readyState !== 4) {
+              return;
+            }
+
+            // The request errored out and we didn't get a response, this will be
+            // handled by onerror instead
+            // With one exception: request that using file: protocol, most browsers
+            // will return status as 0 even though it's a successful request
+            if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+              return;
+            }
+            // readystate handler is calling before onerror or ontimeout handlers,
+            // so we should call onloadend on the next 'tick'
+            setTimeout(onloadend);
+          };
+        }
 
         // Handle browser request cancellation (as opposed to a manual cancellation)
         request.onabort = function handleAbort() {
@@ -3905,11 +4093,15 @@ var app = (function () {
 
         // Handle timeout
         request.ontimeout = function handleTimeout() {
-          var timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
+          var timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
+          var transitional = config.transitional || defaults$4.transitional;
           if (config.timeoutErrorMessage) {
             timeoutErrorMessage = config.timeoutErrorMessage;
           }
-          reject(createError(timeoutErrorMessage, config, 'ECONNABORTED',
+          reject(createError(
+            timeoutErrorMessage,
+            config,
+            transitional.clarifyTimeoutError ? 'ETIMEDOUT' : 'ECONNABORTED',
             request));
 
           // Clean up request
@@ -3919,7 +4111,7 @@ var app = (function () {
         // Add xsrf header
         // This is only done if running in a standard browser environment.
         // Specifically not if we're in a web worker, or react-native.
-        if (utils.isStandardBrowserEnv()) {
+        if (utils$7.isStandardBrowserEnv()) {
           // Add xsrf header
           var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
             cookies.read(config.xsrfCookieName) :
@@ -3932,7 +4124,7 @@ var app = (function () {
 
         // Add headers to the request
         if ('setRequestHeader' in request) {
-          utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+          utils$7.forEach(requestHeaders, function setRequestHeader(val, key) {
             if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
               // Remove Content-Type if data is undefined
               delete requestHeaders[key];
@@ -3944,21 +4136,13 @@ var app = (function () {
         }
 
         // Add withCredentials to request if needed
-        if (!utils.isUndefined(config.withCredentials)) {
+        if (!utils$7.isUndefined(config.withCredentials)) {
           request.withCredentials = !!config.withCredentials;
         }
 
         // Add responseType to request if needed
-        if (config.responseType) {
-          try {
-            request.responseType = config.responseType;
-          } catch (e) {
-            // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
-            // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
-            if (config.responseType !== 'json') {
-              throw e;
-            }
-          }
+        if (responseType && responseType !== 'json') {
+          request.responseType = config.responseType;
         }
 
         // Handle progress if needed
@@ -3971,18 +4155,22 @@ var app = (function () {
           request.upload.addEventListener('progress', config.onUploadProgress);
         }
 
-        if (config.cancelToken) {
+        if (config.cancelToken || config.signal) {
           // Handle cancellation
-          config.cancelToken.promise.then(function onCanceled(cancel) {
+          // eslint-disable-next-line func-names
+          onCanceled = function(cancel) {
             if (!request) {
               return;
             }
-
+            reject(!cancel || (cancel && cancel.type) ? new Cancel$2('canceled') : cancel);
             request.abort();
-            reject(cancel);
-            // Clean up request
             request = null;
-          });
+          };
+
+          config.cancelToken && config.cancelToken.subscribe(onCanceled);
+          if (config.signal) {
+            config.signal.aborted ? onCanceled() : config.signal.addEventListener('abort', onCanceled);
+          }
         }
 
         if (!requestData) {
@@ -3994,12 +4182,16 @@ var app = (function () {
       });
     };
 
+    var utils$6 = utils$e;
+    var normalizeHeaderName = normalizeHeaderName$1;
+    var enhanceError = enhanceError$2;
+
     var DEFAULT_CONTENT_TYPE = {
       'Content-Type': 'application/x-www-form-urlencoded'
     };
 
     function setContentTypeIfUnset(headers, value) {
-      if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+      if (!utils$6.isUndefined(headers) && utils$6.isUndefined(headers['Content-Type'])) {
         headers['Content-Type'] = value;
       }
     }
@@ -4016,42 +4208,77 @@ var app = (function () {
       return adapter;
     }
 
-    var defaults = {
+    function stringifySafely(rawValue, parser, encoder) {
+      if (utils$6.isString(rawValue)) {
+        try {
+          (parser || JSON.parse)(rawValue);
+          return utils$6.trim(rawValue);
+        } catch (e) {
+          if (e.name !== 'SyntaxError') {
+            throw e;
+          }
+        }
+      }
+
+      return (encoder || JSON.stringify)(rawValue);
+    }
+
+    var defaults$3 = {
+
+      transitional: {
+        silentJSONParsing: true,
+        forcedJSONParsing: true,
+        clarifyTimeoutError: false
+      },
+
       adapter: getDefaultAdapter(),
 
       transformRequest: [function transformRequest(data, headers) {
         normalizeHeaderName(headers, 'Accept');
         normalizeHeaderName(headers, 'Content-Type');
-        if (utils.isFormData(data) ||
-          utils.isArrayBuffer(data) ||
-          utils.isBuffer(data) ||
-          utils.isStream(data) ||
-          utils.isFile(data) ||
-          utils.isBlob(data)
+
+        if (utils$6.isFormData(data) ||
+          utils$6.isArrayBuffer(data) ||
+          utils$6.isBuffer(data) ||
+          utils$6.isStream(data) ||
+          utils$6.isFile(data) ||
+          utils$6.isBlob(data)
         ) {
           return data;
         }
-        if (utils.isArrayBufferView(data)) {
+        if (utils$6.isArrayBufferView(data)) {
           return data.buffer;
         }
-        if (utils.isURLSearchParams(data)) {
+        if (utils$6.isURLSearchParams(data)) {
           setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
           return data.toString();
         }
-        if (utils.isObject(data)) {
-          setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-          return JSON.stringify(data);
+        if (utils$6.isObject(data) || (headers && headers['Content-Type'] === 'application/json')) {
+          setContentTypeIfUnset(headers, 'application/json');
+          return stringifySafely(data);
         }
         return data;
       }],
 
       transformResponse: [function transformResponse(data) {
-        /*eslint no-param-reassign:0*/
-        if (typeof data === 'string') {
+        var transitional = this.transitional || defaults$3.transitional;
+        var silentJSONParsing = transitional && transitional.silentJSONParsing;
+        var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+        var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
+
+        if (strictJSONParsing || (forcedJSONParsing && utils$6.isString(data) && data.length)) {
           try {
-            data = JSON.parse(data);
-          } catch (e) { /* Ignore */ }
+            return JSON.parse(data);
+          } catch (e) {
+            if (strictJSONParsing) {
+              if (e.name === 'SyntaxError') {
+                throw enhanceError(e, this, 'E_JSON_PARSE');
+              }
+              throw e;
+            }
+          }
         }
+
         return data;
       }],
 
@@ -4069,24 +4296,55 @@ var app = (function () {
 
       validateStatus: function validateStatus(status) {
         return status >= 200 && status < 300;
+      },
+
+      headers: {
+        common: {
+          'Accept': 'application/json, text/plain, */*'
+        }
       }
     };
 
-    defaults.headers = {
-      common: {
-        'Accept': 'application/json, text/plain, */*'
-      }
+    utils$6.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+      defaults$3.headers[method] = {};
+    });
+
+    utils$6.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+      defaults$3.headers[method] = utils$6.merge(DEFAULT_CONTENT_TYPE);
+    });
+
+    var defaults_1 = defaults$3;
+
+    var utils$5 = utils$e;
+    var defaults$2 = defaults_1;
+
+    /**
+     * Transform the data for a request or a response
+     *
+     * @param {Object|String} data The data to be transformed
+     * @param {Array} headers The headers for the request or response
+     * @param {Array|Function} fns A single function or Array of functions
+     * @returns {*} The resulting transformed data
+     */
+    var transformData$1 = function transformData(data, headers, fns) {
+      var context = this || defaults$2;
+      /*eslint no-param-reassign:0*/
+      utils$5.forEach(fns, function transform(fn) {
+        data = fn.call(context, data, headers);
+      });
+
+      return data;
     };
 
-    utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-      defaults.headers[method] = {};
-    });
+    var isCancel$1 = function isCancel(value) {
+      return !!(value && value.__CANCEL__);
+    };
 
-    utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-      defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-    });
-
-    var defaults_1 = defaults;
+    var utils$4 = utils$e;
+    var transformData = transformData$1;
+    var isCancel = isCancel$1;
+    var defaults$1 = defaults_1;
+    var Cancel$1 = Cancel_1;
 
     /**
      * Throws a `Cancel` if cancellation has been requested.
@@ -4094,6 +4352,10 @@ var app = (function () {
     function throwIfCancellationRequested(config) {
       if (config.cancelToken) {
         config.cancelToken.throwIfRequested();
+      }
+
+      if (config.signal && config.signal.aborted) {
+        throw new Cancel$1('canceled');
       }
     }
 
@@ -4103,40 +4365,42 @@ var app = (function () {
      * @param {object} config The config that is to be used for the request
      * @returns {Promise} The Promise to be fulfilled
      */
-    var dispatchRequest = function dispatchRequest(config) {
+    var dispatchRequest$1 = function dispatchRequest(config) {
       throwIfCancellationRequested(config);
 
       // Ensure headers exist
       config.headers = config.headers || {};
 
       // Transform request data
-      config.data = transformData(
+      config.data = transformData.call(
+        config,
         config.data,
         config.headers,
         config.transformRequest
       );
 
       // Flatten headers
-      config.headers = utils.merge(
+      config.headers = utils$4.merge(
         config.headers.common || {},
         config.headers[config.method] || {},
         config.headers
       );
 
-      utils.forEach(
+      utils$4.forEach(
         ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
         function cleanHeaderConfig(method) {
           delete config.headers[method];
         }
       );
 
-      var adapter = config.adapter || defaults_1.adapter;
+      var adapter = config.adapter || defaults$1.adapter;
 
       return adapter(config).then(function onAdapterResolution(response) {
         throwIfCancellationRequested(config);
 
         // Transform response data
-        response.data = transformData(
+        response.data = transformData.call(
+          config,
           response.data,
           response.headers,
           config.transformResponse
@@ -4149,7 +4413,8 @@ var app = (function () {
 
           // Transform response data
           if (reason && reason.response) {
-            reason.response.data = transformData(
+            reason.response.data = transformData.call(
+              config,
               reason.response.data,
               reason.response.headers,
               config.transformResponse
@@ -4161,6 +4426,8 @@ var app = (function () {
       });
     };
 
+    var utils$3 = utils$e;
+
     /**
      * Config-specific merge-function which creates a new config-object
      * by merging two configuration objects together.
@@ -4169,92 +4436,197 @@ var app = (function () {
      * @param {Object} config2
      * @returns {Object} New object resulting from merging config2 to config1
      */
-    var mergeConfig = function mergeConfig(config1, config2) {
+    var mergeConfig$2 = function mergeConfig(config1, config2) {
       // eslint-disable-next-line no-param-reassign
       config2 = config2 || {};
       var config = {};
 
-      var valueFromConfig2Keys = ['url', 'method', 'data'];
-      var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
-      var defaultToConfig2Keys = [
-        'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
-        'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
-        'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
-        'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
-        'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
-      ];
-      var directMergeKeys = ['validateStatus'];
-
       function getMergedValue(target, source) {
-        if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
-          return utils.merge(target, source);
-        } else if (utils.isPlainObject(source)) {
-          return utils.merge({}, source);
-        } else if (utils.isArray(source)) {
+        if (utils$3.isPlainObject(target) && utils$3.isPlainObject(source)) {
+          return utils$3.merge(target, source);
+        } else if (utils$3.isPlainObject(source)) {
+          return utils$3.merge({}, source);
+        } else if (utils$3.isArray(source)) {
           return source.slice();
         }
         return source;
       }
 
+      // eslint-disable-next-line consistent-return
       function mergeDeepProperties(prop) {
-        if (!utils.isUndefined(config2[prop])) {
-          config[prop] = getMergedValue(config1[prop], config2[prop]);
-        } else if (!utils.isUndefined(config1[prop])) {
-          config[prop] = getMergedValue(undefined, config1[prop]);
+        if (!utils$3.isUndefined(config2[prop])) {
+          return getMergedValue(config1[prop], config2[prop]);
+        } else if (!utils$3.isUndefined(config1[prop])) {
+          return getMergedValue(undefined, config1[prop]);
         }
       }
 
-      utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
-        if (!utils.isUndefined(config2[prop])) {
-          config[prop] = getMergedValue(undefined, config2[prop]);
+      // eslint-disable-next-line consistent-return
+      function valueFromConfig2(prop) {
+        if (!utils$3.isUndefined(config2[prop])) {
+          return getMergedValue(undefined, config2[prop]);
         }
-      });
+      }
 
-      utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
-
-      utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
-        if (!utils.isUndefined(config2[prop])) {
-          config[prop] = getMergedValue(undefined, config2[prop]);
-        } else if (!utils.isUndefined(config1[prop])) {
-          config[prop] = getMergedValue(undefined, config1[prop]);
+      // eslint-disable-next-line consistent-return
+      function defaultToConfig2(prop) {
+        if (!utils$3.isUndefined(config2[prop])) {
+          return getMergedValue(undefined, config2[prop]);
+        } else if (!utils$3.isUndefined(config1[prop])) {
+          return getMergedValue(undefined, config1[prop]);
         }
-      });
+      }
 
-      utils.forEach(directMergeKeys, function merge(prop) {
+      // eslint-disable-next-line consistent-return
+      function mergeDirectKeys(prop) {
         if (prop in config2) {
-          config[prop] = getMergedValue(config1[prop], config2[prop]);
+          return getMergedValue(config1[prop], config2[prop]);
         } else if (prop in config1) {
-          config[prop] = getMergedValue(undefined, config1[prop]);
+          return getMergedValue(undefined, config1[prop]);
         }
+      }
+
+      var mergeMap = {
+        'url': valueFromConfig2,
+        'method': valueFromConfig2,
+        'data': valueFromConfig2,
+        'baseURL': defaultToConfig2,
+        'transformRequest': defaultToConfig2,
+        'transformResponse': defaultToConfig2,
+        'paramsSerializer': defaultToConfig2,
+        'timeout': defaultToConfig2,
+        'timeoutMessage': defaultToConfig2,
+        'withCredentials': defaultToConfig2,
+        'adapter': defaultToConfig2,
+        'responseType': defaultToConfig2,
+        'xsrfCookieName': defaultToConfig2,
+        'xsrfHeaderName': defaultToConfig2,
+        'onUploadProgress': defaultToConfig2,
+        'onDownloadProgress': defaultToConfig2,
+        'decompress': defaultToConfig2,
+        'maxContentLength': defaultToConfig2,
+        'maxBodyLength': defaultToConfig2,
+        'transport': defaultToConfig2,
+        'httpAgent': defaultToConfig2,
+        'httpsAgent': defaultToConfig2,
+        'cancelToken': defaultToConfig2,
+        'socketPath': defaultToConfig2,
+        'responseEncoding': defaultToConfig2,
+        'validateStatus': mergeDirectKeys
+      };
+
+      utils$3.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
+        var merge = mergeMap[prop] || mergeDeepProperties;
+        var configValue = merge(prop);
+        (utils$3.isUndefined(configValue) && merge !== mergeDirectKeys) || (config[prop] = configValue);
       });
-
-      var axiosKeys = valueFromConfig2Keys
-        .concat(mergeDeepPropertiesKeys)
-        .concat(defaultToConfig2Keys)
-        .concat(directMergeKeys);
-
-      var otherKeys = Object
-        .keys(config1)
-        .concat(Object.keys(config2))
-        .filter(function filterAxiosKeys(key) {
-          return axiosKeys.indexOf(key) === -1;
-        });
-
-      utils.forEach(otherKeys, mergeDeepProperties);
 
       return config;
     };
 
+    var data = {
+      "version": "0.26.0"
+    };
+
+    var VERSION = data.version;
+
+    var validators$1 = {};
+
+    // eslint-disable-next-line func-names
+    ['object', 'boolean', 'number', 'function', 'string', 'symbol'].forEach(function(type, i) {
+      validators$1[type] = function validator(thing) {
+        return typeof thing === type || 'a' + (i < 1 ? 'n ' : ' ') + type;
+      };
+    });
+
+    var deprecatedWarnings = {};
+
+    /**
+     * Transitional option validator
+     * @param {function|boolean?} validator - set to false if the transitional option has been removed
+     * @param {string?} version - deprecated version / removed since version
+     * @param {string?} message - some message with additional info
+     * @returns {function}
+     */
+    validators$1.transitional = function transitional(validator, version, message) {
+      function formatMessage(opt, desc) {
+        return '[Axios v' + VERSION + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
+      }
+
+      // eslint-disable-next-line func-names
+      return function(value, opt, opts) {
+        if (validator === false) {
+          throw new Error(formatMessage(opt, ' has been removed' + (version ? ' in ' + version : '')));
+        }
+
+        if (version && !deprecatedWarnings[opt]) {
+          deprecatedWarnings[opt] = true;
+          // eslint-disable-next-line no-console
+          console.warn(
+            formatMessage(
+              opt,
+              ' has been deprecated since v' + version + ' and will be removed in the near future'
+            )
+          );
+        }
+
+        return validator ? validator(value, opt, opts) : true;
+      };
+    };
+
+    /**
+     * Assert object's properties type
+     * @param {object} options
+     * @param {object} schema
+     * @param {boolean?} allowUnknown
+     */
+
+    function assertOptions(options, schema, allowUnknown) {
+      if (typeof options !== 'object') {
+        throw new TypeError('options must be an object');
+      }
+      var keys = Object.keys(options);
+      var i = keys.length;
+      while (i-- > 0) {
+        var opt = keys[i];
+        var validator = schema[opt];
+        if (validator) {
+          var value = options[opt];
+          var result = value === undefined || validator(value, opt, options);
+          if (result !== true) {
+            throw new TypeError('option ' + opt + ' must be ' + result);
+          }
+          continue;
+        }
+        if (allowUnknown !== true) {
+          throw Error('Unknown option ' + opt);
+        }
+      }
+    }
+
+    var validator$1 = {
+      assertOptions: assertOptions,
+      validators: validators$1
+    };
+
+    var utils$2 = utils$e;
+    var buildURL = buildURL$2;
+    var InterceptorManager = InterceptorManager_1;
+    var dispatchRequest = dispatchRequest$1;
+    var mergeConfig$1 = mergeConfig$2;
+    var validator = validator$1;
+
+    var validators = validator.validators;
     /**
      * Create a new instance of Axios
      *
      * @param {Object} instanceConfig The default config for the instance
      */
-    function Axios(instanceConfig) {
+    function Axios$1(instanceConfig) {
       this.defaults = instanceConfig;
       this.interceptors = {
-        request: new InterceptorManager_1(),
-        response: new InterceptorManager_1()
+        request: new InterceptorManager(),
+        response: new InterceptorManager()
       };
     }
 
@@ -4263,17 +4635,17 @@ var app = (function () {
      *
      * @param {Object} config The config specific for this request (merged with this.defaults)
      */
-    Axios.prototype.request = function request(config) {
+    Axios$1.prototype.request = function request(configOrUrl, config) {
       /*eslint no-param-reassign:0*/
       // Allow for axios('example/url'[, config]) a la fetch API
-      if (typeof config === 'string') {
-        config = arguments[1] || {};
-        config.url = arguments[0];
-      } else {
+      if (typeof configOrUrl === 'string') {
         config = config || {};
+        config.url = configOrUrl;
+      } else {
+        config = configOrUrl || {};
       }
 
-      config = mergeConfig(this.defaults, config);
+      config = mergeConfig$1(this.defaults, config);
 
       // Set config.method
       if (config.method) {
@@ -4284,35 +4656,86 @@ var app = (function () {
         config.method = 'get';
       }
 
-      // Hook up interceptors middleware
-      var chain = [dispatchRequest, undefined];
-      var promise = Promise.resolve(config);
+      var transitional = config.transitional;
 
+      if (transitional !== undefined) {
+        validator.assertOptions(transitional, {
+          silentJSONParsing: validators.transitional(validators.boolean),
+          forcedJSONParsing: validators.transitional(validators.boolean),
+          clarifyTimeoutError: validators.transitional(validators.boolean)
+        }, false);
+      }
+
+      // filter out skipped interceptors
+      var requestInterceptorChain = [];
+      var synchronousRequestInterceptors = true;
       this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-        chain.unshift(interceptor.fulfilled, interceptor.rejected);
+        if (typeof interceptor.runWhen === 'function' && interceptor.runWhen(config) === false) {
+          return;
+        }
+
+        synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+
+        requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
       });
 
+      var responseInterceptorChain = [];
       this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-        chain.push(interceptor.fulfilled, interceptor.rejected);
+        responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
       });
 
-      while (chain.length) {
-        promise = promise.then(chain.shift(), chain.shift());
+      var promise;
+
+      if (!synchronousRequestInterceptors) {
+        var chain = [dispatchRequest, undefined];
+
+        Array.prototype.unshift.apply(chain, requestInterceptorChain);
+        chain = chain.concat(responseInterceptorChain);
+
+        promise = Promise.resolve(config);
+        while (chain.length) {
+          promise = promise.then(chain.shift(), chain.shift());
+        }
+
+        return promise;
+      }
+
+
+      var newConfig = config;
+      while (requestInterceptorChain.length) {
+        var onFulfilled = requestInterceptorChain.shift();
+        var onRejected = requestInterceptorChain.shift();
+        try {
+          newConfig = onFulfilled(newConfig);
+        } catch (error) {
+          onRejected(error);
+          break;
+        }
+      }
+
+      try {
+        promise = dispatchRequest(newConfig);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+
+      while (responseInterceptorChain.length) {
+        promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
       }
 
       return promise;
     };
 
-    Axios.prototype.getUri = function getUri(config) {
-      config = mergeConfig(this.defaults, config);
+    Axios$1.prototype.getUri = function getUri(config) {
+      config = mergeConfig$1(this.defaults, config);
       return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
     };
 
     // Provide aliases for supported request methods
-    utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+    utils$2.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
       /*eslint func-names:0*/
-      Axios.prototype[method] = function(url, config) {
-        return this.request(mergeConfig(config || {}, {
+      Axios$1.prototype[method] = function(url, config) {
+        return this.request(mergeConfig$1(config || {}, {
           method: method,
           url: url,
           data: (config || {}).data
@@ -4320,10 +4743,10 @@ var app = (function () {
       };
     });
 
-    utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+    utils$2.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
       /*eslint func-names:0*/
-      Axios.prototype[method] = function(url, data, config) {
-        return this.request(mergeConfig(config || {}, {
+      Axios$1.prototype[method] = function(url, data, config) {
+        return this.request(mergeConfig$1(config || {}, {
           method: method,
           url: url,
           data: data
@@ -4331,25 +4754,9 @@ var app = (function () {
       };
     });
 
-    var Axios_1 = Axios;
+    var Axios_1 = Axios$1;
 
-    /**
-     * A `Cancel` is an object that is thrown when an operation is canceled.
-     *
-     * @class
-     * @param {string=} message The message.
-     */
-    function Cancel(message) {
-      this.message = message;
-    }
-
-    Cancel.prototype.toString = function toString() {
-      return 'Cancel' + (this.message ? ': ' + this.message : '');
-    };
-
-    Cancel.prototype.__CANCEL__ = true;
-
-    var Cancel_1 = Cancel;
+    var Cancel = Cancel_1;
 
     /**
      * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -4363,18 +4770,49 @@ var app = (function () {
       }
 
       var resolvePromise;
+
       this.promise = new Promise(function promiseExecutor(resolve) {
         resolvePromise = resolve;
       });
 
       var token = this;
+
+      // eslint-disable-next-line func-names
+      this.promise.then(function(cancel) {
+        if (!token._listeners) return;
+
+        var i;
+        var l = token._listeners.length;
+
+        for (i = 0; i < l; i++) {
+          token._listeners[i](cancel);
+        }
+        token._listeners = null;
+      });
+
+      // eslint-disable-next-line func-names
+      this.promise.then = function(onfulfilled) {
+        var _resolve;
+        // eslint-disable-next-line func-names
+        var promise = new Promise(function(resolve) {
+          token.subscribe(resolve);
+          _resolve = resolve;
+        }).then(onfulfilled);
+
+        promise.cancel = function reject() {
+          token.unsubscribe(_resolve);
+        };
+
+        return promise;
+      };
+
       executor(function cancel(message) {
         if (token.reason) {
           // Cancellation has already been requested
           return;
         }
 
-        token.reason = new Cancel_1(message);
+        token.reason = new Cancel(message);
         resolvePromise(token.reason);
       });
     }
@@ -4385,6 +4823,37 @@ var app = (function () {
     CancelToken.prototype.throwIfRequested = function throwIfRequested() {
       if (this.reason) {
         throw this.reason;
+      }
+    };
+
+    /**
+     * Subscribe to the cancel signal
+     */
+
+    CancelToken.prototype.subscribe = function subscribe(listener) {
+      if (this.reason) {
+        listener(this.reason);
+        return;
+      }
+
+      if (this._listeners) {
+        this._listeners.push(listener);
+      } else {
+        this._listeners = [listener];
+      }
+    };
+
+    /**
+     * Unsubscribe from the cancel signal
+     */
+
+    CancelToken.prototype.unsubscribe = function unsubscribe(listener) {
+      if (!this._listeners) {
+        return;
+      }
+      var index = this._listeners.indexOf(listener);
+      if (index !== -1) {
+        this._listeners.splice(index, 1);
       }
     };
 
@@ -4431,6 +4900,8 @@ var app = (function () {
       };
     };
 
+    var utils$1 = utils$e;
+
     /**
      * Determines whether the payload is an error thrown by Axios
      *
@@ -4438,8 +4909,14 @@ var app = (function () {
      * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
      */
     var isAxiosError = function isAxiosError(payload) {
-      return (typeof payload === 'object') && (payload.isAxiosError === true);
+      return utils$1.isObject(payload) && (payload.isAxiosError === true);
     };
+
+    var utils = utils$e;
+    var bind = bind$2;
+    var Axios = Axios_1;
+    var mergeConfig = mergeConfig$2;
+    var defaults = defaults_1;
 
     /**
      * Create an instance of Axios
@@ -4448,33 +4925,34 @@ var app = (function () {
      * @return {Axios} A new instance of Axios
      */
     function createInstance(defaultConfig) {
-      var context = new Axios_1(defaultConfig);
-      var instance = bind(Axios_1.prototype.request, context);
+      var context = new Axios(defaultConfig);
+      var instance = bind(Axios.prototype.request, context);
 
       // Copy axios.prototype to instance
-      utils.extend(instance, Axios_1.prototype, context);
+      utils.extend(instance, Axios.prototype, context);
 
       // Copy context to instance
       utils.extend(instance, context);
+
+      // Factory for creating new instances
+      instance.create = function create(instanceConfig) {
+        return createInstance(mergeConfig(defaultConfig, instanceConfig));
+      };
 
       return instance;
     }
 
     // Create the default instance to be exported
-    var axios$1 = createInstance(defaults_1);
+    var axios$1 = createInstance(defaults);
 
     // Expose Axios class to allow class inheritance
-    axios$1.Axios = Axios_1;
-
-    // Factory for creating new instances
-    axios$1.create = function create(instanceConfig) {
-      return createInstance(mergeConfig(axios$1.defaults, instanceConfig));
-    };
+    axios$1.Axios = Axios;
 
     // Expose Cancel & CancelToken
     axios$1.Cancel = Cancel_1;
     axios$1.CancelToken = CancelToken_1;
-    axios$1.isCancel = isCancel;
+    axios$1.isCancel = isCancel$1;
+    axios$1.VERSION = data.version;
 
     // Expose all/spread
     axios$1.all = function all(promises) {
@@ -4485,15 +4963,14 @@ var app = (function () {
     // Expose isAxiosError
     axios$1.isAxiosError = isAxiosError;
 
-    var axios_1 = axios$1;
+    axios$2.exports = axios$1;
 
     // Allow use of default import syntax in TypeScript
-    var _default = axios$1;
-    axios_1.default = _default;
+    axios$2.exports.default = axios$1;
 
-    var axios = axios_1;
+    var axios = axios$2.exports;
 
-    /* src\components\Alert.svelte generated by Svelte v3.35.0 */
+    /* src\components\Alert.svelte generated by Svelte v3.46.4 */
 
     const file$f = "src\\components\\Alert.svelte";
 
@@ -4558,13 +5035,13 @@ var app = (function () {
     			add_location(div1, file$f, 6, 2, 87);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, button);
-    			append_dev(button, span);
-    			append_dev(span, t0);
-    			append_dev(div1, t1);
-    			append_dev(div1, div0);
-    			append_dev(div0, t2);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, button);
+    			append_hydration_dev(button, span);
+    			append_hydration_dev(span, t0);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, t2);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*mssg*/ 2) set_data_dev(t2, /*mssg*/ ctx[1]);
@@ -4646,13 +5123,13 @@ var app = (function () {
     			add_location(div1, file$f, 16, 2, 395);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, button);
-    			append_dev(button, span);
-    			append_dev(span, t0);
-    			append_dev(div1, t1);
-    			append_dev(div1, div0);
-    			append_dev(div0, t2);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, button);
+    			append_hydration_dev(button, span);
+    			append_hydration_dev(span, t0);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, t2);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*mssg*/ 2) set_data_dev(t2, /*mssg*/ ctx[1]);
@@ -4694,9 +5171,9 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			if (if_block0) if_block0.m(target, anchor);
-    			insert_dev(target, t, anchor);
+    			insert_hydration_dev(target, t, anchor);
     			if (if_block1) if_block1.m(target, anchor);
-    			insert_dev(target, if_block1_anchor, anchor);
+    			insert_hydration_dev(target, if_block1_anchor, anchor);
     		},
     		p: function update(ctx, [dirty]) {
     			if (/*status*/ ctx[0] === 0) {
@@ -4748,25 +5225,25 @@ var app = (function () {
 
     function instance$f($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Alert", slots, []);
+    	validate_slots('Alert', slots, []);
     	let { status } = $$props;
     	let { mssg } = $$props;
-    	const writable_props = ["status", "mssg"];
+    	const writable_props = ['status', 'mssg'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Alert> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Alert> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ("status" in $$props) $$invalidate(0, status = $$props.status);
-    		if ("mssg" in $$props) $$invalidate(1, mssg = $$props.mssg);
+    		if ('status' in $$props) $$invalidate(0, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(1, mssg = $$props.mssg);
     	};
 
     	$$self.$capture_state = () => ({ status, mssg });
 
     	$$self.$inject_state = $$props => {
-    		if ("status" in $$props) $$invalidate(0, status = $$props.status);
-    		if ("mssg" in $$props) $$invalidate(1, mssg = $$props.mssg);
+    		if ('status' in $$props) $$invalidate(0, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(1, mssg = $$props.mssg);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -4791,11 +5268,11 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*status*/ ctx[0] === undefined && !("status" in props)) {
+    		if (/*status*/ ctx[0] === undefined && !('status' in props)) {
     			console.warn("<Alert> was created without expected prop 'status'");
     		}
 
-    		if (/*mssg*/ ctx[1] === undefined && !("mssg" in props)) {
+    		if (/*mssg*/ ctx[1] === undefined && !('mssg' in props)) {
     			console.warn("<Alert> was created without expected prop 'mssg'");
     		}
     	}
@@ -4957,7 +5434,7 @@ var app = (function () {
       return { status, mssg };
     };
 
-    /* src\pages\Login.svelte generated by Svelte v3.35.0 */
+    /* src\pages\Login.svelte generated by Svelte v3.46.4 */
 
     const { console: console_1$6 } = globals;
     const file$e = "src\\pages\\Login.svelte";
@@ -4984,7 +5461,7 @@ var app = (function () {
     			this.h();
     		},
     		h: function hydrate() {
-    			if (img.src !== (img_src_value = /*dp*/ ctx[1])) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*dp*/ ctx[1])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Not found user");
     			attr_dev(img, "class", "img-fluid rounded-circle");
     			attr_dev(img, "width", "132");
@@ -4992,10 +5469,10 @@ var app = (function () {
     			add_location(img, file$e, 82, 22, 2879);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, img, anchor);
+    			insert_hydration_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*dp*/ 2 && img.src !== (img_src_value = /*dp*/ ctx[1])) {
+    			if (dirty & /*dp*/ 2 && !src_url_equal(img.src, img_src_value = /*dp*/ ctx[1])) {
     				attr_dev(img, "src", img_src_value);
     			}
     		},
@@ -5046,9 +5523,9 @@ var app = (function () {
     			add_location(div, file$e, 78, 22, 2676);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, span);
-    			append_dev(span, t);
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
     		},
     		p: noop,
     		d: function destroy(detaching) {
@@ -5283,15 +5760,7 @@ var app = (function () {
     			var div5_nodes = children(div5);
     			div4 = claim_element(div5_nodes, "DIV", { class: true });
     			var div4_nodes = children(div4);
-
-    			input2 = claim_element(div4_nodes, "INPUT", {
-    				type: true,
-    				class: true,
-    				value: true,
-    				name: true,
-    				checked: true
-    			});
-
+    			input2 = claim_element(div4_nodes, "INPUT", { type: true, class: true, name: true });
     			t14 = claim_space(div4_nodes);
     			label2 = claim_element(div4_nodes, "LABEL", { for: true, class: true });
     			var label2_nodes = children(label2);
@@ -5390,58 +5859,58 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			mount_component(homenav, target, anchor);
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, div14, anchor);
-    			append_dev(div14, main);
-    			append_dev(main, div13);
-    			append_dev(div13, div12);
-    			append_dev(div12, div11);
-    			append_dev(div11, div10);
-    			append_dev(div10, div0);
-    			append_dev(div0, h1);
-    			append_dev(h1, t1);
-    			append_dev(div0, t2);
-    			append_dev(div0, p);
-    			append_dev(p, t3);
-    			append_dev(div10, t4);
-    			append_dev(div10, div9);
-    			append_dev(div9, div8);
-    			append_dev(div8, div7);
-    			append_dev(div7, div1);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, div14, anchor);
+    			append_hydration_dev(div14, main);
+    			append_hydration_dev(main, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div0, t2);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t3);
+    			append_hydration_dev(div10, t4);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div1);
     			if_block.m(div1, null);
-    			append_dev(div7, t5);
-    			append_dev(div7, form);
-    			append_dev(form, div2);
-    			append_dev(div2, label0);
-    			append_dev(label0, t6);
-    			append_dev(div2, t7);
-    			append_dev(div2, input0);
+    			append_hydration_dev(div7, t5);
+    			append_hydration_dev(div7, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, input0);
     			set_input_value(input0, /*user*/ ctx[0].instagram);
-    			append_dev(form, t8);
-    			append_dev(form, div3);
-    			append_dev(div3, label1);
-    			append_dev(label1, t9);
-    			append_dev(div3, t10);
-    			append_dev(div3, input1);
+    			append_hydration_dev(form, t8);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, input1);
     			set_input_value(input1, /*user*/ ctx[0].password);
-    			append_dev(div3, t11);
-    			append_dev(div3, small);
-    			append_dev(small, a);
-    			append_dev(a, t12);
-    			append_dev(form, t13);
-    			append_dev(form, div5);
-    			append_dev(div5, div4);
-    			append_dev(div4, input2);
-    			append_dev(div4, t14);
-    			append_dev(div4, label2);
-    			append_dev(label2, t15);
-    			append_dev(form, t16);
-    			append_dev(form, div6);
-    			append_dev(div6, button);
-    			append_dev(button, t17);
-    			insert_dev(target, t18, anchor);
+    			append_hydration_dev(div3, t11);
+    			append_hydration_dev(div3, small);
+    			append_hydration_dev(small, a);
+    			append_hydration_dev(a, t12);
+    			append_hydration_dev(form, t13);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, input2);
+    			append_hydration_dev(div4, t14);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t15);
+    			append_hydration_dev(form, t16);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, button);
+    			append_hydration_dev(button, t17);
+    			insert_hydration_dev(target, t18, anchor);
     			mount_component(alert, target, anchor);
-    			insert_dev(target, t19, anchor);
+    			insert_hydration_dev(target, t19, anchor);
     			mount_component(footer, target, anchor);
     			current = true;
 
@@ -5523,7 +5992,7 @@ var app = (function () {
 
     function instance$e($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Login", slots, []);
+    	validate_slots('Login', slots, []);
     	let user = { password: "", instagram: "" };
     	let dp = "img/avatars/avatar.jpg";
     	let loading = false;
@@ -5576,7 +6045,7 @@ var app = (function () {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$6.warn(`<Login> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$6.warn(`<Login> was created with unknown prop '${key}'`);
     	});
 
     	const change_handler = () => {
@@ -5611,11 +6080,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("user" in $$props) $$invalidate(0, user = $$props.user);
-    		if ("dp" in $$props) $$invalidate(1, dp = $$props.dp);
-    		if ("loading" in $$props) $$invalidate(2, loading = $$props.loading);
-    		if ("status" in $$props) $$invalidate(3, status = $$props.status);
-    		if ("mssg" in $$props) $$invalidate(4, mssg = $$props.mssg);
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
+    		if ('dp' in $$props) $$invalidate(1, dp = $$props.dp);
+    		if ('loading' in $$props) $$invalidate(2, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(3, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(4, mssg = $$props.mssg);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -5650,33 +6119,11 @@ var app = (function () {
     	}
     }
 
-    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+    var dist = {};
 
-    function getAugmentedNamespace(n) {
-    	if (n.__esModule) return n;
-    	var a = Object.defineProperty({}, '__esModule', {value: true});
-    	Object.keys(n).forEach(function (k) {
-    		var d = Object.getOwnPropertyDescriptor(n, k);
-    		Object.defineProperty(a, k, d.get ? d : {
-    			enumerable: true,
-    			get: function () {
-    				return n[k];
-    			}
-    		});
-    	});
-    	return a;
-    }
+    var alea$1 = {exports: {}};
 
-    function createCommonjsModule(fn) {
-      var module = { exports: {} };
-    	return fn(module, module.exports), module.exports;
-    }
-
-    function commonjsRequire (target) {
-    	throw new Error('Could not dynamically require "' + target + '". Please configure the dynamicRequireTargets option of @rollup/plugin-commonjs appropriately for this require call to behave properly.');
-    }
-
-    var alea = createCommonjsModule(function (module) {
+    (function (module) {
     // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
     // http://baagoe.com/en/RandomMusings/javascript/
     // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
@@ -5789,9 +6236,11 @@ var app = (function () {
       module,    // present in node.js
       (typeof undefined) == 'function'    // present with an AMD loader
     );
-    });
+    }(alea$1));
 
-    var xor128 = createCommonjsModule(function (module) {
+    var xor128$1 = {exports: {}};
+
+    (function (module) {
     // A Javascript implementaion of the "xor128" prng algorithm by
     // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -5871,9 +6320,11 @@ var app = (function () {
       module,    // present in node.js
       (typeof undefined) == 'function'    // present with an AMD loader
     );
-    });
+    }(xor128$1));
 
-    var xorwow = createCommonjsModule(function (module) {
+    var xorwow$1 = {exports: {}};
+
+    (function (module) {
     // A Javascript implementaion of the "xorwow" prng algorithm by
     // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -5958,9 +6409,11 @@ var app = (function () {
       module,    // present in node.js
       (typeof undefined) == 'function'    // present with an AMD loader
     );
-    });
+    }(xorwow$1));
 
-    var xorshift7 = createCommonjsModule(function (module) {
+    var xorshift7$1 = {exports: {}};
+
+    (function (module) {
     // A Javascript implementaion of the "xorshift7" algorithm by
     // François Panneton and Pierre L'ecuyer:
     // "On the Xorgshift Random Number Generators"
@@ -6057,9 +6510,11 @@ var app = (function () {
       module,    // present in node.js
       (typeof undefined) == 'function'    // present with an AMD loader
     );
-    });
+    }(xorshift7$1));
 
-    var xor4096 = createCommonjsModule(function (module) {
+    var xor4096$1 = {exports: {}};
+
+    (function (module) {
     // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
     //
     // This fast non-cryptographic random number generator is designed for
@@ -6205,9 +6660,11 @@ var app = (function () {
       module,    // present in node.js
       (typeof undefined) == 'function'    // present with an AMD loader
     );
-    });
+    }(xor4096$1));
 
-    var tychei = createCommonjsModule(function (module) {
+    var tychei$1 = {exports: {}};
+
+    (function (module) {
     // A Javascript implementaion of the "Tyche-i" prng algorithm by
     // Samuel Neves and Filipe Araujo.
     // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
@@ -6308,16 +6765,9 @@ var app = (function () {
       module,    // present in node.js
       (typeof undefined) == 'function'    // present with an AMD loader
     );
-    });
+    }(tychei$1));
 
-    var _nodeResolve_empty = {};
-
-    var _nodeResolve_empty$1 = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        'default': _nodeResolve_empty
-    });
-
-    var require$$0 = /*@__PURE__*/getAugmentedNamespace(_nodeResolve_empty$1);
+    var seedrandom$1 = {exports: {}};
 
     /*
     Copyright 2019 David Bau.
@@ -6343,7 +6793,7 @@ var app = (function () {
 
     */
 
-    var seedrandom$1 = createCommonjsModule(function (module) {
+    (function (module) {
     (function (global, pool, math) {
     //
     // The following constants are related to IEEE 754 limits.
@@ -6554,7 +7004,7 @@ var app = (function () {
       module.exports = seedrandom;
       // When in node.js, try using crypto package for autoseeding.
       try {
-        nodecrypto = require$$0;
+        nodecrypto = require('crypto');
       } catch (ex) {}
     } else {
       // When included as a plain script, set up Math.seedrandom global.
@@ -6570,7 +7020,7 @@ var app = (function () {
       [],     // pool: entropy pool starts empty
       Math    // math: package containing random, pow, and seedrandom
     );
-    });
+    }(seedrandom$1));
 
     // A library of seedable RNGs implemented in Javascript.
     //
@@ -6584,17 +7034,17 @@ var app = (function () {
     // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
     // Period: ~2^116
     // Reported to pass all BigCrush tests.
-
+    var alea = alea$1.exports;
 
     // xor128, a pure xor-shift generator by George Marsaglia.
     // Period: 2^128-1.
     // Reported to fail: MatrixRank and LinearComp.
-
+    var xor128 = xor128$1.exports;
 
     // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
     // Period: 2^192-2^32
     // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
-
+    var xorwow = xorwow$1.exports;
 
     // xorshift7, by François Panneton and Pierre L'ecuyer, takes
     // a different approach: it adds robustness by allowing more shifts
@@ -6602,7 +7052,7 @@ var app = (function () {
     // with 256 bits, that passes BigCrush with no systmatic failures.
     // Period 2^256-1.
     // No systematic BigCrush failures reported.
-
+    var xorshift7 = xorshift7$1.exports;
 
     // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
     // very long period that also adds a Weyl generator. It also passes
@@ -6611,34 +7061,33 @@ var app = (function () {
     // collisions.
     // Period: 2^4128-2^32.
     // No systematic BigCrush failures reported.
-
+    var xor4096 = xor4096$1.exports;
 
     // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
     // number generator derived from ChaCha, a modern stream cipher.
     // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
     // Period: ~2^127
     // No systematic BigCrush failures reported.
-
+    var tychei = tychei$1.exports;
 
     // The original ARC4-based prng included in this library.
     // Period: ~2^1600
+    var sr = seedrandom$1.exports;
 
+    sr.alea = alea;
+    sr.xor128 = xor128;
+    sr.xorwow = xorwow;
+    sr.xorshift7 = xorshift7;
+    sr.xor4096 = xor4096;
+    sr.tychei = tychei;
 
-    seedrandom$1.alea = alea;
-    seedrandom$1.xor128 = xor128;
-    seedrandom$1.xorwow = xorwow;
-    seedrandom$1.xorshift7 = xorshift7;
-    seedrandom$1.xor4096 = xor4096;
-    seedrandom$1.tychei = tychei;
+    var seedrandom = sr;
 
-    var seedrandom = seedrandom$1;
-
-    var dist = createCommonjsModule(function (module, exports) {
     var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
         return (mod && mod.__esModule) ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.AvatarGenerator = void 0;
+    Object.defineProperty(dist, "__esModule", { value: true });
+    var AvatarGenerator_1 = dist.AvatarGenerator = void 0;
     var seedrandom_1 = __importDefault(seedrandom);
     /** @description Class to generate avatars  */
     var AvatarGenerator = /** @class */ (function () {
@@ -6677,10 +7126,9 @@ var app = (function () {
         };
         return AvatarGenerator;
     }());
-    exports.AvatarGenerator = AvatarGenerator;
-    });
+    AvatarGenerator_1 = dist.AvatarGenerator = AvatarGenerator;
 
-    /* src\components\IntersectionObserver.svelte generated by Svelte v3.35.0 */
+    /* src\components\IntersectionObserver.svelte generated by Svelte v3.46.4 */
     const file$d = "src\\components\\IntersectionObserver.svelte";
     const get_default_slot_changes = dirty => ({ intersecting: dirty & /*intersecting*/ 1 });
     const get_default_slot_context = ctx => ({ intersecting: /*intersecting*/ ctx[0] });
@@ -6709,7 +7157,7 @@ var app = (function () {
     			add_location(div, file$d, 44, 0, 1304);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
+    			insert_hydration_dev(target, div, anchor);
 
     			if (default_slot) {
     				default_slot.m(div, null);
@@ -6720,8 +7168,17 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope, intersecting*/ 129) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[7], dirty, get_default_slot_changes, get_default_slot_context);
+    				if (default_slot.p && (!current || dirty & /*$$scope, intersecting*/ 129)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[7],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[7])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[7], dirty, get_default_slot_changes),
+    						get_default_slot_context
+    					);
     				}
     			}
     		},
@@ -6754,7 +7211,7 @@ var app = (function () {
 
     function instance$d($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("IntersectionObserver", slots, ['default']);
+    	validate_slots('IntersectionObserver', slots, ['default']);
     	let { once = false } = $$props;
     	let { top = 0 } = $$props;
     	let { bottom = 0 } = $$props;
@@ -6784,26 +7241,26 @@ var app = (function () {
     	// 	intersecting = (
     	// 		(bcr.bottom + bottom) > 0 &&
 
-    	const writable_props = ["once", "top", "bottom", "left", "right"];
+    	const writable_props = ['once', 'top', 'bottom', 'left', 'right'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<IntersectionObserver> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<IntersectionObserver> was created with unknown prop '${key}'`);
     	});
 
     	function div_binding($$value) {
-    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			container = $$value;
     			$$invalidate(1, container);
     		});
     	}
 
     	$$self.$$set = $$props => {
-    		if ("once" in $$props) $$invalidate(2, once = $$props.once);
-    		if ("top" in $$props) $$invalidate(3, top = $$props.top);
-    		if ("bottom" in $$props) $$invalidate(4, bottom = $$props.bottom);
-    		if ("left" in $$props) $$invalidate(5, left = $$props.left);
-    		if ("right" in $$props) $$invalidate(6, right = $$props.right);
-    		if ("$$scope" in $$props) $$invalidate(7, $$scope = $$props.$$scope);
+    		if ('once' in $$props) $$invalidate(2, once = $$props.once);
+    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
+    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
+    		if ('left' in $$props) $$invalidate(5, left = $$props.left);
+    		if ('right' in $$props) $$invalidate(6, right = $$props.right);
+    		if ('$$scope' in $$props) $$invalidate(7, $$scope = $$props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -6818,13 +7275,13 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("once" in $$props) $$invalidate(2, once = $$props.once);
-    		if ("top" in $$props) $$invalidate(3, top = $$props.top);
-    		if ("bottom" in $$props) $$invalidate(4, bottom = $$props.bottom);
-    		if ("left" in $$props) $$invalidate(5, left = $$props.left);
-    		if ("right" in $$props) $$invalidate(6, right = $$props.right);
-    		if ("intersecting" in $$props) $$invalidate(0, intersecting = $$props.intersecting);
-    		if ("container" in $$props) $$invalidate(1, container = $$props.container);
+    		if ('once' in $$props) $$invalidate(2, once = $$props.once);
+    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
+    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
+    		if ('left' in $$props) $$invalidate(5, left = $$props.left);
+    		if ('right' in $$props) $$invalidate(6, right = $$props.right);
+    		if ('intersecting' in $$props) $$invalidate(0, intersecting = $$props.intersecting);
+    		if ('container' in $$props) $$invalidate(1, container = $$props.container);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -6906,7 +7363,7 @@ var app = (function () {
     	}
     }
 
-    /* src\components\Image.svelte generated by Svelte v3.35.0 */
+    /* src\components\Image.svelte generated by Svelte v3.46.4 */
     const file$c = "src\\components\\Image.svelte";
 
     function create_fragment$c(ctx) {
@@ -6931,7 +7388,7 @@ var app = (function () {
     			this.h();
     		},
     		h: function hydrate() {
-    			if (img.src !== (img_src_value = /*src*/ ctx[0])) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*src*/ ctx[0])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*alt*/ ctx[1]);
     			attr_dev(img, "class", "img-fluid rounded-circle");
     			attr_dev(img, "width", "132");
@@ -6941,11 +7398,11 @@ var app = (function () {
     			add_location(img, file$c, 13, 0, 227);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, img, anchor);
+    			insert_hydration_dev(target, img, anchor);
     			/*img_binding*/ ctx[4](img);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*src*/ 1 && img.src !== (img_src_value = /*src*/ ctx[0])) {
+    			if (dirty & /*src*/ 1 && !src_url_equal(img.src, img_src_value = /*src*/ ctx[0])) {
     				attr_dev(img, "src", img_src_value);
     			}
 
@@ -6978,7 +7435,7 @@ var app = (function () {
 
     function instance$c($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Image", slots, []);
+    	validate_slots('Image', slots, []);
     	let { src } = $$props;
     	let { alt } = $$props;
     	let loaded = false;
@@ -6994,31 +7451,31 @@ var app = (function () {
     		);
     	});
 
-    	const writable_props = ["src", "alt"];
+    	const writable_props = ['src', 'alt'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Image> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Image> was created with unknown prop '${key}'`);
     	});
 
     	function img_binding($$value) {
-    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			thisImage = $$value;
     			$$invalidate(3, thisImage);
     		});
     	}
 
     	$$self.$$set = $$props => {
-    		if ("src" in $$props) $$invalidate(0, src = $$props.src);
-    		if ("alt" in $$props) $$invalidate(1, alt = $$props.alt);
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
     	};
 
     	$$self.$capture_state = () => ({ src, alt, onMount, loaded, thisImage });
 
     	$$self.$inject_state = $$props => {
-    		if ("src" in $$props) $$invalidate(0, src = $$props.src);
-    		if ("alt" in $$props) $$invalidate(1, alt = $$props.alt);
-    		if ("loaded" in $$props) $$invalidate(2, loaded = $$props.loaded);
-    		if ("thisImage" in $$props) $$invalidate(3, thisImage = $$props.thisImage);
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
+    		if ('loaded' in $$props) $$invalidate(2, loaded = $$props.loaded);
+    		if ('thisImage' in $$props) $$invalidate(3, thisImage = $$props.thisImage);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -7043,11 +7500,11 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*src*/ ctx[0] === undefined && !("src" in props)) {
+    		if (/*src*/ ctx[0] === undefined && !('src' in props)) {
     			console.warn("<Image> was created without expected prop 'src'");
     		}
 
-    		if (/*alt*/ ctx[1] === undefined && !("alt" in props)) {
+    		if (/*alt*/ ctx[1] === undefined && !('alt' in props)) {
     			console.warn("<Image> was created without expected prop 'alt'");
     		}
     	}
@@ -7069,7 +7526,7 @@ var app = (function () {
     	}
     }
 
-    /* src\components\ImageLoader.svelte generated by Svelte v3.35.0 */
+    /* src\components\ImageLoader.svelte generated by Svelte v3.46.4 */
     const file$b = "src\\components\\ImageLoader.svelte";
 
     // (20:2) {:else}
@@ -7103,9 +7560,9 @@ var app = (function () {
     			add_location(div, file$b, 20, 4, 543);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, span);
-    			append_dev(span, t);
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
     		},
     		p: noop,
     		i: noop,
@@ -7206,7 +7663,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			if_blocks[current_block_type_index].m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -7328,7 +7785,7 @@ var app = (function () {
 
     function instance$b($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("ImageLoader", slots, []);
+    	validate_slots('ImageLoader', slots, []);
     	let { src } = $$props;
     	let { alt } = $$props;
     	let nativeLoading = false;
@@ -7340,15 +7797,15 @@ var app = (function () {
     		}
     	});
 
-    	const writable_props = ["src", "alt"];
+    	const writable_props = ['src', 'alt'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<ImageLoader> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ImageLoader> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ("src" in $$props) $$invalidate(0, src = $$props.src);
-    		if ("alt" in $$props) $$invalidate(1, alt = $$props.alt);
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
     	};
 
     	$$self.$capture_state = () => ({
@@ -7361,9 +7818,9 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("src" in $$props) $$invalidate(0, src = $$props.src);
-    		if ("alt" in $$props) $$invalidate(1, alt = $$props.alt);
-    		if ("nativeLoading" in $$props) $$invalidate(2, nativeLoading = $$props.nativeLoading);
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
+    		if ('nativeLoading' in $$props) $$invalidate(2, nativeLoading = $$props.nativeLoading);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -7388,11 +7845,11 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*src*/ ctx[0] === undefined && !("src" in props)) {
+    		if (/*src*/ ctx[0] === undefined && !('src' in props)) {
     			console.warn("<ImageLoader> was created without expected prop 'src'");
     		}
 
-    		if (/*alt*/ ctx[1] === undefined && !("alt" in props)) {
+    		if (/*alt*/ ctx[1] === undefined && !('alt' in props)) {
     			console.warn("<ImageLoader> was created without expected prop 'alt'");
     		}
     	}
@@ -7414,7 +7871,7 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\Register.svelte generated by Svelte v3.35.0 */
+    /* src\pages\Register.svelte generated by Svelte v3.46.4 */
 
     const { console: console_1$5 } = globals;
     const file$a = "src\\pages\\Register.svelte";
@@ -7501,9 +7958,9 @@ var app = (function () {
     			add_location(div, file$a, 83, 22, 2998);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, span);
-    			append_dev(span, t);
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
     		},
     		p: noop,
     		i: noop,
@@ -7725,7 +8182,6 @@ var app = (function () {
     			input0 = claim_element(div2_nodes, "INPUT", {
     				class: true,
     				type: true,
-    				required: true,
     				placeholder: true
     			});
 
@@ -7742,7 +8198,6 @@ var app = (function () {
     			input1 = claim_element(div3_nodes, "INPUT", {
     				class: true,
     				type: true,
-    				required: true,
     				placeholder: true
     			});
 
@@ -7791,7 +8246,6 @@ var app = (function () {
     			input4 = claim_element(div6_nodes, "INPUT", {
     				class: true,
     				type: true,
-    				required: true,
     				placeholder: true
     			});
 
@@ -7899,68 +8353,68 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			mount_component(homenav, target, anchor);
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, div15, anchor);
-    			append_dev(div15, main);
-    			append_dev(main, div14);
-    			append_dev(div14, div13);
-    			append_dev(div13, div12);
-    			append_dev(div12, div11);
-    			append_dev(div11, div0);
-    			append_dev(div0, h1);
-    			append_dev(h1, t1);
-    			append_dev(div0, t2);
-    			append_dev(div0, p);
-    			append_dev(p, t3);
-    			append_dev(div11, t4);
-    			append_dev(div11, div10);
-    			append_dev(div10, div9);
-    			append_dev(div9, div8);
-    			append_dev(div8, div1);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, div15, anchor);
+    			append_hydration_dev(div15, main);
+    			append_hydration_dev(main, div14);
+    			append_hydration_dev(div14, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div0, t2);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t3);
+    			append_hydration_dev(div11, t4);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div1);
     			if_blocks[current_block_type_index].m(div1, null);
-    			append_dev(div8, t5);
-    			append_dev(div8, form);
-    			append_dev(form, div2);
-    			append_dev(div2, label0);
-    			append_dev(label0, t6);
-    			append_dev(div2, t7);
-    			append_dev(div2, input0);
+    			append_hydration_dev(div8, t5);
+    			append_hydration_dev(div8, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, input0);
     			set_input_value(input0, /*user*/ ctx[1].instagram);
-    			append_dev(form, t8);
-    			append_dev(form, div3);
-    			append_dev(div3, label1);
-    			append_dev(label1, t9);
-    			append_dev(div3, t10);
-    			append_dev(div3, input1);
+    			append_hydration_dev(form, t8);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, input1);
     			set_input_value(input1, /*user*/ ctx[1].email);
-    			append_dev(form, t11);
-    			append_dev(form, div4);
-    			append_dev(div4, label2);
-    			append_dev(label2, t12);
-    			append_dev(div4, t13);
-    			append_dev(div4, input2);
+    			append_hydration_dev(form, t11);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t12);
+    			append_hydration_dev(div4, t13);
+    			append_hydration_dev(div4, input2);
     			set_input_value(input2, /*user*/ ctx[1].facebook);
-    			append_dev(form, t14);
-    			append_dev(form, div5);
-    			append_dev(div5, label3);
-    			append_dev(label3, t15);
-    			append_dev(div5, t16);
-    			append_dev(div5, input3);
+    			append_hydration_dev(form, t14);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t15);
+    			append_hydration_dev(div5, t16);
+    			append_hydration_dev(div5, input3);
     			set_input_value(input3, /*user*/ ctx[1].twitter);
-    			append_dev(form, t17);
-    			append_dev(form, div6);
-    			append_dev(div6, label4);
-    			append_dev(label4, t18);
-    			append_dev(div6, t19);
-    			append_dev(div6, input4);
+    			append_hydration_dev(form, t17);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, label4);
+    			append_hydration_dev(label4, t18);
+    			append_hydration_dev(div6, t19);
+    			append_hydration_dev(div6, input4);
     			set_input_value(input4, /*user*/ ctx[1].password);
-    			append_dev(form, t20);
-    			append_dev(form, div7);
-    			append_dev(div7, button);
-    			append_dev(button, t21);
-    			insert_dev(target, t22, anchor);
+    			append_hydration_dev(form, t20);
+    			append_hydration_dev(form, div7);
+    			append_hydration_dev(div7, button);
+    			append_hydration_dev(button, t21);
+    			insert_hydration_dev(target, t22, anchor);
     			mount_component(alert, target, anchor);
-    			insert_dev(target, t23, anchor);
+    			insert_hydration_dev(target, t23, anchor);
     			mount_component(footer, target, anchor);
     			current = true;
 
@@ -8072,8 +8526,8 @@ var app = (function () {
 
     function instance$a($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Register", slots, []);
-    	const generator = new dist.AvatarGenerator();
+    	validate_slots('Register', slots, []);
+    	const generator = new AvatarGenerator_1();
     	let dp = "https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg";
 
     	let user = {
@@ -8131,7 +8585,7 @@ var app = (function () {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$5.warn(`<Register> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$5.warn(`<Register> was created with unknown prop '${key}'`);
     	});
 
     	const change_handler = () => {
@@ -8169,7 +8623,7 @@ var app = (function () {
     		HomeNav,
     		Footer,
     		userStore,
-    		AvatarGenerator: dist.AvatarGenerator,
+    		AvatarGenerator: AvatarGenerator_1,
     		ImageLoader,
     		generator,
     		dp,
@@ -8182,11 +8636,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("dp" in $$props) $$invalidate(0, dp = $$props.dp);
-    		if ("user" in $$props) $$invalidate(1, user = $$props.user);
-    		if ("loading" in $$props) $$invalidate(2, loading = $$props.loading);
-    		if ("status" in $$props) $$invalidate(3, status = $$props.status);
-    		if ("mssg" in $$props) $$invalidate(4, mssg = $$props.mssg);
+    		if ('dp' in $$props) $$invalidate(0, dp = $$props.dp);
+    		if ('user' in $$props) $$invalidate(1, user = $$props.user);
+    		if ('loading' in $$props) $$invalidate(2, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(3, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(4, mssg = $$props.mssg);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -8224,7 +8678,7 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\ResetPassword.svelte generated by Svelte v3.35.0 */
+    /* src\pages\ResetPassword.svelte generated by Svelte v3.46.4 */
     const file$9 = "src\\pages\\ResetPassword.svelte";
 
     // (53:20) {:else}
@@ -8331,23 +8785,23 @@ var app = (function () {
     			add_location(div2, file$9, 71, 22, 2676);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div0, anchor);
-    			append_dev(div0, label0);
-    			append_dev(label0, t0);
-    			append_dev(div0, t1);
-    			append_dev(div0, input0);
+    			insert_hydration_dev(target, div0, anchor);
+    			append_hydration_dev(div0, label0);
+    			append_hydration_dev(label0, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, input0);
     			set_input_value(input0, /*otp*/ ctx[4]);
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, label1);
-    			append_dev(label1, t3);
-    			append_dev(div1, t4);
-    			append_dev(div1, input1);
+    			insert_hydration_dev(target, t2, anchor);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, label1);
+    			append_hydration_dev(label1, t3);
+    			append_hydration_dev(div1, t4);
+    			append_hydration_dev(div1, input1);
     			set_input_value(input1, /*password*/ ctx[5]);
-    			insert_dev(target, t5, anchor);
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, button);
-    			append_dev(button, t6);
+    			insert_hydration_dev(target, t5, anchor);
+    			insert_hydration_dev(target, div2, anchor);
+    			append_hydration_dev(div2, button);
+    			append_hydration_dev(button, t6);
 
     			if (!mounted) {
     				dispose = [
@@ -8457,16 +8911,16 @@ var app = (function () {
     			add_location(div1, file$9, 47, 22, 1620);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div0, anchor);
-    			append_dev(div0, label);
-    			append_dev(label, t0);
-    			append_dev(div0, t1);
-    			append_dev(div0, input);
+    			insert_hydration_dev(target, div0, anchor);
+    			append_hydration_dev(div0, label);
+    			append_hydration_dev(label, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, input);
     			set_input_value(input, /*email*/ ctx[3]);
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, button);
-    			append_dev(button, t3);
+    			insert_hydration_dev(target, t2, anchor);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, button);
+    			append_hydration_dev(button, t3);
 
     			if (!mounted) {
     				dispose = listen_dev(input, "input", /*input_input_handler*/ ctx[7]);
@@ -8639,25 +9093,25 @@ var app = (function () {
     			add_location(div8, file$9, 22, 0, 523);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div8, anchor);
-    			append_dev(div8, main);
-    			append_dev(main, div7);
-    			append_dev(div7, div6);
-    			append_dev(div6, div5);
-    			append_dev(div5, div4);
-    			append_dev(div4, div0);
-    			append_dev(div0, h1);
-    			append_dev(h1, t0);
-    			append_dev(div0, t1);
-    			append_dev(div0, p);
-    			append_dev(p, t2);
-    			append_dev(div4, t3);
-    			append_dev(div4, div3);
-    			append_dev(div3, div2);
-    			append_dev(div2, div1);
-    			append_dev(div1, form);
+    			insert_hydration_dev(target, div8, anchor);
+    			append_hydration_dev(div8, main);
+    			append_hydration_dev(main, div7);
+    			append_hydration_dev(div7, div6);
+    			append_hydration_dev(div6, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t2);
+    			append_hydration_dev(div4, t3);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, form);
     			if_block.m(form, null);
-    			insert_dev(target, t4, anchor);
+    			insert_hydration_dev(target, t4, anchor);
     			mount_component(alert, target, anchor);
     			current = true;
 
@@ -8716,7 +9170,7 @@ var app = (function () {
 
     function instance$9($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("ResetPassword", slots, []);
+    	validate_slots('ResetPassword', slots, []);
     	let display = true;
     	let status = -1;
     	let mssg = "";
@@ -8739,7 +9193,7 @@ var app = (function () {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<ResetPassword> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ResetPassword> was created with unknown prop '${key}'`);
     	});
 
     	function input_input_handler() {
@@ -8771,12 +9225,12 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("display" in $$props) $$invalidate(0, display = $$props.display);
-    		if ("status" in $$props) $$invalidate(1, status = $$props.status);
-    		if ("mssg" in $$props) $$invalidate(2, mssg = $$props.mssg);
-    		if ("email" in $$props) $$invalidate(3, email = $$props.email);
-    		if ("otp" in $$props) $$invalidate(4, otp = $$props.otp);
-    		if ("password" in $$props) $$invalidate(5, password = $$props.password);
+    		if ('display' in $$props) $$invalidate(0, display = $$props.display);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('email' in $$props) $$invalidate(3, email = $$props.email);
+    		if ('otp' in $$props) $$invalidate(4, otp = $$props.otp);
+    		if ('password' in $$props) $$invalidate(5, password = $$props.password);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -8811,7 +9265,9 @@ var app = (function () {
     	}
     }
 
-    var moment = createCommonjsModule(function (module, exports) {
+    var moment$1 = {exports: {}};
+
+    (function (module, exports) {
     (function (global, factory) {
         module.exports = factory() ;
     }(commonjsGlobal, (function () {
@@ -14473,9 +14929,11 @@ var app = (function () {
         return hooks;
 
     })));
-    });
+    }(moment$1));
 
-    /* src\components\Navbar.svelte generated by Svelte v3.35.0 */
+    var moment = moment$1.exports;
+
+    /* src\components\Navbar.svelte generated by Svelte v3.46.4 */
 
     const file$8 = "src\\components\\Navbar.svelte";
 
@@ -14712,7 +15170,7 @@ var app = (function () {
     			attr_dev(a1, "href", "/");
     			attr_dev(a1, "data-toggle", "dropdown");
     			add_location(a1, file$8, 127, 8, 4674);
-    			if (img.src !== (img_src_value = /*user*/ ctx[0].dp)) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "avatar img-fluid rounded-circle mr-1");
     			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[0].instagram);
     			add_location(img, file$8, 140, 10, 5046);
@@ -14757,52 +15215,52 @@ var app = (function () {
     			add_location(nav, file$8, 4, 0, 43);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, nav, anchor);
-    			append_dev(nav, a0);
-    			append_dev(a0, i0);
-    			append_dev(nav, t0);
-    			append_dev(nav, form);
-    			append_dev(form, div1);
-    			append_dev(div1, input);
-    			append_dev(div1, t1);
-    			append_dev(div1, div0);
-    			append_dev(div0, button);
-    			append_dev(button, i1);
-    			append_dev(nav, t2);
-    			append_dev(nav, div4);
-    			append_dev(div4, ul);
-    			append_dev(ul, li);
-    			append_dev(li, a1);
-    			append_dev(a1, i2);
-    			append_dev(li, t3);
-    			append_dev(li, a2);
-    			append_dev(a2, img);
-    			append_dev(a2, t4);
-    			append_dev(a2, span);
-    			append_dev(span, t5);
-    			append_dev(li, t6);
-    			append_dev(li, div3);
-    			append_dev(div3, a3);
-    			append_dev(a3, i3);
-    			append_dev(a3, t7);
-    			append_dev(div3, t8);
-    			append_dev(div3, a4);
-    			append_dev(a4, i4);
-    			append_dev(a4, t9);
-    			append_dev(div3, t10);
-    			append_dev(div3, div2);
-    			append_dev(div3, t11);
-    			append_dev(div3, a5);
-    			append_dev(a5, t12);
-    			append_dev(div3, t13);
-    			append_dev(div3, a6);
-    			append_dev(a6, t14);
-    			append_dev(div3, t15);
-    			append_dev(div3, a7);
-    			append_dev(a7, t16);
+    			insert_hydration_dev(target, nav, anchor);
+    			append_hydration_dev(nav, a0);
+    			append_hydration_dev(a0, i0);
+    			append_hydration_dev(nav, t0);
+    			append_hydration_dev(nav, form);
+    			append_hydration_dev(form, div1);
+    			append_hydration_dev(div1, input);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, button);
+    			append_hydration_dev(button, i1);
+    			append_hydration_dev(nav, t2);
+    			append_hydration_dev(nav, div4);
+    			append_hydration_dev(div4, ul);
+    			append_hydration_dev(ul, li);
+    			append_hydration_dev(li, a1);
+    			append_hydration_dev(a1, i2);
+    			append_hydration_dev(li, t3);
+    			append_hydration_dev(li, a2);
+    			append_hydration_dev(a2, img);
+    			append_hydration_dev(a2, t4);
+    			append_hydration_dev(a2, span);
+    			append_hydration_dev(span, t5);
+    			append_hydration_dev(li, t6);
+    			append_hydration_dev(li, div3);
+    			append_hydration_dev(div3, a3);
+    			append_hydration_dev(a3, i3);
+    			append_hydration_dev(a3, t7);
+    			append_hydration_dev(div3, t8);
+    			append_hydration_dev(div3, a4);
+    			append_hydration_dev(a4, i4);
+    			append_hydration_dev(a4, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div3, t11);
+    			append_hydration_dev(div3, a5);
+    			append_hydration_dev(a5, t12);
+    			append_hydration_dev(div3, t13);
+    			append_hydration_dev(div3, a6);
+    			append_hydration_dev(a6, t14);
+    			append_hydration_dev(div3, t15);
+    			append_hydration_dev(div3, a7);
+    			append_hydration_dev(a7, t16);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*user*/ 1 && img.src !== (img_src_value = /*user*/ ctx[0].dp)) {
+    			if (dirty & /*user*/ 1 && !src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
@@ -14836,22 +15294,22 @@ var app = (function () {
 
     function instance$8($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Navbar", slots, []);
+    	validate_slots('Navbar', slots, []);
     	let { user } = $$props;
-    	const writable_props = ["user"];
+    	const writable_props = ['user'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Navbar> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Navbar> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ("user" in $$props) $$invalidate(0, user = $$props.user);
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
     	};
 
     	$$self.$capture_state = () => ({ user });
 
     	$$self.$inject_state = $$props => {
-    		if ("user" in $$props) $$invalidate(0, user = $$props.user);
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -14876,7 +15334,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*user*/ ctx[0] === undefined && !("user" in props)) {
+    		if (/*user*/ ctx[0] === undefined && !('user' in props)) {
     			console.warn("<Navbar> was created without expected prop 'user'");
     		}
     	}
@@ -14890,7 +15348,7 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\Dashboard.svelte generated by Svelte v3.35.0 */
+    /* src\pages\Dashboard.svelte generated by Svelte v3.46.4 */
 
     const { console: console_1$4 } = globals;
     const file$7 = "src\\pages\\Dashboard.svelte";
@@ -14947,7 +15405,7 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(img, "alt", "");
-    			if (img.src !== (img_src_value = "img/upload.png")) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = "img/upload.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "width", "300px");
     			add_location(img, file$7, 145, 18, 5234);
     			add_location(h1, file$7, 146, 18, 5303);
@@ -14961,15 +15419,15 @@ var app = (function () {
     			add_location(div, file$7, 142, 16, 5087);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, img);
-    			append_dev(div, t0);
-    			append_dev(div, h1);
-    			append_dev(h1, t1);
-    			append_dev(div, t2);
-    			append_dev(div, a);
-    			append_dev(a, t3);
-    			append_dev(div, t4);
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, img);
+    			append_hydration_dev(div, t0);
+    			append_hydration_dev(div, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div, t2);
+    			append_hydration_dev(div, a);
+    			append_hydration_dev(a, t3);
+    			append_hydration_dev(div, t4);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
@@ -15125,30 +15583,30 @@ var app = (function () {
     			add_location(div1, file$7, 111, 18, 3797);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, div0);
-    			append_dev(div0, small0);
-    			append_dev(small0, t0);
-    			append_dev(div0, t1);
-    			append_dev(div0, p0);
-    			append_dev(p0, strong);
-    			append_dev(strong, t2);
-    			append_dev(div0, t3);
-    			append_dev(div0, p1);
-    			append_dev(p1, t4);
-    			append_dev(div0, t5);
-    			append_dev(div0, small1);
-    			append_dev(small1, t6);
-    			append_dev(div0, br);
-    			append_dev(div0, t7);
-    			append_dev(div0, a0);
-    			append_dev(a0, t8);
-    			append_dev(div0, t9);
-    			append_dev(div0, a1);
-    			append_dev(a1, t10);
-    			append_dev(div0, t11);
-    			append_dev(div0, button);
-    			append_dev(button, t12);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, small0);
+    			append_hydration_dev(small0, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p0);
+    			append_hydration_dev(p0, strong);
+    			append_hydration_dev(strong, t2);
+    			append_hydration_dev(div0, t3);
+    			append_hydration_dev(div0, p1);
+    			append_hydration_dev(p1, t4);
+    			append_hydration_dev(div0, t5);
+    			append_hydration_dev(div0, small1);
+    			append_hydration_dev(small1, t6);
+    			append_hydration_dev(div0, br);
+    			append_hydration_dev(div0, t7);
+    			append_hydration_dev(div0, a0);
+    			append_hydration_dev(a0, t8);
+    			append_hydration_dev(div0, t9);
+    			append_hydration_dev(div0, a1);
+    			append_hydration_dev(a1, t10);
+    			append_hydration_dev(div0, t11);
+    			append_hydration_dev(div0, button);
+    			append_hydration_dev(button, t12);
 
     			if (!mounted) {
     				dispose = listen_dev(button, "click", click_handler_2, false, false, false);
@@ -15332,7 +15790,7 @@ var app = (function () {
     			attr_dev(p0, "class", "mb-2");
     			add_location(p0, file$7, 73, 22, 2324);
     			add_location(p1, file$7, 74, 22, 2397);
-    			if (img.src !== (img_src_value = /*link*/ ctx[10].image)) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*link*/ ctx[10].image)) attr_dev(img, "src", img_src_value);
     			set_style(img, "margin", "10px");
     			attr_dev(img, "height", "200px");
     			attr_dev(img, "alt", img_alt_value = /*link*/ ctx[10].title);
@@ -15357,33 +15815,33 @@ var app = (function () {
     			add_location(div2, file$7, 66, 18, 2007);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, div1);
-    			append_dev(div1, small0);
-    			append_dev(small0, t0);
-    			append_dev(div1, t1);
-    			append_dev(div1, p0);
-    			append_dev(p0, strong);
-    			append_dev(strong, t2);
-    			append_dev(div1, t3);
-    			append_dev(div1, p1);
-    			append_dev(p1, t4);
-    			append_dev(div1, t5);
-    			append_dev(div1, div0);
-    			append_dev(div0, img);
-    			append_dev(div1, t6);
-    			append_dev(div1, small1);
-    			append_dev(small1, t7);
-    			append_dev(div1, br);
-    			append_dev(div1, t8);
-    			append_dev(div1, a);
-    			append_dev(a, t9);
-    			append_dev(div1, t10);
-    			append_dev(div1, button0);
-    			append_dev(button0, t11);
-    			append_dev(div1, t12);
-    			append_dev(div1, button1);
-    			append_dev(button1, t13);
+    			insert_hydration_dev(target, div2, anchor);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, small0);
+    			append_hydration_dev(small0, t0);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, p0);
+    			append_hydration_dev(p0, strong);
+    			append_hydration_dev(strong, t2);
+    			append_hydration_dev(div1, t3);
+    			append_hydration_dev(div1, p1);
+    			append_hydration_dev(p1, t4);
+    			append_hydration_dev(div1, t5);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, img);
+    			append_hydration_dev(div1, t6);
+    			append_hydration_dev(div1, small1);
+    			append_hydration_dev(small1, t7);
+    			append_hydration_dev(div1, br);
+    			append_hydration_dev(div1, t8);
+    			append_hydration_dev(div1, a);
+    			append_hydration_dev(a, t9);
+    			append_hydration_dev(div1, t10);
+    			append_hydration_dev(div1, button0);
+    			append_hydration_dev(button0, t11);
+    			append_hydration_dev(div1, t12);
+    			append_hydration_dev(div1, button1);
+    			append_hydration_dev(button1, t13);
 
     			if (!mounted) {
     				dispose = [
@@ -15400,7 +15858,7 @@ var app = (function () {
     			if (dirty & /*user*/ 1 && t2_value !== (t2_value = /*link*/ ctx[10].title + "")) set_data_dev(t2, t2_value);
     			if (dirty & /*user*/ 1 && t4_value !== (t4_value = /*link*/ ctx[10].description + "")) set_data_dev(t4, t4_value);
 
-    			if (dirty & /*user*/ 1 && img.src !== (img_src_value = /*link*/ ctx[10].image)) {
+    			if (dirty & /*user*/ 1 && !src_url_equal(img.src, img_src_value = /*link*/ ctx[10].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
@@ -15463,8 +15921,8 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			if_block.m(target, anchor);
-    			insert_dev(target, t, anchor);
-    			insert_dev(target, hr, anchor);
+    			insert_hydration_dev(target, t, anchor);
+    			insert_hydration_dev(target, hr, anchor);
     		},
     		p: function update(ctx, dirty) {
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
@@ -15746,14 +16204,7 @@ var app = (function () {
     			t3 = claim_text(h4_nodes, t3_value);
     			h4_nodes.forEach(detach_dev);
     			t4 = claim_space(div6_nodes);
-
-    			input = claim_element(div6_nodes, "INPUT", {
-    				type: true,
-    				value: true,
-    				id: true,
-    				style: true
-    			});
-
+    			input = claim_element(div6_nodes, "INPUT", { type: true, id: true, style: true });
     			t5 = claim_space(div6_nodes);
     			div3 = claim_element(div6_nodes, "DIV", { class: true });
     			var div3_nodes = children(div3);
@@ -15887,7 +16338,7 @@ var app = (function () {
     			add_location(div1, file$7, 62, 10, 1822);
     			attr_dev(div2, "class", "col-12 col-lg-8");
     			add_location(div2, file$7, 61, 8, 1781);
-    			if (img.src !== (img_src_value = /*user*/ ctx[0].dp)) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[0].instagram);
     			attr_dev(img, "class", "img-fluid rounded-circle mb-2");
     			attr_dev(img, "width", "128");
@@ -15986,15 +16437,15 @@ var app = (function () {
     			add_location(div21, file$7, 55, 0, 1640);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div21, anchor);
+    			insert_hydration_dev(target, div21, anchor);
     			mount_component(navbar, div21, null);
-    			append_dev(div21, t0);
-    			append_dev(div21, main);
-    			append_dev(main, div20);
-    			append_dev(div20, div19);
-    			append_dev(div19, div2);
-    			append_dev(div2, div1);
-    			append_dev(div1, div0);
+    			append_hydration_dev(div21, t0);
+    			append_hydration_dev(div21, main);
+    			append_hydration_dev(main, div20);
+    			append_hydration_dev(div20, div19);
+    			append_hydration_dev(div19, div2);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, div0);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div0, null);
@@ -16004,72 +16455,72 @@ var app = (function () {
     				each_1_else.m(div0, null);
     			}
 
-    			append_dev(div19, t1);
-    			append_dev(div19, div18);
-    			append_dev(div18, div7);
-    			append_dev(div7, div6);
-    			append_dev(div6, img);
-    			append_dev(div6, t2);
-    			append_dev(div6, h4);
-    			append_dev(h4, t3);
-    			append_dev(div6, t4);
-    			append_dev(div6, input);
-    			append_dev(div6, t5);
-    			append_dev(div6, div3);
-    			append_dev(div3, button);
-    			append_dev(button, span0);
-    			append_dev(span0, t6);
-    			append_dev(button, t7);
-    			append_dev(div6, t8);
-    			append_dev(div6, div4);
-    			append_dev(div4, t9);
-    			append_dev(div4, t10);
-    			append_dev(div6, t11);
-    			append_dev(div6, div5);
-    			append_dev(div5, a0);
-    			append_dev(a0, t12);
-    			append_dev(div5, t13);
-    			append_dev(div5, a1);
-    			append_dev(a1, span1);
-    			append_dev(a1, t14);
-    			append_dev(div18, t15);
-    			append_dev(div18, div17);
-    			append_dev(div17, div11);
-    			append_dev(div11, div10);
-    			append_dev(div10, div9);
-    			append_dev(div9, a2);
-    			append_dev(a2, i);
-    			append_dev(div9, t16);
-    			append_dev(div9, div8);
-    			append_dev(div8, a3);
-    			append_dev(a3, t17);
-    			append_dev(div11, t18);
-    			append_dev(div11, h5);
-    			append_dev(h5, t19);
-    			append_dev(div17, t20);
-    			append_dev(div17, div16);
-    			append_dev(div16, div13);
-    			append_dev(div13, div12);
-    			append_dev(div12, p0);
-    			append_dev(p0, strong0);
-    			append_dev(strong0, t21);
-    			append_dev(div12, t22);
-    			append_dev(div12, p1);
-    			append_dev(p1, t23);
-    			append_dev(div16, t24);
-    			append_dev(div16, hr0);
-    			append_dev(div16, t25);
-    			append_dev(div16, div15);
-    			append_dev(div15, div14);
-    			append_dev(div14, p2);
-    			append_dev(p2, strong1);
-    			append_dev(strong1, t26);
-    			append_dev(div14, t27);
-    			append_dev(div14, p3);
-    			append_dev(p3, t28);
-    			append_dev(div16, t29);
-    			append_dev(div16, hr1);
-    			append_dev(div21, t30);
+    			append_hydration_dev(div19, t1);
+    			append_hydration_dev(div19, div18);
+    			append_hydration_dev(div18, div7);
+    			append_hydration_dev(div7, div6);
+    			append_hydration_dev(div6, img);
+    			append_hydration_dev(div6, t2);
+    			append_hydration_dev(div6, h4);
+    			append_hydration_dev(h4, t3);
+    			append_hydration_dev(div6, t4);
+    			append_hydration_dev(div6, input);
+    			append_hydration_dev(div6, t5);
+    			append_hydration_dev(div6, div3);
+    			append_hydration_dev(div3, button);
+    			append_hydration_dev(button, span0);
+    			append_hydration_dev(span0, t6);
+    			append_hydration_dev(button, t7);
+    			append_hydration_dev(div6, t8);
+    			append_hydration_dev(div6, div4);
+    			append_hydration_dev(div4, t9);
+    			append_hydration_dev(div4, t10);
+    			append_hydration_dev(div6, t11);
+    			append_hydration_dev(div6, div5);
+    			append_hydration_dev(div5, a0);
+    			append_hydration_dev(a0, t12);
+    			append_hydration_dev(div5, t13);
+    			append_hydration_dev(div5, a1);
+    			append_hydration_dev(a1, span1);
+    			append_hydration_dev(a1, t14);
+    			append_hydration_dev(div18, t15);
+    			append_hydration_dev(div18, div17);
+    			append_hydration_dev(div17, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, a2);
+    			append_hydration_dev(a2, i);
+    			append_hydration_dev(div9, t16);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, a3);
+    			append_hydration_dev(a3, t17);
+    			append_hydration_dev(div11, t18);
+    			append_hydration_dev(div11, h5);
+    			append_hydration_dev(h5, t19);
+    			append_hydration_dev(div17, t20);
+    			append_hydration_dev(div17, div16);
+    			append_hydration_dev(div16, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, p0);
+    			append_hydration_dev(p0, strong0);
+    			append_hydration_dev(strong0, t21);
+    			append_hydration_dev(div12, t22);
+    			append_hydration_dev(div12, p1);
+    			append_hydration_dev(p1, t23);
+    			append_hydration_dev(div16, t24);
+    			append_hydration_dev(div16, hr0);
+    			append_hydration_dev(div16, t25);
+    			append_hydration_dev(div16, div15);
+    			append_hydration_dev(div15, div14);
+    			append_hydration_dev(div14, p2);
+    			append_hydration_dev(p2, strong1);
+    			append_hydration_dev(strong1, t26);
+    			append_hydration_dev(div14, t27);
+    			append_hydration_dev(div14, p3);
+    			append_hydration_dev(p3, t28);
+    			append_hydration_dev(div16, t29);
+    			append_hydration_dev(div16, hr1);
+    			append_hydration_dev(div21, t30);
     			mount_component(footer, div21, null);
     			current = true;
 
@@ -16123,7 +16574,7 @@ var app = (function () {
     				}
     			}
 
-    			if (!current || dirty & /*user*/ 1 && img.src !== (img_src_value = /*user*/ ctx[0].dp)) {
+    			if (!current || dirty & /*user*/ 1 && !src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
@@ -16195,7 +16646,7 @@ var app = (function () {
 
     function instance$7($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Dashboard", slots, []);
+    	validate_slots('Dashboard', slots, []);
     	let user = {};
     	let clicks = 0;
 
@@ -16243,7 +16694,7 @@ var app = (function () {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$4.warn(`<Dashboard> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<Dashboard> was created with unknown prop '${key}'`);
     	});
 
     	const click_handler = link => {
@@ -16280,10 +16731,10 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("user" in $$props) $$invalidate(0, user = $$props.user);
-    		if ("clicks" in $$props) $$invalidate(1, clicks = $$props.clicks);
-    		if ("status" in $$props) status = $$props.status;
-    		if ("mssg" in $$props) mssg = $$props.mssg;
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
+    		if ('clicks' in $$props) $$invalidate(1, clicks = $$props.clicks);
+    		if ('status' in $$props) status = $$props.status;
+    		if ('mssg' in $$props) mssg = $$props.mssg;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -16315,7 +16766,7 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\AddLink.svelte generated by Svelte v3.35.0 */
+    /* src\pages\AddLink.svelte generated by Svelte v3.46.4 */
 
     const { console: console_1$3 } = globals;
     const file$6 = "src\\pages\\AddLink.svelte";
@@ -16342,7 +16793,7 @@ var app = (function () {
     			this.h();
     		},
     		h: function hydrate() {
-    			if (img.src !== (img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Not found user");
     			attr_dev(img, "class", "img-fluid");
     			attr_dev(img, "width", "132");
@@ -16350,10 +16801,10 @@ var app = (function () {
     			add_location(img, file$6, 64, 22, 2108);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, img, anchor);
+    			insert_hydration_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*image*/ 8 && img.src !== (img_src_value = /*image*/ ctx[3])) {
+    			if (dirty & /*image*/ 8 && !src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) {
     				attr_dev(img, "src", img_src_value);
     			}
     		},
@@ -16404,9 +16855,9 @@ var app = (function () {
     			add_location(div, file$6, 60, 22, 1905);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, span);
-    			append_dev(span, t);
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
     		},
     		p: noop,
     		d: function destroy(detaching) {
@@ -16597,7 +17048,6 @@ var app = (function () {
     			input0 = claim_element(div2_nodes, "INPUT", {
     				class: true,
     				type: true,
-    				required: true,
     				placeholder: true
     			});
 
@@ -16614,7 +17064,6 @@ var app = (function () {
     			input1 = claim_element(div3_nodes, "INPUT", {
     				class: true,
     				type: true,
-    				required: true,
     				placeholder: true
     			});
 
@@ -16730,57 +17179,57 @@ var app = (function () {
     			add_location(div14, file$6, 44, 0, 1214);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div14, anchor);
-    			append_dev(div14, main);
-    			append_dev(main, div13);
-    			append_dev(div13, div12);
-    			append_dev(div12, div11);
-    			append_dev(div11, div10);
-    			append_dev(div10, div0);
-    			append_dev(div0, h1);
-    			append_dev(h1, t0);
-    			append_dev(div0, t1);
-    			append_dev(div0, p);
-    			append_dev(p, t2);
-    			append_dev(div10, t3);
-    			append_dev(div10, div9);
-    			append_dev(div9, div8);
-    			append_dev(div8, div7);
-    			append_dev(div7, div1);
+    			insert_hydration_dev(target, div14, anchor);
+    			append_hydration_dev(div14, main);
+    			append_hydration_dev(main, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t2);
+    			append_hydration_dev(div10, t3);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div1);
     			if_block.m(div1, null);
-    			append_dev(div7, t4);
-    			append_dev(div7, form);
-    			append_dev(form, div2);
-    			append_dev(div2, label0);
-    			append_dev(label0, t5);
-    			append_dev(div2, t6);
-    			append_dev(div2, input0);
+    			append_hydration_dev(div7, t4);
+    			append_hydration_dev(div7, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t5);
+    			append_hydration_dev(div2, t6);
+    			append_hydration_dev(div2, input0);
     			set_input_value(input0, /*link*/ ctx[4].title);
-    			append_dev(form, t7);
-    			append_dev(form, div3);
-    			append_dev(div3, label1);
-    			append_dev(label1, t8);
-    			append_dev(div3, t9);
-    			append_dev(div3, input1);
+    			append_hydration_dev(form, t7);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t8);
+    			append_hydration_dev(div3, t9);
+    			append_hydration_dev(div3, input1);
     			set_input_value(input1, /*link*/ ctx[4].url);
-    			append_dev(form, t10);
-    			append_dev(form, div4);
-    			append_dev(div4, label2);
-    			append_dev(label2, t11);
-    			append_dev(div4, t12);
-    			append_dev(div4, textarea);
+    			append_hydration_dev(form, t10);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t11);
+    			append_hydration_dev(div4, t12);
+    			append_hydration_dev(div4, textarea);
     			set_input_value(textarea, /*link*/ ctx[4].description);
-    			append_dev(form, t13);
-    			append_dev(form, div5);
-    			append_dev(div5, label3);
-    			append_dev(label3, t14);
-    			append_dev(div5, t15);
-    			append_dev(div5, input2);
-    			append_dev(form, t16);
-    			append_dev(form, div6);
-    			append_dev(div6, button);
-    			append_dev(button, t17);
-    			insert_dev(target, t18, anchor);
+    			append_hydration_dev(form, t13);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t14);
+    			append_hydration_dev(div5, t15);
+    			append_hydration_dev(div5, input2);
+    			append_hydration_dev(form, t16);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, button);
+    			append_hydration_dev(button, t17);
+    			insert_hydration_dev(target, t18, anchor);
     			mount_component(alert, target, anchor);
     			current = true;
 
@@ -16858,7 +17307,7 @@ var app = (function () {
 
     function instance$6($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("AddLink", slots, []);
+    	validate_slots('AddLink', slots, []);
     	let loading = false;
     	let status = -1;
     	let mssg = "";
@@ -16898,7 +17347,7 @@ var app = (function () {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$3.warn(`<AddLink> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<AddLink> was created with unknown prop '${key}'`);
     	});
 
     	function input0_input_handler() {
@@ -16929,11 +17378,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("loading" in $$props) $$invalidate(0, loading = $$props.loading);
-    		if ("status" in $$props) $$invalidate(1, status = $$props.status);
-    		if ("mssg" in $$props) $$invalidate(2, mssg = $$props.mssg);
-    		if ("image" in $$props) $$invalidate(3, image = $$props.image);
-    		if ("link" in $$props) $$invalidate(4, link = $$props.link);
+    		if ('loading' in $$props) $$invalidate(0, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('image' in $$props) $$invalidate(3, image = $$props.image);
+    		if ('link' in $$props) $$invalidate(4, link = $$props.link);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -16968,7 +17417,7 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\EditLink.svelte generated by Svelte v3.35.0 */
+    /* src\pages\EditLink.svelte generated by Svelte v3.46.4 */
 
     const { console: console_1$2 } = globals;
     const file$5 = "src\\pages\\EditLink.svelte";
@@ -16995,7 +17444,7 @@ var app = (function () {
     			this.h();
     		},
     		h: function hydrate() {
-    			if (img.src !== (img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Not found user");
     			attr_dev(img, "class", "img-fluid");
     			attr_dev(img, "width", "132");
@@ -17003,10 +17452,10 @@ var app = (function () {
     			add_location(img, file$5, 69, 22, 2395);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, img, anchor);
+    			insert_hydration_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*image*/ 8 && img.src !== (img_src_value = /*image*/ ctx[3])) {
+    			if (dirty & /*image*/ 8 && !src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) {
     				attr_dev(img, "src", img_src_value);
     			}
     		},
@@ -17057,9 +17506,9 @@ var app = (function () {
     			add_location(div, file$5, 65, 22, 2192);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, span);
-    			append_dev(span, t);
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
     		},
     		p: noop,
     		d: function destroy(detaching) {
@@ -17267,7 +17716,6 @@ var app = (function () {
     			input0 = claim_element(div2_nodes, "INPUT", {
     				class: true,
     				type: true,
-    				required: true,
     				placeholder: true
     			});
 
@@ -17284,7 +17732,6 @@ var app = (function () {
     			input1 = claim_element(div3_nodes, "INPUT", {
     				class: true,
     				type: true,
-    				required: true,
     				placeholder: true
     			});
 
@@ -17409,60 +17856,60 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			mount_component(navbar, target, anchor);
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, div14, anchor);
-    			append_dev(div14, main);
-    			append_dev(main, div13);
-    			append_dev(div13, div12);
-    			append_dev(div12, div11);
-    			append_dev(div11, div10);
-    			append_dev(div10, div0);
-    			append_dev(div0, h1);
-    			append_dev(h1, t1);
-    			append_dev(div0, t2);
-    			append_dev(div0, p);
-    			append_dev(p, t3);
-    			append_dev(div10, t4);
-    			append_dev(div10, div9);
-    			append_dev(div9, div8);
-    			append_dev(div8, div7);
-    			append_dev(div7, div1);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, div14, anchor);
+    			append_hydration_dev(div14, main);
+    			append_hydration_dev(main, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div0, t2);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t3);
+    			append_hydration_dev(div10, t4);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div1);
     			if_block.m(div1, null);
-    			append_dev(div7, t5);
-    			append_dev(div7, form);
-    			append_dev(form, div2);
-    			append_dev(div2, label0);
-    			append_dev(label0, t6);
-    			append_dev(div2, t7);
-    			append_dev(div2, input0);
+    			append_hydration_dev(div7, t5);
+    			append_hydration_dev(div7, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, input0);
     			set_input_value(input0, /*link*/ ctx[4].url);
-    			append_dev(form, t8);
-    			append_dev(form, div3);
-    			append_dev(div3, label1);
-    			append_dev(label1, t9);
-    			append_dev(div3, t10);
-    			append_dev(div3, input1);
+    			append_hydration_dev(form, t8);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, input1);
     			set_input_value(input1, /*link*/ ctx[4].title);
-    			append_dev(form, t11);
-    			append_dev(form, div4);
-    			append_dev(div4, label2);
-    			append_dev(label2, t12);
-    			append_dev(div4, t13);
-    			append_dev(div4, input2);
-    			append_dev(form, t14);
-    			append_dev(form, div5);
-    			append_dev(div5, label3);
-    			append_dev(label3, t15);
-    			append_dev(div5, t16);
-    			append_dev(div5, input3);
+    			append_hydration_dev(form, t11);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t12);
+    			append_hydration_dev(div4, t13);
+    			append_hydration_dev(div4, input2);
+    			append_hydration_dev(form, t14);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t15);
+    			append_hydration_dev(div5, t16);
+    			append_hydration_dev(div5, input3);
     			set_input_value(input3, /*link*/ ctx[4].description);
-    			append_dev(form, t17);
-    			append_dev(form, div6);
-    			append_dev(div6, button);
-    			append_dev(button, t18);
-    			insert_dev(target, t19, anchor);
+    			append_hydration_dev(form, t17);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, button);
+    			append_hydration_dev(button, t18);
+    			insert_hydration_dev(target, t19, anchor);
     			mount_component(alert, target, anchor);
-    			insert_dev(target, t20, anchor);
+    			insert_hydration_dev(target, t20, anchor);
     			mount_component(footer, target, anchor);
     			current = true;
 
@@ -17552,7 +17999,7 @@ var app = (function () {
 
     function instance$5($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("EditLink", slots, []);
+    	validate_slots('EditLink', slots, []);
     	let loading = false;
     	let status = -1;
     	let mssg = "";
@@ -17595,7 +18042,7 @@ var app = (function () {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$2.warn(`<EditLink> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<EditLink> was created with unknown prop '${key}'`);
     	});
 
     	function input0_input_handler() {
@@ -17631,12 +18078,12 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("loading" in $$props) $$invalidate(0, loading = $$props.loading);
-    		if ("status" in $$props) $$invalidate(1, status = $$props.status);
-    		if ("mssg" in $$props) $$invalidate(2, mssg = $$props.mssg);
-    		if ("image" in $$props) $$invalidate(3, image = $$props.image);
-    		if ("link" in $$props) $$invalidate(4, link = $$props.link);
-    		if ("user" in $$props) $$invalidate(5, user = $$props.user);
+    		if ('loading' in $$props) $$invalidate(0, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('image' in $$props) $$invalidate(3, image = $$props.image);
+    		if ('link' in $$props) $$invalidate(4, link = $$props.link);
+    		if ('user' in $$props) $$invalidate(5, user = $$props.user);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -17672,7 +18119,7 @@ var app = (function () {
     	}
     }
 
-    /* src\components\Card.svelte generated by Svelte v3.35.0 */
+    /* src\components\Card.svelte generated by Svelte v3.46.4 */
 
     const { console: console_1$1 } = globals;
     const file$4 = "src\\components\\Card.svelte";
@@ -17700,15 +18147,15 @@ var app = (function () {
     		h: function hydrate() {
     			attr_dev(img, "class", "card-img-top");
     			set_style(img, "max-height", "250px");
-    			if (img.src !== (img_src_value = /*link*/ ctx[0].image)) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*link*/ ctx[0].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Not available");
     			add_location(img, file$4, 14, 6, 401);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, img, anchor);
+    			insert_hydration_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*link*/ 1 && img.src !== (img_src_value = /*link*/ ctx[0].image)) {
+    			if (dirty & /*link*/ 1 && !src_url_equal(img.src, img_src_value = /*link*/ ctx[0].image)) {
     				attr_dev(img, "src", img_src_value);
     			}
     		},
@@ -17826,22 +18273,22 @@ var app = (function () {
     			add_location(div3, file$4, 11, 0, 265);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div2);
+    			insert_hydration_dev(target, div3, anchor);
+    			append_hydration_dev(div3, div2);
     			if (if_block) if_block.m(div2, null);
-    			append_dev(div2, t0);
-    			append_dev(div2, div0);
-    			append_dev(div0, h5);
-    			append_dev(h5, t1);
-    			append_dev(div2, t2);
-    			append_dev(div2, hr);
-    			append_dev(div2, t3);
-    			append_dev(div2, div1);
-    			append_dev(div1, p);
-    			append_dev(p, t4);
-    			append_dev(div1, t5);
-    			append_dev(div1, a);
-    			append_dev(a, t6);
+    			append_hydration_dev(div2, t0);
+    			append_hydration_dev(div2, div0);
+    			append_hydration_dev(div0, h5);
+    			append_hydration_dev(h5, t1);
+    			append_hydration_dev(div2, t2);
+    			append_hydration_dev(div2, hr);
+    			append_hydration_dev(div2, t3);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, p);
+    			append_hydration_dev(p, t4);
+    			append_hydration_dev(div1, t5);
+    			append_hydration_dev(div1, a);
+    			append_hydration_dev(a, t6);
 
     			if (!mounted) {
     				dispose = listen_dev(a, "click", /*redirect*/ ctx[1], false, false, false);
@@ -17892,7 +18339,7 @@ var app = (function () {
 
     function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Card", slots, []);
+    	validate_slots('Card', slots, []);
     	let { link } = $$props;
     	let { name } = $$props;
 
@@ -17900,22 +18347,22 @@ var app = (function () {
     		await axios.post("/api/user/clickadd", { instagram: name, _id: link._id }).then(res => console.log("done"));
     	};
 
-    	const writable_props = ["link", "name"];
+    	const writable_props = ['link', 'name'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<Card> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<Card> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ("link" in $$props) $$invalidate(0, link = $$props.link);
-    		if ("name" in $$props) $$invalidate(2, name = $$props.name);
+    		if ('link' in $$props) $$invalidate(0, link = $$props.link);
+    		if ('name' in $$props) $$invalidate(2, name = $$props.name);
     	};
 
     	$$self.$capture_state = () => ({ link, name, axios, redirect });
 
     	$$self.$inject_state = $$props => {
-    		if ("link" in $$props) $$invalidate(0, link = $$props.link);
-    		if ("name" in $$props) $$invalidate(2, name = $$props.name);
+    		if ('link' in $$props) $$invalidate(0, link = $$props.link);
+    		if ('name' in $$props) $$invalidate(2, name = $$props.name);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -17940,11 +18387,11 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*link*/ ctx[0] === undefined && !("link" in props)) {
+    		if (/*link*/ ctx[0] === undefined && !('link' in props)) {
     			console_1$1.warn("<Card> was created without expected prop 'link'");
     		}
 
-    		if (/*name*/ ctx[2] === undefined && !("name" in props)) {
+    		if (/*name*/ ctx[2] === undefined && !('name' in props)) {
     			console_1$1.warn("<Card> was created without expected prop 'name'");
     		}
     	}
@@ -17966,7 +18413,7 @@ var app = (function () {
     	}
     }
 
-    /* src\components\Loading.svelte generated by Svelte v3.35.0 */
+    /* src\components\Loading.svelte generated by Svelte v3.46.4 */
 
     const file$3 = "src\\components\\Loading.svelte";
 
@@ -18026,15 +18473,15 @@ var app = (function () {
     			add_location(h1, file$3, 6, 0, 104);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div0);
-    			append_dev(div3, t0);
-    			append_dev(div3, div1);
-    			append_dev(div3, t1);
-    			append_dev(div3, div2);
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, h1, anchor);
-    			append_dev(h1, t3);
+    			insert_hydration_dev(target, div3, anchor);
+    			append_hydration_dev(div3, div0);
+    			append_hydration_dev(div3, t0);
+    			append_hydration_dev(div3, div1);
+    			append_hydration_dev(div3, t1);
+    			append_hydration_dev(div3, div2);
+    			insert_hydration_dev(target, t2, anchor);
+    			insert_hydration_dev(target, h1, anchor);
+    			append_hydration_dev(h1, t3);
     		},
     		p: noop,
     		i: noop,
@@ -18059,11 +18506,11 @@ var app = (function () {
 
     function instance$3($$self, $$props) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Loading", slots, []);
+    	validate_slots('Loading', slots, []);
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Loading> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Loading> was created with unknown prop '${key}'`);
     	});
 
     	return [];
@@ -18083,7 +18530,7 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\Display.svelte generated by Svelte v3.35.0 */
+    /* src\pages\Display.svelte generated by Svelte v3.46.4 */
 
     const { console: console_1 } = globals;
     const file$2 = "src\\pages\\Display.svelte";
@@ -18123,13 +18570,13 @@ var app = (function () {
     			set_style(div0, "margin-left", "50%");
     			set_style(div0, "margin-top", "50vh");
     			set_style(div0, "transform", "translate(-50%,-50%)");
-    			add_location(div0, file$2, 63, 4, 1962);
+    			add_location(div0, file$2, 63, 4, 1965);
     			attr_dev(div1, "class", "row");
-    			add_location(div1, file$2, 62, 2, 1939);
+    			add_location(div1, file$2, 62, 2, 1942);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, div0);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, div0);
     			mount_component(loading, div0, null);
     			current = true;
     		},
@@ -18221,7 +18668,7 @@ var app = (function () {
     			div4 = element("div");
     			div0 = element("div");
     			h50 = element("h5");
-    			t1 = text("Profile Details");
+    			t1 = text("Detalhes do Perfil");
     			t2 = space();
     			div3 = element("div");
     			img = element("img");
@@ -18263,7 +18710,7 @@ var app = (function () {
     			var div0_nodes = children(div0);
     			h50 = claim_element(div0_nodes, "H5", { class: true });
     			var h50_nodes = children(h50);
-    			t1 = claim_text(h50_nodes, "Profile Details");
+    			t1 = claim_text(h50_nodes, "Detalhes do Perfil");
     			h50_nodes.forEach(detach_dev);
     			div0_nodes.forEach(detach_dev);
     			t2 = claim_space(div4_nodes);
@@ -18322,24 +18769,24 @@ var app = (function () {
     			add_location(h50, file$2, 30, 12, 965);
     			attr_dev(div0, "class", "card-header");
     			add_location(div0, file$2, 29, 10, 926);
-    			if (img.src !== (img_src_value = /*user*/ ctx[1].dp)) attr_dev(img, "src", img_src_value);
+    			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[1].dp)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[1].instagram);
     			attr_dev(img, "class", "img-fluid rounded-circle mb-2");
     			attr_dev(img, "width", "128");
     			attr_dev(img, "height", "128");
-    			add_location(img, file$2, 33, 12, 1092);
+    			add_location(img, file$2, 33, 12, 1095);
     			attr_dev(h51, "class", "card-title mb-0");
-    			add_location(h51, file$2, 40, 12, 1299);
+    			add_location(h51, file$2, 40, 12, 1302);
     			attr_dev(div1, "class", "text-muted mb-2");
-    			add_location(div1, file$2, 41, 12, 1362);
+    			add_location(div1, file$2, 41, 12, 1365);
     			attr_dev(span, "data-feather", "instagram");
-    			add_location(span, file$2, 47, 17, 1604);
+    			add_location(span, file$2, 47, 17, 1607);
     			attr_dev(a, "class", "btn btn-danger btn-sm");
     			attr_dev(a, "href", a_href_value = "https://www.instagram.com/" + /*user*/ ctx[1].instagram + "/");
-    			add_location(a, file$2, 44, 14, 1460);
-    			add_location(div2, file$2, 43, 12, 1439);
+    			add_location(a, file$2, 44, 14, 1463);
+    			add_location(div2, file$2, 43, 12, 1442);
     			attr_dev(div3, "class", "card-body text-center");
-    			add_location(div3, file$2, 32, 10, 1043);
+    			add_location(div3, file$2, 32, 10, 1046);
     			attr_dev(div4, "class", "card mb-2");
     			set_style(div4, "min-width", "300px");
     			add_location(div4, file$2, 28, 8, 867);
@@ -18348,50 +18795,50 @@ var app = (function () {
     			add_location(div5, file$2, 27, 6, 809);
     			attr_dev(div6, "class", "row");
     			set_style(div6, "justify-content", "center");
-    			add_location(div6, file$2, 53, 6, 1742);
+    			add_location(div6, file$2, 53, 6, 1745);
     			attr_dev(div7, "class", "content");
     			add_location(div7, file$2, 26, 4, 780);
     			attr_dev(div8, "class", "main");
     			add_location(div8, file$2, 24, 2, 739);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div8, anchor);
+    			insert_hydration_dev(target, div8, anchor);
     			mount_component(homenav, div8, null);
-    			append_dev(div8, t0);
-    			append_dev(div8, div7);
-    			append_dev(div7, div5);
-    			append_dev(div5, div4);
-    			append_dev(div4, div0);
-    			append_dev(div0, h50);
-    			append_dev(h50, t1);
-    			append_dev(div4, t2);
-    			append_dev(div4, div3);
-    			append_dev(div3, img);
-    			append_dev(div3, t3);
-    			append_dev(div3, h51);
-    			append_dev(h51, t4);
-    			append_dev(div3, t5);
-    			append_dev(div3, div1);
-    			append_dev(div1, t6);
-    			append_dev(div1, t7);
-    			append_dev(div3, t8);
-    			append_dev(div3, div2);
-    			append_dev(div2, a);
-    			append_dev(a, span);
-    			append_dev(a, t9);
-    			append_dev(div7, t10);
-    			append_dev(div7, div6);
+    			append_hydration_dev(div8, t0);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, div0);
+    			append_hydration_dev(div0, h50);
+    			append_hydration_dev(h50, t1);
+    			append_hydration_dev(div4, t2);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, img);
+    			append_hydration_dev(div3, t3);
+    			append_hydration_dev(div3, h51);
+    			append_hydration_dev(h51, t4);
+    			append_hydration_dev(div3, t5);
+    			append_hydration_dev(div3, div1);
+    			append_hydration_dev(div1, t6);
+    			append_hydration_dev(div1, t7);
+    			append_hydration_dev(div3, t8);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, a);
+    			append_hydration_dev(a, span);
+    			append_hydration_dev(a, t9);
+    			append_hydration_dev(div7, t10);
+    			append_hydration_dev(div7, div6);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div6, null);
     			}
 
-    			append_dev(div8, t11);
+    			append_hydration_dev(div8, t11);
     			mount_component(footer, div8, null);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (!current || dirty & /*user*/ 2 && img.src !== (img_src_value = /*user*/ ctx[1].dp)) {
+    			if (!current || dirty & /*user*/ 2 && !src_url_equal(img.src, img_src_value = /*user*/ ctx[1].dp)) {
     				attr_dev(img, "src", img_src_value);
     			}
 
@@ -18557,7 +19004,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			if_blocks[current_block_type_index].m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -18615,7 +19062,7 @@ var app = (function () {
 
     function instance$2($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Display", slots, []);
+    	validate_slots('Display', slots, []);
     	let { name } = $$props;
     	let user;
     	let links = [];
@@ -18629,14 +19076,14 @@ var app = (function () {
     		axios.post("/api/user/viewadd", { instagram: name }).then(res => console.log("Done"));
     	});
 
-    	const writable_props = ["name"];
+    	const writable_props = ['name'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Display> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<Display> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ("name" in $$props) $$invalidate(0, name = $$props.name);
+    		if ('name' in $$props) $$invalidate(0, name = $$props.name);
     	};
 
     	$$self.$capture_state = () => ({
@@ -18653,9 +19100,9 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("name" in $$props) $$invalidate(0, name = $$props.name);
-    		if ("user" in $$props) $$invalidate(1, user = $$props.user);
-    		if ("links" in $$props) $$invalidate(2, links = $$props.links);
+    		if ('name' in $$props) $$invalidate(0, name = $$props.name);
+    		if ('user' in $$props) $$invalidate(1, user = $$props.user);
+    		if ('links' in $$props) $$invalidate(2, links = $$props.links);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -18680,7 +19127,7 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*name*/ ctx[0] === undefined && !("name" in props)) {
+    		if (/*name*/ ctx[0] === undefined && !('name' in props)) {
     			console_1.warn("<Display> was created without expected prop 'name'");
     		}
     	}
@@ -18694,7 +19141,7 @@ var app = (function () {
     	}
     }
 
-    /* src\pages\Page404.svelte generated by Svelte v3.35.0 */
+    /* src\pages\Page404.svelte generated by Svelte v3.46.4 */
 
     const file$1 = "src\\pages\\Page404.svelte";
 
@@ -18731,13 +19178,13 @@ var app = (function () {
     			t0 = text("404");
     			t1 = space();
     			p0 = element("p");
-    			t2 = text("Page not found.");
+    			t2 = text("Página não encontrada.");
     			t3 = space();
     			p1 = element("p");
-    			t4 = text("The page you are looking for might have been removed.");
+    			t4 = text("A página que você está procurando pode ter sido removida.");
     			t5 = space();
     			a = element("a");
-    			t6 = text("Return to website");
+    			t6 = text("Voltar para o Início");
     			this.h();
     		},
     		l: function claim(nodes) {
@@ -18762,17 +19209,17 @@ var app = (function () {
     			t1 = claim_space(div0_nodes);
     			p0 = claim_element(div0_nodes, "P", { class: true });
     			var p0_nodes = children(p0);
-    			t2 = claim_text(p0_nodes, "Page not found.");
+    			t2 = claim_text(p0_nodes, "Página não encontrada.");
     			p0_nodes.forEach(detach_dev);
     			t3 = claim_space(div0_nodes);
     			p1 = claim_element(div0_nodes, "P", { class: true });
     			var p1_nodes = children(p1);
-    			t4 = claim_text(p1_nodes, "The page you are looking for might have been removed.");
+    			t4 = claim_text(p1_nodes, "A página que você está procurando pode ter sido removida.");
     			p1_nodes.forEach(detach_dev);
     			t5 = claim_space(div0_nodes);
     			a = claim_element(div0_nodes, "A", { href: true, class: true });
     			var a_nodes = children(a);
-    			t6 = claim_text(a_nodes, "Return to website");
+    			t6 = claim_text(a_nodes, "Voltar para o Início");
     			a_nodes.forEach(detach_dev);
     			div0_nodes.forEach(detach_dev);
     			div1_nodes.forEach(detach_dev);
@@ -18789,10 +19236,10 @@ var app = (function () {
     			attr_dev(p0, "class", "h1");
     			add_location(p0, file$1, 8, 14, 412);
     			attr_dev(p1, "class", "h2 font-weight-normal mt-3 mb-4");
-    			add_location(p1, file$1, 9, 14, 461);
+    			add_location(p1, file$1, 9, 14, 468);
     			attr_dev(a, "href", "/");
     			attr_dev(a, "class", "btn btn-primary btn-lg");
-    			add_location(a, file$1, 12, 14, 611);
+    			add_location(a, file$1, 12, 14, 623);
     			attr_dev(div0, "class", "text-center");
     			add_location(div0, file$1, 6, 12, 308);
     			attr_dev(div1, "class", "d-table-cell align-middle");
@@ -18809,24 +19256,24 @@ var app = (function () {
     			add_location(div5, file$1, 0, 0, 0);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div5, anchor);
-    			append_dev(div5, main);
-    			append_dev(main, div4);
-    			append_dev(div4, div3);
-    			append_dev(div3, div2);
-    			append_dev(div2, div1);
-    			append_dev(div1, div0);
-    			append_dev(div0, h1);
-    			append_dev(h1, t0);
-    			append_dev(div0, t1);
-    			append_dev(div0, p0);
-    			append_dev(p0, t2);
-    			append_dev(div0, t3);
-    			append_dev(div0, p1);
-    			append_dev(p1, t4);
-    			append_dev(div0, t5);
-    			append_dev(div0, a);
-    			append_dev(a, t6);
+    			insert_hydration_dev(target, div5, anchor);
+    			append_hydration_dev(div5, main);
+    			append_hydration_dev(main, div4);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p0);
+    			append_hydration_dev(p0, t2);
+    			append_hydration_dev(div0, t3);
+    			append_hydration_dev(div0, p1);
+    			append_hydration_dev(p1, t4);
+    			append_hydration_dev(div0, t5);
+    			append_hydration_dev(div0, a);
+    			append_hydration_dev(a, t6);
     		},
     		p: noop,
     		i: noop,
@@ -18849,11 +19296,11 @@ var app = (function () {
 
     function instance$1($$self, $$props) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("Page404", slots, []);
+    	validate_slots('Page404', slots, []);
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Page404> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Page404> was created with unknown prop '${key}'`);
     	});
 
     	return [];
@@ -18873,7 +19320,7 @@ var app = (function () {
     	}
     }
 
-    /* src\App.svelte generated by Svelte v3.35.0 */
+    /* src\App.svelte generated by Svelte v3.46.4 */
     const file = "src\\App.svelte";
 
     // (17:4) <Route path="/">
@@ -19113,25 +19560,25 @@ var app = (function () {
     			add_location(div, file, 15, 2, 573);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
+    			insert_hydration_dev(target, div, anchor);
     			mount_component(route0, div, null);
-    			append_dev(div, t0);
+    			append_hydration_dev(div, t0);
     			mount_component(route1, div, null);
-    			append_dev(div, t1);
+    			append_hydration_dev(div, t1);
     			mount_component(route2, div, null);
-    			append_dev(div, t2);
+    			append_hydration_dev(div, t2);
     			mount_component(route3, div, null);
-    			append_dev(div, t3);
+    			append_hydration_dev(div, t3);
     			mount_component(route4, div, null);
-    			append_dev(div, t4);
+    			append_hydration_dev(div, t4);
     			mount_component(route5, div, null);
-    			append_dev(div, t5);
+    			append_hydration_dev(div, t5);
     			mount_component(route6, div, null);
-    			append_dev(div, t6);
+    			append_hydration_dev(div, t6);
     			mount_component(route7, div, null);
-    			append_dev(div, t7);
+    			append_hydration_dev(div, t7);
     			mount_component(route8, div, null);
-    			append_dev(div, t8);
+    			append_hydration_dev(div, t8);
     			mount_component(route9, div, null);
     			current = true;
     		},
@@ -19265,16 +19712,16 @@ var app = (function () {
 
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("App", slots, []);
+    	validate_slots('App', slots, []);
     	let { url = "" } = $$props;
-    	const writable_props = ["url"];
+    	const writable_props = ['url'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<App> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ("url" in $$props) $$invalidate(0, url = $$props.url);
+    		if ('url' in $$props) $$invalidate(0, url = $$props.url);
     	};
 
     	$$self.$capture_state = () => ({
@@ -19294,7 +19741,7 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("url" in $$props) $$invalidate(0, url = $$props.url);
+    		if ('url' in $$props) $$invalidate(0, url = $$props.url);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -19333,5 +19780,5 @@ var app = (function () {
 
     return app;
 
-}());
+})();
 //# sourceMappingURL=bundle.js.map

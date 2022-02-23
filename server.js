@@ -11,7 +11,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const connect = mongoose
   .connect(config.mongouri, {
-    useFindAndModify: false,
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
