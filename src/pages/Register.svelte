@@ -46,7 +46,7 @@
         return response.json();
       })
       .then(function (data) {
-        mssg = "Sussessfully registered";
+        mssg = "Registrado com Sucesso";
         status = 0;
         userStore.update((currUser) => {
           return { token: data.token, user: data.user };
