@@ -12,7 +12,7 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Search your links…"
+        placeholder="Pesquisar"
         aria-label="Search"
       />
       <div class="input-group-append">
@@ -146,17 +146,17 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item" href="/{user.instagram}"
-            ><i class="align-middle mr-1" data-feather="user" /> Profile</a
+            ><i class="align-middle mr-1" data-feather="user" /> Perfil</a
           >
           <a class="dropdown-item" href="/dashboard"
-            ><i class="align-middle mr-1" data-feather="pie-chart" /> Dashboard</a
+            ><i class="align-middle mr-1" data-feather="pie-chart" /> Principa</a
           >
           <div class="dropdown-divider" />
           <a class="dropdown-item" href="/settings"
-            >Settings & Privacy</a
+            >Configurações e Privacidade</a
           >
-          <a class="dropdown-item" href="/copyright">Help</a>
-          <a class="dropdown-item" href="/">Sign out</a>
+          <a class="dropdown-item" href="/copyright">Ajuda</a>
+          <a class="dropdown-item" href="/">Sair</a>
         </div>
       </li>
     </ul>

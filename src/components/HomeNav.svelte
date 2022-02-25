@@ -2,10 +2,10 @@
   <div class="container">
     <a class="navbar-brand landing-brand" href="/">
       <img src="/img/link.png" alt="LnkInBio" height="34px" />
-      LnkInBio
+      Automaqui
     </a>
 
-    <ul class="navbar-nav ml-auto">
+    <!-- <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
         <a
           class="nav-link text-lg px-lg-3"
@@ -16,18 +16,18 @@
           <span class="d-none d-md-inline-block">GitHub</span>
         </a>
       </li>
-      <!-- <li class="nav-item active d-none d-md-inline-block">
+      <li class="nav-item active d-none d-md-inline-block">
               <a
                 class="nav-link text-lg px-lg-3"
                 href="mailto:support@bootlab.io"
                 target="_blank">Support</a
               >
-            </li> -->
-    </ul>
+            </li>
+    </ul> -->
     <a
       href="/register"
       target="_blank"
-      class="btn btn-lg btn-success my-2 my-sm-0 ml-3">Register</a
+      class="btn btn-lg btn-success my-2 my-sm-0 ml-3">Registrar</a
     >
   </div>
 </nav>

@@ -144,8 +144,8 @@
                   style="display:flex;flex-direction:column;justify-content:center;align-items:center"
                 >
                   <img alt="" src="img/upload.png" width="300px" />
-                  <h1>Upload your first link</h1>
-                  <a href="/addlink" class="btn btn-primary">Add Link</a>
+                  <h1>Crie seu primeiro Produto ou Serviço</h1>
+                  <a href="/addlink" class="btn btn-primary">Criar</a>
                 </div>
               {/each}
             </div>
@@ -166,7 +166,7 @@
 
               <input
                 type="text"
-                value={`https://lnkinbio.herokuapp.com/${user.instagram}`}
+                value={`https://automaqui.com.br/${user.instagram}`}
                 id="myInput"
                 style="border:none;width:100%;text-align:center;margin:5px;pointer-events:none;"
               />
@@ -177,13 +177,13 @@
                   on:mouseout={outFunc}
                 >
                   <span class="tooltiptext" id="myTooltip"
-                    >Copy to clipboard</span
+                    >Copiar Link</span
                   >
-                  Copy text
+                  Copiar
                 </button>
               </div>
               <div class="text-muted mb-2">
-                Links Uploaded : {user.total_links || 0}
+                Total de Produtos e Serviços oferecidos : {user.total_links || 0}
               </div>
 
               <div>
@@ -191,7 +191,7 @@
                   class="btn btn-primary btn-sm"
                   use:link
                   replace
-                  href="/addlink">Add link</a
+                  href="/addlink">Adicionar Produto/Serviço</a
                 >
                 <a
                   class="btn btn-danger btn-sm"
@@ -220,12 +220,12 @@
                   </div>
                 </div>
               </div>
-              <h5 class="card-title mb-0">Analytics</h5>
+              <h5 class="card-title mb-0">Estatísticas</h5>
             </div>
             <div class="card-body">
               <div class="media">
                 <div class="media-body">
-                  <p class="my-1"><strong>Total number of visits</strong></p>
+                  <p class="my-1"><strong>Total de visitas</strong></p>
                   <p class="text-info">{user.views}</p>
                 </div>
               </div>
@@ -234,7 +234,7 @@
 
               <div class="media">
                 <div class="media-body">
-                  <p class="my-1"><strong>Total number of clicks</strong></p>
+                  <p class="my-1"><strong>Total de Cliques</strong></p>
                   <p class="text-warning">{clicks}</p>
                 </div>
               </div>

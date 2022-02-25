@@ -67,8 +67,8 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
           <div class="align-middle">
             <div class="text-center mt-4">
-              <h1 class="h2">Welcome back</h1>
-              <p class="lead">Sign in to your account to continue</p>
+              <h1 class="h2">Bem vindo novamente</h1>
+              <p class="lead">Entre com sua conta para continuar</p>
             </div>
 
             <div class="card">
@@ -77,7 +77,7 @@
                   <div class="text-center">
                     {#if loading}
                       <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
+                        <span class="sr-only">Carregando...</span>
                       </div>
                     {:else}
                       <img
@@ -99,20 +99,20 @@
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={user.instagram}
-                        placeholder="kvssankar"
+                        placeholder="usuario"
                       />
                     </div>
                     <div class="form-group">
-                      <label for="">Password</label>
+                      <label for="">Senha</label>
                       <input
                         class="form-control form-control-lg"
                         type="password"
                         bind:value={user.password}
-                        placeholder="Enter your password"
+                        placeholder="senha"
                       />
                       <small>
                         <a use:link replace href="/resetpassword"
-                          >Forgot password?</a
+                          >Esqueceu a senha?</a
                         >
                       </small>
                     </div>
@@ -128,12 +128,12 @@
                           checked
                         />
                         <label for="" class="custom-control-label text-small"
-                          >Remember me next time</label
+                          >Lembrar</label
                         >
                       </div>
                     </div>
                     <div class="text-center mt-3">
-                      <button class="btn btn-lg btn-primary">Sign in</button>
+                      <button class="btn btn-lg btn-primary">Entrar</button>
                     </div>
                   </form>
                 </div>

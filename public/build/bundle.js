@@ -2480,17 +2480,8 @@ var app = (function () {
     	let img_src_value;
     	let t0;
     	let t1;
-    	let ul;
-    	let li;
     	let a1;
-    	let span0;
     	let t2;
-    	let t3;
-    	let span1;
-    	let t4;
-    	let t5;
-    	let a2;
-    	let t6;
 
     	const block = {
     		c: function create() {
@@ -2498,19 +2489,10 @@ var app = (function () {
     			div = element("div");
     			a0 = element("a");
     			img = element("img");
-    			t0 = text("\r\n      LnkInBio");
+    			t0 = text("\r\n      Automaqui");
     			t1 = space();
-    			ul = element("ul");
-    			li = element("li");
     			a1 = element("a");
-    			span0 = element("span");
-    			t2 = text("GitHub");
-    			t3 = space();
-    			span1 = element("span");
-    			t4 = text("GitHub");
-    			t5 = space();
-    			a2 = element("a");
-    			t6 = text("Register");
+    			t2 = text("Registrar");
     			this.h();
     		},
     		l: function claim(nodes) {
@@ -2521,32 +2503,13 @@ var app = (function () {
     			a0 = claim_element(div_nodes, "A", { class: true, href: true });
     			var a0_nodes = children(a0);
     			img = claim_element(a0_nodes, "IMG", { src: true, alt: true, height: true });
-    			t0 = claim_text(a0_nodes, "\r\n      LnkInBio");
+    			t0 = claim_text(a0_nodes, "\r\n      Automaqui");
     			a0_nodes.forEach(detach_dev);
     			t1 = claim_space(div_nodes);
-    			ul = claim_element(div_nodes, "UL", { class: true });
-    			var ul_nodes = children(ul);
-    			li = claim_element(ul_nodes, "LI", { class: true });
-    			var li_nodes = children(li);
-    			a1 = claim_element(li_nodes, "A", { class: true, href: true, target: true });
+    			a1 = claim_element(div_nodes, "A", { href: true, target: true, class: true });
     			var a1_nodes = children(a1);
-    			span0 = claim_element(a1_nodes, "SPAN", { class: true });
-    			var span0_nodes = children(span0);
-    			t2 = claim_text(span0_nodes, "GitHub");
-    			span0_nodes.forEach(detach_dev);
-    			t3 = claim_space(a1_nodes);
-    			span1 = claim_element(a1_nodes, "SPAN", { class: true });
-    			var span1_nodes = children(span1);
-    			t4 = claim_text(span1_nodes, "GitHub");
-    			span1_nodes.forEach(detach_dev);
+    			t2 = claim_text(a1_nodes, "Registrar");
     			a1_nodes.forEach(detach_dev);
-    			li_nodes.forEach(detach_dev);
-    			ul_nodes.forEach(detach_dev);
-    			t5 = claim_space(div_nodes);
-    			a2 = claim_element(div_nodes, "A", { href: true, target: true, class: true });
-    			var a2_nodes = children(a2);
-    			t6 = claim_text(a2_nodes, "Register");
-    			a2_nodes.forEach(detach_dev);
     			div_nodes.forEach(detach_dev);
     			nav_nodes.forEach(detach_dev);
     			this.h();
@@ -2559,22 +2522,10 @@ var app = (function () {
     			attr_dev(a0, "class", "navbar-brand landing-brand");
     			attr_dev(a0, "href", "/");
     			add_location(a0, file$i, 2, 4, 98);
-    			attr_dev(span0, "class", "d-inline-block d-md-none");
-    			add_location(span0, file$i, 14, 10, 463);
-    			attr_dev(span1, "class", "d-none d-md-inline-block");
-    			add_location(span1, file$i, 15, 10, 527);
-    			attr_dev(a1, "class", "nav-link text-lg px-lg-3");
-    			attr_dev(a1, "href", "https://github.com/kvssankar");
+    			attr_dev(a1, "href", "/register");
     			attr_dev(a1, "target", "_blank");
-    			add_location(a1, file$i, 9, 8, 320);
-    			attr_dev(li, "class", "nav-item active");
-    			add_location(li, file$i, 8, 6, 282);
-    			attr_dev(ul, "class", "navbar-nav ml-auto");
-    			add_location(ul, file$i, 7, 4, 243);
-    			attr_dev(a2, "href", "/register");
-    			attr_dev(a2, "target", "_blank");
-    			attr_dev(a2, "class", "btn btn-lg btn-success my-2 my-sm-0 ml-3");
-    			add_location(a2, file$i, 26, 4, 891);
+    			attr_dev(a1, "class", "btn btn-lg btn-success my-2 my-sm-0 ml-3");
+    			add_location(a1, file$i, 26, 4, 892);
     			attr_dev(div, "class", "container");
     			add_location(div, file$i, 1, 2, 69);
     			attr_dev(nav, "class", "navbar navbar-expand-md navbar-light landing-navbar");
@@ -2587,17 +2538,8 @@ var app = (function () {
     			append_hydration_dev(a0, img);
     			append_hydration_dev(a0, t0);
     			append_hydration_dev(div, t1);
-    			append_hydration_dev(div, ul);
-    			append_hydration_dev(ul, li);
-    			append_hydration_dev(li, a1);
-    			append_hydration_dev(a1, span0);
-    			append_hydration_dev(span0, t2);
-    			append_hydration_dev(a1, t3);
-    			append_hydration_dev(a1, span1);
-    			append_hydration_dev(span1, t4);
-    			append_hydration_dev(div, t5);
-    			append_hydration_dev(div, a2);
-    			append_hydration_dev(a2, t6);
+    			append_hydration_dev(div, a1);
+    			append_hydration_dev(a1, t2);
     		},
     		p: noop,
     		i: noop,
@@ -2662,19 +2604,11 @@ var app = (function () {
     	let a1;
     	let t2;
     	let t3;
-    	let li2;
-    	let a2;
-    	let t4;
-    	let t5;
-    	let li3;
-    	let a3;
-    	let t6;
-    	let t7;
     	let div1;
     	let p;
-    	let t8;
-    	let a4;
-    	let t9;
+    	let t4;
+    	let a2;
+    	let t5;
 
     	const block = {
     		c: function create() {
@@ -2689,21 +2623,13 @@ var app = (function () {
     			t1 = space();
     			li1 = element("li");
     			a1 = element("a");
-    			t2 = text("Linkedin");
+    			t2 = text("Termos");
     			t3 = space();
-    			li2 = element("li");
-    			a2 = element("a");
-    			t4 = text("Instagram");
-    			t5 = space();
-    			li3 = element("li");
-    			a3 = element("a");
-    			t6 = text("Terms of Service");
-    			t7 = space();
     			div1 = element("div");
     			p = element("p");
-    			t8 = text("Made with ❤ by ");
-    			a4 = element("a");
-    			t9 = text("KvsSankar");
+    			t4 = text("Feito por ");
+    			a2 = element("a");
+    			t5 = text("Douglas Monteiro");
     			this.h();
     		},
     		l: function claim(nodes) {
@@ -2729,37 +2655,21 @@ var app = (function () {
     			var li1_nodes = children(li1);
     			a1 = claim_element(li1_nodes, "A", { class: true, href: true });
     			var a1_nodes = children(a1);
-    			t2 = claim_text(a1_nodes, "Linkedin");
+    			t2 = claim_text(a1_nodes, "Termos");
     			a1_nodes.forEach(detach_dev);
     			li1_nodes.forEach(detach_dev);
-    			t3 = claim_space(ul_nodes);
-    			li2 = claim_element(ul_nodes, "LI", { class: true });
-    			var li2_nodes = children(li2);
-    			a2 = claim_element(li2_nodes, "A", { class: true, href: true });
-    			var a2_nodes = children(a2);
-    			t4 = claim_text(a2_nodes, "Instagram");
-    			a2_nodes.forEach(detach_dev);
-    			li2_nodes.forEach(detach_dev);
-    			t5 = claim_space(ul_nodes);
-    			li3 = claim_element(ul_nodes, "LI", { class: true });
-    			var li3_nodes = children(li3);
-    			a3 = claim_element(li3_nodes, "A", { class: true, href: true });
-    			var a3_nodes = children(a3);
-    			t6 = claim_text(a3_nodes, "Terms of Service");
-    			a3_nodes.forEach(detach_dev);
-    			li3_nodes.forEach(detach_dev);
     			ul_nodes.forEach(detach_dev);
     			div0_nodes.forEach(detach_dev);
-    			t7 = claim_space(div2_nodes);
+    			t3 = claim_space(div2_nodes);
     			div1 = claim_element(div2_nodes, "DIV", { class: true });
     			var div1_nodes = children(div1);
     			p = claim_element(div1_nodes, "P", { class: true });
     			var p_nodes = children(p);
-    			t8 = claim_text(p_nodes, "Made with ❤ by ");
-    			a4 = claim_element(p_nodes, "A", { href: true });
-    			var a4_nodes = children(a4);
-    			t9 = claim_text(a4_nodes, "KvsSankar");
-    			a4_nodes.forEach(detach_dev);
+    			t4 = claim_text(p_nodes, "Feito por ");
+    			a2 = claim_element(p_nodes, "A", { href: true });
+    			var a2_nodes = children(a2);
+    			t5 = claim_text(a2_nodes, "Douglas Monteiro");
+    			a2_nodes.forEach(detach_dev);
     			p_nodes.forEach(detach_dev);
     			div1_nodes.forEach(detach_dev);
     			div2_nodes.forEach(detach_dev);
@@ -2769,35 +2679,25 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(a0, "class", "text-muted");
-    			attr_dev(a0, "href", "https://github.com/kvssankar");
+    			attr_dev(a0, "href", "https://github.com/douglasmonteiro-dev");
     			add_location(a0, file$h, 6, 12, 216);
     			attr_dev(li0, "class", "list-inline-item");
     			add_location(li0, file$h, 5, 10, 173);
     			attr_dev(a1, "class", "text-muted");
-    			attr_dev(a1, "href", "https://www.linkedin.com/in/sankarkvs/");
-    			add_location(a1, file$h, 9, 12, 356);
+    			attr_dev(a1, "href", "/");
+    			add_location(a1, file$h, 15, 12, 675);
     			attr_dev(li1, "class", "list-inline-item");
-    			add_location(li1, file$h, 8, 10, 313);
-    			attr_dev(a2, "class", "text-muted");
-    			attr_dev(a2, "href", "https://www.instagram.com/kvs_sk/");
-    			add_location(a2, file$h, 12, 12, 508);
-    			attr_dev(li2, "class", "list-inline-item");
-    			add_location(li2, file$h, 11, 10, 465);
-    			attr_dev(a3, "class", "text-muted");
-    			attr_dev(a3, "href", "/");
-    			add_location(a3, file$h, 15, 12, 656);
-    			attr_dev(li3, "class", "list-inline-item");
-    			add_location(li3, file$h, 14, 10, 613);
+    			add_location(li1, file$h, 14, 10, 632);
     			attr_dev(ul, "class", "list-inline");
     			add_location(ul, file$h, 4, 8, 137);
     			attr_dev(div0, "class", "col-6 text-left");
     			add_location(div0, file$h, 3, 6, 98);
-    			attr_dev(a4, "href", "https://itsmesankar.herokuapp.com/");
-    			add_location(a4, file$h, 21, 25, 844);
+    			attr_dev(a2, "href", "https://new-portfolio.dgsmonteiro.vercel.app/");
+    			add_location(a2, file$h, 21, 20, 848);
     			attr_dev(p, "class", "mb-0");
-    			add_location(p, file$h, 20, 8, 801);
+    			add_location(p, file$h, 20, 8, 810);
     			attr_dev(div1, "class", "col-6 text-right");
-    			add_location(div1, file$h, 19, 6, 761);
+    			add_location(div1, file$h, 19, 6, 770);
     			attr_dev(div2, "class", "row text-muted");
     			add_location(div2, file$h, 2, 4, 62);
     			attr_dev(div3, "class", "container-fluid");
@@ -2818,20 +2718,12 @@ var app = (function () {
     			append_hydration_dev(ul, li1);
     			append_hydration_dev(li1, a1);
     			append_hydration_dev(a1, t2);
-    			append_hydration_dev(ul, t3);
-    			append_hydration_dev(ul, li2);
-    			append_hydration_dev(li2, a2);
-    			append_hydration_dev(a2, t4);
-    			append_hydration_dev(ul, t5);
-    			append_hydration_dev(ul, li3);
-    			append_hydration_dev(li3, a3);
-    			append_hydration_dev(a3, t6);
-    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, t3);
     			append_hydration_dev(div2, div1);
     			append_hydration_dev(div1, p);
-    			append_hydration_dev(p, t8);
-    			append_hydration_dev(p, a4);
-    			append_hydration_dev(a4, t9);
+    			append_hydration_dev(p, t4);
+    			append_hydration_dev(p, a2);
+    			append_hydration_dev(a2, t5);
     		},
     		p: noop,
     		i: noop,
@@ -2932,14 +2824,14 @@ var app = (function () {
     			t1 = text("v1.0.0");
     			t2 = space();
     			h1 = element("h1");
-    			t3 = text("Adicione vários links a sua bio do Instagram");
+    			t3 = text("Somos inovação em atendimento de comércio e serviços");
     			t4 = space();
     			p = element("p");
-    			t5 = text("Já tentou mudar o link na bio do seu instagram ?? Não mais !! ");
+    			t5 = text("Ta cansado de procurar um site para o sua empresa ?? Não mais !! ");
     			br0 = element("br");
-    			t6 = text("\r\n           Exiba todos os seus links em uma página com um URL personalizado.\r\n           ");
+    			t6 = text("\r\n           Chegou o mais novo sistema de automação online que te disponibiliza uma página online.\r\n           ");
     			br1 = element("br");
-    			t7 = text(" Este site possui painel personalizado para adicionar, excluir e editar\r\n           seus links.");
+    			t7 = text(" Chega de tentar procurar um criador de sites, disponibilize com facilidade seu produto ou serviço para seus clientes.");
     			t8 = space();
     			div0 = element("div");
     			a0 = element("a");
@@ -2973,16 +2865,16 @@ var app = (function () {
     			t2 = claim_space(div1_nodes);
     			h1 = claim_element(div1_nodes, "H1", { class: true });
     			var h1_nodes = children(h1);
-    			t3 = claim_text(h1_nodes, "Adicione vários links a sua bio do Instagram");
+    			t3 = claim_text(h1_nodes, "Somos inovação em atendimento de comércio e serviços");
     			h1_nodes.forEach(detach_dev);
     			t4 = claim_space(div1_nodes);
     			p = claim_element(div1_nodes, "P", { class: true });
     			var p_nodes = children(p);
-    			t5 = claim_text(p_nodes, "Já tentou mudar o link na bio do seu instagram ?? Não mais !! ");
+    			t5 = claim_text(p_nodes, "Ta cansado de procurar um site para o sua empresa ?? Não mais !! ");
     			br0 = claim_element(p_nodes, "BR", {});
-    			t6 = claim_text(p_nodes, "\r\n           Exiba todos os seus links em uma página com um URL personalizado.\r\n           ");
+    			t6 = claim_text(p_nodes, "\r\n           Chegou o mais novo sistema de automação online que te disponibiliza uma página online.\r\n           ");
     			br1 = claim_element(p_nodes, "BR", {});
-    			t7 = claim_text(p_nodes, " Este site possui painel personalizado para adicionar, excluir e editar\r\n           seus links.");
+    			t7 = claim_text(p_nodes, " Chega de tentar procurar um criador de sites, disponibilize com facilidade seu produto ou serviço para seus clientes.");
     			p_nodes.forEach(detach_dev);
     			t8 = claim_space(div1_nodes);
     			div0 = claim_element(div1_nodes, "DIV", { class: true });
@@ -3018,30 +2910,30 @@ var app = (function () {
     			add_location(span, file$g, 13, 8, 441);
     			attr_dev(h1, "class", "my-4");
     			add_location(h1, file$g, 15, 8, 509);
-    			add_location(br0, file$g, 18, 72, 680);
-    			add_location(br1, file$g, 20, 11, 776);
+    			add_location(br0, file$g, 18, 75, 692);
+    			add_location(br1, file$g, 20, 11, 809);
     			attr_dev(p, "class", "text-lg");
-    			add_location(p, file$g, 17, 8, 587);
+    			add_location(p, file$g, 17, 8, 596);
     			attr_dev(a0, "href", "/register");
     			attr_dev(a0, "replace", "");
     			attr_dev(a0, "class", "btn btn-primary btn-lg mr-1");
-    			add_location(a0, file$g, 39, 10, 1464);
+    			add_location(a0, file$g, 38, 10, 1520);
     			attr_dev(a1, "href", "/login");
     			attr_dev(a1, "replace", "");
     			attr_dev(a1, "class", "btn btn-outline-primary btn-lg mr-1");
-    			add_location(a1, file$g, 45, 10, 1622);
+    			add_location(a1, file$g, 44, 10, 1678);
     			attr_dev(div0, "class", "my-4");
-    			add_location(div0, file$g, 38, 8, 1434);
+    			add_location(div0, file$g, 37, 8, 1490);
     			attr_dev(div1, "class", "col-lg-5 mx-auto");
     			add_location(div1, file$g, 12, 6, 401);
     			if (!src_url_equal(img.src, img_src_value = "img/screenshots/mixed.jpg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Dark/Light Bootstrap Admin Template");
     			attr_dev(img, "class", "img-fluid");
-    			add_location(img, file$g, 56, 10, 1965);
+    			add_location(img, file$g, 55, 10, 2021);
     			attr_dev(div2, "class", "landing-intro-screenshot pb-3");
-    			add_location(div2, file$g, 55, 8, 1910);
+    			add_location(div2, file$g, 54, 8, 1966);
     			attr_dev(div3, "class", "col-lg-7 d-none d-lg-flex mx-auto text-center");
-    			add_location(div3, file$g, 54, 6, 1841);
+    			add_location(div3, file$g, 53, 6, 1897);
     			attr_dev(div4, "class", "row align-items-center");
     			add_location(div4, file$g, 11, 4, 357);
     			attr_dev(div5, "class", "landing-intro-content container");
@@ -5466,7 +5358,7 @@ var app = (function () {
     			attr_dev(img, "class", "img-fluid rounded-circle");
     			attr_dev(img, "width", "132");
     			attr_dev(img, "height", "132");
-    			add_location(img, file$e, 82, 22, 2879);
+    			add_location(img, file$e, 82, 22, 2888);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, img, anchor);
@@ -5502,7 +5394,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			span = element("span");
-    			t = text("Loading...");
+    			t = text("Carregando...");
     			this.h();
     		},
     		l: function claim(nodes) {
@@ -5510,17 +5402,17 @@ var app = (function () {
     			var div_nodes = children(div);
     			span = claim_element(div_nodes, "SPAN", { class: true });
     			var span_nodes = children(span);
-    			t = claim_text(span_nodes, "Loading...");
+    			t = claim_text(span_nodes, "Carregando...");
     			span_nodes.forEach(detach_dev);
     			div_nodes.forEach(detach_dev);
     			this.h();
     		},
     		h: function hydrate() {
     			attr_dev(span, "class", "sr-only");
-    			add_location(span, file$e, 79, 24, 2757);
+    			add_location(span, file$e, 79, 24, 2763);
     			attr_dev(div, "class", "spinner-border text-primary");
     			attr_dev(div, "role", "status");
-    			add_location(div, file$e, 78, 22, 2676);
+    			add_location(div, file$e, 78, 22, 2682);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div, anchor);
@@ -5631,10 +5523,10 @@ var app = (function () {
     			div10 = element("div");
     			div0 = element("div");
     			h1 = element("h1");
-    			t1 = text("Welcome back");
+    			t1 = text("Bem vindo novamente");
     			t2 = space();
     			p = element("p");
-    			t3 = text("Sign in to your account to continue");
+    			t3 = text("Entre com sua conta para continuar");
     			t4 = space();
     			div9 = element("div");
     			div8 = element("div");
@@ -5651,24 +5543,24 @@ var app = (function () {
     			t8 = space();
     			div3 = element("div");
     			label1 = element("label");
-    			t9 = text("Password");
+    			t9 = text("Senha");
     			t10 = space();
     			input1 = element("input");
     			t11 = space();
     			small = element("small");
     			a = element("a");
-    			t12 = text("Forgot password?");
+    			t12 = text("Esqueceu a senha?");
     			t13 = space();
     			div5 = element("div");
     			div4 = element("div");
     			input2 = element("input");
     			t14 = space();
     			label2 = element("label");
-    			t15 = text("Remember me next time");
+    			t15 = text("Lembrar");
     			t16 = space();
     			div6 = element("div");
     			button = element("button");
-    			t17 = text("Sign in");
+    			t17 = text("Entrar");
     			t18 = space();
     			create_component(alert.$$.fragment);
     			t19 = space();
@@ -5694,12 +5586,12 @@ var app = (function () {
     			var div0_nodes = children(div0);
     			h1 = claim_element(div0_nodes, "H1", { class: true });
     			var h1_nodes = children(h1);
-    			t1 = claim_text(h1_nodes, "Welcome back");
+    			t1 = claim_text(h1_nodes, "Bem vindo novamente");
     			h1_nodes.forEach(detach_dev);
     			t2 = claim_space(div0_nodes);
     			p = claim_element(div0_nodes, "P", { class: true });
     			var p_nodes = children(p);
-    			t3 = claim_text(p_nodes, "Sign in to your account to continue");
+    			t3 = claim_text(p_nodes, "Entre com sua conta para continuar");
     			p_nodes.forEach(detach_dev);
     			div0_nodes.forEach(detach_dev);
     			t4 = claim_space(div10_nodes);
@@ -5736,7 +5628,7 @@ var app = (function () {
     			var div3_nodes = children(div3);
     			label1 = claim_element(div3_nodes, "LABEL", { for: true });
     			var label1_nodes = children(label1);
-    			t9 = claim_text(label1_nodes, "Password");
+    			t9 = claim_text(label1_nodes, "Senha");
     			label1_nodes.forEach(detach_dev);
     			t10 = claim_space(div3_nodes);
 
@@ -5751,7 +5643,7 @@ var app = (function () {
     			var small_nodes = children(small);
     			a = claim_element(small_nodes, "A", { replace: true, href: true });
     			var a_nodes = children(a);
-    			t12 = claim_text(a_nodes, "Forgot password?");
+    			t12 = claim_text(a_nodes, "Esqueceu a senha?");
     			a_nodes.forEach(detach_dev);
     			small_nodes.forEach(detach_dev);
     			div3_nodes.forEach(detach_dev);
@@ -5764,7 +5656,7 @@ var app = (function () {
     			t14 = claim_space(div4_nodes);
     			label2 = claim_element(div4_nodes, "LABEL", { for: true, class: true });
     			var label2_nodes = children(label2);
-    			t15 = claim_text(label2_nodes, "Remember me next time");
+    			t15 = claim_text(label2_nodes, "Lembrar");
     			label2_nodes.forEach(detach_dev);
     			div4_nodes.forEach(detach_dev);
     			div5_nodes.forEach(detach_dev);
@@ -5773,7 +5665,7 @@ var app = (function () {
     			var div6_nodes = children(div6);
     			button = claim_element(div6_nodes, "BUTTON", { class: true });
     			var button_nodes = children(button);
-    			t17 = claim_text(button_nodes, "Sign in");
+    			t17 = claim_text(button_nodes, "Entrar");
     			button_nodes.forEach(detach_dev);
     			div6_nodes.forEach(detach_dev);
     			form_nodes.forEach(detach_dev);
@@ -5796,54 +5688,54 @@ var app = (function () {
     			attr_dev(h1, "class", "h2");
     			add_location(h1, file$e, 69, 14, 2338);
     			attr_dev(p, "class", "lead");
-    			add_location(p, file$e, 70, 14, 2386);
+    			add_location(p, file$e, 70, 14, 2393);
     			attr_dev(div0, "class", "text-center mt-4");
     			add_location(div0, file$e, 68, 12, 2292);
     			attr_dev(div1, "class", "text-center");
-    			add_location(div1, file$e, 76, 18, 2592);
+    			add_location(div1, file$e, 76, 18, 2598);
     			attr_dev(label0, "for", "");
-    			add_location(label0, file$e, 93, 22, 3289);
+    			add_location(label0, file$e, 93, 22, 3298);
     			attr_dev(input0, "class", "form-control form-control-lg");
     			attr_dev(input0, "type", "text");
-    			attr_dev(input0, "placeholder", "kvssankar");
-    			add_location(input0, file$e, 94, 22, 3344);
+    			attr_dev(input0, "placeholder", "usuario");
+    			add_location(input0, file$e, 94, 22, 3353);
     			attr_dev(div2, "class", "form-group");
-    			add_location(div2, file$e, 92, 20, 3241);
+    			add_location(div2, file$e, 92, 20, 3250);
     			attr_dev(label1, "for", "");
-    			add_location(label1, file$e, 105, 22, 3800);
+    			add_location(label1, file$e, 105, 22, 3807);
     			attr_dev(input1, "class", "form-control form-control-lg");
     			attr_dev(input1, "type", "password");
-    			attr_dev(input1, "placeholder", "Enter your password");
-    			add_location(input1, file$e, 106, 22, 3854);
+    			attr_dev(input1, "placeholder", "senha");
+    			add_location(input1, file$e, 106, 22, 3858);
     			attr_dev(a, "replace", "");
     			attr_dev(a, "href", "/resetpassword");
-    			add_location(a, file$e, 113, 24, 4157);
-    			add_location(small, file$e, 112, 22, 4124);
+    			add_location(a, file$e, 113, 24, 4147);
+    			add_location(small, file$e, 112, 22, 4114);
     			attr_dev(div3, "class", "form-group");
-    			add_location(div3, file$e, 104, 20, 3752);
+    			add_location(div3, file$e, 104, 20, 3759);
     			attr_dev(input2, "type", "checkbox");
     			attr_dev(input2, "class", "custom-control-input");
     			input2.value = "remember-me";
     			attr_dev(input2, "name", "remember-me");
     			input2.checked = true;
-    			add_location(input2, file$e, 122, 24, 4522);
+    			add_location(input2, file$e, 122, 24, 4513);
     			attr_dev(label2, "for", "");
     			attr_dev(label2, "class", "custom-control-label text-small");
-    			add_location(label2, file$e, 129, 24, 4809);
+    			add_location(label2, file$e, 129, 24, 4800);
     			attr_dev(div4, "class", "custom-control custom-checkbox align-items-center");
-    			add_location(div4, file$e, 119, 22, 4384);
-    			add_location(div5, file$e, 118, 20, 4355);
+    			add_location(div4, file$e, 119, 22, 4375);
+    			add_location(div5, file$e, 118, 20, 4346);
     			attr_dev(button, "class", "btn btn-lg btn-primary");
-    			add_location(button, file$e, 135, 22, 5080);
+    			add_location(button, file$e, 135, 22, 5057);
     			attr_dev(div6, "class", "text-center mt-3");
-    			add_location(div6, file$e, 134, 20, 5026);
-    			add_location(form, file$e, 91, 18, 3195);
+    			add_location(div6, file$e, 134, 20, 5003);
+    			add_location(form, file$e, 91, 18, 3204);
     			attr_dev(div7, "class", "m-sm-4");
-    			add_location(div7, file$e, 75, 16, 2552);
+    			add_location(div7, file$e, 75, 16, 2558);
     			attr_dev(div8, "class", "card-body");
-    			add_location(div8, file$e, 74, 14, 2511);
+    			add_location(div8, file$e, 74, 14, 2517);
     			attr_dev(div9, "class", "card");
-    			add_location(div9, file$e, 73, 12, 2477);
+    			add_location(div9, file$e, 73, 12, 2483);
     			attr_dev(div10, "class", "align-middle");
     			add_location(div10, file$e, 67, 10, 2252);
     			attr_dev(div11, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
@@ -7876,13 +7768,16 @@ var app = (function () {
     const { console: console_1$5 } = globals;
     const file$a = "src\\pages\\Register.svelte";
 
-    // (87:20) {:else}
+    // (86:20) {:else}
     function create_else_block$5(ctx) {
     	let imageloader;
     	let current;
 
     	imageloader = new ImageLoader({
-    			props: { src: /*dp*/ ctx[0], alt: "Not found" },
+    			props: {
+    				src: /*dp*/ ctx[0],
+    				alt: "Não encontrado"
+    			},
     			$$inline: true
     		});
 
@@ -7920,14 +7815,14 @@ var app = (function () {
     		block,
     		id: create_else_block$5.name,
     		type: "else",
-    		source: "(87:20) {:else}",
+    		source: "(86:20) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (83:20) {#if loading}
+    // (82:20) {#if loading}
     function create_if_block$6(ctx) {
     	let div;
     	let span;
@@ -7937,7 +7832,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			span = element("span");
-    			t = text("Loading...");
+    			t = text("Carregando...");
     			this.h();
     		},
     		l: function claim(nodes) {
@@ -7945,17 +7840,17 @@ var app = (function () {
     			var div_nodes = children(div);
     			span = claim_element(div_nodes, "SPAN", { class: true });
     			var span_nodes = children(span);
-    			t = claim_text(span_nodes, "Loading...");
+    			t = claim_text(span_nodes, "Carregando...");
     			span_nodes.forEach(detach_dev);
     			div_nodes.forEach(detach_dev);
     			this.h();
     		},
     		h: function hydrate() {
     			attr_dev(span, "class", "sr-only");
-    			add_location(span, file$a, 84, 24, 3079);
+    			add_location(span, file$a, 83, 24, 3055);
     			attr_dev(div, "class", "spinner-border text-primary");
     			attr_dev(div, "role", "status");
-    			add_location(div, file$a, 83, 22, 2998);
+    			add_location(div, file$a, 82, 22, 2974);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div, anchor);
@@ -7974,7 +7869,7 @@ var app = (function () {
     		block,
     		id: create_if_block$6.name,
     		type: "if",
-    		source: "(83:20) {#if loading}",
+    		source: "(82:20) {#if loading}",
     		ctx
     	});
 
@@ -8079,10 +7974,10 @@ var app = (function () {
     			div11 = element("div");
     			div0 = element("div");
     			h1 = element("h1");
-    			t1 = text("Get started");
+    			t1 = text("Vamos começar");
     			t2 = space();
     			p = element("p");
-    			t3 = text("Start creating the best possible user experience for you\r\n                followers.");
+    			t3 = text("Esse é o início de uma nova experiência com seus clientes.");
     			t4 = space();
     			div10 = element("div");
     			div9 = element("div");
@@ -8093,13 +7988,13 @@ var app = (function () {
     			form = element("form");
     			div2 = element("div");
     			label0 = element("label");
-    			t6 = text("Instagram Username");
+    			t6 = text("Usuário do Instagram");
     			t7 = space();
     			input0 = element("input");
     			t8 = space();
     			div3 = element("div");
     			label1 = element("label");
-    			t9 = text("Email for recovery");
+    			t9 = text("E-mail para recuperação");
     			t10 = space();
     			input1 = element("input");
     			t11 = space();
@@ -8117,13 +8012,13 @@ var app = (function () {
     			t17 = space();
     			div6 = element("div");
     			label4 = element("label");
-    			t18 = text("Password");
+    			t18 = text("Senha");
     			t19 = space();
     			input4 = element("input");
     			t20 = space();
     			div7 = element("div");
     			button = element("button");
-    			t21 = text("Sign up");
+    			t21 = text("Cadastre-se");
     			t22 = space();
     			create_component(alert.$$.fragment);
     			t23 = space();
@@ -8149,12 +8044,12 @@ var app = (function () {
     			var div0_nodes = children(div0);
     			h1 = claim_element(div0_nodes, "H1", { class: true });
     			var h1_nodes = children(h1);
-    			t1 = claim_text(h1_nodes, "Get started");
+    			t1 = claim_text(h1_nodes, "Vamos começar");
     			h1_nodes.forEach(detach_dev);
     			t2 = claim_space(div0_nodes);
     			p = claim_element(div0_nodes, "P", { class: true });
     			var p_nodes = children(p);
-    			t3 = claim_text(p_nodes, "Start creating the best possible user experience for you\r\n                followers.");
+    			t3 = claim_text(p_nodes, "Esse é o início de uma nova experiência com seus clientes.");
     			p_nodes.forEach(detach_dev);
     			div0_nodes.forEach(detach_dev);
     			t4 = claim_space(div11_nodes);
@@ -8175,7 +8070,7 @@ var app = (function () {
     			var div2_nodes = children(div2);
     			label0 = claim_element(div2_nodes, "LABEL", { for: true });
     			var label0_nodes = children(label0);
-    			t6 = claim_text(label0_nodes, "Instagram Username");
+    			t6 = claim_text(label0_nodes, "Usuário do Instagram");
     			label0_nodes.forEach(detach_dev);
     			t7 = claim_space(div2_nodes);
 
@@ -8191,7 +8086,7 @@ var app = (function () {
     			var div3_nodes = children(div3);
     			label1 = claim_element(div3_nodes, "LABEL", { for: true });
     			var label1_nodes = children(label1);
-    			t9 = claim_text(label1_nodes, "Email for recovery");
+    			t9 = claim_text(label1_nodes, "E-mail para recuperação");
     			label1_nodes.forEach(detach_dev);
     			t10 = claim_space(div3_nodes);
 
@@ -8239,7 +8134,7 @@ var app = (function () {
     			var div6_nodes = children(div6);
     			label4 = claim_element(div6_nodes, "LABEL", { for: true });
     			var label4_nodes = children(label4);
-    			t18 = claim_text(label4_nodes, "Password");
+    			t18 = claim_text(label4_nodes, "Senha");
     			label4_nodes.forEach(detach_dev);
     			t19 = claim_space(div6_nodes);
 
@@ -8255,7 +8150,7 @@ var app = (function () {
     			var div7_nodes = children(div7);
     			button = claim_element(div7_nodes, "BUTTON", { type: true, class: true });
     			var button_nodes = children(button);
-    			t21 = claim_text(button_nodes, "Sign up");
+    			t21 = claim_text(button_nodes, "Cadastre-se");
     			button_nodes.forEach(detach_dev);
     			div7_nodes.forEach(detach_dev);
     			form_nodes.forEach(detach_dev);
@@ -8278,66 +8173,66 @@ var app = (function () {
     			attr_dev(h1, "class", "h2");
     			add_location(h1, file$a, 71, 14, 2578);
     			attr_dev(p, "class", "lead");
-    			add_location(p, file$a, 72, 14, 2625);
+    			add_location(p, file$a, 72, 14, 2627);
     			attr_dev(div0, "class", "text-center mt-4");
     			add_location(div0, file$a, 70, 12, 2532);
     			attr_dev(div1, "class", "text-center");
-    			add_location(div1, file$a, 81, 18, 2914);
+    			add_location(div1, file$a, 80, 18, 2890);
     			attr_dev(label0, "for", "");
-    			add_location(label0, file$a, 92, 22, 3411);
+    			add_location(label0, file$a, 91, 22, 3395);
     			attr_dev(input0, "class", "form-control form-control-lg");
     			attr_dev(input0, "type", "text");
     			input0.required = true;
-    			attr_dev(input0, "placeholder", "kvssankar");
-    			add_location(input0, file$a, 93, 22, 3475);
+    			attr_dev(input0, "placeholder", "usuario");
+    			add_location(input0, file$a, 92, 22, 3461);
     			attr_dev(div2, "class", "form-group");
-    			add_location(div2, file$a, 91, 20, 3363);
+    			add_location(div2, file$a, 90, 20, 3347);
     			attr_dev(label1, "for", "");
-    			add_location(label1, file$a, 105, 22, 3965);
+    			add_location(label1, file$a, 104, 22, 3949);
     			attr_dev(input1, "class", "form-control form-control-lg");
     			attr_dev(input1, "type", "text");
     			input1.required = true;
-    			attr_dev(input1, "placeholder", "kvs.sankar001@gmail.com");
-    			add_location(input1, file$a, 106, 22, 4029);
+    			attr_dev(input1, "placeholder", "usuario@gmail.com");
+    			add_location(input1, file$a, 105, 22, 4018);
     			attr_dev(div3, "class", "form-group");
-    			add_location(div3, file$a, 104, 20, 3917);
+    			add_location(div3, file$a, 103, 20, 3901);
     			attr_dev(label2, "for", "");
-    			add_location(label2, file$a, 115, 22, 4404);
+    			add_location(label2, file$a, 114, 22, 4387);
     			attr_dev(input2, "class", "form-control form-control-lg");
     			attr_dev(input2, "type", "text");
-    			attr_dev(input2, "placeholder", "KvsSankarKumar");
-    			add_location(input2, file$a, 116, 22, 4458);
+    			attr_dev(input2, "placeholder", "usuario");
+    			add_location(input2, file$a, 115, 22, 4441);
     			attr_dev(div4, "class", "form-group");
-    			add_location(div4, file$a, 114, 20, 4356);
+    			add_location(div4, file$a, 113, 20, 4339);
     			attr_dev(label3, "for", "");
-    			add_location(label3, file$a, 124, 22, 4793);
+    			add_location(label3, file$a, 123, 22, 4769);
     			attr_dev(input3, "class", "form-control form-control-lg");
     			attr_dev(input3, "type", "text");
-    			attr_dev(input3, "placeholder", "KvsSankar1");
-    			add_location(input3, file$a, 125, 22, 4846);
+    			attr_dev(input3, "placeholder", "usuario");
+    			add_location(input3, file$a, 124, 22, 4822);
     			attr_dev(div5, "class", "form-group");
-    			add_location(div5, file$a, 123, 20, 4745);
+    			add_location(div5, file$a, 122, 20, 4721);
     			attr_dev(label4, "for", "");
-    			add_location(label4, file$a, 133, 22, 5176);
+    			add_location(label4, file$a, 132, 22, 5149);
     			attr_dev(input4, "class", "form-control form-control-lg");
     			attr_dev(input4, "type", "password");
     			input4.required = true;
-    			attr_dev(input4, "placeholder", "Enter password");
-    			add_location(input4, file$a, 134, 22, 5230);
+    			attr_dev(input4, "placeholder", "Digite uma senha");
+    			add_location(input4, file$a, 133, 22, 5200);
     			attr_dev(div6, "class", "form-group");
-    			add_location(div6, file$a, 132, 20, 5128);
+    			add_location(div6, file$a, 131, 20, 5101);
     			attr_dev(button, "type", "submit");
     			attr_dev(button, "class", "btn btn-lg btn-primary");
-    			add_location(button, file$a, 143, 22, 5609);
+    			add_location(button, file$a, 142, 22, 5581);
     			attr_dev(div7, "class", "text-center mt-3");
-    			add_location(div7, file$a, 142, 20, 5555);
-    			add_location(form, file$a, 90, 18, 3314);
+    			add_location(div7, file$a, 141, 20, 5527);
+    			add_location(form, file$a, 89, 18, 3298);
     			attr_dev(div8, "class", "m-sm-4");
-    			add_location(div8, file$a, 80, 16, 2874);
+    			add_location(div8, file$a, 79, 16, 2850);
     			attr_dev(div9, "class", "card-body");
-    			add_location(div9, file$a, 79, 14, 2833);
+    			add_location(div9, file$a, 78, 14, 2809);
     			attr_dev(div10, "class", "card");
-    			add_location(div10, file$a, 78, 12, 2799);
+    			add_location(div10, file$a, 77, 12, 2775);
     			attr_dev(div11, "class", "align-middle");
     			add_location(div11, file$a, 69, 10, 2492);
     			attr_dev(div12, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
@@ -15015,22 +14910,22 @@ var app = (function () {
     			div3 = element("div");
     			a3 = element("a");
     			i3 = element("i");
-    			t7 = text(" Profile");
+    			t7 = text(" Perfil");
     			t8 = space();
     			a4 = element("a");
     			i4 = element("i");
-    			t9 = text(" Dashboard");
+    			t9 = text(" Principa");
     			t10 = space();
     			div2 = element("div");
     			t11 = space();
     			a5 = element("a");
-    			t12 = text("Settings & Privacy");
+    			t12 = text("Configurações e Privacidade");
     			t13 = space();
     			a6 = element("a");
-    			t14 = text("Help");
+    			t14 = text("Ajuda");
     			t15 = space();
     			a7 = element("a");
-    			t16 = text("Sign out");
+    			t16 = text("Sair");
     			this.h();
     		},
     		l: function claim(nodes) {
@@ -15106,14 +15001,14 @@ var app = (function () {
     			var a3_nodes = children(a3);
     			i3 = claim_element(a3_nodes, "I", { class: true, "data-feather": true });
     			children(i3).forEach(detach_dev);
-    			t7 = claim_text(a3_nodes, " Profile");
+    			t7 = claim_text(a3_nodes, " Perfil");
     			a3_nodes.forEach(detach_dev);
     			t8 = claim_space(div3_nodes);
     			a4 = claim_element(div3_nodes, "A", { class: true, href: true });
     			var a4_nodes = children(a4);
     			i4 = claim_element(a4_nodes, "I", { class: true, "data-feather": true });
     			children(i4).forEach(detach_dev);
-    			t9 = claim_text(a4_nodes, " Dashboard");
+    			t9 = claim_text(a4_nodes, " Principa");
     			a4_nodes.forEach(detach_dev);
     			t10 = claim_space(div3_nodes);
     			div2 = claim_element(div3_nodes, "DIV", { class: true });
@@ -15121,17 +15016,17 @@ var app = (function () {
     			t11 = claim_space(div3_nodes);
     			a5 = claim_element(div3_nodes, "A", { class: true, href: true });
     			var a5_nodes = children(a5);
-    			t12 = claim_text(a5_nodes, "Settings & Privacy");
+    			t12 = claim_text(a5_nodes, "Configurações e Privacidade");
     			a5_nodes.forEach(detach_dev);
     			t13 = claim_space(div3_nodes);
     			a6 = claim_element(div3_nodes, "A", { class: true, href: true });
     			var a6_nodes = children(a6);
-    			t14 = claim_text(a6_nodes, "Help");
+    			t14 = claim_text(a6_nodes, "Ajuda");
     			a6_nodes.forEach(detach_dev);
     			t15 = claim_space(div3_nodes);
     			a7 = claim_element(div3_nodes, "A", { class: true, href: true });
     			var a7_nodes = children(a7);
-    			t16 = claim_text(a7_nodes, "Sign out");
+    			t16 = claim_text(a7_nodes, "Sair");
     			a7_nodes.forEach(detach_dev);
     			div3_nodes.forEach(detach_dev);
     			li_nodes.forEach(detach_dev);
@@ -15148,69 +15043,69 @@ var app = (function () {
     			add_location(a0, file$8, 5, 2, 104);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "form-control");
-    			attr_dev(input, "placeholder", "Search your links…");
+    			attr_dev(input, "placeholder", "Pesquisar");
     			attr_dev(input, "aria-label", "Search");
     			add_location(input, file$8, 11, 6, 297);
     			attr_dev(i1, "class", "align-middle");
     			attr_dev(i1, "data-feather", "search");
-    			add_location(i1, file$8, 19, 10, 531);
+    			add_location(i1, file$8, 19, 10, 522);
     			attr_dev(button, "class", "btn");
     			attr_dev(button, "type", "button");
-    			add_location(button, file$8, 18, 8, 485);
+    			add_location(button, file$8, 18, 8, 476);
     			attr_dev(div0, "class", "input-group-append");
-    			add_location(div0, file$8, 17, 6, 443);
+    			add_location(div0, file$8, 17, 6, 434);
     			attr_dev(div1, "class", "input-group input-group-navbar");
     			add_location(div1, file$8, 10, 4, 245);
     			attr_dev(form, "class", "d-none d-sm-inline-block");
     			add_location(form, file$8, 9, 2, 200);
     			attr_dev(i2, "class", "align-middle");
     			attr_dev(i2, "data-feather", "settings");
-    			add_location(i2, file$8, 132, 10, 4822);
+    			add_location(i2, file$8, 132, 10, 4813);
     			attr_dev(a1, "class", "nav-icon dropdown-toggle d-inline-block d-sm-none");
     			attr_dev(a1, "href", "/");
     			attr_dev(a1, "data-toggle", "dropdown");
-    			add_location(a1, file$8, 127, 8, 4674);
+    			add_location(a1, file$8, 127, 8, 4665);
     			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "avatar img-fluid rounded-circle mr-1");
     			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[0].instagram);
-    			add_location(img, file$8, 140, 10, 5046);
+    			add_location(img, file$8, 140, 10, 5037);
     			attr_dev(span, "class", "text-dark");
-    			add_location(span, file$8, 144, 13, 5184);
+    			add_location(span, file$8, 144, 13, 5175);
     			attr_dev(a2, "class", "nav-link dropdown-toggle d-none d-sm-inline-block");
     			attr_dev(a2, "href", "/");
     			attr_dev(a2, "data-toggle", "dropdown");
-    			add_location(a2, file$8, 135, 8, 4898);
+    			add_location(a2, file$8, 135, 8, 4889);
     			attr_dev(i3, "class", "align-middle mr-1");
     			attr_dev(i3, "data-feather", "user");
-    			add_location(i3, file$8, 148, 13, 5378);
+    			add_location(i3, file$8, 148, 13, 5369);
     			attr_dev(a3, "class", "dropdown-item");
     			attr_dev(a3, "href", a3_href_value = "/" + /*user*/ ctx[0].instagram);
-    			add_location(a3, file$8, 147, 10, 5314);
+    			add_location(a3, file$8, 147, 10, 5305);
     			attr_dev(i4, "class", "align-middle mr-1");
     			attr_dev(i4, "data-feather", "pie-chart");
-    			add_location(i4, file$8, 151, 13, 5522);
+    			add_location(i4, file$8, 151, 13, 5512);
     			attr_dev(a4, "class", "dropdown-item");
     			attr_dev(a4, "href", "/dashboard");
-    			add_location(a4, file$8, 150, 10, 5465);
+    			add_location(a4, file$8, 150, 10, 5455);
     			attr_dev(div2, "class", "dropdown-divider");
-    			add_location(div2, file$8, 153, 10, 5616);
+    			add_location(div2, file$8, 153, 10, 5605);
     			attr_dev(a5, "class", "dropdown-item");
     			attr_dev(a5, "href", "/settings");
-    			add_location(a5, file$8, 154, 10, 5660);
+    			add_location(a5, file$8, 154, 10, 5649);
     			attr_dev(a6, "class", "dropdown-item");
     			attr_dev(a6, "href", "/copyright");
-    			add_location(a6, file$8, 157, 10, 5762);
+    			add_location(a6, file$8, 157, 10, 5760);
     			attr_dev(a7, "class", "dropdown-item");
     			attr_dev(a7, "href", "/");
-    			add_location(a7, file$8, 158, 10, 5825);
+    			add_location(a7, file$8, 158, 10, 5824);
     			attr_dev(div3, "class", "dropdown-menu dropdown-menu-right");
-    			add_location(div3, file$8, 146, 8, 5255);
+    			add_location(div3, file$8, 146, 8, 5246);
     			attr_dev(li, "class", "nav-item dropdown");
-    			add_location(li, file$8, 126, 6, 4634);
+    			add_location(li, file$8, 126, 6, 4625);
     			attr_dev(ul, "class", "navbar-nav navbar-align");
-    			add_location(ul, file$8, 26, 4, 685);
+    			add_location(ul, file$8, 26, 4, 676);
     			attr_dev(div4, "class", "navbar-collapse collapse");
-    			add_location(div4, file$8, 25, 2, 641);
+    			add_location(div4, file$8, 25, 2, 632);
     			attr_dev(nav, "class", "navbar navbar-expand navbar-light navbar-bg");
     			add_location(nav, file$8, 4, 0, 43);
     		},
@@ -15378,10 +15273,10 @@ var app = (function () {
     			img = element("img");
     			t0 = space();
     			h1 = element("h1");
-    			t1 = text("Upload your first link");
+    			t1 = text("Crie seu primeiro Produto ou Serviço");
     			t2 = space();
     			a = element("a");
-    			t3 = text("Add Link");
+    			t3 = text("Criar");
     			t4 = space();
     			this.h();
     		},
@@ -15392,12 +15287,12 @@ var app = (function () {
     			t0 = claim_space(div_nodes);
     			h1 = claim_element(div_nodes, "H1", {});
     			var h1_nodes = children(h1);
-    			t1 = claim_text(h1_nodes, "Upload your first link");
+    			t1 = claim_text(h1_nodes, "Crie seu primeiro Produto ou Serviço");
     			h1_nodes.forEach(detach_dev);
     			t2 = claim_space(div_nodes);
     			a = claim_element(div_nodes, "A", { href: true, class: true });
     			var a_nodes = children(a);
-    			t3 = claim_text(a_nodes, "Add Link");
+    			t3 = claim_text(a_nodes, "Criar");
     			a_nodes.forEach(detach_dev);
     			t4 = claim_space(div_nodes);
     			div_nodes.forEach(detach_dev);
@@ -15411,7 +15306,7 @@ var app = (function () {
     			add_location(h1, file$7, 146, 18, 5303);
     			attr_dev(a, "href", "/addlink");
     			attr_dev(a, "class", "btn btn-primary");
-    			add_location(a, file$7, 147, 18, 5354);
+    			add_location(a, file$7, 147, 18, 5368);
     			set_style(div, "display", "flex");
     			set_style(div, "flex-direction", "column");
     			set_style(div, "justify-content", "center");
@@ -16098,16 +15993,16 @@ var app = (function () {
     			div3 = element("div");
     			button = element("button");
     			span0 = element("span");
-    			t6 = text("Copy to clipboard");
-    			t7 = text("\r\n                  Copy text");
+    			t6 = text("Copiar Link");
+    			t7 = text("\r\n                  Copiar");
     			t8 = space();
     			div4 = element("div");
-    			t9 = text("Links Uploaded : ");
+    			t9 = text("Total de Produtos e Serviços oferecidos : ");
     			t10 = text(t10_value);
     			t11 = space();
     			div5 = element("div");
     			a0 = element("a");
-    			t12 = text("Add link");
+    			t12 = text("Adicionar Produto/Serviço");
     			t13 = space();
     			a1 = element("a");
     			span1 = element("span");
@@ -16125,14 +16020,14 @@ var app = (function () {
     			t17 = text("View all");
     			t18 = space();
     			h5 = element("h5");
-    			t19 = text("Analytics");
+    			t19 = text("Estatísticas");
     			t20 = space();
     			div16 = element("div");
     			div13 = element("div");
     			div12 = element("div");
     			p0 = element("p");
     			strong0 = element("strong");
-    			t21 = text("Total number of visits");
+    			t21 = text("Total de visitas");
     			t22 = space();
     			p1 = element("p");
     			t23 = text(t23_value);
@@ -16143,7 +16038,7 @@ var app = (function () {
     			div14 = element("div");
     			p2 = element("p");
     			strong1 = element("strong");
-    			t26 = text("Total number of clicks");
+    			t26 = text("Total de Cliques");
     			t27 = space();
     			p3 = element("p");
     			t28 = text(/*clicks*/ ctx[1]);
@@ -16212,15 +16107,15 @@ var app = (function () {
     			var button_nodes = children(button);
     			span0 = claim_element(button_nodes, "SPAN", { class: true, id: true });
     			var span0_nodes = children(span0);
-    			t6 = claim_text(span0_nodes, "Copy to clipboard");
+    			t6 = claim_text(span0_nodes, "Copiar Link");
     			span0_nodes.forEach(detach_dev);
-    			t7 = claim_text(button_nodes, "\r\n                  Copy text");
+    			t7 = claim_text(button_nodes, "\r\n                  Copiar");
     			button_nodes.forEach(detach_dev);
     			div3_nodes.forEach(detach_dev);
     			t8 = claim_space(div6_nodes);
     			div4 = claim_element(div6_nodes, "DIV", { class: true });
     			var div4_nodes = children(div4);
-    			t9 = claim_text(div4_nodes, "Links Uploaded : ");
+    			t9 = claim_text(div4_nodes, "Total de Produtos e Serviços oferecidos : ");
     			t10 = claim_text(div4_nodes, t10_value);
     			div4_nodes.forEach(detach_dev);
     			t11 = claim_space(div6_nodes);
@@ -16228,7 +16123,7 @@ var app = (function () {
     			var div5_nodes = children(div5);
     			a0 = claim_element(div5_nodes, "A", { class: true, replace: true, href: true });
     			var a0_nodes = children(a0);
-    			t12 = claim_text(a0_nodes, "Add link");
+    			t12 = claim_text(a0_nodes, "Adicionar Produto/Serviço");
     			a0_nodes.forEach(detach_dev);
     			t13 = claim_space(div5_nodes);
     			a1 = claim_element(div5_nodes, "A", { class: true, target: true, href: true });
@@ -16273,7 +16168,7 @@ var app = (function () {
     			t18 = claim_space(div11_nodes);
     			h5 = claim_element(div11_nodes, "H5", { class: true });
     			var h5_nodes = children(h5);
-    			t19 = claim_text(h5_nodes, "Analytics");
+    			t19 = claim_text(h5_nodes, "Estatísticas");
     			h5_nodes.forEach(detach_dev);
     			div11_nodes.forEach(detach_dev);
     			t20 = claim_space(div17_nodes);
@@ -16287,7 +16182,7 @@ var app = (function () {
     			var p0_nodes = children(p0);
     			strong0 = claim_element(p0_nodes, "STRONG", {});
     			var strong0_nodes = children(strong0);
-    			t21 = claim_text(strong0_nodes, "Total number of visits");
+    			t21 = claim_text(strong0_nodes, "Total de visitas");
     			strong0_nodes.forEach(detach_dev);
     			p0_nodes.forEach(detach_dev);
     			t22 = claim_space(div12_nodes);
@@ -16308,7 +16203,7 @@ var app = (function () {
     			var p2_nodes = children(p2);
     			strong1 = claim_element(p2_nodes, "STRONG", {});
     			var strong1_nodes = children(strong1);
-    			t26 = claim_text(strong1_nodes, "Total number of clicks");
+    			t26 = claim_text(strong1_nodes, "Total de Cliques");
     			strong1_nodes.forEach(detach_dev);
     			p2_nodes.forEach(detach_dev);
     			t27 = claim_space(div14_nodes);
@@ -16343,90 +16238,90 @@ var app = (function () {
     			attr_dev(img, "class", "img-fluid rounded-circle mb-2");
     			attr_dev(img, "width", "128");
     			attr_dev(img, "height", "128");
-    			add_location(img, file$7, 157, 14, 5651);
+    			add_location(img, file$7, 157, 14, 5662);
     			attr_dev(h4, "class", "card-title mb-0");
-    			add_location(h4, file$7, 164, 14, 5872);
+    			add_location(h4, file$7, 164, 14, 5883);
     			attr_dev(input, "type", "text");
-    			input.value = input_value_value = `https://lnkinbio.herokuapp.com/${/*user*/ ctx[0].instagram}`;
+    			input.value = input_value_value = `https://automaqui.com.br/${/*user*/ ctx[0].instagram}`;
     			attr_dev(input, "id", "myInput");
     			set_style(input, "border", "none");
     			set_style(input, "width", "100%");
     			set_style(input, "text-align", "center");
     			set_style(input, "margin", "5px");
     			set_style(input, "pointer-events", "none");
-    			add_location(input, file$7, 166, 14, 5939);
+    			add_location(input, file$7, 166, 14, 5950);
     			attr_dev(span0, "class", "tooltiptext svelte-4rq2pt");
     			attr_dev(span0, "id", "myTooltip");
-    			add_location(span0, file$7, 178, 18, 6429);
+    			add_location(span0, file$7, 178, 18, 6434);
     			attr_dev(button, "class", "btn btn-sm btn-success");
-    			add_location(button, file$7, 173, 16, 6251);
+    			add_location(button, file$7, 173, 16, 6256);
     			attr_dev(div3, "class", "tooltip svelte-4rq2pt");
-    			add_location(div3, file$7, 172, 14, 6212);
+    			add_location(div3, file$7, 172, 14, 6217);
     			attr_dev(div4, "class", "text-muted mb-2");
-    			add_location(div4, file$7, 184, 14, 6630);
+    			add_location(div4, file$7, 184, 14, 6626);
     			attr_dev(a0, "class", "btn btn-primary btn-sm");
     			attr_dev(a0, "replace", "");
     			attr_dev(a0, "href", "/addlink");
-    			add_location(a0, file$7, 189, 16, 6780);
+    			add_location(a0, file$7, 189, 16, 6801);
     			attr_dev(span1, "data-feather", "instagram");
-    			add_location(span1, file$7, 199, 19, 7156);
+    			add_location(span1, file$7, 199, 19, 7194);
     			attr_dev(a1, "class", "btn btn-danger btn-sm");
     			attr_dev(a1, "target", "_blank");
     			attr_dev(a1, "href", a1_href_value = "https://www.instagram.com/" + /*user*/ ctx[0].instagram + "/");
-    			add_location(a1, file$7, 195, 16, 6971);
-    			add_location(div5, file$7, 188, 14, 6757);
+    			add_location(a1, file$7, 195, 16, 7009);
+    			add_location(div5, file$7, 188, 14, 6778);
     			attr_dev(div6, "class", "card-body text-center");
-    			add_location(div6, file$7, 156, 12, 5600);
+    			add_location(div6, file$7, 156, 12, 5611);
     			attr_dev(div7, "class", "card mb-3");
-    			add_location(div7, file$7, 155, 10, 5563);
+    			add_location(div7, file$7, 155, 10, 5574);
     			attr_dev(i, "class", "align-middle");
     			attr_dev(i, "data-feather", "more-horizontal");
-    			add_location(i, file$7, 214, 20, 7647);
+    			add_location(i, file$7, 214, 20, 7685);
     			attr_dev(a2, "href", "/dashboard");
     			attr_dev(a2, "data-toggle", "dropdown");
     			attr_dev(a2, "data-display", "static");
-    			add_location(a2, file$7, 209, 18, 7476);
+    			add_location(a2, file$7, 209, 18, 7514);
     			attr_dev(a3, "class", "dropdown-item");
     			attr_dev(a3, "href", "/dashboard");
-    			add_location(a3, file$7, 218, 20, 7819);
+    			add_location(a3, file$7, 218, 20, 7857);
     			attr_dev(div8, "class", "dropdown-menu dropdown-menu-right");
-    			add_location(div8, file$7, 217, 18, 7750);
+    			add_location(div8, file$7, 217, 18, 7788);
     			attr_dev(div9, "class", "dropdown show");
-    			add_location(div9, file$7, 208, 16, 7429);
+    			add_location(div9, file$7, 208, 16, 7467);
     			attr_dev(div10, "class", "card-actions float-right");
-    			add_location(div10, file$7, 207, 14, 7373);
+    			add_location(div10, file$7, 207, 14, 7411);
     			attr_dev(h5, "class", "card-title mb-0");
-    			add_location(h5, file$7, 222, 14, 7962);
+    			add_location(h5, file$7, 222, 14, 8000);
     			attr_dev(div11, "class", "card-header");
-    			add_location(div11, file$7, 206, 12, 7332);
-    			add_location(strong0, file$7, 227, 34, 8174);
+    			add_location(div11, file$7, 206, 12, 7370);
+    			add_location(strong0, file$7, 227, 34, 8215);
     			attr_dev(p0, "class", "my-1");
-    			add_location(p0, file$7, 227, 18, 8158);
+    			add_location(p0, file$7, 227, 18, 8199);
     			attr_dev(p1, "class", "text-info");
-    			add_location(p1, file$7, 228, 18, 8237);
+    			add_location(p1, file$7, 228, 18, 8272);
     			attr_dev(div12, "class", "media-body");
-    			add_location(div12, file$7, 226, 16, 8114);
+    			add_location(div12, file$7, 226, 16, 8155);
     			attr_dev(div13, "class", "media");
-    			add_location(div13, file$7, 225, 14, 8077);
+    			add_location(div13, file$7, 225, 14, 8118);
     			attr_dev(hr0, "class", "my-2");
-    			add_location(hr0, file$7, 232, 14, 8338);
-    			add_location(strong1, file$7, 236, 34, 8472);
+    			add_location(hr0, file$7, 232, 14, 8373);
+    			add_location(strong1, file$7, 236, 34, 8507);
     			attr_dev(p2, "class", "my-1");
-    			add_location(p2, file$7, 236, 18, 8456);
+    			add_location(p2, file$7, 236, 18, 8491);
     			attr_dev(p3, "class", "text-warning");
-    			add_location(p3, file$7, 237, 18, 8535);
+    			add_location(p3, file$7, 237, 18, 8564);
     			attr_dev(div14, "class", "media-body");
-    			add_location(div14, file$7, 235, 16, 8412);
+    			add_location(div14, file$7, 235, 16, 8447);
     			attr_dev(div15, "class", "media");
-    			add_location(div15, file$7, 234, 14, 8375);
+    			add_location(div15, file$7, 234, 14, 8410);
     			attr_dev(hr1, "class", "my-2");
-    			add_location(hr1, file$7, 241, 14, 8635);
+    			add_location(hr1, file$7, 241, 14, 8664);
     			attr_dev(div16, "class", "card-body");
-    			add_location(div16, file$7, 224, 12, 8038);
+    			add_location(div16, file$7, 224, 12, 8079);
     			attr_dev(div17, "class", "card mb-3");
-    			add_location(div17, file$7, 205, 10, 7295);
+    			add_location(div17, file$7, 205, 10, 7333);
     			attr_dev(div18, "class", "col-12 col-lg-4");
-    			add_location(div18, file$7, 154, 8, 5522);
+    			add_location(div18, file$7, 154, 8, 5533);
     			attr_dev(div19, "class", "row");
     			add_location(div19, file$7, 60, 6, 1754);
     			attr_dev(div20, "class", "container-fluid p-0");
@@ -16584,7 +16479,7 @@ var app = (function () {
 
     			if ((!current || dirty & /*user*/ 1) && t3_value !== (t3_value = /*user*/ ctx[0].instagram + "")) set_data_dev(t3, t3_value);
 
-    			if (!current || dirty & /*user*/ 1 && input_value_value !== (input_value_value = `https://lnkinbio.herokuapp.com/${/*user*/ ctx[0].instagram}`) && input.value !== input_value_value) {
+    			if (!current || dirty & /*user*/ 1 && input_value_value !== (input_value_value = `https://automaqui.com.br/${/*user*/ ctx[0].instagram}`) && input.value !== input_value_value) {
     				prop_dev(input, "value", input_value_value);
     			}
 

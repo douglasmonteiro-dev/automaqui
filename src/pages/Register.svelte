@@ -69,10 +69,9 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
           <div class="align-middle">
             <div class="text-center mt-4">
-              <h1 class="h2">Get started</h1>
+              <h1 class="h2">Vamos começar</h1>
               <p class="lead">
-                Start creating the best possible user experience for you
-                followers.
+                Esse é o início de uma nova experiência com seus clientes.
               </p>
             </div>
 
@@ -82,15 +81,15 @@
                   <div class="text-center">
                     {#if loading}
                       <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
+                        <span class="sr-only">Carregando...</span>
                       </div>
                     {:else}
-                      <ImageLoader src={dp} alt="Not found" />
+                      <ImageLoader src={dp} alt="Não encontrado" />
                     {/if}
                   </div>
                   <form on:submit={register}>
                     <div class="form-group">
-                      <label for="">Instagram Username</label>
+                      <label for="">Usuário do Instagram</label>
                       <input
                         on:change={() => {
                           getPhoto(user.instagram);
@@ -99,17 +98,17 @@
                         type="text"
                         bind:value={user.instagram}
                         required
-                        placeholder="kvssankar"
+                        placeholder="usuario"
                       />
                     </div>
                     <div class="form-group">
-                      <label for="">Email for recovery</label>
+                      <label for="">E-mail para recuperação</label>
                       <input
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={user.email}
                         required
-                        placeholder="kvs.sankar001@gmail.com"
+                        placeholder="usuario@gmail.com"
                       />
                     </div>
                     <div class="form-group">
@@ -118,7 +117,7 @@
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={user.facebook}
-                        placeholder="KvsSankarKumar"
+                        placeholder="usuario"
                       />
                     </div>
                     <div class="form-group">
@@ -127,22 +126,22 @@
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={user.twitter}
-                        placeholder="KvsSankar1"
+                        placeholder="usuario"
                       />
                     </div>
                     <div class="form-group">
-                      <label for="">Password</label>
+                      <label for="">Senha</label>
                       <input
                         class="form-control form-control-lg"
                         type="password"
                         bind:value={user.password}
                         required
-                        placeholder="Enter password"
+                        placeholder="Digite uma senha"
                       />
                     </div>
                     <div class="text-center mt-3">
                       <button type="submit" class="btn btn-lg btn-primary"
-                        >Sign up</button
+                        >Cadastre-se</button
                       >
                     </div>
                   </form>

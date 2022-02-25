@@ -13,13 +13,12 @@
       <div class="col-lg-5 mx-auto">
         <span class="badge badge-soft-primary p-1">v1.0.0</span>
 
-        <h1 class="my-4">Adicione vários links a sua bio do Instagram</h1>
+        <h1 class="my-4">Somos inovação em atendimento de comércio e serviços </h1>
 
         <p class="text-lg">
-          Já tentou mudar o link na bio do seu instagram ?? Não mais !! <br/>
-           Exiba todos os seus links em uma página com um URL personalizado.
-           <br/> Este site possui painel personalizado para adicionar, excluir e editar
-           seus links.
+          Ta cansado de procurar um site para o sua empresa ?? Não mais !! <br/>
+           Chegou o mais novo sistema de automação online que te disponibiliza uma página online.
+           <br/> Chega de tentar procurar um criador de sites, disponibilize com facilidade seu produto ou serviço para seus clientes.
         </p>
 
         <!-- <div class="my-4">
