@@ -49,8 +49,8 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
           <div class="d-table-cell align-middle">
             <div class="text-center mt-4">
-              <h1 class="h2">Add your link in bio</h1>
-              <p class="lead">Fill the following details</p>
+              <h1 class="h2">Criar página de produto ou serviço</h1>
+              <p class="lead">Digite os detalhes</p>
             </div>
 
             <div class="card">
@@ -59,7 +59,7 @@
                   <div class="text-center">
                     {#if loading}
                       <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
+                        <span class="sr-only">Carregando...</span>
                       </div>
                     {:else}
                       <img
@@ -73,13 +73,13 @@
                   </div>
                   <form on:submit={dispatch}>
                     <div class="form-group">
-                      <label for="">Title</label>
+                      <label for="">Titulo</label>
                       <input
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={link.title}
                         required
-                        placeholder="Portfolio of mine"
+                        placeholder="Produto ou Serviço"
                       />
                     </div>
                     <div class="form-group">
@@ -89,19 +89,19 @@
                         type="text"
                         bind:value={link.url}
                         required
-                        placeholder="https://itesmesankar.herokuapp.com/"
+                        placeholder="https://automaqui.com.br/usuario/urldoproduto"
                       />
                     </div>
                     <div class="form-group">
-                      <label for="">Description</label>
+                      <label for="">Descrição</label>
                       <textarea
                         class="form-control form-control-lg"
                         bind:value={link.description}
-                        placeholder="Its takes you to the portfolio of mine"
+                        placeholder="Descreva o que você está oferecendo, seja objetivo com o seu cliente."
                       />
                     </div>
                     <div class="form-group">
-                      <label for="">Upload any image (if required)</label>
+                      <label for="">Carregue uma imagem (se desejar)</label>
                       <input
                         id="file"
                         name="file"
@@ -111,7 +111,7 @@
                     </div>
                     <div class="text-center mt-3">
                       <button type="submit" class="btn btn-lg btn-primary"
-                        >Add Link</button
+                        >Criar Página</button
                       >
                     </div>
                   </form>

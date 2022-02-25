@@ -1,6 +1,7 @@
 <script>
   import { link } from "svelte-routing";
   import moment from "moment";
+  import 'moment/locale/pt'  // without this line it didn't work
   import { userStore } from "../store/User.js";
   import NavBar from "../components/Navbar.svelte";
   import Footer from "../components/Footer.svelte";
@@ -8,6 +9,8 @@
   import { onDestroy, onMount } from "svelte";
   let user = {};
   let clicks = 0;
+  moment.locale('pt')
+
   onMount(() => {
     getinfo();
   });
@@ -92,19 +95,19 @@
                         >{moment(link.created_date).calendar()}</small
                       ><br />
                       <a href={link.url} class="btn btn-sm btn-success mt-1"
-                        >Go to link</a
+                        >Ir para página</a
                       >
                       <button
                         on:click={() => {
                           editlink(link);
                         }}
-                        class="btn btn-sm btn-primary mt-1">Edit</button
+                        class="btn btn-sm btn-primary mt-1">Editar</button
                       >
                       <button
                         on:click={() => {
                           deleteLink(link._id);
                         }}
-                        class="btn btn-sm btn-danger mt-1">Delete</button
+                        class="btn btn-sm btn-danger mt-1">Apagar</button
                       >
                     </div>
                   </div>
