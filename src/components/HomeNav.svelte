@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light landing-navbar">
   <div class="container">
     <a class="navbar-brand landing-brand" href="/">
-      <img src="/img/link.png" alt="LnkInBio" height="34px" />
+      <img src="/img/link.png" alt="Automaqui" height="34px" />
       Automaqui
     </a>
 

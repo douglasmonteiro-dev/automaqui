@@ -31,6 +31,10 @@
         body: data,
       }
     );
+    let types = [
+      'Serviço',
+      'Produto'
+    ] 
     loading = false;
     const file = await res.json();
     link.image = file.secure_url;
@@ -114,6 +118,25 @@
                         bind:value={link.description}
                         placeholder="Descreva o que você está oferecendo, seja objetivo com o seu cliente."
                       />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Preço</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="tel"
+                        bind:value={link.price}
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Tipo</label>
+                      <select
+                        class="form-control form-control-lg"
+                        bind:value={link.type}
+                      >
+                      	{#each types as type(type)}
+                          <option>{types}</option>
+                     		{/each}
+                      </select>
                     </div>
                     <div class="text-center mt-3">
                       <button type="submit" class="btn btn-lg btn-primary"
