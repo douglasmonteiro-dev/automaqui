@@ -56,7 +56,7 @@
       .catch((error) => {
         console.error("Error:", error);
         status = 1;
-        mssg = "Something went wrong, please try again";
+        mssg = "Tivemos algum problema, por favor tente novamente";
       });
   };
 </script>
