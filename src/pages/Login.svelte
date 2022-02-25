@@ -21,7 +21,7 @@
     loading = false;
   }
   let status = -1;
-  let mssg = "";
+  let mssg = "Por favor tente novamente";
   const login = (e) => {
     e.preventDefault();
     fetch("/api/user/login", {
