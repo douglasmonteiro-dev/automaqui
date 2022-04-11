@@ -2593,7 +2593,7 @@ var app = (function () {
     			div = element("div");
     			a0 = element("a");
     			img = element("img");
-    			t0 = text("\r\n      Automaqui");
+    			t0 = text("\r\n      vitrinedacasa");
     			t1 = space();
     			a1 = element("a");
     			t2 = text("Registrar");
@@ -2607,7 +2607,7 @@ var app = (function () {
     			a0 = claim_element(div_nodes, "A", { class: true, href: true });
     			var a0_nodes = children(a0);
     			img = claim_element(a0_nodes, "IMG", { src: true, alt: true, height: true });
-    			t0 = claim_text(a0_nodes, "\r\n      Automaqui");
+    			t0 = claim_text(a0_nodes, "\r\n      vitrinedacasa");
     			a0_nodes.forEach(detach_dev);
     			t1 = claim_space(div_nodes);
     			a1 = claim_element(div_nodes, "A", { href: true, target: true, class: true });
@@ -2620,7 +2620,7 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			if (!src_url_equal(img.src, img_src_value = "/img/link.png")) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", "Automaqui");
+    			attr_dev(img, "alt", "vitrinedacasa");
     			attr_dev(img, "height", "34px");
     			add_location(img, file$i, 3, 6, 153);
     			attr_dev(a0, "class", "navbar-brand landing-brand");
