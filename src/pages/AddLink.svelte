@@ -89,7 +89,7 @@
                         type="text"
                         bind:value={link.url}
                         required
-                        placeholder="https://automaqui.com.br/usuario/urldoproduto"
+                        placeholder="https://vitrinedacasa.com.br/usuario/urldoproduto"
                       />
                     </div>
                     <div class="form-group">
