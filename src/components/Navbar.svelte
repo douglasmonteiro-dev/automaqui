@@ -149,7 +149,7 @@
             ><i class="align-middle mr-1" data-feather="user" /> Perfil</a
           >
           <a class="dropdown-item" href="/dashboard"
-            ><i class="align-middle mr-1" data-feather="pie-chart" /> Principa</a
+            ><i class="align-middle mr-1" data-feather="pie-chart" /> Principal</a
           >
           <div class="dropdown-divider" />
           <a class="dropdown-item" href="/settings"

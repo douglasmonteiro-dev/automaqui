@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-light landing-navbar">
   <div class="container">
     <a class="navbar-brand landing-brand" href="/">
-      <img src="/img/link.png" alt="Automaqui" height="34px" />
-      Automaqui
+      <img src="/img/link.png" alt="vitrinedacasa" height="34px" />
+      Vitrine da Casa
     </a>
 
     <!-- <ul class="navbar-nav ml-auto">
