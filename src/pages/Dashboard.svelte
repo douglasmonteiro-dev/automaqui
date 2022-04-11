@@ -169,7 +169,7 @@
 
               <input
                 type="text"
-                value={`https://automaqui.com.br/${user.instagram}`}
+                value={`https://vitrinedacasa.com.br/${user.instagram}`}
                 id="myInput"
                 style="border:none;width:100%;text-align:center;margin:5px;pointer-events:none;"
               />

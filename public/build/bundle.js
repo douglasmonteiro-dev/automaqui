@@ -5462,7 +5462,7 @@ var app = (function () {
     			attr_dev(img, "class", "img-fluid rounded-circle");
     			attr_dev(img, "width", "132");
     			attr_dev(img, "height", "132");
-    			add_location(img, file$e, 82, 22, 2939);
+    			add_location(img, file$e, 82, 22, 2926);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, img, anchor);
@@ -5513,10 +5513,10 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(span, "class", "sr-only");
-    			add_location(span, file$e, 79, 24, 2814);
+    			add_location(span, file$e, 79, 24, 2801);
     			attr_dev(div, "class", "spinner-border text-primary");
     			attr_dev(div, "role", "status");
-    			add_location(div, file$e, 78, 22, 2733);
+    			add_location(div, file$e, 78, 22, 2720);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div, anchor);
@@ -5790,68 +5790,68 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(h1, "class", "h2");
-    			add_location(h1, file$e, 69, 14, 2389);
+    			add_location(h1, file$e, 69, 14, 2376);
     			attr_dev(p, "class", "lead");
-    			add_location(p, file$e, 70, 14, 2444);
+    			add_location(p, file$e, 70, 14, 2431);
     			attr_dev(div0, "class", "text-center mt-4");
-    			add_location(div0, file$e, 68, 12, 2343);
+    			add_location(div0, file$e, 68, 12, 2330);
     			attr_dev(div1, "class", "text-center");
-    			add_location(div1, file$e, 76, 18, 2649);
+    			add_location(div1, file$e, 76, 18, 2636);
     			attr_dev(label0, "for", "");
-    			add_location(label0, file$e, 93, 22, 3349);
+    			add_location(label0, file$e, 93, 22, 3336);
     			attr_dev(input0, "class", "form-control form-control-lg");
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "placeholder", "usuario");
-    			add_location(input0, file$e, 94, 22, 3404);
+    			add_location(input0, file$e, 94, 22, 3391);
     			attr_dev(div2, "class", "form-group");
-    			add_location(div2, file$e, 92, 20, 3301);
+    			add_location(div2, file$e, 92, 20, 3288);
     			attr_dev(label1, "for", "");
-    			add_location(label1, file$e, 105, 22, 3858);
+    			add_location(label1, file$e, 105, 22, 3845);
     			attr_dev(input1, "class", "form-control form-control-lg");
     			attr_dev(input1, "type", "password");
     			attr_dev(input1, "placeholder", "senha");
-    			add_location(input1, file$e, 106, 22, 3909);
+    			add_location(input1, file$e, 106, 22, 3896);
     			attr_dev(a, "replace", "");
     			attr_dev(a, "href", "/resetpassword");
-    			add_location(a, file$e, 113, 24, 4198);
-    			add_location(small, file$e, 112, 22, 4165);
+    			add_location(a, file$e, 113, 24, 4185);
+    			add_location(small, file$e, 112, 22, 4152);
     			attr_dev(div3, "class", "form-group");
-    			add_location(div3, file$e, 104, 20, 3810);
+    			add_location(div3, file$e, 104, 20, 3797);
     			attr_dev(input2, "type", "checkbox");
     			attr_dev(input2, "class", "custom-control-input");
     			input2.value = "remember-me";
     			attr_dev(input2, "name", "remember-me");
     			input2.checked = true;
-    			add_location(input2, file$e, 122, 24, 4564);
+    			add_location(input2, file$e, 122, 24, 4551);
     			attr_dev(label2, "for", "");
     			attr_dev(label2, "class", "custom-control-label text-small");
-    			add_location(label2, file$e, 129, 24, 4851);
+    			add_location(label2, file$e, 129, 24, 4838);
     			attr_dev(div4, "class", "custom-control custom-checkbox align-items-center");
-    			add_location(div4, file$e, 119, 22, 4426);
-    			add_location(div5, file$e, 118, 20, 4397);
+    			add_location(div4, file$e, 119, 22, 4413);
+    			add_location(div5, file$e, 118, 20, 4384);
     			attr_dev(button, "class", "btn btn-lg btn-primary");
-    			add_location(button, file$e, 135, 22, 5108);
+    			add_location(button, file$e, 135, 22, 5095);
     			attr_dev(div6, "class", "text-center mt-3");
-    			add_location(div6, file$e, 134, 20, 5054);
-    			add_location(form, file$e, 91, 18, 3255);
+    			add_location(div6, file$e, 134, 20, 5041);
+    			add_location(form, file$e, 91, 18, 3242);
     			attr_dev(div7, "class", "m-sm-4");
-    			add_location(div7, file$e, 75, 16, 2609);
+    			add_location(div7, file$e, 75, 16, 2596);
     			attr_dev(div8, "class", "card-body");
-    			add_location(div8, file$e, 74, 14, 2568);
+    			add_location(div8, file$e, 74, 14, 2555);
     			attr_dev(div9, "class", "card");
-    			add_location(div9, file$e, 73, 12, 2534);
+    			add_location(div9, file$e, 73, 12, 2521);
     			attr_dev(div10, "class", "align-middle");
-    			add_location(div10, file$e, 67, 10, 2303);
+    			add_location(div10, file$e, 67, 10, 2290);
     			attr_dev(div11, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
-    			add_location(div11, file$e, 66, 8, 2228);
+    			add_location(div11, file$e, 66, 8, 2215);
     			attr_dev(div12, "class", "row h-100");
-    			add_location(div12, file$e, 65, 6, 2195);
+    			add_location(div12, file$e, 65, 6, 2182);
     			attr_dev(div13, "class", "container d-flex flex-column");
-    			add_location(div13, file$e, 64, 4, 2145);
+    			add_location(div13, file$e, 64, 4, 2132);
     			attr_dev(main, "class", "content d-flex p-0");
-    			add_location(main, file$e, 63, 2, 2106);
+    			add_location(main, file$e, 63, 2, 2093);
     			attr_dev(div14, "class", "main d-flex justify-content-center w-100");
-    			add_location(div14, file$e, 62, 0, 2048);
+    			add_location(div14, file$e, 62, 0, 2035);
     		},
     		m: function mount(target, anchor) {
     			mount_component(homenav, target, anchor);
@@ -6023,7 +6023,7 @@ var app = (function () {
 
     			if (data.status && data.status == 1) {
     				$$invalidate(3, status = 1);
-    				$$invalidate(4, mssg = "Login com sucesso");
+    				$$invalidate(4, mssg = "Erro");
     				return;
     			}
 
@@ -16415,7 +16415,7 @@ var app = (function () {
     			attr_dev(h4, "class", "card-title mb-0");
     			add_location(h4, file$7, 167, 14, 5980);
     			attr_dev(input, "type", "text");
-    			input.value = input_value_value = `https://automaqui.com.br/${/*user*/ ctx[0].instagram}`;
+    			input.value = input_value_value = `https://vitrinedacasa.com.br/${/*user*/ ctx[0].instagram}`;
     			attr_dev(input, "id", "myInput");
     			set_style(input, "border", "none");
     			set_style(input, "width", "100%");
@@ -16652,7 +16652,7 @@ var app = (function () {
 
     			if ((!current || dirty & /*user*/ 1) && t3_value !== (t3_value = /*user*/ ctx[0].instagram + "")) set_data_dev(t3, t3_value);
 
-    			if (!current || dirty & /*user*/ 1 && input_value_value !== (input_value_value = `https://automaqui.com.br/${/*user*/ ctx[0].instagram}`) && input.value !== input_value_value) {
+    			if (!current || dirty & /*user*/ 1 && input_value_value !== (input_value_value = `https://vitrinedacasa.com.br/${/*user*/ ctx[0].instagram}`) && input.value !== input_value_value) {
     				prop_dev(input, "value", input_value_value);
     			}
 
@@ -17203,7 +17203,7 @@ var app = (function () {
     			attr_dev(input1, "class", "form-control form-control-lg");
     			attr_dev(input1, "type", "text");
     			input1.required = true;
-    			attr_dev(input1, "placeholder", "https://automaqui.com.br/usuario/urldoproduto");
+    			attr_dev(input1, "placeholder", "https://vitrinedacasa.com.br/usuario/urldoproduto");
     			add_location(input1, file$6, 86, 22, 2989);
     			attr_dev(div3, "class", "form-group");
     			add_location(div3, file$6, 84, 20, 2892);

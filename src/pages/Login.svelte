@@ -44,7 +44,7 @@
         console.log(data);
         if (data.status && data.status == 1) {
           status = 1;
-          mssg = "Login com sucesso";
+          mssg = "Erro";
           return;
         }
         userStore.update((currUser) => {
