@@ -1,15 +1,33 @@
-<nav class="navbar navbar-expand-md navbar-light landing-navbar">
+<script>
+  import { onMount } from "svelte";
+  export let user;
+  let styles = {}
+  onMount(async () => {
+    console.log('user: ', user);
+    styles = user.style;
+  });
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
+</script>
+<style>
+  .navbar.landing-navbar {
+    background: var(--header_color, #eff2f6)!important;
+  }
+  
+</style>
+<nav class="navbar navbar-expand-md navbar-light landing-navbar" style="{cssVarStyles}">
   <div class="container">
     <a class="navbar-brand landing-brand" href="/">
       <img src="/img/link.png" alt="vitrinedacasa" height="34px" />
-      Vitrine da Casa
+      {user ? user.instagram : "Vitrine da Casa"}
     </a>
 
     <!-- <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
         <a
           class="nav-link text-lg px-lg-3"
-          href="https://github.com/kvssankar"
+          href="https://github.com/vitrinedacasa"
           target="_blank"
         >
           <span class="d-inline-block d-md-none">GitHub</span>
@@ -31,3 +49,8 @@
     >
   </div>
 </nav>
+<!-- <script>
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
+</script> -->

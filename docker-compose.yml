@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  server-vitrine:
+    image: server-vitrine
+    build: 
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3000
+    command:
+      - npm 
+      - run 
+      - dev
+    volumes:
+      - .:/server-vitrine
+      - node_modules:/server-vitrine/node_modules
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+      
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    
+volumes:
+  node_modules: {}

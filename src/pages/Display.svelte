@@ -9,26 +9,35 @@
   export let name;
   let user;
   let links = [];
+  let styles = {};
   onMount(async () => {
     console.log(name);
     user = await displayuser(name);
     if (user === null) document.location.href = "notfound";
     links = user.links;
-    console.log(user);
+    styles['warning_color'] = user.style.warning_color;
     axios
       .post("/api/user/viewadd", { instagram: name })
       .then((res) => console.log("Done"));
   });
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
 </script>
-
+<style>
+  
+  .btn-danger {
+    background: var(--warning_color, #d9534f)!important;
+  }
+</style>
 {#if user != null}
-  <div class="main">
-    <HomeNav />
+  <div class="main" style="{cssVarStyles}">
+    <HomeNav {user} />
     <div class="content">
       <div class="row" style="justify-content:center">
         <div class="card mb-2" style="min-width:300px">
           <div class="card-header">
-            <h5 class="card-title mb-0">Detalhes do Perfil</h5>
+            <h5 class="card-title mb-0">Seja bem vindo</h5>
           </div>
           <div class="card-body text-center">
             <img
@@ -39,7 +48,7 @@
               height="128"
             />
             <h5 class="card-title mb-0">{user.instagram}</h5>
-            <div class="text-muted mb-2">Links : {user.total_links}</div>
+            <div class="text-muted mb-2">Opções : {user.total_links}</div>
 
             <div>
               <a
@@ -53,7 +62,7 @@
       </div>
       <div class="row" style="justify-content: center;">
         {#each links as link}
-          <Card {link} {name} />
+          <Card {link} {name} {user}/>
         {/each}
       </div>
     </div>

@@ -13,6 +13,12 @@
     password: "",
     instagram: "",
     facebook: "",
+    style: { 
+      primary_color: "blue",
+      secondary_color: "green",
+      warning_color: "red",
+      header_color: "#eff2f6"
+    },
     twitter: "",
     email: "",
     dp: "",
@@ -89,11 +95,18 @@
                   </div>
                   <form on:submit={register}>
                     <div class="form-group">
+                      <label for="">Nome do Usuário</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="text"
+                        bind:value={user.name}
+                        required
+                        placeholder="nome"
+                      />
+                    </div>
+                    <div class="form-group">
                       <label for="">Usuário do Instagram</label>
                       <input
-                        on:change={() => {
-                          getPhoto(user.instagram);
-                        }}
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={user.instagram}
@@ -101,6 +114,48 @@
                         placeholder="usuario"
                       />
                     </div>
+                    
+                    <div class="form-group">
+                      <label for="">Cor do Cabeçalho</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.header_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Botão</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.primary_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Botão Secundário</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.secondary_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Botão de Alerta</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.warning_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    
                     <div class="form-group">
                       <label for="">E-mail para recuperação</label>
                       <input
