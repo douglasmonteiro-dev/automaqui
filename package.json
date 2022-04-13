@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:docker": "docker-compose up --build server"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.3",
