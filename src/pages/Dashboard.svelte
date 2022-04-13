@@ -206,19 +206,19 @@
             </div>
             <div class="card-body">
               <label>
-                <input style="padding:0" type="color" bind:value={styles['primary_color']} /> 
+                <input style="padding:0" type="color" bind:value={user.style['primary_color']} /> 
                 Primária
               </label>
               <label>
-                <input style="padding:0" type="color" bind:value={styles['secondary_color']} /> 
+                <input style="padding:0" type="color" bind:value={user.style['secondary_color']} /> 
                 Secundária
               </label>
               <label>
-                <input style="padding:0" type="color" bind:value={styles['warning_color']} /> 
+                <input style="padding:0" type="color" bind:value={user.style['warning_color']} /> 
                 Alerta
               </label>
               <label>
-                <input style="padding:0" type="color" bind:value={styles['header_color']} /> 
+                <input style="padding:0" type="color" bind:value={user.style['header_color']} /> 
                 Cabeçalho
               </label>
             </div>

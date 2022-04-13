@@ -8046,10 +8046,10 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(span, "class", "sr-only");
-    			add_location(span, file$c, 89, 24, 3192);
+    			add_location(span, file$c, 89, 24, 3211);
     			attr_dev(div, "class", "spinner-border text-primary");
     			attr_dev(div, "role", "status");
-    			add_location(div, file$c, 88, 22, 3111);
+    			add_location(div, file$c, 88, 22, 3130);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div, anchor);
@@ -8510,125 +8510,125 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(h1, "class", "h2");
-    			add_location(h1, file$c, 77, 14, 2715);
+    			add_location(h1, file$c, 77, 14, 2734);
     			attr_dev(p, "class", "lead");
-    			add_location(p, file$c, 78, 14, 2764);
+    			add_location(p, file$c, 78, 14, 2783);
     			attr_dev(div0, "class", "text-center mt-4");
-    			add_location(div0, file$c, 76, 12, 2669);
+    			add_location(div0, file$c, 76, 12, 2688);
     			attr_dev(div1, "class", "text-center");
-    			add_location(div1, file$c, 86, 18, 3027);
+    			add_location(div1, file$c, 86, 18, 3046);
     			attr_dev(label0, "for", "");
-    			add_location(label0, file$c, 97, 22, 3532);
+    			add_location(label0, file$c, 97, 22, 3551);
     			attr_dev(input0, "class", "form-control form-control-lg");
     			attr_dev(input0, "type", "text");
     			input0.required = true;
     			attr_dev(input0, "placeholder", "nome");
-    			add_location(input0, file$c, 98, 22, 3593);
+    			add_location(input0, file$c, 98, 22, 3612);
     			attr_dev(div2, "class", "form-group");
-    			add_location(div2, file$c, 96, 20, 3484);
+    			add_location(div2, file$c, 96, 20, 3503);
     			attr_dev(label1, "for", "");
-    			add_location(label1, file$c, 110, 22, 4069);
+    			add_location(label1, file$c, 107, 22, 3967);
     			attr_dev(input1, "class", "form-control form-control-lg");
     			attr_dev(input1, "type", "text");
     			input1.required = true;
     			attr_dev(input1, "placeholder", "usuario");
-    			add_location(input1, file$c, 111, 22, 4135);
+    			add_location(input1, file$c, 108, 22, 4033);
     			attr_dev(div3, "class", "form-group");
-    			add_location(div3, file$c, 109, 20, 4021);
+    			add_location(div3, file$c, 106, 20, 3919);
     			attr_dev(label2, "for", "");
-    			add_location(label2, file$c, 124, 22, 4645);
+    			add_location(label2, file$c, 118, 22, 4418);
     			attr_dev(input2, "class", "form-control form-control-lg");
     			attr_dev(input2, "type", "color");
     			input2.required = true;
     			attr_dev(input2, "placeholder", "cor");
-    			add_location(input2, file$c, 125, 22, 4707);
+    			add_location(input2, file$c, 119, 22, 4480);
     			attr_dev(div4, "class", "form-group");
-    			add_location(div4, file$c, 123, 20, 4597);
+    			add_location(div4, file$c, 117, 20, 4370);
     			attr_dev(label3, "for", "");
-    			add_location(label3, file$c, 137, 22, 5213);
+    			add_location(label3, file$c, 128, 22, 4849);
     			attr_dev(input3, "class", "form-control form-control-lg");
     			attr_dev(input3, "type", "color");
     			input3.required = true;
     			attr_dev(input3, "placeholder", "cor");
-    			add_location(input3, file$c, 138, 22, 5271);
+    			add_location(input3, file$c, 129, 22, 4907);
     			attr_dev(div5, "class", "form-group");
-    			add_location(div5, file$c, 136, 20, 5165);
+    			add_location(div5, file$c, 127, 20, 4801);
     			attr_dev(label4, "for", "");
-    			add_location(label4, file$c, 150, 22, 5779);
+    			add_location(label4, file$c, 138, 22, 5277);
     			attr_dev(input4, "class", "form-control form-control-lg");
     			attr_dev(input4, "type", "color");
     			input4.required = true;
     			attr_dev(input4, "placeholder", "cor");
-    			add_location(input4, file$c, 151, 22, 5848);
+    			add_location(input4, file$c, 139, 22, 5346);
     			attr_dev(div6, "class", "form-group");
-    			add_location(div6, file$c, 149, 20, 5731);
+    			add_location(div6, file$c, 137, 20, 5229);
     			attr_dev(label5, "for", "");
-    			add_location(label5, file$c, 163, 22, 6360);
+    			add_location(label5, file$c, 148, 22, 5718);
     			attr_dev(input5, "class", "form-control form-control-lg");
     			attr_dev(input5, "type", "color");
     			input5.required = true;
     			attr_dev(input5, "placeholder", "cor");
-    			add_location(input5, file$c, 164, 22, 6428);
+    			add_location(input5, file$c, 149, 22, 5786);
     			attr_dev(div7, "class", "form-group");
-    			add_location(div7, file$c, 162, 20, 6312);
+    			add_location(div7, file$c, 147, 20, 5670);
     			attr_dev(label6, "for", "");
-    			add_location(label6, file$c, 177, 22, 6958);
+    			add_location(label6, file$c, 159, 22, 6178);
     			attr_dev(input6, "class", "form-control form-control-lg");
     			attr_dev(input6, "type", "text");
     			input6.required = true;
     			attr_dev(input6, "placeholder", "usuario@gmail.com");
-    			add_location(input6, file$c, 178, 22, 7027);
+    			add_location(input6, file$c, 160, 22, 6247);
     			attr_dev(div8, "class", "form-group");
-    			add_location(div8, file$c, 176, 20, 6910);
+    			add_location(div8, file$c, 158, 20, 6130);
     			attr_dev(label7, "for", "");
-    			add_location(label7, file$c, 187, 22, 7396);
+    			add_location(label7, file$c, 169, 22, 6616);
     			attr_dev(input7, "class", "form-control form-control-lg");
     			attr_dev(input7, "type", "text");
     			attr_dev(input7, "placeholder", "usuario");
-    			add_location(input7, file$c, 188, 22, 7450);
+    			add_location(input7, file$c, 170, 22, 6670);
     			attr_dev(div9, "class", "form-group");
-    			add_location(div9, file$c, 186, 20, 7348);
+    			add_location(div9, file$c, 168, 20, 6568);
     			attr_dev(label8, "for", "");
-    			add_location(label8, file$c, 196, 22, 7778);
+    			add_location(label8, file$c, 178, 22, 6998);
     			attr_dev(input8, "class", "form-control form-control-lg");
     			attr_dev(input8, "type", "text");
     			attr_dev(input8, "placeholder", "usuario");
-    			add_location(input8, file$c, 197, 22, 7831);
+    			add_location(input8, file$c, 179, 22, 7051);
     			attr_dev(div10, "class", "form-group");
-    			add_location(div10, file$c, 195, 20, 7730);
+    			add_location(div10, file$c, 177, 20, 6950);
     			attr_dev(label9, "for", "");
-    			add_location(label9, file$c, 205, 22, 8158);
+    			add_location(label9, file$c, 187, 22, 7378);
     			attr_dev(input9, "class", "form-control form-control-lg");
     			attr_dev(input9, "type", "password");
     			input9.required = true;
     			attr_dev(input9, "placeholder", "Digite uma senha");
-    			add_location(input9, file$c, 206, 22, 8209);
+    			add_location(input9, file$c, 188, 22, 7429);
     			attr_dev(div11, "class", "form-group");
-    			add_location(div11, file$c, 204, 20, 8110);
+    			add_location(div11, file$c, 186, 20, 7330);
     			attr_dev(button, "type", "submit");
     			attr_dev(button, "class", "btn btn-lg btn-primary");
-    			add_location(button, file$c, 215, 22, 8590);
+    			add_location(button, file$c, 197, 22, 7810);
     			attr_dev(div12, "class", "text-center mt-3");
-    			add_location(div12, file$c, 214, 20, 8536);
-    			add_location(form, file$c, 95, 18, 3435);
+    			add_location(div12, file$c, 196, 20, 7756);
+    			add_location(form, file$c, 95, 18, 3454);
     			attr_dev(div13, "class", "m-sm-4");
-    			add_location(div13, file$c, 85, 16, 2987);
+    			add_location(div13, file$c, 85, 16, 3006);
     			attr_dev(div14, "class", "card-body");
-    			add_location(div14, file$c, 84, 14, 2946);
+    			add_location(div14, file$c, 84, 14, 2965);
     			attr_dev(div15, "class", "card");
-    			add_location(div15, file$c, 83, 12, 2912);
+    			add_location(div15, file$c, 83, 12, 2931);
     			attr_dev(div16, "class", "align-middle");
-    			add_location(div16, file$c, 75, 10, 2629);
+    			add_location(div16, file$c, 75, 10, 2648);
     			attr_dev(div17, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
-    			add_location(div17, file$c, 74, 8, 2554);
+    			add_location(div17, file$c, 74, 8, 2573);
     			attr_dev(div18, "class", "row h-100");
-    			add_location(div18, file$c, 73, 6, 2521);
+    			add_location(div18, file$c, 73, 6, 2540);
     			attr_dev(div19, "class", "container d-flex flex-column");
-    			add_location(div19, file$c, 72, 4, 2471);
+    			add_location(div19, file$c, 72, 4, 2490);
     			attr_dev(main, "class", "content d-flex p-0");
-    			add_location(main, file$c, 71, 2, 2432);
+    			add_location(main, file$c, 71, 2, 2451);
     			attr_dev(div20, "class", "main d-flex justify-content-center w-100");
-    			add_location(div20, file$c, 70, 0, 2374);
+    			add_location(div20, file$c, 70, 0, 2393);
     		},
     		m: function mount(target, anchor) {
     			mount_component(homenav, target, anchor);
@@ -8734,23 +8734,17 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "change", /*change_handler*/ ctx[7], false, false, false),
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[8]),
-    					listen_dev(input1, "change", /*change_handler_1*/ ctx[9], false, false, false),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[10]),
-    					listen_dev(input2, "change", /*change_handler_2*/ ctx[11], false, false, false),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[12]),
-    					listen_dev(input3, "change", /*change_handler_3*/ ctx[13], false, false, false),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[14]),
-    					listen_dev(input4, "change", /*change_handler_4*/ ctx[15], false, false, false),
-    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[16]),
-    					listen_dev(input5, "change", /*change_handler_5*/ ctx[17], false, false, false),
-    					listen_dev(input5, "input", /*input5_input_handler*/ ctx[18]),
-    					listen_dev(input6, "input", /*input6_input_handler*/ ctx[19]),
-    					listen_dev(input7, "input", /*input7_input_handler*/ ctx[20]),
-    					listen_dev(input8, "input", /*input8_input_handler*/ ctx[21]),
-    					listen_dev(input9, "input", /*input9_input_handler*/ ctx[22]),
-    					listen_dev(form, "submit", /*register*/ ctx[6], false, false, false)
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[6]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[7]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[8]),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[9]),
+    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[10]),
+    					listen_dev(input5, "input", /*input5_input_handler*/ ctx[11]),
+    					listen_dev(input6, "input", /*input6_input_handler*/ ctx[12]),
+    					listen_dev(input7, "input", /*input7_input_handler*/ ctx[13]),
+    					listen_dev(input8, "input", /*input8_input_handler*/ ctx[14]),
+    					listen_dev(input9, "input", /*input9_input_handler*/ ctx[15]),
+    					listen_dev(form, "submit", /*register*/ ctx[5], false, false, false)
     				];
 
     				mounted = true;
@@ -8879,10 +8873,10 @@ var app = (function () {
     		instagram: "",
     		facebook: "",
     		style: {
-    			primary_color: "",
-    			secondary_color: "",
-    			warning_color: "",
-    			header_color: ""
+    			primary_color: "blue",
+    			secondary_color: "green",
+    			warning_color: "red",
+    			header_color: "#eff2f6"
     		},
     		twitter: "",
     		email: "",
@@ -8938,54 +8932,30 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$7.warn(`<Register> was created with unknown prop '${key}'`);
     	});
 
-    	const change_handler = name => {
-    		$$invalidate(1, user.name = name, user);
-    	};
-
     	function input0_input_handler() {
     		user.name = this.value;
     		$$invalidate(1, user);
     	}
-
-    	const change_handler_1 = () => {
-    		getPhoto(user.instagram);
-    	};
 
     	function input1_input_handler() {
     		user.instagram = this.value;
     		$$invalidate(1, user);
     	}
 
-    	const change_handler_2 = color => {
-    		$$invalidate(1, user.style.header_color = color, user);
-    	};
-
     	function input2_input_handler() {
     		user.style.header_color = this.value;
     		$$invalidate(1, user);
     	}
-
-    	const change_handler_3 = color => {
-    		$$invalidate(1, user.style.primary_color = color, user);
-    	};
 
     	function input3_input_handler() {
     		user.style.primary_color = this.value;
     		$$invalidate(1, user);
     	}
 
-    	const change_handler_4 = color => {
-    		$$invalidate(1, user.style.secondary_color = color, user);
-    	};
-
     	function input4_input_handler() {
     		user.style.secondary_color = this.value;
     		$$invalidate(1, user);
     	}
-
-    	const change_handler_5 = color => {
-    		$$invalidate(1, user.style.warning_color = color, user);
-    	};
 
     	function input5_input_handler() {
     		user.style.warning_color = this.value;
@@ -9048,19 +9018,12 @@ var app = (function () {
     		loading,
     		status,
     		mssg,
-    		getPhoto,
     		register,
-    		change_handler,
     		input0_input_handler,
-    		change_handler_1,
     		input1_input_handler,
-    		change_handler_2,
     		input2_input_handler,
-    		change_handler_3,
     		input3_input_handler,
-    		change_handler_4,
     		input4_input_handler,
-    		change_handler_5,
     		input5_input_handler,
     		input6_input_handler,
     		input7_input_handler,
@@ -15908,16 +15871,16 @@ var app = (function () {
     			attr_dev(img, "alt", "");
     			if (!src_url_equal(img.src, img_src_value = "img/upload.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "width", "300px");
-    			add_location(img, file$9, 389, 18, 14291);
-    			add_location(h1, file$9, 390, 18, 14360);
+    			add_location(img, file$9, 389, 18, 14307);
+    			add_location(h1, file$9, 390, 18, 14376);
     			attr_dev(a, "href", "/addlink");
     			attr_dev(a, "class", "btn btn-primary svelte-10c3svd");
-    			add_location(a, file$9, 391, 18, 14425);
+    			add_location(a, file$9, 391, 18, 14441);
     			set_style(div, "display", "flex");
     			set_style(div, "flex-direction", "column");
     			set_style(div, "justify-content", "center");
     			set_style(div, "align-items", "center");
-    			add_location(div, file$9, 386, 16, 14144);
+    			add_location(div, file$9, 386, 16, 14160);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div, anchor);
@@ -16063,26 +16026,26 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(small0, "class", "float-right text-navy");
-    			add_location(small0, file$9, 357, 22, 12943);
-    			add_location(strong, file$9, 362, 38, 13187);
+    			add_location(small0, file$9, 357, 22, 12959);
+    			add_location(strong, file$9, 362, 38, 13203);
     			attr_dev(p0, "class", "mb-2");
-    			add_location(p0, file$9, 362, 22, 13171);
-    			add_location(p1, file$9, 363, 22, 13244);
+    			add_location(p0, file$9, 362, 22, 13187);
+    			add_location(p1, file$9, 363, 22, 13260);
     			attr_dev(small1, "class", "text-muted");
-    			add_location(small1, file$9, 366, 22, 13343);
-    			add_location(br, file$9, 368, 23, 13465);
+    			add_location(small1, file$9, 366, 22, 13359);
+    			add_location(br, file$9, 368, 23, 13481);
     			attr_dev(a0, "href", a0_href_value = /*link*/ ctx[25].url);
     			attr_dev(a0, "class", "btn btn-sm btn-success mt-1 svelte-10c3svd");
-    			add_location(a0, file$9, 369, 22, 13495);
+    			add_location(a0, file$9, 369, 22, 13511);
     			attr_dev(a1, "href", a1_href_value = /*link*/ ctx[25].url);
     			attr_dev(a1, "class", "btn btn-sm btn-primary mt-1 svelte-10c3svd");
-    			add_location(a1, file$9, 372, 22, 13638);
+    			add_location(a1, file$9, 372, 22, 13654);
     			attr_dev(button, "class", "btn btn-sm btn-danger mt-1 svelte-10c3svd");
-    			add_location(button, file$9, 375, 22, 13775);
+    			add_location(button, file$9, 375, 22, 13791);
     			attr_dev(div0, "class", "media-body");
-    			add_location(div0, file$9, 356, 20, 12895);
+    			add_location(div0, file$9, 356, 20, 12911);
     			attr_dev(div1, "class", "media");
-    			add_location(div1, file$9, 355, 18, 12854);
+    			add_location(div1, file$9, 355, 18, 12870);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div1, anchor);
@@ -16287,34 +16250,34 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(small0, "class", "float-right text-navy");
-    			add_location(small0, file$9, 312, 22, 11147);
-    			add_location(strong, file$9, 317, 38, 11391);
+    			add_location(small0, file$9, 312, 22, 11163);
+    			add_location(strong, file$9, 317, 38, 11407);
     			attr_dev(p0, "class", "mb-2");
-    			add_location(p0, file$9, 317, 22, 11375);
-    			add_location(p1, file$9, 318, 22, 11448);
+    			add_location(p0, file$9, 317, 22, 11391);
+    			add_location(p1, file$9, 318, 22, 11464);
     			if (!src_url_equal(img.src, img_src_value = /*link*/ ctx[25].image)) attr_dev(img, "src", img_src_value);
     			set_style(img, "margin", "10px");
     			attr_dev(img, "height", "200px");
     			attr_dev(img, "alt", img_alt_value = /*link*/ ctx[25].title);
-    			add_location(img, file$9, 326, 24, 11718);
+    			add_location(img, file$9, 326, 24, 11734);
     			attr_dev(div0, "class", "row no-gutters mt-1");
     			set_style(div0, "display", "flex");
     			set_style(div0, "flex-wrap", "wrap");
-    			add_location(div0, file$9, 322, 22, 11549);
+    			add_location(div0, file$9, 322, 22, 11565);
     			attr_dev(small1, "class", "text-muted");
-    			add_location(small1, file$9, 334, 22, 11983);
-    			add_location(br, file$9, 336, 23, 12105);
+    			add_location(small1, file$9, 334, 22, 11999);
+    			add_location(br, file$9, 336, 23, 12121);
     			attr_dev(a, "href", a_href_value = /*link*/ ctx[25].url);
     			attr_dev(a, "class", "btn btn-sm btn-success mt-1 svelte-10c3svd");
-    			add_location(a, file$9, 337, 22, 12135);
+    			add_location(a, file$9, 337, 22, 12151);
     			attr_dev(button0, "class", "btn btn-sm btn-primary mt-1 svelte-10c3svd");
-    			add_location(button0, file$9, 340, 22, 12282);
+    			add_location(button0, file$9, 340, 22, 12298);
     			attr_dev(button1, "class", "btn btn-sm btn-danger mt-1 svelte-10c3svd");
-    			add_location(button1, file$9, 346, 22, 12528);
+    			add_location(button1, file$9, 346, 22, 12544);
     			attr_dev(div1, "class", "media-body");
-    			add_location(div1, file$9, 311, 20, 11099);
+    			add_location(div1, file$9, 311, 20, 11115);
     			attr_dev(div2, "class", "media");
-    			add_location(div2, file$9, 310, 18, 11058);
+    			add_location(div2, file$9, 310, 18, 11074);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div2, anchor);
@@ -16419,7 +16382,7 @@ var app = (function () {
     			this.h();
     		},
     		h: function hydrate() {
-    			add_location(hr, file$9, 384, 16, 14097);
+    			add_location(hr, file$9, 384, 16, 14113);
     		},
     		m: function mount(target, anchor) {
     			if_block.m(target, anchor);
@@ -17345,16 +17308,16 @@ var app = (function () {
     			add_location(label0, file$9, 207, 14, 7027);
     			set_style(input2, "padding", "0");
     			attr_dev(input2, "type", "color");
-    			add_location(input2, file$9, 212, 16, 7221);
-    			add_location(label1, file$9, 211, 14, 7196);
+    			add_location(input2, file$9, 212, 16, 7225);
+    			add_location(label1, file$9, 211, 14, 7200);
     			set_style(input3, "padding", "0");
     			attr_dev(input3, "type", "color");
-    			add_location(input3, file$9, 216, 16, 7394);
-    			add_location(label2, file$9, 215, 14, 7369);
+    			add_location(input3, file$9, 216, 16, 7402);
+    			add_location(label2, file$9, 215, 14, 7377);
     			set_style(input4, "padding", "0");
     			attr_dev(input4, "type", "color");
-    			add_location(input4, file$9, 220, 16, 7561);
-    			add_location(label3, file$9, 219, 14, 7536);
+    			add_location(input4, file$9, 220, 16, 7573);
+    			add_location(label3, file$9, 219, 14, 7548);
     			attr_dev(div19, "class", "card-body");
     			add_location(div19, file$9, 206, 12, 6988);
     			attr_dev(div20, "class", "card mb-3");
@@ -17363,92 +17326,92 @@ var app = (function () {
     			add_location(div21, file$9, 83, 8, 2525);
     			attr_dev(i2, "class", "align-middle");
     			attr_dev(i2, "data-feather", "more-horizontal");
-    			add_location(i2, file$9, 236, 20, 8155);
+    			add_location(i2, file$9, 236, 20, 8171);
     			attr_dev(a7, "href", "/dashboard");
     			attr_dev(a7, "data-toggle", "dropdown");
     			attr_dev(a7, "data-display", "static");
-    			add_location(a7, file$9, 231, 18, 7984);
+    			add_location(a7, file$9, 231, 18, 8000);
     			attr_dev(a8, "class", "dropdown-item");
     			attr_dev(a8, "href", "/dashboard");
-    			add_location(a8, file$9, 240, 20, 8327);
+    			add_location(a8, file$9, 240, 20, 8343);
     			attr_dev(div22, "class", "dropdown-menu dropdown-menu-right");
-    			add_location(div22, file$9, 239, 18, 8258);
+    			add_location(div22, file$9, 239, 18, 8274);
     			attr_dev(div23, "class", "dropdown show");
-    			add_location(div23, file$9, 230, 16, 7937);
+    			add_location(div23, file$9, 230, 16, 7953);
     			attr_dev(div24, "class", "card-actions float-right");
-    			add_location(div24, file$9, 229, 14, 7881);
+    			add_location(div24, file$9, 229, 14, 7897);
     			attr_dev(h52, "class", "card-title mb-0");
-    			add_location(h52, file$9, 244, 14, 8471);
+    			add_location(h52, file$9, 244, 14, 8487);
     			attr_dev(div25, "class", "card-header");
-    			add_location(div25, file$9, 228, 12, 7840);
+    			add_location(div25, file$9, 228, 12, 7856);
     			set_style(input5, "padding", "0");
     			attr_dev(input5, "type", "color");
-    			add_location(input5, file$9, 248, 16, 8612);
-    			add_location(label4, file$9, 247, 14, 8587);
+    			add_location(input5, file$9, 248, 16, 8628);
+    			add_location(label4, file$9, 247, 14, 8603);
     			set_style(input6, "padding", "0");
     			attr_dev(input6, "type", "color");
-    			add_location(input6, file$9, 252, 16, 8781);
-    			add_location(label5, file$9, 251, 14, 8756);
+    			add_location(input6, file$9, 252, 16, 8797);
+    			add_location(label5, file$9, 251, 14, 8772);
     			set_style(input7, "padding", "0");
     			attr_dev(input7, "type", "color");
-    			add_location(input7, file$9, 256, 16, 8954);
-    			add_location(label6, file$9, 255, 14, 8929);
+    			add_location(input7, file$9, 256, 16, 8970);
+    			add_location(label6, file$9, 255, 14, 8945);
     			set_style(input8, "padding", "0");
     			attr_dev(input8, "type", "color");
-    			add_location(input8, file$9, 260, 16, 9121);
-    			add_location(label7, file$9, 259, 14, 9096);
+    			add_location(input8, file$9, 260, 16, 9137);
+    			add_location(label7, file$9, 259, 14, 9112);
     			attr_dev(div26, "class", "card-body");
-    			add_location(div26, file$9, 246, 12, 8548);
+    			add_location(div26, file$9, 246, 12, 8564);
     			attr_dev(div27, "class", "card mb-3");
-    			add_location(div27, file$9, 227, 10, 7803);
+    			add_location(div27, file$9, 227, 10, 7819);
     			attr_dev(i3, "class", "align-middle");
     			attr_dev(i3, "data-feather", "more-horizontal");
-    			add_location(i3, file$9, 274, 20, 9651);
+    			add_location(i3, file$9, 274, 20, 9667);
     			attr_dev(a9, "href", "/dashboard");
     			attr_dev(a9, "data-toggle", "dropdown");
     			attr_dev(a9, "data-display", "static");
-    			add_location(a9, file$9, 269, 18, 9480);
+    			add_location(a9, file$9, 269, 18, 9496);
     			attr_dev(a10, "class", "dropdown-item");
     			attr_dev(a10, "href", "/dashboard");
-    			add_location(a10, file$9, 278, 20, 9823);
+    			add_location(a10, file$9, 278, 20, 9839);
     			attr_dev(div28, "class", "dropdown-menu dropdown-menu-right");
-    			add_location(div28, file$9, 277, 18, 9754);
+    			add_location(div28, file$9, 277, 18, 9770);
     			attr_dev(div29, "class", "dropdown show");
-    			add_location(div29, file$9, 268, 16, 9433);
+    			add_location(div29, file$9, 268, 16, 9449);
     			attr_dev(div30, "class", "card-actions float-right");
-    			add_location(div30, file$9, 267, 14, 9377);
+    			add_location(div30, file$9, 267, 14, 9393);
     			attr_dev(h53, "class", "card-title mb-0");
-    			add_location(h53, file$9, 282, 14, 9967);
+    			add_location(h53, file$9, 282, 14, 9983);
     			attr_dev(div31, "class", "card-header");
-    			add_location(div31, file$9, 266, 12, 9336);
+    			add_location(div31, file$9, 266, 12, 9352);
     			set_style(input9, "padding", "0");
     			attr_dev(input9, "type", "color");
-    			add_location(input9, file$9, 286, 16, 10119);
-    			add_location(label8, file$9, 285, 14, 10094);
+    			add_location(input9, file$9, 286, 16, 10135);
+    			add_location(label8, file$9, 285, 14, 10110);
     			set_style(input10, "padding", "0");
     			attr_dev(input10, "type", "color");
-    			add_location(input10, file$9, 290, 16, 10288);
-    			add_location(label9, file$9, 289, 14, 10263);
+    			add_location(input10, file$9, 290, 16, 10304);
+    			add_location(label9, file$9, 289, 14, 10279);
     			set_style(input11, "padding", "0");
     			attr_dev(input11, "type", "color");
-    			add_location(input11, file$9, 294, 16, 10461);
-    			add_location(label10, file$9, 293, 14, 10436);
+    			add_location(input11, file$9, 294, 16, 10477);
+    			add_location(label10, file$9, 293, 14, 10452);
     			set_style(input12, "padding", "0");
     			attr_dev(input12, "type", "color");
-    			add_location(input12, file$9, 298, 16, 10628);
-    			add_location(label11, file$9, 297, 14, 10603);
+    			add_location(input12, file$9, 298, 16, 10644);
+    			add_location(label11, file$9, 297, 14, 10619);
     			attr_dev(div32, "class", "card-body");
-    			add_location(div32, file$9, 284, 12, 10055);
+    			add_location(div32, file$9, 284, 12, 10071);
     			attr_dev(div33, "class", "card mb-3");
-    			add_location(div33, file$9, 265, 10, 9299);
+    			add_location(div33, file$9, 265, 10, 9315);
     			attr_dev(div34, "class", "col-12 col-md-7 col-lg-5");
-    			add_location(div34, file$9, 226, 8, 7753);
+    			add_location(div34, file$9, 226, 8, 7769);
     			attr_dev(div35, "class", "card-body h-100");
-    			add_location(div35, file$9, 307, 12, 10905);
+    			add_location(div35, file$9, 307, 12, 10921);
     			attr_dev(div36, "class", "card");
-    			add_location(div36, file$9, 306, 10, 10873);
+    			add_location(div36, file$9, 306, 10, 10889);
     			attr_dev(div37, "class", "col-12 col-md-12 col-lg-4");
-    			add_location(div37, file$9, 305, 8, 10822);
+    			add_location(div37, file$9, 305, 8, 10838);
     			attr_dev(div38, "class", "row");
     			add_location(div38, file$9, 81, 6, 2488);
     			attr_dev(div39, "class", "container-fluid p-0");
@@ -17551,22 +17514,22 @@ var app = (function () {
     			append_hydration_dev(div20, div19);
     			append_hydration_dev(div19, label0);
     			append_hydration_dev(label0, input1);
-    			set_input_value(input1, /*styles*/ ctx[0]['primary_color']);
+    			set_input_value(input1, /*user*/ ctx[1].style['primary_color']);
     			append_hydration_dev(label0, t37);
     			append_hydration_dev(div19, t38);
     			append_hydration_dev(div19, label1);
     			append_hydration_dev(label1, input2);
-    			set_input_value(input2, /*styles*/ ctx[0]['secondary_color']);
+    			set_input_value(input2, /*user*/ ctx[1].style['secondary_color']);
     			append_hydration_dev(label1, t39);
     			append_hydration_dev(div19, t40);
     			append_hydration_dev(div19, label2);
     			append_hydration_dev(label2, input3);
-    			set_input_value(input3, /*styles*/ ctx[0]['warning_color']);
+    			set_input_value(input3, /*user*/ ctx[1].style['warning_color']);
     			append_hydration_dev(label2, t41);
     			append_hydration_dev(div19, t42);
     			append_hydration_dev(div19, label3);
     			append_hydration_dev(label3, input4);
-    			set_input_value(input4, /*styles*/ ctx[0]['header_color']);
+    			set_input_value(input4, /*user*/ ctx[1].style['header_color']);
     			append_hydration_dev(label3, t43);
     			append_hydration_dev(div38, t44);
     			append_hydration_dev(div38, div34);
@@ -17708,20 +17671,20 @@ var app = (function () {
     			if ((!current || dirty & /*user*/ 2) && t24_value !== (t24_value = /*user*/ ctx[1].views + "")) set_data_dev(t24, t24_value);
     			if (!current || dirty & /*clicks*/ 4) set_data_dev(t29, /*clicks*/ ctx[2]);
 
-    			if (dirty & /*styles*/ 1) {
-    				set_input_value(input1, /*styles*/ ctx[0]['primary_color']);
+    			if (dirty & /*user*/ 2) {
+    				set_input_value(input1, /*user*/ ctx[1].style['primary_color']);
     			}
 
-    			if (dirty & /*styles*/ 1) {
-    				set_input_value(input2, /*styles*/ ctx[0]['secondary_color']);
+    			if (dirty & /*user*/ 2) {
+    				set_input_value(input2, /*user*/ ctx[1].style['secondary_color']);
     			}
 
-    			if (dirty & /*styles*/ 1) {
-    				set_input_value(input3, /*styles*/ ctx[0]['warning_color']);
+    			if (dirty & /*user*/ 2) {
+    				set_input_value(input3, /*user*/ ctx[1].style['warning_color']);
     			}
 
-    			if (dirty & /*styles*/ 1) {
-    				set_input_value(input4, /*styles*/ ctx[0]['header_color']);
+    			if (dirty & /*user*/ 2) {
+    				set_input_value(input4, /*user*/ ctx[1].style['header_color']);
     			}
 
     			if (dirty & /*styles*/ 1) {
@@ -17917,23 +17880,23 @@ var app = (function () {
     	});
 
     	function input1_input_handler() {
-    		styles['primary_color'] = this.value;
-    		$$invalidate(0, styles);
+    		user.style['primary_color'] = this.value;
+    		$$invalidate(1, user);
     	}
 
     	function input2_input_handler() {
-    		styles['secondary_color'] = this.value;
-    		$$invalidate(0, styles);
+    		user.style['secondary_color'] = this.value;
+    		$$invalidate(1, user);
     	}
 
     	function input3_input_handler() {
-    		styles['warning_color'] = this.value;
-    		$$invalidate(0, styles);
+    		user.style['warning_color'] = this.value;
+    		$$invalidate(1, user);
     	}
 
     	function input4_input_handler() {
-    		styles['header_color'] = this.value;
-    		$$invalidate(0, styles);
+    		user.style['header_color'] = this.value;
+    		$$invalidate(1, user);
     	}
 
     	function input5_input_handler() {
