@@ -14,6 +14,13 @@
     clicks: 0,
     likes: 0,
   };
+  let types = [
+      'Link',
+      'Whatsapp',
+      'Agendamento',
+      'Orçamento',
+      'Pedido'
+    ] 
   const drop = async (e) => {
     loading = true;
     const files = e.target.files;
@@ -81,6 +88,17 @@
                         required
                         placeholder="Produto ou Serviço"
                       />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Tipo</label>
+                      <select
+                        class="form-control form-control-lg"
+                        bind:value={link.type}
+                      >
+                      	{#each types as type(type)}
+                          <option>{type}</option>
+                     		{/each}
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="">Url</label>

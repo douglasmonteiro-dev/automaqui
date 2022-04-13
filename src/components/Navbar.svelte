@@ -1,8 +1,20 @@
 <script>
   export let user;
+  let styles = {
+		'header_color': user.style.header_color,
+	};
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
 </script>
 
-<nav class="navbar navbar-expand navbar-light navbar-bg">
+<style>
+  .navbar-bg {
+    background: var(--header_color, #6f6f6f)!important;
+  }
+  </style>
+
+<nav class="navbar navbar-expand navbar-light navbar-bg" style="{cssVarStyles}">
   <a class="sidebar-toggle" href="/">
     <i class="hamburger align-self-center" />
   </a>

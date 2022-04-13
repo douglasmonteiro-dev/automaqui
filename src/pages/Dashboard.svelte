@@ -9,11 +9,9 @@
   import { onDestroy, onMount } from "svelte";
   let user = {};
   let clicks = 0;
-  moment.locale('pt')
+  let styles = {};
 
-  onMount(() => {
-    getinfo();
-  });
+  moment.locale('pt')
   const unsubscribe = userStore.subscribe(async (data) => {
     console.log(user);
     user = data.user;
@@ -22,9 +20,22 @@
         clicks = clicks + user.links[i].clicks;
       }
   });
+  onMount(() => {
+    getinfo();
+    styles['warning_color'] = user.style.warning_color;
+    styles['secondary_color'] = user.style.secondary_color;
+    styles['primary_color'] = user.style.primary_color;
+    styles['header_color'] = user.style.header_color;
+  });
+  
   onDestroy(unsubscribe);
   let status = -1;
   let mssg = "";
+	
+	$: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
+	
   const deleteLink = async (a) => {
     if (!confirm("Are you sure you want to delete this ?")) {
       return;
@@ -63,7 +74,7 @@
   }
 </script>
 
-<div class="main">
+<div class="main" style="{cssVarStyles}">
   <NavBar {user} />
   
   <main class="content">
@@ -174,9 +185,122 @@
               </div> -->
             </div>
           </div>
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-actions float-right">
+                <div class="dropdown show">
+                  <a
+                    href="/dashboard"
+                    data-toggle="dropdown"
+                    data-display="static"
+                  >
+                    <i class="align-middle" data-feather="more-horizontal" />
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                  </div>
+                </div>
+              </div>
+              <h5 class="card-title mb-0">Configurações</h5>
+            </div>
+            <div class="card-body">
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['primary_color']} /> 
+                Primária
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['secondary_color']} /> 
+                Secundária
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['warning_color']} /> 
+                Alerta
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['header_color']} /> 
+                Cabeçalho
+              </label>
+            </div>
+          </div>
         </div>
         <div class="col-12 col-md-7 col-lg-5">
-        
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-actions float-right">
+                <div class="dropdown show">
+                  <a
+                    href="/dashboard"
+                    data-toggle="dropdown"
+                    data-display="static"
+                  >
+                    <i class="align-middle" data-feather="more-horizontal" />
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                  </div>
+                </div>
+              </div>
+              <h5 class="card-title mb-0">Pendências</h5>
+            </div>
+            <div class="card-body">
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['primary_color']} /> 
+                Primária
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['secondary_color']} /> 
+                Secundária
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['warning_color']} /> 
+                Alerta
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['header_color']} /> 
+                Cabeçalho
+              </label>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-actions float-right">
+                <div class="dropdown show">
+                  <a
+                    href="/dashboard"
+                    data-toggle="dropdown"
+                    data-display="static"
+                  >
+                    <i class="align-middle" data-feather="more-horizontal" />
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                  </div>
+                </div>
+              </div>
+              <h5 class="card-title mb-0">Próximos Agendamentos</h5>
+            </div>
+            <div class="card-body">
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['primary_color']} /> 
+                Primária
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['secondary_color']} /> 
+                Secundária
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['warning_color']} /> 
+                Alerta
+              </label>
+              <label>
+                <input style="padding:0" type="color" bind:value={styles['header_color']} /> 
+                Cabeçalho
+              </label>
+            </div>
+          </div>
         </div>
 
         <div class="col-12 col-md-12 col-lg-4">
@@ -316,4 +440,14 @@
     visibility: visible;
     opacity: 1;
   }
+  .btn-primary {
+    background: var(--primary_color, #007bff)!important;
+  }
+  .btn-success {
+    background: var(--secondary_color, #5cb85c)!important;
+  }
+  .btn-danger {
+    background: var(--warning_color, #d9534f)!important;
+  }
+
 </style>
