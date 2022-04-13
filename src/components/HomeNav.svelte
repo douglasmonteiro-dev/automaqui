@@ -2,14 +2,14 @@
   <div class="container">
     <a class="navbar-brand landing-brand" href="/">
       <img src="/img/link.png" alt="vitrinedacasa" height="34px" />
-      Vitrine da Casa
+      Vitrine da Casa parametrizar
     </a>
 
     <!-- <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
         <a
           class="nav-link text-lg px-lg-3"
-          href="https://github.com/kvssankar"
+          href="https://github.com/vitrinedacasa"
           target="_blank"
         >
           <span class="d-inline-block d-md-none">GitHub</span>
@@ -31,3 +31,8 @@
     >
   </div>
 </nav>
+<!-- <script>
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
+</script> -->

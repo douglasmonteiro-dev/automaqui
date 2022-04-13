@@ -7,6 +7,8 @@
   import Dashboard from "./pages/Dashboard.svelte";
   import AddLink from "./pages/AddLink.svelte";
   import EditLink from "./pages/EditLink.svelte";
+  import AddSchedule from "./pages/AddSchedule.svelte";
+  import EditSchedule from "./pages/EditSchedule.svelte";
   import Display from "./pages/Display.svelte";
   import Page404 from "./pages/Page404.svelte";
   export let url = "";
@@ -21,6 +23,8 @@
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/addlink" component={AddLink} />
     <Route path="/editlink" component={EditLink} />
+    <Route path="/addschedule" component={AddSchedule} />
+    <Route path="/editschedule" component={EditSchedule} />
     <Route path="/notfound" component={Page404} />
     <Route path="/:name" let:params>
       <Display name={params.name} />

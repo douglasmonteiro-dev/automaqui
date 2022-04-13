@@ -31,7 +31,7 @@
         on:click={redirect}
         href={link.url}
         target="_blank"
-        class="btn btn-primary">Visit</a
+        class="btn btn-primary">Entre</a
       >
     </div>
   </div>

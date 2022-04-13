@@ -40,6 +40,13 @@
     });
     document.location.href = "/editlink";
   };
+  const editschedule = async (a) => {
+    await userStore.update((currUser) => {
+      console.log("updated");
+      return { token: currUser.token, user: currUser.user, schedule: a };
+    });
+    document.location.href = "/editschedule";
+  };
   function myFunction() {
     var copyText = document.getElementById("myInput");
     copyText.select();
@@ -49,7 +56,7 @@
     var tooltip = document.getElementById("myTooltip");
     tooltip.innerHTML = "Copied: " + copyText.value;
   }
-
+  
   function outFunc() {
     var tooltip = document.getElementById("myTooltip");
     tooltip.innerHTML = "Copy to clipboard";
@@ -58,11 +65,121 @@
 
 <div class="main">
   <NavBar {user} />
-
+  
   <main class="content">
     <div class="container-fluid p-0">
       <div class="row">
-        <div class="col-12 col-lg-8">
+        
+        <div class="col-12 col-lg-3">
+          <div class="card mb-3">
+            <div class="card-body text-center">
+              <img
+                src={user.dp}
+                alt={user.instagram}
+                class="img-fluid rounded-circle mb-2"
+                width="128"
+                height="128"
+              />
+              <h4 class="card-title mb-0">{user.instagram}</h4>
+
+              <input
+                type="text"
+                value={`https://vitrinedacasa.com.br/${user.instagram}`}
+                id="myInput"
+                style="border:none;width:100%;text-align:center;margin:5px;pointer-events:none;"
+              />
+              <div class="tooltip">
+                <button
+                  class="btn btn-sm btn-success"
+                  on:click={myFunction}
+                  on:mouseout={outFunc}
+                  on:blur={outFunc}
+                >
+                  <span class="tooltiptext" id="myTooltip"
+                    >Copiar Link</span
+                  >
+                  Copiar
+                </button>
+              </div>
+              <div class="text-muted mb-2">
+                Total de Produtos e Serviços oferecidos : {user.total_links || 0}
+              </div>
+
+              <div>
+                <a
+                  class="btn btn-primary btn-sm"
+                  use:link
+                  replace
+                  href="/addlink">Adicionar Produto/Serviço</a
+                >
+                <a
+                  class="btn btn-primary btn-sm"
+                  use:link
+                  replace
+                  href="/addschedule">Adicionar Agenda</a
+                >
+                <a
+                  class="btn btn-danger btn-sm"
+                  target="_blank"
+                  href={"https://www.instagram.com/" + user.instagram + "/"}
+                  ><span data-feather="instagram" /> Instagram</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="card-actions float-right">
+                <div class="dropdown show">
+                  <a
+                    href="/dashboard"
+                    data-toggle="dropdown"
+                    data-display="static"
+                  >
+                    <i class="align-middle" data-feather="more-horizontal" />
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/dashboard">View all</a>
+                  </div>
+                </div>
+              </div>
+              <h5 class="card-title mb-0">Estatísticas</h5>
+            </div>
+            <div class="card-body">
+              <div class="media">
+                <div class="media-body">
+                  <p class="my-1"><strong>Total de visitas</strong></p>
+                  <p class="text-info">{user.views}</p>
+                </div>
+              </div>
+
+              <hr class="my-2" />
+
+              <div class="media">
+                <div class="media-body">
+                  <p class="my-1"><strong>Total de Cliques</strong></p>
+                  <p class="text-warning">{clicks}</p>
+                </div>
+              </div>
+
+              <hr class="my-2" />
+
+              <!-- <div class="media">
+                <div class="media-body">
+                  <p class="my-1"><strong>Total number of likes</strong></p>
+                  <p class="text-danger">456</p>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-5">
+        
+        </div>
+
+        <div class="col-12 col-lg-4">
           <div class="card">
             <div class="card-body h-100">
               {#each user.links as link}
@@ -151,105 +268,6 @@
                   <a href="/addlink" class="btn btn-primary">Criar</a>
                 </div>
               {/each}
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-lg-4">
-          <div class="card mb-3">
-            <div class="card-body text-center">
-              <img
-                src={user.dp}
-                alt={user.instagram}
-                class="img-fluid rounded-circle mb-2"
-                width="128"
-                height="128"
-              />
-              <h4 class="card-title mb-0">{user.instagram}</h4>
-
-              <input
-                type="text"
-                value={`https://vitrinedacasa.com.br/${user.instagram}`}
-                id="myInput"
-                style="border:none;width:100%;text-align:center;margin:5px;pointer-events:none;"
-              />
-              <div class="tooltip">
-                <button
-                  class="btn btn-sm btn-success"
-                  on:click={myFunction}
-                  on:mouseout={outFunc}
-                >
-                  <span class="tooltiptext" id="myTooltip"
-                    >Copiar Link</span
-                  >
-                  Copiar
-                </button>
-              </div>
-              <div class="text-muted mb-2">
-                Total de Produtos e Serviços oferecidos : {user.total_links || 0}
-              </div>
-
-              <div>
-                <a
-                  class="btn btn-primary btn-sm"
-                  use:link
-                  replace
-                  href="/addlink">Adicionar Produto/Serviço</a
-                >
-                <a
-                  class="btn btn-danger btn-sm"
-                  target="_blank"
-                  href={"https://www.instagram.com/" + user.instagram + "/"}
-                  ><span data-feather="instagram" /> Instagram</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <div class="card-header">
-              <div class="card-actions float-right">
-                <div class="dropdown show">
-                  <a
-                    href="/dashboard"
-                    data-toggle="dropdown"
-                    data-display="static"
-                  >
-                    <i class="align-middle" data-feather="more-horizontal" />
-                  </a>
-
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/dashboard">View all</a>
-                  </div>
-                </div>
-              </div>
-              <h5 class="card-title mb-0">Estatísticas</h5>
-            </div>
-            <div class="card-body">
-              <div class="media">
-                <div class="media-body">
-                  <p class="my-1"><strong>Total de visitas</strong></p>
-                  <p class="text-info">{user.views}</p>
-                </div>
-              </div>
-
-              <hr class="my-2" />
-
-              <div class="media">
-                <div class="media-body">
-                  <p class="my-1"><strong>Total de Cliques</strong></p>
-                  <p class="text-warning">{clicks}</p>
-                </div>
-              </div>
-
-              <hr class="my-2" />
-
-              <!-- <div class="media">
-                <div class="media-body">
-                  <p class="my-1"><strong>Total number of likes</strong></p>
-                  <p class="text-danger">456</p>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>

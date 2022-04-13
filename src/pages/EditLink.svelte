@@ -12,6 +12,10 @@
     "https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
   let link;
   let user;
+  let types = [
+      'Serviço',
+      'Produto'
+    ] 
   const unsubscribe = userStore.subscribe((data) => {
     console.log(data);
     link = data.link;
@@ -23,7 +27,7 @@
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
-    data.append("upload_preset", "kvssankar");
+    data.append("upload_preset", "vitrinedacasa");
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/sankarkvs/image/upload",
       {
@@ -31,10 +35,7 @@
         body: data,
       }
     );
-    let types = [
-      'Serviço',
-      'Produto'
-    ] 
+    
     loading = false;
     const file = await res.json();
     link.image = file.secure_url;
@@ -134,7 +135,7 @@
                         bind:value={link.type}
                       >
                       	{#each types as type(type)}
-                          <option>{types}</option>
+                          <option>{type}</option>
                      		{/each}
                       </select>
                     </div>
