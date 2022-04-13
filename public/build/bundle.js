@@ -1,4 +1,21740 @@
-var app=function(){"use strict";function e(){}function t(e,t){for(const r in t)e[r]=t[r];return e}function r(e){return e()}function a(){return Object.create(null)}function n(e){e.forEach(r)}function s(e){return"function"==typeof e}function o(e,t){return e!=e?t==t:e!==t||e&&"object"==typeof e||"function"==typeof e}let i;function l(e,t){return i||(i=document.createElement("a")),i.href=t,e===i.href}function c(t,...r){if(null==t)return e;const a=t.subscribe(...r);return a.unsubscribe?()=>a.unsubscribe():a}function u(e,t,r){e.$$.on_destroy.push(c(t,r))}function d(e,t,r,a){if(e){const n=f(e,t,r,a);return e[0](n)}}function f(e,r,a,n){return e[1]&&n?t(a.ctx.slice(),e[1](n(r))):a.ctx}function h(e,t,r,a){if(e[2]&&a){const n=e[2](a(r));if(void 0===t.dirty)return n;if("object"==typeof n){const e=[],r=Math.max(t.dirty.length,n.length);for(let a=0;a<r;a+=1)e[a]=t.dirty[a]|n[a];return e}return t.dirty|n}return t.dirty}function m(e,t,r,a,n,s){if(n){const o=f(t,r,a,s);e.p(o,n)}}function p(e){if(e.ctx.length>32){const t=[],r=e.ctx.length/32;for(let e=0;e<r;e++)t[e]=-1;return t}return-1}function g(e){const t={};for(const r in e)"$"!==r[0]&&(t[r]=e[r]);return t}function v(t){return t&&s(t.destroy)?t.destroy:e}let y,_=!1;function w(e,t,r,a){for(;e<t;){const n=e+(t-e>>1);r(n)<=a?e=n+1:t=n}return e}function b(e,t){if(_){for(!function(e){if(e.hydrate_init)return;e.hydrate_init=!0;let t=e.childNodes;if("HEAD"===e.nodeName){const e=[];for(let r=0;r<t.length;r++){const a=t[r];void 0!==a.claim_order&&e.push(a)}t=e}const r=new Int32Array(t.length+1),a=new Int32Array(t.length);r[0]=-1;let n=0;for(let e=0;e<t.length;e++){const s=t[e].claim_order,o=(n>0&&t[r[n]].claim_order<=s?n+1:w(1,n,(e=>t[r[e]].claim_order),s))-1;a[e]=r[o]+1;const i=o+1;r[i]=e,n=Math.max(i,n)}const s=[],o=[];let i=t.length-1;for(let e=r[n]+1;0!=e;e=a[e-1]){for(s.push(t[e-1]);i>=e;i--)o.push(t[i]);i--}for(;i>=0;i--)o.push(t[i]);s.reverse(),o.sort(((e,t)=>e.claim_order-t.claim_order));for(let t=0,r=0;t<o.length;t++){for(;r<s.length&&o[t].claim_order>=s[r].claim_order;)r++;const a=r<s.length?s[r]:null;e.insertBefore(o[t],a)}}(e),(void 0===e.actual_end_child||null!==e.actual_end_child&&e.actual_end_child.parentElement!==e)&&(e.actual_end_child=e.firstChild);null!==e.actual_end_child&&void 0===e.actual_end_child.claim_order;)e.actual_end_child=e.actual_end_child.nextSibling;t!==e.actual_end_child?void 0===t.claim_order&&t.parentNode===e||e.insertBefore(t,e.actual_end_child):e.actual_end_child=t.nextSibling}else t.parentNode===e&&null===t.nextSibling||e.appendChild(t)}function E(e,t,r){_&&!r?b(e,t):t.parentNode===e&&t.nextSibling==r||e.insertBefore(t,r||null)}function x(e){e.parentNode.removeChild(e)}function D(e,t){for(let r=0;r<e.length;r+=1)e[r]&&e[r].d(t)}function $(e){return document.createElement(e)}function S(e){return document.createTextNode(e)}function k(){return S(" ")}function M(){return S("")}function I(e,t,r,a){return e.addEventListener(t,r,a),()=>e.removeEventListener(t,r,a)}function T(e,t,r){null==r?e.removeAttribute(t):e.getAttribute(t)!==r&&e.setAttribute(t,r)}function N(e){return Array.from(e.childNodes)}function O(e,t,r,a,n=!1){!function(e){void 0===e.claim_info&&(e.claim_info={last_index:0,total_claimed:0})}(e);const s=(()=>{for(let a=e.claim_info.last_index;a<e.length;a++){const s=e[a];if(t(s)){const t=r(s);return void 0===t?e.splice(a,1):e[a]=t,n||(e.claim_info.last_index=a),s}}for(let a=e.claim_info.last_index-1;a>=0;a--){const s=e[a];if(t(s)){const t=r(s);return void 0===t?e.splice(a,1):e[a]=t,n?void 0===t&&e.claim_info.last_index--:e.claim_info.last_index=a,s}}return a()})();return s.claim_order=e.claim_info.total_claimed,e.claim_info.total_claimed+=1,s}function P(e,t,r){return function(e,t,r,a){return O(e,(e=>e.nodeName===t),(e=>{const t=[];for(let a=0;a<e.attributes.length;a++){const n=e.attributes[a];r[n.name]||t.push(n.name)}t.forEach((t=>e.removeAttribute(t)))}),(()=>a(t)))}(e,t,r,$)}function V(e,t){return O(e,(e=>3===e.nodeType),(e=>{const r=""+t;if(e.data.startsWith(r)){if(e.data.length!==r.length)return e.splitText(r.length)}else e.data=r}),(()=>S(t)),!0)}function Y(e){return V(e," ")}function A(e,t){t=""+t,e.wholeText!==t&&(e.data=t)}function C(e,t){e.value=null==t?"":t}function L(e,t,r,a){null===r?e.style.removeProperty(t):e.style.setProperty(t,r,a?"important":"")}function R(e,t){for(let r=0;r<e.options.length;r+=1){const a=e.options[r];if(a.__value===t)return void(a.selected=!0)}e.selectedIndex=-1}function U(e){const t=e.querySelector(":checked")||e.options[0];return t&&t.__value}function j(e,t,r){e.classList[r?"add":"remove"](t)}function H(e){y=e}function B(){if(!y)throw new Error("Function called outside component initialization");return y}function W(e){B().$$.on_mount.push(e)}function F(e){B().$$.on_destroy.push(e)}function G(e,t){B().$$.context.set(e,t)}function q(e){return B().$$.context.get(e)}const z=[],Z=[],J=[],X=[],Q=Promise.resolve();let K=!1;function ee(e){J.push(e)}const te=new Set;let re=0;function ae(){const e=y;do{for(;re<z.length;){const e=z[re];re++,H(e),ne(e.$$)}for(H(null),z.length=0,re=0;Z.length;)Z.pop()();for(let e=0;e<J.length;e+=1){const t=J[e];te.has(t)||(te.add(t),t())}J.length=0}while(z.length);for(;X.length;)X.pop()();K=!1,te.clear(),H(e)}function ne(e){if(null!==e.fragment){e.update(),n(e.before_update);const t=e.dirty;e.dirty=[-1],e.fragment&&e.fragment.p(e.ctx,t),e.after_update.forEach(ee)}}const se=new Set;let oe;function ie(){oe={r:0,c:[],p:oe}}function le(){oe.r||n(oe.c),oe=oe.p}function ce(e,t){e&&e.i&&(se.delete(e),e.i(t))}function ue(e,t,r,a){if(e&&e.o){if(se.has(e))return;se.add(e),oe.c.push((()=>{se.delete(e),a&&(r&&e.d(1),a())})),e.o(t)}}function de(e,t){e.d(1),t.delete(e.key)}function fe(e,t,r,a,n,s,o,i,l,c,u,d){let f=e.length,h=s.length,m=f;const p={};for(;m--;)p[e[m].key]=m;const g=[],v=new Map,y=new Map;for(m=h;m--;){const e=d(n,s,m),i=r(e);let l=o.get(i);l?a&&l.p(e,t):(l=c(i,e),l.c()),v.set(i,g[m]=l),i in p&&y.set(i,Math.abs(m-p[i]))}const _=new Set,w=new Set;function b(e){ce(e,1),e.m(i,u),o.set(e.key,e),u=e.first,h--}for(;f&&h;){const t=g[h-1],r=e[f-1],a=t.key,n=r.key;t===r?(u=t.first,f--,h--):v.has(n)?!o.has(a)||_.has(a)?b(t):w.has(n)?f--:y.get(a)>y.get(n)?(w.add(a),b(t)):(_.add(n),f--):(l(r,o),f--)}for(;f--;){const t=e[f];v.has(t.key)||l(t,o)}for(;h;)b(g[h-1]);return g}function he(e){return"object"==typeof e&&null!==e?e:{}}function me(e){e&&e.c()}function pe(e,t){e&&e.l(t)}function ge(e,t,a,o){const{fragment:i,on_mount:l,on_destroy:c,after_update:u}=e.$$;i&&i.m(t,a),o||ee((()=>{const t=l.map(r).filter(s);c?c.push(...t):n(t),e.$$.on_mount=[]})),u.forEach(ee)}function ve(e,t){const r=e.$$;null!==r.fragment&&(n(r.on_destroy),r.fragment&&r.fragment.d(t),r.on_destroy=r.fragment=null,r.ctx=[])}function ye(e,t){-1===e.$$.dirty[0]&&(z.push(e),K||(K=!0,Q.then(ae)),e.$$.dirty.fill(0)),e.$$.dirty[t/31|0]|=1<<t%31}function _e(t,r,s,o,i,l,c,u=[-1]){const d=y;H(t);const f=t.$$={fragment:null,ctx:null,props:l,update:e,not_equal:i,bound:a(),on_mount:[],on_destroy:[],on_disconnect:[],before_update:[],after_update:[],context:new Map(r.context||(d?d.$$.context:[])),callbacks:a(),dirty:u,skip_bound:!1,root:r.target||d.$$.root};c&&c(f.root);let h=!1;if(f.ctx=s?s(t,r.props||{},((e,r,...a)=>{const n=a.length?a[0]:r;return f.ctx&&i(f.ctx[e],f.ctx[e]=n)&&(!f.skip_bound&&f.bound[e]&&f.bound[e](n),h&&ye(t,e)),r})):[],f.update(),h=!0,n(f.before_update),f.fragment=!!o&&o(f.ctx),r.target){if(r.hydrate){_=!0;const e=N(r.target);f.fragment&&f.fragment.l(e),e.forEach(x)}else f.fragment&&f.fragment.c();r.intro&&ce(t.$$.fragment),ge(t,r.target,r.anchor,r.customElement),_=!1,ae()}H(d)}class we{$destroy(){ve(this,1),this.$destroy=e}$on(e,t){const r=this.$$.callbacks[e]||(this.$$.callbacks[e]=[]);return r.push(t),()=>{const e=r.indexOf(t);-1!==e&&r.splice(e,1)}}$set(e){var t;this.$$set&&(t=e,0!==Object.keys(t).length)&&(this.$$.skip_bound=!0,this.$$set(e),this.$$.skip_bound=!1)}}const be=[];function Ee(t,r=e){let a;const n=new Set;function s(e){if(o(t,e)&&(t=e,a)){const e=!be.length;for(const e of n)e[1](),be.push(e,t);if(e){for(let e=0;e<be.length;e+=2)be[e][0](be[e+1]);be.length=0}}}return{set:s,update:function(e){s(e(t))},subscribe:function(o,i=e){const l=[o,i];return n.add(l),1===n.size&&(a=r(s)||e),o(t),()=>{n.delete(l),0===n.size&&(a(),a=null)}}}}function xe(t,r,a){const o=!Array.isArray(t),i=o?[t]:t,l=r.length<2;return u=t=>{let a=!1;const u=[];let d=0,f=e;const h=()=>{if(d)return;f();const a=r(o?u[0]:u,t);l?t(a):f=s(a)?a:e},m=i.map(((e,t)=>c(e,(e=>{u[t]=e,d&=~(1<<t),a&&h()}),(()=>{d|=1<<t}))));return a=!0,h(),function(){n(m),f()}},{subscribe:Ee(a,u).subscribe};var u}const De={},$e={};function Se(e){return{...e.location,state:e.history.state,key:e.history.state&&e.history.state.key||"initial"}}const ke=function(e,t){const r=[];let a=Se(e);return{get location(){return a},listen(t){r.push(t);const n=()=>{a=Se(e),t({location:a,action:"POP"})};return e.addEventListener("popstate",n),()=>{e.removeEventListener("popstate",n);const a=r.indexOf(t);r.splice(a,1)}},navigate(t,{state:n,replace:s=!1}={}){n={...n,key:Date.now()+""};try{s?e.history.replaceState(n,null,t):e.history.pushState(n,null,t)}catch(r){e.location[s?"replace":"assign"](t)}a=Se(e),r.forEach((e=>e({location:a,action:"PUSH"})))}}}(Boolean("undefined"!=typeof window&&window.document&&window.document.createElement)?window:function(e="/"){let t=0;const r=[{pathname:e,search:""}],a=[];return{get location(){return r[t]},addEventListener(e,t){},removeEventListener(e,t){},history:{get entries(){return r},get index(){return t},get state(){return a[t]},pushState(e,n,s){const[o,i=""]=s.split("?");t++,r.push({pathname:o,search:i}),a.push(e)},replaceState(e,n,s){const[o,i=""]=s.split("?");r[t]={pathname:o,search:i},a[t]=e}}}}()),{navigate:Me}=ke,Ie=/^:(.+)/;function Te(e){return"*"===e[0]}function Ne(e){return e.replace(/(^\/+|\/+$)/g,"").split("/")}function Oe(e){return e.replace(/(^\/+|\/+$)/g,"")}function Pe(e,t){return{route:e,score:e.default?0:Ne(e.path).reduce(((e,t)=>(e+=4,!function(e){return""===e}(t)?!function(e){return Ie.test(e)}(t)?Te(t)?e-=5:e+=3:e+=2:e+=1,e)),0),index:t}}function Ve(e,t){let r,a;const[n]=t.split("?"),s=Ne(n),o=""===s[0],i=function(e){return e.map(Pe).sort(((e,t)=>e.score<t.score?1:e.score>t.score?-1:e.index-t.index))}(e);for(let e=0,n=i.length;e<n;e++){const n=i[e].route;let l=!1;if(n.default){a={route:n,params:{},uri:t};continue}const c=Ne(n.path),u={},d=Math.max(s.length,c.length);let f=0;for(;f<d;f++){const e=c[f],t=s[f];if(void 0!==e&&Te(e)){u["*"===e?"*":e.slice(1)]=s.slice(f).map(decodeURIComponent).join("/");break}if(void 0===t){l=!0;break}let r=Ie.exec(e);if(r&&!o){const e=decodeURIComponent(t);u[r[1]]=e}else if(e!==t){l=!0;break}}if(!l){r={route:n,params:u,uri:"/"+s.slice(0,f).join("/")};break}}return r||a||null}function Ye(e,t){return`${Oe("/"===t?e:`${Oe(e)}/${Oe(t)}`)}/`}function Ae(e){let t;const r=e[9].default,a=d(r,e,e[8],null);return{c(){a&&a.c()},l(e){a&&a.l(e)},m(e,r){a&&a.m(e,r),t=!0},p(e,[n]){a&&a.p&&(!t||256&n)&&m(a,r,e,e[8],t?h(r,e[8],n,null):p(e[8]),null)},i(e){t||(ce(a,e),t=!0)},o(e){ue(a,e),t=!1},d(e){a&&a.d(e)}}}function Ce(e,t,r){let a,n,s,{$$slots:o={},$$scope:i}=t,{basepath:l="/"}=t,{url:c=null}=t;const d=q(De),f=q($e),h=Ee([]);u(e,h,(e=>r(6,n=e)));const m=Ee(null);let p=!1;const g=d||Ee(c?{pathname:c}:ke.location);u(e,g,(e=>r(5,a=e)));const v=f?f.routerBase:Ee({path:l,uri:l});u(e,v,(e=>r(7,s=e)));const y=xe([v,m],(([e,t])=>{if(null===t)return e;const{path:r}=e,{route:a,uri:n}=t;return{path:a.default?r:a.path.replace(/\*.*$/,""),uri:n}}));return d||(W((()=>ke.listen((e=>{g.set(e.location)})))),G(De,g)),G($e,{activeRoute:m,base:v,routerBase:y,registerRoute:function(e){const{path:t}=s;let{path:r}=e;if(e._path=r,e.path=Ye(t,r),"undefined"==typeof window){if(p)return;const t=function(e,t){return Ve([e],t)}(e,a.pathname);t&&(m.set(t),p=!0)}else h.update((t=>(t.push(e),t)))},unregisterRoute:function(e){h.update((t=>{const r=t.indexOf(e);return t.splice(r,1),t}))}}),e.$$set=e=>{"basepath"in e&&r(3,l=e.basepath),"url"in e&&r(4,c=e.url),"$$scope"in e&&r(8,i=e.$$scope)},e.$$.update=()=>{if(128&e.$$.dirty){const{path:e}=s;h.update((t=>(t.forEach((t=>t.path=Ye(e,t._path))),t)))}if(96&e.$$.dirty){const e=Ve(n,a.pathname);m.set(e)}},[h,g,v,l,c,a,n,s,i,o]}class Le extends we{constructor(e){super(),_e(this,e,Ce,Ae,o,{basepath:3,url:4})}}const Re=e=>({params:4&e,location:16&e}),Ue=e=>({params:e[2],location:e[4]});function je(e){let t,r,a,n;const s=[Be,He],o=[];function i(e,t){return null!==e[0]?0:1}return t=i(e),r=o[t]=s[t](e),{c(){r.c(),a=M()},l(e){r.l(e),a=M()},m(e,r){o[t].m(e,r),E(e,a,r),n=!0},p(e,n){let l=t;t=i(e),t===l?o[t].p(e,n):(ie(),ue(o[l],1,1,(()=>{o[l]=null})),le(),r=o[t],r?r.p(e,n):(r=o[t]=s[t](e),r.c()),ce(r,1),r.m(a.parentNode,a))},i(e){n||(ce(r),n=!0)},o(e){ue(r),n=!1},d(e){o[t].d(e),e&&x(a)}}}function He(e){let t;const r=e[10].default,a=d(r,e,e[9],Ue);return{c(){a&&a.c()},l(e){a&&a.l(e)},m(e,r){a&&a.m(e,r),t=!0},p(e,n){a&&a.p&&(!t||532&n)&&m(a,r,e,e[9],t?h(r,e[9],n,Re):p(e[9]),Ue)},i(e){t||(ce(a,e),t=!0)},o(e){ue(a,e),t=!1},d(e){a&&a.d(e)}}}function Be(e){let r,a,n;const s=[{location:e[4]},e[2],e[3]];var o=e[0];function i(e){let r={};for(let e=0;e<s.length;e+=1)r=t(r,s[e]);return{props:r}}return o&&(r=new o(i())),{c(){r&&me(r.$$.fragment),a=M()},l(e){r&&pe(r.$$.fragment,e),a=M()},m(e,t){r&&ge(r,e,t),E(e,a,t),n=!0},p(e,t){const n=28&t?function(e,t){const r={},a={},n={$$scope:1};let s=e.length;for(;s--;){const o=e[s],i=t[s];if(i){for(const e in o)e in i||(a[e]=1);for(const e in i)n[e]||(r[e]=i[e],n[e]=1);e[s]=i}else for(const e in o)n[e]=1}for(const e in a)e in r||(r[e]=void 0);return r}(s,[16&t&&{location:e[4]},4&t&&he(e[2]),8&t&&he(e[3])]):{};if(o!==(o=e[0])){if(r){ie();const e=r;ue(e.$$.fragment,1,0,(()=>{ve(e,1)})),le()}o?(r=new o(i()),me(r.$$.fragment),ce(r.$$.fragment,1),ge(r,a.parentNode,a)):r=null}else o&&r.$set(n)},i(e){n||(r&&ce(r.$$.fragment,e),n=!0)},o(e){r&&ue(r.$$.fragment,e),n=!1},d(e){e&&x(a),r&&ve(r,e)}}}function We(e){let t,r,a=null!==e[1]&&e[1].route===e[7]&&je(e);return{c(){a&&a.c(),t=M()},l(e){a&&a.l(e),t=M()},m(e,n){a&&a.m(e,n),E(e,t,n),r=!0},p(e,[r]){null!==e[1]&&e[1].route===e[7]?a?(a.p(e,r),2&r&&ce(a,1)):(a=je(e),a.c(),ce(a,1),a.m(t.parentNode,t)):a&&(ie(),ue(a,1,1,(()=>{a=null})),le())},i(e){r||(ce(a),r=!0)},o(e){ue(a),r=!1},d(e){a&&a.d(e),e&&x(t)}}}function Fe(e,r,a){let n,s,{$$slots:o={},$$scope:i}=r,{path:l=""}=r,{component:c=null}=r;const{registerRoute:d,unregisterRoute:f,activeRoute:h}=q($e);u(e,h,(e=>a(1,n=e)));const m=q(De);u(e,m,(e=>a(4,s=e)));const p={path:l,default:""===l};let v={},y={};return d(p),"undefined"!=typeof window&&F((()=>{f(p)})),e.$$set=e=>{a(13,r=t(t({},r),g(e))),"path"in e&&a(8,l=e.path),"component"in e&&a(0,c=e.component),"$$scope"in e&&a(9,i=e.$$scope)},e.$$.update=()=>{2&e.$$.dirty&&n&&n.route===p&&a(2,v=n.params);{const{path:e,component:t,...n}=r;a(3,y=n)}},r=g(r),[c,n,v,y,s,h,m,p,l,i,o]}class Ge extends we{constructor(e){super(),_e(this,e,Fe,We,o,{path:8,component:0})}}function qe(e){function t(e){const t=e.currentTarget;""===t.target&&function(e){const t=location.host;return e.host==t||0===e.href.indexOf(`https://${t}`)||0===e.href.indexOf(`http://${t}`)}(t)&&function(e){return!e.defaultPrevented&&0===e.button&&!(e.metaKey||e.altKey||e.ctrlKey||e.shiftKey)}(e)&&(e.preventDefault(),Me(t.pathname+t.search,{replace:t.hasAttribute("replace")}))}return e.addEventListener("click",t),{destroy(){e.removeEventListener("click",t)}}}function ze(t){let r,a,n,s,o,i,c,u,d;return{c(){r=$("nav"),a=$("div"),n=$("a"),s=$("img"),i=S("\r\n      Vitrine da Casa parametrizar"),c=k(),u=$("a"),d=S("Registrar"),this.h()},l(e){r=P(e,"NAV",{class:!0});var t=N(r);a=P(t,"DIV",{class:!0});var o=N(a);n=P(o,"A",{class:!0,href:!0});var l=N(n);s=P(l,"IMG",{src:!0,alt:!0,height:!0}),i=V(l,"\r\n      Vitrine da Casa parametrizar"),l.forEach(x),c=Y(o),u=P(o,"A",{href:!0,target:!0,class:!0});var f=N(u);d=V(f,"Registrar"),f.forEach(x),o.forEach(x),t.forEach(x),this.h()},h(){l(s.src,o="/img/link.png")||T(s,"src","/img/link.png"),T(s,"alt","vitrinedacasa"),T(s,"height","34px"),T(n,"class","navbar-brand landing-brand"),T(n,"href","/"),T(u,"href","/register"),T(u,"target","_blank"),T(u,"class","btn btn-lg btn-success my-2 my-sm-0 ml-3"),T(a,"class","container"),T(r,"class","navbar navbar-expand-md navbar-light landing-navbar")},m(e,t){E(e,r,t),b(r,a),b(a,n),b(n,s),b(n,i),b(a,c),b(a,u),b(u,d)},p:e,i:e,o:e,d(e){e&&x(r)}}}class Ze extends we{constructor(e){super(),_e(this,e,null,ze,o,{})}}function Je(t){let r,a,n,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_;return{c(){r=$("footer"),a=$("div"),n=$("div"),s=$("div"),o=$("ul"),i=$("li"),l=$("a"),c=S("Github"),u=k(),d=$("li"),f=$("a"),h=S("Termos"),m=k(),p=$("div"),g=$("p"),v=S("Feito por "),y=$("a"),_=S("Douglas Monteiro"),this.h()},l(e){r=P(e,"FOOTER",{class:!0});var t=N(r);a=P(t,"DIV",{class:!0});var w=N(a);n=P(w,"DIV",{class:!0});var b=N(n);s=P(b,"DIV",{class:!0});var E=N(s);o=P(E,"UL",{class:!0});var D=N(o);i=P(D,"LI",{class:!0});var $=N(i);l=P($,"A",{class:!0,href:!0});var S=N(l);c=V(S,"Github"),S.forEach(x),$.forEach(x),u=Y(D),d=P(D,"LI",{class:!0});var k=N(d);f=P(k,"A",{class:!0,href:!0});var M=N(f);h=V(M,"Termos"),M.forEach(x),k.forEach(x),D.forEach(x),E.forEach(x),m=Y(b),p=P(b,"DIV",{class:!0});var I=N(p);g=P(I,"P",{class:!0});var T=N(g);v=V(T,"Feito por "),y=P(T,"A",{href:!0});var O=N(y);_=V(O,"Douglas Monteiro"),O.forEach(x),T.forEach(x),I.forEach(x),b.forEach(x),w.forEach(x),t.forEach(x),this.h()},h(){T(l,"class","text-muted"),T(l,"href","https://github.com/douglasmonteiro-dev"),T(i,"class","list-inline-item"),T(f,"class","text-muted"),T(f,"href","/"),T(d,"class","list-inline-item"),T(o,"class","list-inline"),T(s,"class","col-6 text-left"),T(y,"href","https://new-portfolio.dgsmonteiro.vercel.app/"),T(g,"class","mb-0"),T(p,"class","col-6 text-right"),T(n,"class","row text-muted"),T(a,"class","container-fluid"),T(r,"class","footer")},m(e,t){E(e,r,t),b(r,a),b(a,n),b(n,s),b(s,o),b(o,i),b(i,l),b(l,c),b(o,u),b(o,d),b(d,f),b(f,h),b(n,m),b(n,p),b(p,g),b(g,v),b(g,y),b(y,_)},p:e,i:e,o:e,d(e){e&&x(r)}}}class Xe extends we{constructor(e){super(),_e(this,e,null,Je,o,{})}}function Qe(t){let r,a,s,o,i,c,u,d,f,h,m,p,g,y,_,w,D,M,O,A,C,L,R,U,j,H,B,W,F,G,q,z,Z,J,X;return r=new Ze({}),z=new Xe({}),{c(){me(r.$$.fragment),a=k(),s=$("section"),o=$("div"),i=$("div"),c=$("div"),u=$("span"),d=S("v1.0.0"),f=k(),h=$("h1"),m=S("Somos inovação em atendimento de comércio e serviços"),p=k(),g=$("p"),y=S("Ta cansado de procurar um site para o sua empresa ?? Não mais !! "),_=$("br"),w=S("\r\n           Chegou o mais novo sistema de automação online que te disponibiliza uma página online.\r\n           "),D=$("br"),M=S(" Chega de tentar procurar um criador de sites, disponibilize com facilidade seu produto ou serviço para seus clientes."),O=k(),A=$("div"),C=$("a"),L=S("Criar"),R=k(),U=$("a"),j=S("Entrar"),H=k(),B=$("div"),W=$("div"),F=$("img"),q=k(),me(z.$$.fragment),this.h()},l(e){pe(r.$$.fragment,e),a=Y(e),s=P(e,"SECTION",{class:!0});var t=N(s);o=P(t,"DIV",{class:!0});var n=N(o);i=P(n,"DIV",{class:!0});var l=N(i);c=P(l,"DIV",{class:!0});var v=N(c);u=P(v,"SPAN",{class:!0});var b=N(u);d=V(b,"v1.0.0"),b.forEach(x),f=Y(v),h=P(v,"H1",{class:!0});var E=N(h);m=V(E,"Somos inovação em atendimento de comércio e serviços"),E.forEach(x),p=Y(v),g=P(v,"P",{class:!0});var $=N(g);y=V($,"Ta cansado de procurar um site para o sua empresa ?? Não mais !! "),_=P($,"BR",{}),w=V($,"\r\n           Chegou o mais novo sistema de automação online que te disponibiliza uma página online.\r\n           "),D=P($,"BR",{}),M=V($," Chega de tentar procurar um criador de sites, disponibilize com facilidade seu produto ou serviço para seus clientes."),$.forEach(x),O=Y(v),A=P(v,"DIV",{class:!0});var S=N(A);C=P(S,"A",{href:!0,replace:!0,class:!0});var k=N(C);L=V(k,"Criar"),k.forEach(x),R=Y(S),U=P(S,"A",{href:!0,replace:!0,class:!0});var I=N(U);j=V(I,"Entrar"),I.forEach(x),S.forEach(x),v.forEach(x),H=Y(l),B=P(l,"DIV",{class:!0});var T=N(B);W=P(T,"DIV",{class:!0});var G=N(W);F=P(G,"IMG",{src:!0,alt:!0,class:!0}),G.forEach(x),T.forEach(x),l.forEach(x),n.forEach(x),t.forEach(x),q=Y(e),pe(z.$$.fragment,e),this.h()},h(){T(u,"class","badge badge-soft-primary p-1"),T(h,"class","my-4"),T(g,"class","text-lg"),T(C,"href","/register"),T(C,"replace",""),T(C,"class","btn btn-primary btn-lg mr-1"),T(U,"href","/login"),T(U,"replace",""),T(U,"class","btn btn-outline-primary btn-lg mr-1"),T(A,"class","my-4"),T(c,"class","col-lg-5 mx-auto"),l(F.src,G="img/screenshots/mixed.jpg")||T(F,"src","img/screenshots/mixed.jpg"),T(F,"alt","Dark/Light Bootstrap Admin Template"),T(F,"class","img-fluid"),T(W,"class","landing-intro-screenshot pb-3"),T(B,"class","col-lg-7 d-none d-lg-flex mx-auto text-center"),T(i,"class","row align-items-center"),T(o,"class","landing-intro-content container"),T(s,"class","landing-intro landing-bg pt-5 pt-lg-6 pb-5 pb-lg-7")},m(e,n){ge(r,e,n),E(e,a,n),E(e,s,n),b(s,o),b(o,i),b(i,c),b(c,u),b(u,d),b(c,f),b(c,h),b(h,m),b(c,p),b(c,g),b(g,y),b(g,_),b(g,w),b(g,D),b(g,M),b(c,O),b(c,A),b(A,C),b(C,L),b(A,R),b(A,U),b(U,j),b(i,H),b(i,B),b(B,W),b(W,F),E(e,q,n),ge(z,e,n),Z=!0,J||(X=[v(qe.call(null,C)),v(qe.call(null,U)),I(U,"click",t[0])],J=!0)},p:e,i(e){Z||(ce(r.$$.fragment,e),ce(z.$$.fragment,e),Z=!0)},o(e){ue(r.$$.fragment,e),ue(z.$$.fragment,e),Z=!1},d(e){ve(r,e),e&&x(a),e&&x(s),e&&x(q),ve(z,e),J=!1,n(X)}}}function Ke(e){return[()=>history.push("/create")]}class et extends we{constructor(e){super(),_e(this,e,Ke,Qe,o,{})}}var tt="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{};function rt(e){throw new Error('Could not dynamically require "'+e+'". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.')}var at={exports:{}},nt=function(e,t){return function(){for(var r=new Array(arguments.length),a=0;a<r.length;a++)r[a]=arguments[a];return e.apply(t,r)}},st=nt,ot=Object.prototype.toString;function it(e){return Array.isArray(e)}function lt(e){return void 0===e}function ct(e){return"[object ArrayBuffer]"===ot.call(e)}function ut(e){return null!==e&&"object"==typeof e}function dt(e){if("[object Object]"!==ot.call(e))return!1;var t=Object.getPrototypeOf(e);return null===t||t===Object.prototype}function ft(e){return"[object Function]"===ot.call(e)}function ht(e,t){if(null!=e)if("object"!=typeof e&&(e=[e]),it(e))for(var r=0,a=e.length;r<a;r++)t.call(null,e[r],r,e);else for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&t.call(null,e[n],n,e)}var mt={isArray:it,isArrayBuffer:ct,isBuffer:function(e){return null!==e&&!lt(e)&&null!==e.constructor&&!lt(e.constructor)&&"function"==typeof e.constructor.isBuffer&&e.constructor.isBuffer(e)},isFormData:function(e){return"[object FormData]"===ot.call(e)},isArrayBufferView:function(e){return"undefined"!=typeof ArrayBuffer&&ArrayBuffer.isView?ArrayBuffer.isView(e):e&&e.buffer&&ct(e.buffer)},isString:function(e){return"string"==typeof e},isNumber:function(e){return"number"==typeof e},isObject:ut,isPlainObject:dt,isUndefined:lt,isDate:function(e){return"[object Date]"===ot.call(e)},isFile:function(e){return"[object File]"===ot.call(e)},isBlob:function(e){return"[object Blob]"===ot.call(e)},isFunction:ft,isStream:function(e){return ut(e)&&ft(e.pipe)},isURLSearchParams:function(e){return"[object URLSearchParams]"===ot.call(e)},isStandardBrowserEnv:function(){return("undefined"==typeof navigator||"ReactNative"!==navigator.product&&"NativeScript"!==navigator.product&&"NS"!==navigator.product)&&("undefined"!=typeof window&&"undefined"!=typeof document)},forEach:ht,merge:function e(){var t={};function r(r,a){dt(t[a])&&dt(r)?t[a]=e(t[a],r):dt(r)?t[a]=e({},r):it(r)?t[a]=r.slice():t[a]=r}for(var a=0,n=arguments.length;a<n;a++)ht(arguments[a],r);return t},extend:function(e,t,r){return ht(t,(function(t,a){e[a]=r&&"function"==typeof t?st(t,r):t})),e},trim:function(e){return e.trim?e.trim():e.replace(/^\s+|\s+$/g,"")},stripBOM:function(e){return 65279===e.charCodeAt(0)&&(e=e.slice(1)),e}},pt=mt;function gt(e){return encodeURIComponent(e).replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}var vt=function(e,t,r){if(!t)return e;var a;if(r)a=r(t);else if(pt.isURLSearchParams(t))a=t.toString();else{var n=[];pt.forEach(t,(function(e,t){null!=e&&(pt.isArray(e)?t+="[]":e=[e],pt.forEach(e,(function(e){pt.isDate(e)?e=e.toISOString():pt.isObject(e)&&(e=JSON.stringify(e)),n.push(gt(t)+"="+gt(e))})))})),a=n.join("&")}if(a){var s=e.indexOf("#");-1!==s&&(e=e.slice(0,s)),e+=(-1===e.indexOf("?")?"?":"&")+a}return e},yt=mt;function _t(){this.handlers=[]}_t.prototype.use=function(e,t,r){return this.handlers.push({fulfilled:e,rejected:t,synchronous:!!r&&r.synchronous,runWhen:r?r.runWhen:null}),this.handlers.length-1},_t.prototype.eject=function(e){this.handlers[e]&&(this.handlers[e]=null)},_t.prototype.forEach=function(e){yt.forEach(this.handlers,(function(t){null!==t&&e(t)}))};var wt=_t,bt=mt,Et=function(e,t,r,a,n){return e.config=t,r&&(e.code=r),e.request=a,e.response=n,e.isAxiosError=!0,e.toJSON=function(){return{message:this.message,name:this.name,description:this.description,number:this.number,fileName:this.fileName,lineNumber:this.lineNumber,columnNumber:this.columnNumber,stack:this.stack,config:this.config,code:this.code,status:this.response&&this.response.status?this.response.status:null}},e},xt={silentJSONParsing:!0,forcedJSONParsing:!0,clarifyTimeoutError:!1},Dt=Et,$t=function(e,t,r,a,n){var s=new Error(e);return Dt(s,t,r,a,n)},St=$t,kt=mt,Mt=kt.isStandardBrowserEnv()?{write:function(e,t,r,a,n,s){var o=[];o.push(e+"="+encodeURIComponent(t)),kt.isNumber(r)&&o.push("expires="+new Date(r).toGMTString()),kt.isString(a)&&o.push("path="+a),kt.isString(n)&&o.push("domain="+n),!0===s&&o.push("secure"),document.cookie=o.join("; ")},read:function(e){var t=document.cookie.match(new RegExp("(^|;\\s*)("+e+")=([^;]*)"));return t?decodeURIComponent(t[3]):null},remove:function(e){this.write(e,"",Date.now()-864e5)}}:{write:function(){},read:function(){return null},remove:function(){}},It=function(e){return/^([a-z][a-z\d+\-.]*:)?\/\//i.test(e)},Tt=function(e,t){return t?e.replace(/\/+$/,"")+"/"+t.replace(/^\/+/,""):e},Nt=mt,Ot=["age","authorization","content-length","content-type","etag","expires","from","host","if-modified-since","if-unmodified-since","last-modified","location","max-forwards","proxy-authorization","referer","retry-after","user-agent"],Pt=mt,Vt=Pt.isStandardBrowserEnv()?function(){var e,t=/(msie|trident)/i.test(navigator.userAgent),r=document.createElement("a");function a(e){var a=e;return t&&(r.setAttribute("href",a),a=r.href),r.setAttribute("href",a),{href:r.href,protocol:r.protocol?r.protocol.replace(/:$/,""):"",host:r.host,search:r.search?r.search.replace(/^\?/,""):"",hash:r.hash?r.hash.replace(/^#/,""):"",hostname:r.hostname,port:r.port,pathname:"/"===r.pathname.charAt(0)?r.pathname:"/"+r.pathname}}return e=a(window.location.href),function(t){var r=Pt.isString(t)?a(t):t;return r.protocol===e.protocol&&r.host===e.host}}():function(){return!0};function Yt(e){this.message=e}Yt.prototype.toString=function(){return"Cancel"+(this.message?": "+this.message:"")},Yt.prototype.__CANCEL__=!0;var At=Yt,Ct=mt,Lt=function(e,t,r){var a=r.config.validateStatus;r.status&&a&&!a(r.status)?t(St("Request failed with status code "+r.status,r.config,null,r.request,r)):e(r)},Rt=Mt,Ut=vt,jt=function(e,t){return e&&!It(t)?Tt(e,t):t},Ht=function(e){var t,r,a,n={};return e?(Nt.forEach(e.split("\n"),(function(e){if(a=e.indexOf(":"),t=Nt.trim(e.substr(0,a)).toLowerCase(),r=Nt.trim(e.substr(a+1)),t){if(n[t]&&Ot.indexOf(t)>=0)return;n[t]="set-cookie"===t?(n[t]?n[t]:[]).concat([r]):n[t]?n[t]+", "+r:r}})),n):n},Bt=Vt,Wt=$t,Ft=xt,Gt=At,qt=function(e){return new Promise((function(t,r){var a,n=e.data,s=e.headers,o=e.responseType;function i(){e.cancelToken&&e.cancelToken.unsubscribe(a),e.signal&&e.signal.removeEventListener("abort",a)}Ct.isFormData(n)&&delete s["Content-Type"];var l=new XMLHttpRequest;if(e.auth){var c=e.auth.username||"",u=e.auth.password?unescape(encodeURIComponent(e.auth.password)):"";s.Authorization="Basic "+btoa(c+":"+u)}var d=jt(e.baseURL,e.url);function f(){if(l){var a="getAllResponseHeaders"in l?Ht(l.getAllResponseHeaders()):null,n={data:o&&"text"!==o&&"json"!==o?l.response:l.responseText,status:l.status,statusText:l.statusText,headers:a,config:e,request:l};Lt((function(e){t(e),i()}),(function(e){r(e),i()}),n),l=null}}if(l.open(e.method.toUpperCase(),Ut(d,e.params,e.paramsSerializer),!0),l.timeout=e.timeout,"onloadend"in l?l.onloadend=f:l.onreadystatechange=function(){l&&4===l.readyState&&(0!==l.status||l.responseURL&&0===l.responseURL.indexOf("file:"))&&setTimeout(f)},l.onabort=function(){l&&(r(Wt("Request aborted",e,"ECONNABORTED",l)),l=null)},l.onerror=function(){r(Wt("Network Error",e,null,l)),l=null},l.ontimeout=function(){var t=e.timeout?"timeout of "+e.timeout+"ms exceeded":"timeout exceeded",a=e.transitional||Ft;e.timeoutErrorMessage&&(t=e.timeoutErrorMessage),r(Wt(t,e,a.clarifyTimeoutError?"ETIMEDOUT":"ECONNABORTED",l)),l=null},Ct.isStandardBrowserEnv()){var h=(e.withCredentials||Bt(d))&&e.xsrfCookieName?Rt.read(e.xsrfCookieName):void 0;h&&(s[e.xsrfHeaderName]=h)}"setRequestHeader"in l&&Ct.forEach(s,(function(e,t){void 0===n&&"content-type"===t.toLowerCase()?delete s[t]:l.setRequestHeader(t,e)})),Ct.isUndefined(e.withCredentials)||(l.withCredentials=!!e.withCredentials),o&&"json"!==o&&(l.responseType=e.responseType),"function"==typeof e.onDownloadProgress&&l.addEventListener("progress",e.onDownloadProgress),"function"==typeof e.onUploadProgress&&l.upload&&l.upload.addEventListener("progress",e.onUploadProgress),(e.cancelToken||e.signal)&&(a=function(e){l&&(r(!e||e&&e.type?new Gt("canceled"):e),l.abort(),l=null)},e.cancelToken&&e.cancelToken.subscribe(a),e.signal&&(e.signal.aborted?a():e.signal.addEventListener("abort",a))),n||(n=null),l.send(n)}))},zt=mt,Zt=function(e,t){bt.forEach(e,(function(r,a){a!==t&&a.toUpperCase()===t.toUpperCase()&&(e[t]=r,delete e[a])}))},Jt=Et,Xt={"Content-Type":"application/x-www-form-urlencoded"};function Qt(e,t){!zt.isUndefined(e)&&zt.isUndefined(e["Content-Type"])&&(e["Content-Type"]=t)}var Kt,er={transitional:xt,adapter:(("undefined"!=typeof XMLHttpRequest||"undefined"!=typeof process&&"[object process]"===Object.prototype.toString.call(process))&&(Kt=qt),Kt),transformRequest:[function(e,t){return Zt(t,"Accept"),Zt(t,"Content-Type"),zt.isFormData(e)||zt.isArrayBuffer(e)||zt.isBuffer(e)||zt.isStream(e)||zt.isFile(e)||zt.isBlob(e)?e:zt.isArrayBufferView(e)?e.buffer:zt.isURLSearchParams(e)?(Qt(t,"application/x-www-form-urlencoded;charset=utf-8"),e.toString()):zt.isObject(e)||t&&"application/json"===t["Content-Type"]?(Qt(t,"application/json"),function(e,t,r){if(zt.isString(e))try{return(t||JSON.parse)(e),zt.trim(e)}catch(e){if("SyntaxError"!==e.name)throw e}return(r||JSON.stringify)(e)}(e)):e}],transformResponse:[function(e){var t=this.transitional||er.transitional,r=t&&t.silentJSONParsing,a=t&&t.forcedJSONParsing,n=!r&&"json"===this.responseType;if(n||a&&zt.isString(e)&&e.length)try{return JSON.parse(e)}catch(e){if(n){if("SyntaxError"===e.name)throw Jt(e,this,"E_JSON_PARSE");throw e}}return e}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,maxBodyLength:-1,validateStatus:function(e){return e>=200&&e<300},headers:{common:{Accept:"application/json, text/plain, */*"}}};zt.forEach(["delete","get","head"],(function(e){er.headers[e]={}})),zt.forEach(["post","put","patch"],(function(e){er.headers[e]=zt.merge(Xt)}));var tr=er,rr=mt,ar=tr,nr=function(e){return!(!e||!e.__CANCEL__)},sr=mt,or=function(e,t,r){var a=this||ar;return rr.forEach(r,(function(r){e=r.call(a,e,t)})),e},ir=nr,lr=tr,cr=At;function ur(e){if(e.cancelToken&&e.cancelToken.throwIfRequested(),e.signal&&e.signal.aborted)throw new cr("canceled")}var dr=mt,fr=function(e,t){t=t||{};var r={};function a(e,t){return dr.isPlainObject(e)&&dr.isPlainObject(t)?dr.merge(e,t):dr.isPlainObject(t)?dr.merge({},t):dr.isArray(t)?t.slice():t}function n(r){return dr.isUndefined(t[r])?dr.isUndefined(e[r])?void 0:a(void 0,e[r]):a(e[r],t[r])}function s(e){if(!dr.isUndefined(t[e]))return a(void 0,t[e])}function o(r){return dr.isUndefined(t[r])?dr.isUndefined(e[r])?void 0:a(void 0,e[r]):a(void 0,t[r])}function i(r){return r in t?a(e[r],t[r]):r in e?a(void 0,e[r]):void 0}var l={url:s,method:s,data:s,baseURL:o,transformRequest:o,transformResponse:o,paramsSerializer:o,timeout:o,timeoutMessage:o,withCredentials:o,adapter:o,responseType:o,xsrfCookieName:o,xsrfHeaderName:o,onUploadProgress:o,onDownloadProgress:o,decompress:o,maxContentLength:o,maxBodyLength:o,transport:o,httpAgent:o,httpsAgent:o,cancelToken:o,socketPath:o,responseEncoding:o,validateStatus:i};return dr.forEach(Object.keys(e).concat(Object.keys(t)),(function(e){var t=l[e]||n,a=t(e);dr.isUndefined(a)&&t!==i||(r[e]=a)})),r},hr="0.26.1",mr=hr,pr={};["object","boolean","number","function","string","symbol"].forEach((function(e,t){pr[e]=function(r){return typeof r===e||"a"+(t<1?"n ":" ")+e}}));var gr={};pr.transitional=function(e,t,r){function a(e,t){return"[Axios v"+mr+"] Transitional option '"+e+"'"+t+(r?". "+r:"")}return function(r,n,s){if(!1===e)throw new Error(a(n," has been removed"+(t?" in "+t:"")));return t&&!gr[n]&&(gr[n]=!0,console.warn(a(n," has been deprecated since v"+t+" and will be removed in the near future"))),!e||e(r,n,s)}};var vr={assertOptions:function(e,t,r){if("object"!=typeof e)throw new TypeError("options must be an object");for(var a=Object.keys(e),n=a.length;n-- >0;){var s=a[n],o=t[s];if(o){var i=e[s],l=void 0===i||o(i,s,e);if(!0!==l)throw new TypeError("option "+s+" must be "+l)}else if(!0!==r)throw Error("Unknown option "+s)}},validators:pr},yr=mt,_r=vt,wr=wt,br=function(e){return ur(e),e.headers=e.headers||{},e.data=or.call(e,e.data,e.headers,e.transformRequest),e.headers=sr.merge(e.headers.common||{},e.headers[e.method]||{},e.headers),sr.forEach(["delete","get","head","post","put","patch","common"],(function(t){delete e.headers[t]})),(e.adapter||lr.adapter)(e).then((function(t){return ur(e),t.data=or.call(e,t.data,t.headers,e.transformResponse),t}),(function(t){return ir(t)||(ur(e),t&&t.response&&(t.response.data=or.call(e,t.response.data,t.response.headers,e.transformResponse))),Promise.reject(t)}))},Er=fr,xr=vr,Dr=xr.validators;function $r(e){this.defaults=e,this.interceptors={request:new wr,response:new wr}}$r.prototype.request=function(e,t){"string"==typeof e?(t=t||{}).url=e:t=e||{},(t=Er(this.defaults,t)).method?t.method=t.method.toLowerCase():this.defaults.method?t.method=this.defaults.method.toLowerCase():t.method="get";var r=t.transitional;void 0!==r&&xr.assertOptions(r,{silentJSONParsing:Dr.transitional(Dr.boolean),forcedJSONParsing:Dr.transitional(Dr.boolean),clarifyTimeoutError:Dr.transitional(Dr.boolean)},!1);var a=[],n=!0;this.interceptors.request.forEach((function(e){"function"==typeof e.runWhen&&!1===e.runWhen(t)||(n=n&&e.synchronous,a.unshift(e.fulfilled,e.rejected))}));var s,o=[];if(this.interceptors.response.forEach((function(e){o.push(e.fulfilled,e.rejected)})),!n){var i=[br,void 0];for(Array.prototype.unshift.apply(i,a),i=i.concat(o),s=Promise.resolve(t);i.length;)s=s.then(i.shift(),i.shift());return s}for(var l=t;a.length;){var c=a.shift(),u=a.shift();try{l=c(l)}catch(e){u(e);break}}try{s=br(l)}catch(e){return Promise.reject(e)}for(;o.length;)s=s.then(o.shift(),o.shift());return s},$r.prototype.getUri=function(e){return e=Er(this.defaults,e),_r(e.url,e.params,e.paramsSerializer).replace(/^\?/,"")},yr.forEach(["delete","get","head","options"],(function(e){$r.prototype[e]=function(t,r){return this.request(Er(r||{},{method:e,url:t,data:(r||{}).data}))}})),yr.forEach(["post","put","patch"],(function(e){$r.prototype[e]=function(t,r,a){return this.request(Er(a||{},{method:e,url:t,data:r}))}}));var Sr=$r,kr=At;function Mr(e){if("function"!=typeof e)throw new TypeError("executor must be a function.");var t;this.promise=new Promise((function(e){t=e}));var r=this;this.promise.then((function(e){if(r._listeners){var t,a=r._listeners.length;for(t=0;t<a;t++)r._listeners[t](e);r._listeners=null}})),this.promise.then=function(e){var t,a=new Promise((function(e){r.subscribe(e),t=e})).then(e);return a.cancel=function(){r.unsubscribe(t)},a},e((function(e){r.reason||(r.reason=new kr(e),t(r.reason))}))}Mr.prototype.throwIfRequested=function(){if(this.reason)throw this.reason},Mr.prototype.subscribe=function(e){this.reason?e(this.reason):this._listeners?this._listeners.push(e):this._listeners=[e]},Mr.prototype.unsubscribe=function(e){if(this._listeners){var t=this._listeners.indexOf(e);-1!==t&&this._listeners.splice(t,1)}},Mr.source=function(){var e;return{token:new Mr((function(t){e=t})),cancel:e}};var Ir=Mr,Tr=mt,Nr=mt,Or=nt,Pr=Sr,Vr=fr;var Yr=function e(t){var r=new Pr(t),a=Or(Pr.prototype.request,r);return Nr.extend(a,Pr.prototype,r),Nr.extend(a,r),a.create=function(r){return e(Vr(t,r))},a}(tr);Yr.Axios=Pr,Yr.Cancel=At,Yr.CancelToken=Ir,Yr.isCancel=nr,Yr.VERSION=hr,Yr.all=function(e){return Promise.all(e)},Yr.spread=function(e){return function(t){return e.apply(null,t)}},Yr.isAxiosError=function(e){return Tr.isObject(e)&&!0===e.isAxiosError},at.exports=Yr,at.exports.default=Yr;var Ar=at.exports;function Cr(e){let t,r,a,n,s,o,i;return{c(){t=$("div"),r=$("button"),a=$("span"),n=S("×"),s=k(),o=$("div"),i=S(e[1]),this.h()},l(l){t=P(l,"DIV",{class:!0,role:!0});var c=N(t);r=P(c,"BUTTON",{type:!0,class:!0,"data-dismiss":!0,"aria-label":!0});var u=N(r);a=P(u,"SPAN",{"aria-hidden":!0});var d=N(a);n=V(d,"×"),d.forEach(x),u.forEach(x),s=Y(c),o=P(c,"DIV",{class:!0});var f=N(o);i=V(f,e[1]),f.forEach(x),c.forEach(x),this.h()},h(){T(a,"aria-hidden","true"),T(r,"type","button"),T(r,"class","close"),T(r,"data-dismiss","alert"),T(r,"aria-label","Close"),T(o,"class","alert-message"),T(t,"class","alert alert-primary alert-dismissible svelte-1ptdg6g"),T(t,"role","alert")},m(e,l){E(e,t,l),b(t,r),b(r,a),b(a,n),b(t,s),b(t,o),b(o,i)},p(e,t){2&t&&A(i,e[1])},d(e){e&&x(t)}}}function Lr(e){let t,r,a,n,s,o,i;return{c(){t=$("div"),r=$("button"),a=$("span"),n=S("×"),s=k(),o=$("div"),i=S(e[1]),this.h()},l(l){t=P(l,"DIV",{class:!0,role:!0});var c=N(t);r=P(c,"BUTTON",{type:!0,class:!0,"data-dismiss":!0,"aria-label":!0});var u=N(r);a=P(u,"SPAN",{"aria-hidden":!0});var d=N(a);n=V(d,"×"),d.forEach(x),u.forEach(x),s=Y(c),o=P(c,"DIV",{class:!0});var f=N(o);i=V(f,e[1]),f.forEach(x),c.forEach(x),this.h()},h(){T(a,"aria-hidden","true"),T(r,"type","button"),T(r,"class","close"),T(r,"data-dismiss","alert"),T(r,"aria-label","Close"),T(o,"class","alert-message"),T(t,"class","alert alert-danger alert-dismissible svelte-1ptdg6g"),T(t,"role","alert")},m(e,l){E(e,t,l),b(t,r),b(r,a),b(a,n),b(t,s),b(t,o),b(o,i)},p(e,t){2&t&&A(i,e[1])},d(e){e&&x(t)}}}function Rr(t){let r,a,n=0===t[0]&&Cr(t),s=1===t[0]&&Lr(t);return{c(){n&&n.c(),r=k(),s&&s.c(),a=M()},l(e){n&&n.l(e),r=Y(e),s&&s.l(e),a=M()},m(e,t){n&&n.m(e,t),E(e,r,t),s&&s.m(e,t),E(e,a,t)},p(e,[t]){0===e[0]?n?n.p(e,t):(n=Cr(e),n.c(),n.m(r.parentNode,r)):n&&(n.d(1),n=null),1===e[0]?s?s.p(e,t):(s=Lr(e),s.c(),s.m(a.parentNode,a)):s&&(s.d(1),s=null)},i:e,o:e,d(e){n&&n.d(e),e&&x(r),s&&s.d(e),e&&x(a)}}}function Ur(e,t,r){let{status:a}=t,{mssg:n}=t;return e.$$set=e=>{"status"in e&&r(0,a=e.status),"mssg"in e&&r(1,n=e.mssg)},[a,n]}class jr extends we{constructor(e){super(),_e(this,e,Ur,Rr,o,{status:0,mssg:1})}}const Hr=Ee(function(){try{const e=localStorage.getItem("state");if(null===e)return;return JSON.parse(e)}catch(e){return void console.log(e)}}()||{token:null,user:null,link:null,schedule:null});Hr.subscribe((e=>function(e){try{const t=JSON.stringify(e);localStorage.setItem("state",t)}catch(e){console.log(e)}}(e)));const Br=async e=>{let t=null;return await Ar.post("/api/user/displayuser",{name:e}).then((e=>{t=e.data})).catch((e=>{console.log(e)})),t},Wr=async()=>{let e="";Hr.subscribe((t=>{e=t.token}));const t={headers:{"Content-type":"application/json"}};e&&(t.headers["auth-token"]=e),await Ar.get("/api/user/info",t).then((e=>Hr.update((t=>(console.log("updated"),{...t,token:t.token,user:e.data})))))},Fr=async e=>{let t="",r=1,a="Something went wrong";Hr.subscribe((e=>{t=e.token}));const n={headers:{"Content-type":"application/json"}};return t&&(n.headers["auth-token"]=t),console.log(e),Ar.post("/api/user/addlink",e,n).then((e=>{r=0,a="Successfully added"})).catch((e=>{console.log(e)})),await Wr(),{status:r,mssg:a}},Gr=async e=>{let t="",r=1,a="Something went wrong";Hr.subscribe((e=>{t=e.token}));const n={headers:{"Content-type":"application/json"}};return t&&(n.headers["auth-token"]=t),console.log(e),Ar.post("/api/user/addschedule",e,n).then((e=>{r=0,a="Successfully added"})).catch((e=>{console.log(e)})),await Wr(),{status:r,mssg:a}};function qr(e){let t,r;return{c(){t=$("img"),this.h()},l(e){t=P(e,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0}),this.h()},h(){l(t.src,r=e[1])||T(t,"src",r),T(t,"alt","Not found user"),T(t,"class","img-fluid rounded-circle"),T(t,"width","132"),T(t,"height","132")},m(e,r){E(e,t,r)},p(e,a){2&a&&!l(t.src,r=e[1])&&T(t,"src",r)},d(e){e&&x(t)}}}function zr(t){let r,a,n;return{c(){r=$("div"),a=$("span"),n=S("Carregando..."),this.h()},l(e){r=P(e,"DIV",{class:!0,role:!0});var t=N(r);a=P(t,"SPAN",{class:!0});var s=N(a);n=V(s,"Carregando..."),s.forEach(x),t.forEach(x),this.h()},h(){T(a,"class","sr-only"),T(r,"class","spinner-border text-primary"),T(r,"role","status")},m(e,t){E(e,r,t),b(r,a),b(a,n)},p:e,d(e){e&&x(r)}}}function Zr(e){let t,r,a,s,o,i,l,c,u,d,f,h,m,p,g,y,_,w,D,M,O,A,L,R,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,ee,te,re,ae,ne,se,oe,ie,le,de,fe,he,ye,_e,we,be;function Ee(e,t){return e[2]?zr:qr}t=new Ze({});let xe=Ee(e),De=xe(e);return fe=new jr({props:{mssg:e[4],status:e[3]}}),ye=new Xe({}),{c(){me(t.$$.fragment),r=k(),a=$("div"),s=$("main"),o=$("div"),i=$("div"),l=$("div"),c=$("div"),u=$("div"),d=$("h1"),f=S("Bem vindo novamente"),h=k(),m=$("p"),p=S("Entre com sua conta para continuar"),g=k(),y=$("div"),_=$("div"),w=$("div"),D=$("div"),De.c(),M=k(),O=$("form"),A=$("div"),L=$("label"),R=S("Instagram"),U=k(),j=$("input"),H=k(),B=$("div"),W=$("label"),F=S("Senha"),G=k(),q=$("input"),z=k(),Z=$("small"),J=$("a"),X=S("Esqueceu a senha?"),Q=k(),K=$("div"),ee=$("div"),te=$("input"),re=k(),ae=$("label"),ne=S("Lembrar"),se=k(),oe=$("div"),ie=$("button"),le=S("Entrar"),de=k(),me(fe.$$.fragment),he=k(),me(ye.$$.fragment),this.h()},l(e){pe(t.$$.fragment,e),r=Y(e),a=P(e,"DIV",{class:!0});var n=N(a);s=P(n,"MAIN",{class:!0});var v=N(s);o=P(v,"DIV",{class:!0});var b=N(o);i=P(b,"DIV",{class:!0});var E=N(i);l=P(E,"DIV",{class:!0});var $=N(l);c=P($,"DIV",{class:!0});var S=N(c);u=P(S,"DIV",{class:!0});var k=N(u);d=P(k,"H1",{class:!0});var I=N(d);f=V(I,"Bem vindo novamente"),I.forEach(x),h=Y(k),m=P(k,"P",{class:!0});var T=N(m);p=V(T,"Entre com sua conta para continuar"),T.forEach(x),k.forEach(x),g=Y(S),y=P(S,"DIV",{class:!0});var C=N(y);_=P(C,"DIV",{class:!0});var ce=N(_);w=P(ce,"DIV",{class:!0});var ue=N(w);D=P(ue,"DIV",{class:!0});var me=N(D);De.l(me),me.forEach(x),M=Y(ue),O=P(ue,"FORM",{});var ge=N(O);A=P(ge,"DIV",{class:!0});var ve=N(A);L=P(ve,"LABEL",{for:!0});var _e=N(L);R=V(_e,"Instagram"),_e.forEach(x),U=Y(ve),j=P(ve,"INPUT",{class:!0,type:!0,placeholder:!0}),ve.forEach(x),H=Y(ge),B=P(ge,"DIV",{class:!0});var we=N(B);W=P(we,"LABEL",{for:!0});var be=N(W);F=V(be,"Senha"),be.forEach(x),G=Y(we),q=P(we,"INPUT",{class:!0,type:!0,placeholder:!0}),z=Y(we),Z=P(we,"SMALL",{});var Ee=N(Z);J=P(Ee,"A",{replace:!0,href:!0});var xe=N(J);X=V(xe,"Esqueceu a senha?"),xe.forEach(x),Ee.forEach(x),we.forEach(x),Q=Y(ge),K=P(ge,"DIV",{});var $e=N(K);ee=P($e,"DIV",{class:!0});var Se=N(ee);te=P(Se,"INPUT",{type:!0,class:!0,name:!0}),re=Y(Se),ae=P(Se,"LABEL",{for:!0,class:!0});var ke=N(ae);ne=V(ke,"Lembrar"),ke.forEach(x),Se.forEach(x),$e.forEach(x),se=Y(ge),oe=P(ge,"DIV",{class:!0});var Me=N(oe);ie=P(Me,"BUTTON",{class:!0});var Ie=N(ie);le=V(Ie,"Entrar"),Ie.forEach(x),Me.forEach(x),ge.forEach(x),ue.forEach(x),ce.forEach(x),C.forEach(x),S.forEach(x),$.forEach(x),E.forEach(x),b.forEach(x),v.forEach(x),n.forEach(x),de=Y(e),pe(fe.$$.fragment,e),he=Y(e),pe(ye.$$.fragment,e),this.h()},h(){T(d,"class","h2"),T(m,"class","lead"),T(u,"class","text-center mt-4"),T(D,"class","text-center"),T(L,"for",""),T(j,"class","form-control form-control-lg"),T(j,"type","text"),T(j,"placeholder","usuario"),T(A,"class","form-group"),T(W,"for",""),T(q,"class","form-control form-control-lg"),T(q,"type","password"),T(q,"placeholder","senha"),T(J,"replace",""),T(J,"href","/resetpassword"),T(B,"class","form-group"),T(te,"type","checkbox"),T(te,"class","custom-control-input"),te.value="remember-me",T(te,"name","remember-me"),te.checked=!0,T(ae,"for",""),T(ae,"class","custom-control-label text-small"),T(ee,"class","custom-control custom-checkbox align-items-center"),T(ie,"class","btn btn-lg btn-primary"),T(oe,"class","text-center mt-3"),T(w,"class","m-sm-4"),T(_,"class","card-body"),T(y,"class","card"),T(c,"class","align-middle"),T(l,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(i,"class","row h-100"),T(o,"class","container d-flex flex-column"),T(s,"class","content d-flex p-0"),T(a,"class","main d-flex justify-content-center w-100")},m(n,x){ge(t,n,x),E(n,r,x),E(n,a,x),b(a,s),b(s,o),b(o,i),b(i,l),b(l,c),b(c,u),b(u,d),b(d,f),b(u,h),b(u,m),b(m,p),b(c,g),b(c,y),b(y,_),b(_,w),b(w,D),De.m(D,null),b(w,M),b(w,O),b(O,A),b(A,L),b(L,R),b(A,U),b(A,j),C(j,e[0].instagram),b(O,H),b(O,B),b(B,W),b(W,F),b(B,G),b(B,q),C(q,e[0].password),b(B,z),b(B,Z),b(Z,J),b(J,X),b(O,Q),b(O,K),b(K,ee),b(ee,te),b(ee,re),b(ee,ae),b(ae,ne),b(O,se),b(O,oe),b(oe,ie),b(ie,le),E(n,de,x),ge(fe,n,x),E(n,he,x),ge(ye,n,x),_e=!0,we||(be=[I(j,"change",e[7]),I(j,"input",e[8]),I(q,"input",e[9]),v(qe.call(null,J)),I(O,"submit",e[6])],we=!0)},p(e,[t]){xe===(xe=Ee(e))&&De?De.p(e,t):(De.d(1),De=xe(e),De&&(De.c(),De.m(D,null))),1&t&&j.value!==e[0].instagram&&C(j,e[0].instagram),1&t&&q.value!==e[0].password&&C(q,e[0].password);const r={};16&t&&(r.mssg=e[4]),8&t&&(r.status=e[3]),fe.$set(r)},i(e){_e||(ce(t.$$.fragment,e),ce(fe.$$.fragment,e),ce(ye.$$.fragment,e),_e=!0)},o(e){ue(t.$$.fragment,e),ue(fe.$$.fragment,e),ue(ye.$$.fragment,e),_e=!1},d(e){ve(t,e),e&&x(r),e&&x(a),De.d(),e&&x(de),ve(fe,e),e&&x(he),ve(ye,e),we=!1,n(be)}}}function Jr(e,t,r){let a={password:"",instagram:""},n="img/avatars/avatar.jpg",s=!1;async function o(e){r(2,s=!0);let t=await Br(a.instagram);console.log(t),t&&r(1,n=t.dp),r(2,s=!1)}let i=-1,l="";return[a,n,s,i,l,o,e=>{e.preventDefault(),fetch("/api/user/login",{method:"POST",mode:"cors",cache:"no-cache",credentials:"same-origin",headers:{"Content-Type":"application/json"},redirect:"follow",referrerPolicy:"no-referrer",body:JSON.stringify(a)}).then((function(e){return e.json()})).then((function(e){if(console.log(e),e.status&&1==e.status)return r(3,i=1),void r(4,l="Erro");Hr.update((t=>({token:e.token,user:e.user}))),document.location.href="/dashboard"})).catch((e=>{r(3,i=1),r(4,l="Tivemos algum problema, por favor tente novamente")}))},()=>{o(a.instagram)},function(){a.instagram=this.value,r(0,a)},function(){a.password=this.value,r(0,a)}]}class Xr extends we{constructor(e){super(),_e(this,e,Jr,Zr,o,{})}}var Qr={},Kr={exports:{}};(function(e,t,r){function a(e){var t=this,r=function(){var e=4022871197,t=function(t){t=String(t);for(var r=0;r<t.length;r++){var a=.02519603282416938*(e+=t.charCodeAt(r));a-=e=a>>>0,e=(a*=e)>>>0,e+=4294967296*(a-=e)}return 2.3283064365386963e-10*(e>>>0)};return t}();t.next=function(){var e=2091639*t.s0+2.3283064365386963e-10*t.c;return t.s0=t.s1,t.s1=t.s2,t.s2=e-(t.c=0|e)},t.c=1,t.s0=r(" "),t.s1=r(" "),t.s2=r(" "),t.s0-=r(e),t.s0<0&&(t.s0+=1),t.s1-=r(e),t.s1<0&&(t.s1+=1),t.s2-=r(e),t.s2<0&&(t.s2+=1),r=null}function n(e,t){return t.c=e.c,t.s0=e.s0,t.s1=e.s1,t.s2=e.s2,t}function s(e,t){var r=new a(e),s=t&&t.state,o=r.next;return o.int32=function(){return 4294967296*r.next()|0},o.double=function(){return o()+11102230246251565e-32*(2097152*o()|0)},o.quick=o,s&&("object"==typeof s&&n(s,r),o.state=function(){return n(r,{})}),o}t&&t.exports?t.exports=s:r&&r.amd?r((function(){return s})):this.alea=s})(0,Kr,!1);var ea={exports:{}};!function(e){!function(e,t,r){function a(e){var t=this,r="";t.x=0,t.y=0,t.z=0,t.w=0,t.next=function(){var e=t.x^t.x<<11;return t.x=t.y,t.y=t.z,t.z=t.w,t.w^=t.w>>>19^e^e>>>8},e===(0|e)?t.x=e:r+=e;for(var a=0;a<r.length+64;a++)t.x^=0|r.charCodeAt(a),t.next()}function n(e,t){return t.x=e.x,t.y=e.y,t.z=e.z,t.w=e.w,t}function s(e,t){var r=new a(e),s=t&&t.state,o=function(){return(r.next()>>>0)/4294967296};return o.double=function(){do{var e=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21)}while(0===e);return e},o.int32=r.next,o.quick=o,s&&("object"==typeof s&&n(s,r),o.state=function(){return n(r,{})}),o}t&&t.exports?t.exports=s:r&&r.amd?r((function(){return s})):this.xor128=s}(0,e,!1)}(ea);var ta={exports:{}};!function(e){!function(e,t,r){function a(e){var t=this,r="";t.next=function(){var e=t.x^t.x>>>2;return t.x=t.y,t.y=t.z,t.z=t.w,t.w=t.v,(t.d=t.d+362437|0)+(t.v=t.v^t.v<<4^e^e<<1)|0},t.x=0,t.y=0,t.z=0,t.w=0,t.v=0,e===(0|e)?t.x=e:r+=e;for(var a=0;a<r.length+64;a++)t.x^=0|r.charCodeAt(a),a==r.length&&(t.d=t.x<<10^t.x>>>4),t.next()}function n(e,t){return t.x=e.x,t.y=e.y,t.z=e.z,t.w=e.w,t.v=e.v,t.d=e.d,t}function s(e,t){var r=new a(e),s=t&&t.state,o=function(){return(r.next()>>>0)/4294967296};return o.double=function(){do{var e=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21)}while(0===e);return e},o.int32=r.next,o.quick=o,s&&("object"==typeof s&&n(s,r),o.state=function(){return n(r,{})}),o}t&&t.exports?t.exports=s:r&&r.amd?r((function(){return s})):this.xorwow=s}(0,e,!1)}(ta);var ra={exports:{}};!function(e){!function(e,t,r){function a(e){var t=this;t.next=function(){var e,r,a=t.x,n=t.i;return e=a[n],r=(e^=e>>>7)^e<<24,r^=(e=a[n+1&7])^e>>>10,r^=(e=a[n+3&7])^e>>>3,r^=(e=a[n+4&7])^e<<7,e=a[n+7&7],r^=(e^=e<<13)^e<<9,a[n]=r,t.i=n+1&7,r},function(e,t){var r,a=[];if(t===(0|t))a[0]=t;else for(t=""+t,r=0;r<t.length;++r)a[7&r]=a[7&r]<<15^t.charCodeAt(r)+a[r+1&7]<<13;for(;a.length<8;)a.push(0);for(r=0;r<8&&0===a[r];++r);for(8==r&&(a[7]=-1),e.x=a,e.i=0,r=256;r>0;--r)e.next()}(t,e)}function n(e,t){return t.x=e.x.slice(),t.i=e.i,t}function s(e,t){null==e&&(e=+new Date);var r=new a(e),s=t&&t.state,o=function(){return(r.next()>>>0)/4294967296};return o.double=function(){do{var e=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21)}while(0===e);return e},o.int32=r.next,o.quick=o,s&&(s.x&&n(s,r),o.state=function(){return n(r,{})}),o}t&&t.exports?t.exports=s:r&&r.amd?r((function(){return s})):this.xorshift7=s}(0,e,!1)}(ra);var aa={exports:{}};!function(e){!function(e,t,r){function a(e){var t=this;t.next=function(){var e,r,a=t.w,n=t.X,s=t.i;return t.w=a=a+1640531527|0,r=n[s+34&127],e=n[s=s+1&127],r^=r<<13,e^=e<<17,r^=r>>>15,e^=e>>>12,r=n[s]=r^e,t.i=s,r+(a^a>>>16)|0},function(e,t){var r,a,n,s,o,i=[],l=128;for(t===(0|t)?(a=t,t=null):(t+="\0",a=0,l=Math.max(l,t.length)),n=0,s=-32;s<l;++s)t&&(a^=t.charCodeAt((s+32)%t.length)),0===s&&(o=a),a^=a<<10,a^=a>>>15,a^=a<<4,a^=a>>>13,s>=0&&(o=o+1640531527|0,n=0==(r=i[127&s]^=a+o)?n+1:0);for(n>=128&&(i[127&(t&&t.length||0)]=-1),n=127,s=512;s>0;--s)a=i[n+34&127],r=i[n=n+1&127],a^=a<<13,r^=r<<17,a^=a>>>15,r^=r>>>12,i[n]=a^r;e.w=o,e.X=i,e.i=n}(t,e)}function n(e,t){return t.i=e.i,t.w=e.w,t.X=e.X.slice(),t}function s(e,t){null==e&&(e=+new Date);var r=new a(e),s=t&&t.state,o=function(){return(r.next()>>>0)/4294967296};return o.double=function(){do{var e=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21)}while(0===e);return e},o.int32=r.next,o.quick=o,s&&(s.X&&n(s,r),o.state=function(){return n(r,{})}),o}t&&t.exports?t.exports=s:r&&r.amd?r((function(){return s})):this.xor4096=s}(0,e,!1)}(aa);var na={exports:{}};!function(e){!function(e,t,r){function a(e){var t=this,r="";t.next=function(){var e=t.b,r=t.c,a=t.d,n=t.a;return e=e<<25^e>>>7^r,r=r-a|0,a=a<<24^a>>>8^n,n=n-e|0,t.b=e=e<<20^e>>>12^r,t.c=r=r-a|0,t.d=a<<16^r>>>16^n,t.a=n-e|0},t.a=0,t.b=0,t.c=-1640531527,t.d=1367130551,e===Math.floor(e)?(t.a=e/4294967296|0,t.b=0|e):r+=e;for(var a=0;a<r.length+20;a++)t.b^=0|r.charCodeAt(a),t.next()}function n(e,t){return t.a=e.a,t.b=e.b,t.c=e.c,t.d=e.d,t}function s(e,t){var r=new a(e),s=t&&t.state,o=function(){return(r.next()>>>0)/4294967296};return o.double=function(){do{var e=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21)}while(0===e);return e},o.int32=r.next,o.quick=o,s&&("object"==typeof s&&n(s,r),o.state=function(){return n(r,{})}),o}t&&t.exports?t.exports=s:r&&r.amd?r((function(){return s})):this.tychei=s}(0,e,!1)}(na);var sa={exports:{}};!function(e){!function(t,r,a){var n,s=256,o=a.pow(s,6),i=a.pow(2,52),l=2*i,c=255;function u(e,c,u){var g=[],v=m(h((c=1==c?{entropy:!0}:c||{}).entropy?[e,p(r)]:null==e?function(){try{var e;return n&&(e=n.randomBytes)?e=e(s):(e=new Uint8Array(s),(t.crypto||t.msCrypto).getRandomValues(e)),p(e)}catch(e){var a=t.navigator,o=a&&a.plugins;return[+new Date,t,o,t.screen,p(r)]}}():e,3),g),y=new d(g),_=function(){for(var e=y.g(6),t=o,r=0;e<i;)e=(e+r)*s,t*=s,r=y.g(1);for(;e>=l;)e/=2,t/=2,r>>>=1;return(e+r)/t};return _.int32=function(){return 0|y.g(4)},_.quick=function(){return y.g(4)/4294967296},_.double=_,m(p(y.S),r),(c.pass||u||function(e,t,r,n){return n&&(n.S&&f(n,y),e.state=function(){return f(y,{})}),r?(a.random=e,t):e})(_,v,"global"in c?c.global:this==a,c.state)}function d(e){var t,r=e.length,a=this,n=0,o=a.i=a.j=0,i=a.S=[];for(r||(e=[r++]);n<s;)i[n]=n++;for(n=0;n<s;n++)i[n]=i[o=c&o+e[n%r]+(t=i[n])],i[o]=t;(a.g=function(e){for(var t,r=0,n=a.i,o=a.j,i=a.S;e--;)t=i[n=c&n+1],r=r*s+i[c&(i[n]=i[o=c&o+t])+(i[o]=t)];return a.i=n,a.j=o,r})(s)}function f(e,t){return t.i=e.i,t.j=e.j,t.S=e.S.slice(),t}function h(e,t){var r,a=[],n=typeof e;if(t&&"object"==n)for(r in e)try{a.push(h(e[r],t-1))}catch(e){}return a.length?a:"string"==n?e:e+"\0"}function m(e,t){for(var r,a=e+"",n=0;n<a.length;)t[c&n]=c&(r^=19*t[c&n])+a.charCodeAt(n++);return p(t)}function p(e){return String.fromCharCode.apply(0,e)}if(m(a.random(),r),e.exports){e.exports=u;try{n=require("crypto")}catch(e){}}else a.seedrandom=u}("undefined"!=typeof self?self:tt,[],Math)}(sa);var oa=Kr.exports,ia=ea.exports,la=ta.exports,ca=ra.exports,ua=aa.exports,da=na.exports,fa=sa.exports;fa.alea=oa,fa.xor128=ia,fa.xorwow=la,fa.xorshift7=ca,fa.xor4096=ua,fa.tychei=da;var ha=fa,ma=tt&&tt.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(Qr,"__esModule",{value:!0});var pa=Qr.AvatarGenerator=void 0,ga=ma(ha),va=function(){function e(){}return e.prototype.generateRandomAvatar=function(e){var t=new Array;t.push("NoHair","Eyepatch","Hat","Hijab","Turban","WinterHat1","WinterHat2","WinterHat3","WinterHat4","LongHairBigHair","LongHairBob","LongHairBun","LongHairCurly","LongHairCurvy","LongHairDreads","LongHairFrida","LongHairFro","LongHairFroBand","LongHairNotTooLong","LongHairShavedSides","LongHairMiaWallace","LongHairStraight","LongHairStraight2","LongHairStraightStrand","ShortHairDreads01","ShortHairDreads02","ShortHairFrizzle","ShortHairShaggyMullet","ShortHairShortCurly","ShortHairShortFlat","ShortHairShortRound","ShortHairShortWaved","ShortHairSides","ShortHairTheCaesar","ShortHairTheCaesarSidePart");var r=new Array;r.push("Blank","Kurt","Prescription01","Prescription02","Round","Sunglasses","Wayfarers");var a=new Array;a.push("Blank","BeardMedium","BeardLight","BeardMagestic","MoustacheFancy","MoustacheMagnum");var n=new Array;n.push("Auburn","Black","Blonde","BlondeGolden","Brown","BrownDark","Platinum","Red");var s=new Array;s.push("BlazerShirt","BlazerSweater","CollarSweater","GraphicShirt","Hoodie","Overall","ShirtCrewNeck","ShirtScoopNeck","ShirtVNeck");var o=new Array;o.push("Close","Cry","Default","Dizzy","EyeRoll","Happy","Hearts","Side","Squint","Surprised","Wink","WinkWacky");var i=new Array;i.push("Angry","AngryNatural","Default","DefaultNatural","FlatNatural","RaisedExcited","RaisedExcitedNatural","SadConcerned","SadConcernedNatural","UnibrowNatural","UpDown","UpDownNatural");var l=new Array;l.push("Concerned","Default","Disbelief","Eating","Grimace","Sad","ScreamOpen","Serious","Smile","Tongue","Twinkle","Vomit");var c=new Array;c.push("Tanned","Yellow","Pale","Light","Brown","DarkBrown","Black");var u=new Array;u.push("Auburn","Black","Blonde","BlondeGolden","Brown","BrownDark","PastelPink","Platinum","Red","SilverGray");var d=new Array;d.push("Black","Blue01","Blue02","Blue03","Gray01","Gray02","Heather","PastelBlue","PastelGreen","PastelOrange","PastelRed","PastelYellow","Pink","Red","White");var f=new Array;f.push("Black","Blue01","Blue02","Blue03","Gray01","Gray02","Heather","PastelBlue","PastelGreen","PastelOrange","PastelRed","PastelYellow","Pink","Red","White");var h=e?ga.default(e):ga.default();return"https://avataaars.io/?accessoriesType="+r[Math.floor(h()*r.length)]+"&avatarStyle=Circle&clotheColor="+f[Math.floor(h()*f.length)]+"&clotheType="+s[Math.floor(h()*s.length)]+"&eyeType="+o[Math.floor(h()*o.length)]+"&eyebrowType="+i[Math.floor(h()*i.length)]+"&facialHairColor="+n[Math.floor(h()*n.length)]+"&facialHairType="+a[Math.floor(h()*a.length)]+"&hairColor="+u[Math.floor(h()*u.length)]+"&hatColor="+d[Math.floor(h()*d.length)]+"&mouthType="+l[Math.floor(h()*l.length)]+"&skinColor="+c[Math.floor(h()*c.length)]+"&topType="+t[Math.floor(h()*t.length)]},e}();pa=Qr.AvatarGenerator=va;const ya=e=>({intersecting:1&e}),_a=e=>({intersecting:e[0]});function wa(e){let t,r;const a=e[8].default,n=d(a,e,e[7],_a);return{c(){t=$("div"),n&&n.c(),this.h()},l(e){t=P(e,"DIV",{class:!0});var r=N(t);n&&n.l(r),r.forEach(x),this.h()},h(){T(t,"class","svelte-1kuj9kb")},m(a,s){E(a,t,s),n&&n.m(t,null),e[9](t),r=!0},p(e,[t]){n&&n.p&&(!r||129&t)&&m(n,a,e,e[7],r?h(a,e[7],t,ya):p(e[7]),_a)},i(e){r||(ce(n,e),r=!0)},o(e){ue(n,e),r=!1},d(r){r&&x(t),n&&n.d(r),e[9](null)}}}function ba(e,t,r){let a,{$$slots:n={},$$scope:s}=t,{once:o=!1}=t,{top:i=0}=t,{bottom:l=0}=t,{left:c=0}=t,{right:u=0}=t,d=!1;return W((()=>{if("undefined"!=typeof IntersectionObserver){const e=new IntersectionObserver((t=>{r(0,d=t[0].isIntersecting),d&&o&&e.unobserve(a)}),{rootMargin:`${l}px ${c}px ${i}px ${u}px`});return e.observe(a),()=>e.unobserve(a)}})),e.$$set=e=>{"once"in e&&r(2,o=e.once),"top"in e&&r(3,i=e.top),"bottom"in e&&r(4,l=e.bottom),"left"in e&&r(5,c=e.left),"right"in e&&r(6,u=e.right),"$$scope"in e&&r(7,s=e.$$scope)},[d,a,o,i,l,c,u,s,n,function(e){Z[e?"unshift":"push"]((()=>{a=e,r(1,a)}))}]}class Ea extends we{constructor(e){super(),_e(this,e,ba,wa,o,{once:2,top:3,bottom:4,left:5,right:6})}}function xa(t){let r,a;return{c(){r=$("img"),this.h()},l(e){r=P(e,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0,loading:!0}),this.h()},h(){l(r.src,a=t[0])||T(r,"src",a),T(r,"alt",t[1]),T(r,"class","img-fluid rounded-circle"),T(r,"width","132"),T(r,"height","132"),T(r,"loading","lazy"),j(r,"loaded",t[2])},m(e,a){E(e,r,a),t[4](r)},p(e,[t]){1&t&&!l(r.src,a=e[0])&&T(r,"src",a),2&t&&T(r,"alt",e[1]),4&t&&j(r,"loaded",e[2])},i:e,o:e,d(e){e&&x(r),t[4](null)}}}function Da(e,t,r){let a,{src:n}=t,{alt:s}=t,o=!1;return W((()=>{r(3,a.onload=()=>{r(2,o=!0)},a)})),e.$$set=e=>{"src"in e&&r(0,n=e.src),"alt"in e&&r(1,s=e.alt)},[n,s,o,a,function(e){Z[e?"unshift":"push"]((()=>{a=e,r(3,a)}))}]}class $a extends we{constructor(e){super(),_e(this,e,Da,xa,o,{src:0,alt:1})}}function Sa(t){let r,a,n;return{c(){r=$("div"),a=$("span"),n=S("Loading..."),this.h()},l(e){r=P(e,"DIV",{class:!0,role:!0});var t=N(r);a=P(t,"SPAN",{class:!0});var s=N(a);n=V(s,"Loading..."),s.forEach(x),t.forEach(x),this.h()},h(){T(a,"class","sr-only"),T(r,"class","spinner-border text-primary"),T(r,"role","status")},m(e,t){E(e,r,t),b(r,a),b(a,n)},p:e,i:e,o:e,d(e){e&&x(r)}}}function ka(e){let t,r;return t=new $a({props:{alt:e[1],src:e[0]}}),{c(){me(t.$$.fragment)},l(e){pe(t.$$.fragment,e)},m(e,a){ge(t,e,a),r=!0},p(e,r){const a={};2&r&&(a.alt=e[1]),1&r&&(a.src=e[0]),t.$set(a)},i(e){r||(ce(t.$$.fragment,e),r=!0)},o(e){ue(t.$$.fragment,e),r=!1},d(e){ve(t,e)}}}function Ma(e){let t,r,a,n;const s=[ka,Sa],o=[];function i(e,t){return e[3]||e[2]?0:1}return t=i(e),r=o[t]=s[t](e),{c(){r.c(),a=M()},l(e){r.l(e),a=M()},m(e,r){o[t].m(e,r),E(e,a,r),n=!0},p(e,n){let l=t;t=i(e),t===l?o[t].p(e,n):(ie(),ue(o[l],1,1,(()=>{o[l]=null})),le(),r=o[t],r?r.p(e,n):(r=o[t]=s[t](e),r.c()),ce(r,1),r.m(a.parentNode,a))},i(e){n||(ce(r),n=!0)},o(e){ue(r),n=!1},d(e){o[t].d(e),e&&x(a)}}}function Ia(e){let t,r;return t=new Ea({props:{once:!0,$$slots:{default:[Ma,({intersecting:e})=>({3:e}),({intersecting:e})=>e?8:0]},$$scope:{ctx:e}}}),{c(){me(t.$$.fragment)},l(e){pe(t.$$.fragment,e)},m(e,a){ge(t,e,a),r=!0},p(e,[r]){const a={};31&r&&(a.$$scope={dirty:r,ctx:e}),t.$set(a)},i(e){r||(ce(t.$$.fragment,e),r=!0)},o(e){ue(t.$$.fragment,e),r=!1},d(e){ve(t,e)}}}function Ta(e,t,r){let{src:a}=t,{alt:n}=t,s=!1;return W((()=>{"loading"in HTMLImageElement.prototype&&r(2,s=!0)})),e.$$set=e=>{"src"in e&&r(0,a=e.src),"alt"in e&&r(1,n=e.alt)},[a,n,s]}class Na extends we{constructor(e){super(),_e(this,e,Ta,Ia,o,{src:0,alt:1})}}function Oa(e){let t,r;return t=new Na({props:{src:e[0],alt:"Não encontrado"}}),{c(){me(t.$$.fragment)},l(e){pe(t.$$.fragment,e)},m(e,a){ge(t,e,a),r=!0},p(e,r){const a={};1&r&&(a.src=e[0]),t.$set(a)},i(e){r||(ce(t.$$.fragment,e),r=!0)},o(e){ue(t.$$.fragment,e),r=!1},d(e){ve(t,e)}}}function Pa(t){let r,a,n;return{c(){r=$("div"),a=$("span"),n=S("Carregando..."),this.h()},l(e){r=P(e,"DIV",{class:!0,role:!0});var t=N(r);a=P(t,"SPAN",{class:!0});var s=N(a);n=V(s,"Carregando..."),s.forEach(x),t.forEach(x),this.h()},h(){T(a,"class","sr-only"),T(r,"class","spinner-border text-primary"),T(r,"role","status")},m(e,t){E(e,r,t),b(r,a),b(a,n)},p:e,i:e,o:e,d(e){e&&x(r)}}}function Va(e){let t,r,a,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,M,O,A,L,R,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,ee,te,re,ae,ne,se,oe,de,fe,he,ye,_e,we,be,Ee,xe,De,$e,Se,ke,Me,Ie,Te,Ne;t=new Ze({});const Oe=[Pa,Oa],Pe=[];function Ve(e,t){return e[2]?0:1}return D=Ve(e),M=Pe[D]=Oe[D](e),Se=new jr({props:{mssg:e[4],status:e[3]}}),Me=new Xe({}),{c(){me(t.$$.fragment),r=k(),a=$("div"),s=$("main"),o=$("div"),i=$("div"),l=$("div"),c=$("div"),u=$("div"),d=$("h1"),f=S("Vamos começar"),h=k(),m=$("p"),p=S("Esse é o início de uma nova experiência com seus clientes."),g=k(),v=$("div"),y=$("div"),_=$("div"),w=$("div"),M.c(),O=k(),A=$("form"),L=$("div"),R=$("label"),U=S("Usuário do Instagram"),j=k(),H=$("input"),B=k(),W=$("div"),F=$("label"),G=S("E-mail para recuperação"),q=k(),z=$("input"),Z=k(),J=$("div"),X=$("label"),Q=S("Facebook"),K=k(),ee=$("input"),te=k(),re=$("div"),ae=$("label"),ne=S("Twitter"),se=k(),oe=$("input"),de=k(),fe=$("div"),he=$("label"),ye=S("Senha"),_e=k(),we=$("input"),be=k(),Ee=$("div"),xe=$("button"),De=S("Cadastre-se"),$e=k(),me(Se.$$.fragment),ke=k(),me(Me.$$.fragment),this.h()},l(e){pe(t.$$.fragment,e),r=Y(e),a=P(e,"DIV",{class:!0});var n=N(a);s=P(n,"MAIN",{class:!0});var b=N(s);o=P(b,"DIV",{class:!0});var E=N(o);i=P(E,"DIV",{class:!0});var D=N(i);l=P(D,"DIV",{class:!0});var $=N(l);c=P($,"DIV",{class:!0});var S=N(c);u=P(S,"DIV",{class:!0});var k=N(u);d=P(k,"H1",{class:!0});var I=N(d);f=V(I,"Vamos começar"),I.forEach(x),h=Y(k),m=P(k,"P",{class:!0});var T=N(m);p=V(T,"Esse é o início de uma nova experiência com seus clientes."),T.forEach(x),k.forEach(x),g=Y(S),v=P(S,"DIV",{class:!0});var C=N(v);y=P(C,"DIV",{class:!0});var ie=N(y);_=P(ie,"DIV",{class:!0});var le=N(_);w=P(le,"DIV",{class:!0});var ce=N(w);M.l(ce),ce.forEach(x),O=Y(le),A=P(le,"FORM",{});var ue=N(A);L=P(ue,"DIV",{class:!0});var me=N(L);R=P(me,"LABEL",{for:!0});var ge=N(R);U=V(ge,"Usuário do Instagram"),ge.forEach(x),j=Y(me),H=P(me,"INPUT",{class:!0,type:!0,placeholder:!0}),me.forEach(x),B=Y(ue),W=P(ue,"DIV",{class:!0});var ve=N(W);F=P(ve,"LABEL",{for:!0});var Ie=N(F);G=V(Ie,"E-mail para recuperação"),Ie.forEach(x),q=Y(ve),z=P(ve,"INPUT",{class:!0,type:!0,placeholder:!0}),ve.forEach(x),Z=Y(ue),J=P(ue,"DIV",{class:!0});var Te=N(J);X=P(Te,"LABEL",{for:!0});var Ne=N(X);Q=V(Ne,"Facebook"),Ne.forEach(x),K=Y(Te),ee=P(Te,"INPUT",{class:!0,type:!0,placeholder:!0}),Te.forEach(x),te=Y(ue),re=P(ue,"DIV",{class:!0});var Oe=N(re);ae=P(Oe,"LABEL",{for:!0});var Pe=N(ae);ne=V(Pe,"Twitter"),Pe.forEach(x),se=Y(Oe),oe=P(Oe,"INPUT",{class:!0,type:!0,placeholder:!0}),Oe.forEach(x),de=Y(ue),fe=P(ue,"DIV",{class:!0});var Ve=N(fe);he=P(Ve,"LABEL",{for:!0});var Ye=N(he);ye=V(Ye,"Senha"),Ye.forEach(x),_e=Y(Ve),we=P(Ve,"INPUT",{class:!0,type:!0,placeholder:!0}),Ve.forEach(x),be=Y(ue),Ee=P(ue,"DIV",{class:!0});var Ae=N(Ee);xe=P(Ae,"BUTTON",{type:!0,class:!0});var Ce=N(xe);De=V(Ce,"Cadastre-se"),Ce.forEach(x),Ae.forEach(x),ue.forEach(x),le.forEach(x),ie.forEach(x),C.forEach(x),S.forEach(x),$.forEach(x),D.forEach(x),E.forEach(x),b.forEach(x),n.forEach(x),$e=Y(e),pe(Se.$$.fragment,e),ke=Y(e),pe(Me.$$.fragment,e),this.h()},h(){T(d,"class","h2"),T(m,"class","lead"),T(u,"class","text-center mt-4"),T(w,"class","text-center"),T(R,"for",""),T(H,"class","form-control form-control-lg"),T(H,"type","text"),H.required=!0,T(H,"placeholder","usuario"),T(L,"class","form-group"),T(F,"for",""),T(z,"class","form-control form-control-lg"),T(z,"type","text"),z.required=!0,T(z,"placeholder","usuario@gmail.com"),T(W,"class","form-group"),T(X,"for",""),T(ee,"class","form-control form-control-lg"),T(ee,"type","text"),T(ee,"placeholder","usuario"),T(J,"class","form-group"),T(ae,"for",""),T(oe,"class","form-control form-control-lg"),T(oe,"type","text"),T(oe,"placeholder","usuario"),T(re,"class","form-group"),T(he,"for",""),T(we,"class","form-control form-control-lg"),T(we,"type","password"),we.required=!0,T(we,"placeholder","Digite uma senha"),T(fe,"class","form-group"),T(xe,"type","submit"),T(xe,"class","btn btn-lg btn-primary"),T(Ee,"class","text-center mt-3"),T(_,"class","m-sm-4"),T(y,"class","card-body"),T(v,"class","card"),T(c,"class","align-middle"),T(l,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(i,"class","row h-100"),T(o,"class","container d-flex flex-column"),T(s,"class","content d-flex p-0"),T(a,"class","main d-flex justify-content-center w-100")},m(n,x){ge(t,n,x),E(n,r,x),E(n,a,x),b(a,s),b(s,o),b(o,i),b(i,l),b(l,c),b(c,u),b(u,d),b(d,f),b(u,h),b(u,m),b(m,p),b(c,g),b(c,v),b(v,y),b(y,_),b(_,w),Pe[D].m(w,null),b(_,O),b(_,A),b(A,L),b(L,R),b(R,U),b(L,j),b(L,H),C(H,e[1].instagram),b(A,B),b(A,W),b(W,F),b(F,G),b(W,q),b(W,z),C(z,e[1].email),b(A,Z),b(A,J),b(J,X),b(X,Q),b(J,K),b(J,ee),C(ee,e[1].facebook),b(A,te),b(A,re),b(re,ae),b(ae,ne),b(re,se),b(re,oe),C(oe,e[1].twitter),b(A,de),b(A,fe),b(fe,he),b(he,ye),b(fe,_e),b(fe,we),C(we,e[1].password),b(A,be),b(A,Ee),b(Ee,xe),b(xe,De),E(n,$e,x),ge(Se,n,x),E(n,ke,x),ge(Me,n,x),Ie=!0,Te||(Ne=[I(H,"change",e[7]),I(H,"input",e[8]),I(z,"input",e[9]),I(ee,"input",e[10]),I(oe,"input",e[11]),I(we,"input",e[12]),I(A,"submit",e[6])],Te=!0)},p(e,[t]){let r=D;D=Ve(e),D===r?Pe[D].p(e,t):(ie(),ue(Pe[r],1,1,(()=>{Pe[r]=null})),le(),M=Pe[D],M?M.p(e,t):(M=Pe[D]=Oe[D](e),M.c()),ce(M,1),M.m(w,null)),2&t&&H.value!==e[1].instagram&&C(H,e[1].instagram),2&t&&z.value!==e[1].email&&C(z,e[1].email),2&t&&ee.value!==e[1].facebook&&C(ee,e[1].facebook),2&t&&oe.value!==e[1].twitter&&C(oe,e[1].twitter),2&t&&we.value!==e[1].password&&C(we,e[1].password);const a={};16&t&&(a.mssg=e[4]),8&t&&(a.status=e[3]),Se.$set(a)},i(e){Ie||(ce(t.$$.fragment,e),ce(M),ce(Se.$$.fragment,e),ce(Me.$$.fragment,e),Ie=!0)},o(e){ue(t.$$.fragment,e),ue(M),ue(Se.$$.fragment,e),ue(Me.$$.fragment,e),Ie=!1},d(e){ve(t,e),e&&x(r),e&&x(a),Pe[D].d(),e&&x($e),ve(Se,e),e&&x(ke),ve(Me,e),Te=!1,n(Ne)}}}function Ya(e,t,r){const a=new pa;let n="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg",s={password:"",instagram:"",facebook:"",twitter:"",email:"",dp:""},o=!1;function i(e){r(2,o=!0),r(0,n=a.generateRandomAvatar()),r(1,s.dp=n,s),r(2,o=!1)}let l=-1,c="";return[n,s,o,l,c,i,e=>{console.log(JSON.stringify(s)),e.preventDefault(),fetch("/api/user/register",{method:"POST",mode:"cors",cache:"no-cache",credentials:"same-origin",headers:{"Content-Type":"application/json"},redirect:"follow",referrerPolicy:"no-referrer",body:JSON.stringify(s)}).then((function(e){return e.json()})).then((function(e){r(4,c="Registrado com Sucesso"),r(3,l=0),Hr.update((t=>({token:e.token,user:e.user}))),document.location.href="/dashboard"})).catch((e=>{console.error("Error:",e),r(3,l=1),r(4,c="Tivemos algum problema, por favor tente novamente")}))},()=>{i(s.instagram)},function(){s.instagram=this.value,r(1,s)},function(){s.email=this.value,r(1,s)},function(){s.facebook=this.value,r(1,s)},function(){s.twitter=this.value,r(1,s)},function(){s.password=this.value,r(1,s)}]}class Aa extends we{constructor(e){super(),_e(this,e,Ya,Va,o,{})}}function Ca(e){let t,r,a,s,o,i,l,c,u,d,f,h,m,p,g,v,y;return{c(){t=$("div"),r=$("label"),a=S("Enter OTP"),s=k(),o=$("input"),i=k(),l=$("div"),c=$("label"),u=S("Enter new password"),d=k(),f=$("input"),h=k(),m=$("div"),p=$("button"),g=S("Change Password"),this.h()},l(e){t=P(e,"DIV",{class:!0});var n=N(t);r=P(n,"LABEL",{for:!0});var v=N(r);a=V(v,"Enter OTP"),v.forEach(x),s=Y(n),o=P(n,"INPUT",{class:!0,type:!0,placeholder:!0}),n.forEach(x),i=Y(e),l=P(e,"DIV",{class:!0});var y=N(l);c=P(y,"LABEL",{for:!0});var _=N(c);u=V(_,"Enter new password"),_.forEach(x),d=Y(y),f=P(y,"INPUT",{class:!0,type:!0,placeholder:!0}),y.forEach(x),h=Y(e),m=P(e,"DIV",{class:!0});var w=N(m);p=P(w,"BUTTON",{class:!0});var b=N(p);g=V(b,"Change Password"),b.forEach(x),w.forEach(x),this.h()},h(){T(r,"for",""),T(o,"class","form-control form-control-lg"),T(o,"type","text"),T(o,"placeholder","Enter Otp"),T(t,"class","form-group"),T(c,"for",""),T(f,"class","form-control form-control-lg"),T(f,"type","password"),T(f,"placeholder",".........."),T(l,"class","form-group"),T(p,"class","btn btn-lg btn-primary"),T(m,"class","text-center mt-3")},m(n,_){E(n,t,_),b(t,r),b(r,a),b(t,s),b(t,o),C(o,e[4]),E(n,i,_),E(n,l,_),b(l,c),b(c,u),b(l,d),b(l,f),C(f,e[5]),E(n,h,_),E(n,m,_),b(m,p),b(p,g),v||(y=[I(o,"input",e[8]),I(f,"input",e[9])],v=!0)},p(e,t){16&t&&o.value!==e[4]&&C(o,e[4]),32&t&&f.value!==e[5]&&C(f,e[5])},d(e){e&&x(t),e&&x(i),e&&x(l),e&&x(h),e&&x(m),v=!1,n(y)}}}function La(e){let t,r,a,n,s,o,i,l,c,u,d;return{c(){t=$("div"),r=$("label"),a=S("Email"),n=k(),s=$("input"),o=k(),i=$("div"),l=$("button"),c=S("Send email"),this.h()},l(e){t=P(e,"DIV",{class:!0});var u=N(t);r=P(u,"LABEL",{for:!0});var d=N(r);a=V(d,"Email"),d.forEach(x),n=Y(u),s=P(u,"INPUT",{class:!0,type:!0,placeholder:!0}),u.forEach(x),o=Y(e),i=P(e,"DIV",{class:!0});var f=N(i);l=P(f,"BUTTON",{class:!0});var h=N(l);c=V(h,"Send email"),h.forEach(x),f.forEach(x),this.h()},h(){T(r,"for",""),T(s,"class","form-control form-control-lg"),T(s,"type","email"),T(s,"placeholder","Enter your email"),T(t,"class","form-group"),T(l,"class","btn btn-lg btn-primary"),T(i,"class","text-center mt-3")},m(f,h){E(f,t,h),b(t,r),b(r,a),b(t,n),b(t,s),C(s,e[3]),E(f,o,h),E(f,i,h),b(i,l),b(l,c),u||(d=I(s,"input",e[7]),u=!0)},p(e,t){8&t&&s.value!==e[3]&&C(s,e[3])},d(e){e&&x(t),e&&x(o),e&&x(i),u=!1,d()}}}function Ra(e){let t,r,a,n,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,M;function O(e,t){return e[0]?La:Ca}let A=O(e),C=A(e);return _=new jr({props:{status:e[1],mssg:e[2]}}),{c(){t=$("div"),r=$("main"),a=$("div"),n=$("div"),s=$("div"),o=$("div"),i=$("div"),l=$("h1"),c=S("Reset password"),u=k(),d=$("p"),f=S("Enter your email to reset your password."),h=k(),m=$("div"),p=$("div"),g=$("div"),v=$("form"),C.c(),y=k(),me(_.$$.fragment),this.h()},l(e){t=P(e,"DIV",{class:!0});var w=N(t);r=P(w,"MAIN",{class:!0});var b=N(r);a=P(b,"DIV",{class:!0});var E=N(a);n=P(E,"DIV",{class:!0});var D=N(n);s=P(D,"DIV",{class:!0});var $=N(s);o=P($,"DIV",{class:!0});var S=N(o);i=P(S,"DIV",{class:!0});var k=N(i);l=P(k,"H1",{class:!0});var M=N(l);c=V(M,"Reset password"),M.forEach(x),u=Y(k),d=P(k,"P",{class:!0});var I=N(d);f=V(I,"Enter your email to reset your password."),I.forEach(x),k.forEach(x),h=Y(S),m=P(S,"DIV",{class:!0});var T=N(m);p=P(T,"DIV",{class:!0});var O=N(p);g=P(O,"DIV",{class:!0});var A=N(g);v=P(A,"FORM",{});var L=N(v);C.l(L),L.forEach(x),A.forEach(x),O.forEach(x),T.forEach(x),S.forEach(x),$.forEach(x),D.forEach(x),E.forEach(x),b.forEach(x),w.forEach(x),y=Y(e),pe(_.$$.fragment,e),this.h()},h(){T(l,"class","h2"),T(d,"class","lead"),T(i,"class","text-center mt-4"),T(g,"class","m-sm-4"),T(p,"class","card-body"),T(m,"class","card"),T(o,"class","d-table-cell align-middle"),T(s,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(n,"class","row h-100"),T(a,"class","container d-flex flex-column"),T(r,"class","content d-flex p-0"),T(t,"class","main d-flex justify-content-center w-100")},m(x,$){E(x,t,$),b(t,r),b(r,a),b(a,n),b(n,s),b(s,o),b(o,i),b(i,l),b(l,c),b(i,u),b(i,d),b(d,f),b(o,h),b(o,m),b(m,p),b(p,g),b(g,v),C.m(v,null),E(x,y,$),ge(_,x,$),w=!0,D||(M=I(v,"submit",e[6]),D=!0)},p(e,[t]){A===(A=O(e))&&C?C.p(e,t):(C.d(1),C=A(e),C&&(C.c(),C.m(v,null)));const r={};2&t&&(r.status=e[1]),4&t&&(r.mssg=e[2]),_.$set(r)},i(e){w||(ce(_.$$.fragment,e),w=!0)},o(e){ue(_.$$.fragment,e),w=!1},d(e){e&&x(t),C.d(),e&&x(y),ve(_,e),D=!1,M()}}}function Ua(e,t,r){let a=!0,n=-1,s="",o="",i="",l="";return[a,n,s,o,i,l,async e=>{let t;e.preventDefault(),t=a?await(async e=>{let t;return await Ar.post("/api/user/resetpassword",{email:e}).then((e=>{t=e.data})).catch((e=>{t=res.data})),t})(o):await(async(e,t,r)=>{let a;return await Ar.post("/api/user/check",{email:e,otp:t,password:r}).then((e=>{a=e.data})).catch((e=>{a=res.data})),a})(o,i,l),r(2,s=t.mssg),r(1,n=t.status),0==t.status&&r(0,a=!1)},function(){o=this.value,r(3,o)},function(){i=this.value,r(4,i)},function(){l=this.value,r(5,l)}]}class ja extends we{constructor(e){super(),_e(this,e,Ua,Ra,o,{})}}var Ha={exports:{}};!function(e,t){e.exports=function(){var t,r;function a(){return t.apply(null,arguments)}function n(e){t=e}function s(e){return e instanceof Array||"[object Array]"===Object.prototype.toString.call(e)}function o(e){return null!=e&&"[object Object]"===Object.prototype.toString.call(e)}function i(e,t){return Object.prototype.hasOwnProperty.call(e,t)}function l(e){if(Object.getOwnPropertyNames)return 0===Object.getOwnPropertyNames(e).length;var t;for(t in e)if(i(e,t))return!1;return!0}function c(e){return void 0===e}function u(e){return"number"==typeof e||"[object Number]"===Object.prototype.toString.call(e)}function d(e){return e instanceof Date||"[object Date]"===Object.prototype.toString.call(e)}function f(e,t){var r,a=[],n=e.length;for(r=0;r<n;++r)a.push(t(e[r],r));return a}function h(e,t){for(var r in t)i(t,r)&&(e[r]=t[r]);return i(t,"toString")&&(e.toString=t.toString),i(t,"valueOf")&&(e.valueOf=t.valueOf),e}function m(e,t,r,a){return zr(e,t,r,a,!0).utc()}function p(){return{empty:!1,unusedTokens:[],unusedInput:[],overflow:-2,charsLeftOver:0,nullInput:!1,invalidEra:null,invalidMonth:null,invalidFormat:!1,userInvalidated:!1,iso:!1,parsedDateParts:[],era:null,meridiem:null,rfc2822:!1,weekdayMismatch:!1}}function g(e){return null==e._pf&&(e._pf=p()),e._pf}function v(e){if(null==e._isValid){var t=g(e),a=r.call(t.parsedDateParts,(function(e){return null!=e})),n=!isNaN(e._d.getTime())&&t.overflow<0&&!t.empty&&!t.invalidEra&&!t.invalidMonth&&!t.invalidWeekday&&!t.weekdayMismatch&&!t.nullInput&&!t.invalidFormat&&!t.userInvalidated&&(!t.meridiem||t.meridiem&&a);if(e._strict&&(n=n&&0===t.charsLeftOver&&0===t.unusedTokens.length&&void 0===t.bigHour),null!=Object.isFrozen&&Object.isFrozen(e))return n;e._isValid=n}return e._isValid}function y(e){var t=m(NaN);return null!=e?h(g(t),e):g(t).userInvalidated=!0,t}r=Array.prototype.some?Array.prototype.some:function(e){var t,r=Object(this),a=r.length>>>0;for(t=0;t<a;t++)if(t in r&&e.call(this,r[t],t,r))return!0;return!1};var _=a.momentProperties=[],w=!1;function b(e,t){var r,a,n,s=_.length;if(c(t._isAMomentObject)||(e._isAMomentObject=t._isAMomentObject),c(t._i)||(e._i=t._i),c(t._f)||(e._f=t._f),c(t._l)||(e._l=t._l),c(t._strict)||(e._strict=t._strict),c(t._tzm)||(e._tzm=t._tzm),c(t._isUTC)||(e._isUTC=t._isUTC),c(t._offset)||(e._offset=t._offset),c(t._pf)||(e._pf=g(t)),c(t._locale)||(e._locale=t._locale),s>0)for(r=0;r<s;r++)c(n=t[a=_[r]])||(e[a]=n);return e}function E(e){b(this,e),this._d=new Date(null!=e._d?e._d.getTime():NaN),this.isValid()||(this._d=new Date(NaN)),!1===w&&(w=!0,a.updateOffset(this),w=!1)}function x(e){return e instanceof E||null!=e&&null!=e._isAMomentObject}function D(e){!1===a.suppressDeprecationWarnings&&"undefined"!=typeof console&&console.warn&&console.warn("Deprecation warning: "+e)}function $(e,t){var r=!0;return h((function(){if(null!=a.deprecationHandler&&a.deprecationHandler(null,e),r){var n,s,o,l=[],c=arguments.length;for(s=0;s<c;s++){if(n="","object"==typeof arguments[s]){for(o in n+="\n["+s+"] ",arguments[0])i(arguments[0],o)&&(n+=o+": "+arguments[0][o]+", ");n=n.slice(0,-2)}else n=arguments[s];l.push(n)}D(e+"\nArguments: "+Array.prototype.slice.call(l).join("")+"\n"+(new Error).stack),r=!1}return t.apply(this,arguments)}),t)}var S,k={};function M(e,t){null!=a.deprecationHandler&&a.deprecationHandler(e,t),k[e]||(D(t),k[e]=!0)}function I(e){return"undefined"!=typeof Function&&e instanceof Function||"[object Function]"===Object.prototype.toString.call(e)}function T(e){var t,r;for(r in e)i(e,r)&&(I(t=e[r])?this[r]=t:this["_"+r]=t);this._config=e,this._dayOfMonthOrdinalParseLenient=new RegExp((this._dayOfMonthOrdinalParse.source||this._ordinalParse.source)+"|"+/\d{1,2}/.source)}function N(e,t){var r,a=h({},e);for(r in t)i(t,r)&&(o(e[r])&&o(t[r])?(a[r]={},h(a[r],e[r]),h(a[r],t[r])):null!=t[r]?a[r]=t[r]:delete a[r]);for(r in e)i(e,r)&&!i(t,r)&&o(e[r])&&(a[r]=h({},a[r]));return a}function O(e){null!=e&&this.set(e)}a.suppressDeprecationWarnings=!1,a.deprecationHandler=null,S=Object.keys?Object.keys:function(e){var t,r=[];for(t in e)i(e,t)&&r.push(t);return r};var P={sameDay:"[Today at] LT",nextDay:"[Tomorrow at] LT",nextWeek:"dddd [at] LT",lastDay:"[Yesterday at] LT",lastWeek:"[Last] dddd [at] LT",sameElse:"L"};function V(e,t,r){var a=this._calendar[e]||this._calendar.sameElse;return I(a)?a.call(t,r):a}function Y(e,t,r){var a=""+Math.abs(e),n=t-a.length;return(e>=0?r?"+":"":"-")+Math.pow(10,Math.max(0,n)).toString().substr(1)+a}var A=/(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,C=/(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,L={},R={};function U(e,t,r,a){var n=a;"string"==typeof a&&(n=function(){return this[a]()}),e&&(R[e]=n),t&&(R[t[0]]=function(){return Y(n.apply(this,arguments),t[1],t[2])}),r&&(R[r]=function(){return this.localeData().ordinal(n.apply(this,arguments),e)})}function j(e){return e.match(/\[[\s\S]/)?e.replace(/^\[|\]$/g,""):e.replace(/\\/g,"")}function H(e){var t,r,a=e.match(A);for(t=0,r=a.length;t<r;t++)R[a[t]]?a[t]=R[a[t]]:a[t]=j(a[t]);return function(t){var n,s="";for(n=0;n<r;n++)s+=I(a[n])?a[n].call(t,e):a[n];return s}}function B(e,t){return e.isValid()?(t=W(t,e.localeData()),L[t]=L[t]||H(t),L[t](e)):e.localeData().invalidDate()}function W(e,t){var r=5;function a(e){return t.longDateFormat(e)||e}for(C.lastIndex=0;r>=0&&C.test(e);)e=e.replace(C,a),C.lastIndex=0,r-=1;return e}var F={LTS:"h:mm:ss A",LT:"h:mm A",L:"MM/DD/YYYY",LL:"MMMM D, YYYY",LLL:"MMMM D, YYYY h:mm A",LLLL:"dddd, MMMM D, YYYY h:mm A"};function G(e){var t=this._longDateFormat[e],r=this._longDateFormat[e.toUpperCase()];return t||!r?t:(this._longDateFormat[e]=r.match(A).map((function(e){return"MMMM"===e||"MM"===e||"DD"===e||"dddd"===e?e.slice(1):e})).join(""),this._longDateFormat[e])}var q="Invalid date";function z(){return this._invalidDate}var Z="%d",J=/\d{1,2}/;function X(e){return this._ordinal.replace("%d",e)}var Q={future:"in %s",past:"%s ago",s:"a few seconds",ss:"%d seconds",m:"a minute",mm:"%d minutes",h:"an hour",hh:"%d hours",d:"a day",dd:"%d days",w:"a week",ww:"%d weeks",M:"a month",MM:"%d months",y:"a year",yy:"%d years"};function K(e,t,r,a){var n=this._relativeTime[r];return I(n)?n(e,t,r,a):n.replace(/%d/i,e)}function ee(e,t){var r=this._relativeTime[e>0?"future":"past"];return I(r)?r(t):r.replace(/%s/i,t)}var te={};function re(e,t){var r=e.toLowerCase();te[r]=te[r+"s"]=te[t]=e}function ae(e){return"string"==typeof e?te[e]||te[e.toLowerCase()]:void 0}function ne(e){var t,r,a={};for(r in e)i(e,r)&&(t=ae(r))&&(a[t]=e[r]);return a}var se={};function oe(e,t){se[e]=t}function ie(e){var t,r=[];for(t in e)i(e,t)&&r.push({unit:t,priority:se[t]});return r.sort((function(e,t){return e.priority-t.priority})),r}function le(e){return e%4==0&&e%100!=0||e%400==0}function ce(e){return e<0?Math.ceil(e)||0:Math.floor(e)}function ue(e){var t=+e,r=0;return 0!==t&&isFinite(t)&&(r=ce(t)),r}function de(e,t){return function(r){return null!=r?(he(this,e,r),a.updateOffset(this,t),this):fe(this,e)}}function fe(e,t){return e.isValid()?e._d["get"+(e._isUTC?"UTC":"")+t]():NaN}function he(e,t,r){e.isValid()&&!isNaN(r)&&("FullYear"===t&&le(e.year())&&1===e.month()&&29===e.date()?(r=ue(r),e._d["set"+(e._isUTC?"UTC":"")+t](r,e.month(),Ke(r,e.month()))):e._d["set"+(e._isUTC?"UTC":"")+t](r))}function me(e){return I(this[e=ae(e)])?this[e]():this}function pe(e,t){if("object"==typeof e){var r,a=ie(e=ne(e)),n=a.length;for(r=0;r<n;r++)this[a[r].unit](e[a[r].unit])}else if(I(this[e=ae(e)]))return this[e](t);return this}var ge,ve=/\d/,ye=/\d\d/,_e=/\d{3}/,we=/\d{4}/,be=/[+-]?\d{6}/,Ee=/\d\d?/,xe=/\d\d\d\d?/,De=/\d\d\d\d\d\d?/,$e=/\d{1,3}/,Se=/\d{1,4}/,ke=/[+-]?\d{1,6}/,Me=/\d+/,Ie=/[+-]?\d+/,Te=/Z|[+-]\d\d:?\d\d/gi,Ne=/Z|[+-]\d\d(?::?\d\d)?/gi,Oe=/[+-]?\d+(\.\d{1,3})?/,Pe=/[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;function Ve(e,t,r){ge[e]=I(t)?t:function(e,a){return e&&r?r:t}}function Ye(e,t){return i(ge,e)?ge[e](t._strict,t._locale):new RegExp(Ae(e))}function Ae(e){return Ce(e.replace("\\","").replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,(function(e,t,r,a,n){return t||r||a||n})))}function Ce(e){return e.replace(/[-\/\\^$*+?.()|[\]{}]/g,"\\$&")}ge={};var Le={};function Re(e,t){var r,a,n=t;for("string"==typeof e&&(e=[e]),u(t)&&(n=function(e,r){r[t]=ue(e)}),a=e.length,r=0;r<a;r++)Le[e[r]]=n}function Ue(e,t){Re(e,(function(e,r,a,n){a._w=a._w||{},t(e,a._w,a,n)}))}function je(e,t,r){null!=t&&i(Le,e)&&Le[e](t,r._a,r,e)}var He,Be=0,We=1,Fe=2,Ge=3,qe=4,ze=5,Ze=6,Je=7,Xe=8;function Qe(e,t){return(e%t+t)%t}function Ke(e,t){if(isNaN(e)||isNaN(t))return NaN;var r=Qe(t,12);return e+=(t-r)/12,1===r?le(e)?29:28:31-r%7%2}He=Array.prototype.indexOf?Array.prototype.indexOf:function(e){var t;for(t=0;t<this.length;++t)if(this[t]===e)return t;return-1},U("M",["MM",2],"Mo",(function(){return this.month()+1})),U("MMM",0,0,(function(e){return this.localeData().monthsShort(this,e)})),U("MMMM",0,0,(function(e){return this.localeData().months(this,e)})),re("month","M"),oe("month",8),Ve("M",Ee),Ve("MM",Ee,ye),Ve("MMM",(function(e,t){return t.monthsShortRegex(e)})),Ve("MMMM",(function(e,t){return t.monthsRegex(e)})),Re(["M","MM"],(function(e,t){t[We]=ue(e)-1})),Re(["MMM","MMMM"],(function(e,t,r,a){var n=r._locale.monthsParse(e,a,r._strict);null!=n?t[We]=n:g(r).invalidMonth=e}));var et="January_February_March_April_May_June_July_August_September_October_November_December".split("_"),tt="Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),at=/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/,nt=Pe,st=Pe;function ot(e,t){return e?s(this._months)?this._months[e.month()]:this._months[(this._months.isFormat||at).test(t)?"format":"standalone"][e.month()]:s(this._months)?this._months:this._months.standalone}function it(e,t){return e?s(this._monthsShort)?this._monthsShort[e.month()]:this._monthsShort[at.test(t)?"format":"standalone"][e.month()]:s(this._monthsShort)?this._monthsShort:this._monthsShort.standalone}function lt(e,t,r){var a,n,s,o=e.toLocaleLowerCase();if(!this._monthsParse)for(this._monthsParse=[],this._longMonthsParse=[],this._shortMonthsParse=[],a=0;a<12;++a)s=m([2e3,a]),this._shortMonthsParse[a]=this.monthsShort(s,"").toLocaleLowerCase(),this._longMonthsParse[a]=this.months(s,"").toLocaleLowerCase();return r?"MMM"===t?-1!==(n=He.call(this._shortMonthsParse,o))?n:null:-1!==(n=He.call(this._longMonthsParse,o))?n:null:"MMM"===t?-1!==(n=He.call(this._shortMonthsParse,o))||-1!==(n=He.call(this._longMonthsParse,o))?n:null:-1!==(n=He.call(this._longMonthsParse,o))||-1!==(n=He.call(this._shortMonthsParse,o))?n:null}function ct(e,t,r){var a,n,s;if(this._monthsParseExact)return lt.call(this,e,t,r);for(this._monthsParse||(this._monthsParse=[],this._longMonthsParse=[],this._shortMonthsParse=[]),a=0;a<12;a++){if(n=m([2e3,a]),r&&!this._longMonthsParse[a]&&(this._longMonthsParse[a]=new RegExp("^"+this.months(n,"").replace(".","")+"$","i"),this._shortMonthsParse[a]=new RegExp("^"+this.monthsShort(n,"").replace(".","")+"$","i")),r||this._monthsParse[a]||(s="^"+this.months(n,"")+"|^"+this.monthsShort(n,""),this._monthsParse[a]=new RegExp(s.replace(".",""),"i")),r&&"MMMM"===t&&this._longMonthsParse[a].test(e))return a;if(r&&"MMM"===t&&this._shortMonthsParse[a].test(e))return a;if(!r&&this._monthsParse[a].test(e))return a}}function ut(e,t){var r;if(!e.isValid())return e;if("string"==typeof t)if(/^\d+$/.test(t))t=ue(t);else if(!u(t=e.localeData().monthsParse(t)))return e;return r=Math.min(e.date(),Ke(e.year(),t)),e._d["set"+(e._isUTC?"UTC":"")+"Month"](t,r),e}function dt(e){return null!=e?(ut(this,e),a.updateOffset(this,!0),this):fe(this,"Month")}function ft(){return Ke(this.year(),this.month())}function ht(e){return this._monthsParseExact?(i(this,"_monthsRegex")||pt.call(this),e?this._monthsShortStrictRegex:this._monthsShortRegex):(i(this,"_monthsShortRegex")||(this._monthsShortRegex=nt),this._monthsShortStrictRegex&&e?this._monthsShortStrictRegex:this._monthsShortRegex)}function mt(e){return this._monthsParseExact?(i(this,"_monthsRegex")||pt.call(this),e?this._monthsStrictRegex:this._monthsRegex):(i(this,"_monthsRegex")||(this._monthsRegex=st),this._monthsStrictRegex&&e?this._monthsStrictRegex:this._monthsRegex)}function pt(){function e(e,t){return t.length-e.length}var t,r,a=[],n=[],s=[];for(t=0;t<12;t++)r=m([2e3,t]),a.push(this.monthsShort(r,"")),n.push(this.months(r,"")),s.push(this.months(r,"")),s.push(this.monthsShort(r,""));for(a.sort(e),n.sort(e),s.sort(e),t=0;t<12;t++)a[t]=Ce(a[t]),n[t]=Ce(n[t]);for(t=0;t<24;t++)s[t]=Ce(s[t]);this._monthsRegex=new RegExp("^("+s.join("|")+")","i"),this._monthsShortRegex=this._monthsRegex,this._monthsStrictRegex=new RegExp("^("+n.join("|")+")","i"),this._monthsShortStrictRegex=new RegExp("^("+a.join("|")+")","i")}function gt(e){return le(e)?366:365}U("Y",0,0,(function(){var e=this.year();return e<=9999?Y(e,4):"+"+e})),U(0,["YY",2],0,(function(){return this.year()%100})),U(0,["YYYY",4],0,"year"),U(0,["YYYYY",5],0,"year"),U(0,["YYYYYY",6,!0],0,"year"),re("year","y"),oe("year",1),Ve("Y",Ie),Ve("YY",Ee,ye),Ve("YYYY",Se,we),Ve("YYYYY",ke,be),Ve("YYYYYY",ke,be),Re(["YYYYY","YYYYYY"],Be),Re("YYYY",(function(e,t){t[Be]=2===e.length?a.parseTwoDigitYear(e):ue(e)})),Re("YY",(function(e,t){t[Be]=a.parseTwoDigitYear(e)})),Re("Y",(function(e,t){t[Be]=parseInt(e,10)})),a.parseTwoDigitYear=function(e){return ue(e)+(ue(e)>68?1900:2e3)};var vt=de("FullYear",!0);function yt(){return le(this.year())}function _t(e,t,r,a,n,s,o){var i;return e<100&&e>=0?(i=new Date(e+400,t,r,a,n,s,o),isFinite(i.getFullYear())&&i.setFullYear(e)):i=new Date(e,t,r,a,n,s,o),i}function wt(e){var t,r;return e<100&&e>=0?((r=Array.prototype.slice.call(arguments))[0]=e+400,t=new Date(Date.UTC.apply(null,r)),isFinite(t.getUTCFullYear())&&t.setUTCFullYear(e)):t=new Date(Date.UTC.apply(null,arguments)),t}function bt(e,t,r){var a=7+t-r;return-(7+wt(e,0,a).getUTCDay()-t)%7+a-1}function Et(e,t,r,a,n){var s,o,i=1+7*(t-1)+(7+r-a)%7+bt(e,a,n);return i<=0?o=gt(s=e-1)+i:i>gt(e)?(s=e+1,o=i-gt(e)):(s=e,o=i),{year:s,dayOfYear:o}}function xt(e,t,r){var a,n,s=bt(e.year(),t,r),o=Math.floor((e.dayOfYear()-s-1)/7)+1;return o<1?a=o+Dt(n=e.year()-1,t,r):o>Dt(e.year(),t,r)?(a=o-Dt(e.year(),t,r),n=e.year()+1):(n=e.year(),a=o),{week:a,year:n}}function Dt(e,t,r){var a=bt(e,t,r),n=bt(e+1,t,r);return(gt(e)-a+n)/7}function $t(e){return xt(e,this._week.dow,this._week.doy).week}U("w",["ww",2],"wo","week"),U("W",["WW",2],"Wo","isoWeek"),re("week","w"),re("isoWeek","W"),oe("week",5),oe("isoWeek",5),Ve("w",Ee),Ve("ww",Ee,ye),Ve("W",Ee),Ve("WW",Ee,ye),Ue(["w","ww","W","WW"],(function(e,t,r,a){t[a.substr(0,1)]=ue(e)}));var St={dow:0,doy:6};function kt(){return this._week.dow}function Mt(){return this._week.doy}function It(e){var t=this.localeData().week(this);return null==e?t:this.add(7*(e-t),"d")}function Tt(e){var t=xt(this,1,4).week;return null==e?t:this.add(7*(e-t),"d")}function Nt(e,t){return"string"!=typeof e?e:isNaN(e)?"number"==typeof(e=t.weekdaysParse(e))?e:null:parseInt(e,10)}function Ot(e,t){return"string"==typeof e?t.weekdaysParse(e)%7||7:isNaN(e)?null:e}function Pt(e,t){return e.slice(t,7).concat(e.slice(0,t))}U("d",0,"do","day"),U("dd",0,0,(function(e){return this.localeData().weekdaysMin(this,e)})),U("ddd",0,0,(function(e){return this.localeData().weekdaysShort(this,e)})),U("dddd",0,0,(function(e){return this.localeData().weekdays(this,e)})),U("e",0,0,"weekday"),U("E",0,0,"isoWeekday"),re("day","d"),re("weekday","e"),re("isoWeekday","E"),oe("day",11),oe("weekday",11),oe("isoWeekday",11),Ve("d",Ee),Ve("e",Ee),Ve("E",Ee),Ve("dd",(function(e,t){return t.weekdaysMinRegex(e)})),Ve("ddd",(function(e,t){return t.weekdaysShortRegex(e)})),Ve("dddd",(function(e,t){return t.weekdaysRegex(e)})),Ue(["dd","ddd","dddd"],(function(e,t,r,a){var n=r._locale.weekdaysParse(e,a,r._strict);null!=n?t.d=n:g(r).invalidWeekday=e})),Ue(["d","e","E"],(function(e,t,r,a){t[a]=ue(e)}));var Vt="Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),Yt="Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),At="Su_Mo_Tu_We_Th_Fr_Sa".split("_"),Ct=Pe,Lt=Pe,Rt=Pe;function Ut(e,t){var r=s(this._weekdays)?this._weekdays:this._weekdays[e&&!0!==e&&this._weekdays.isFormat.test(t)?"format":"standalone"];return!0===e?Pt(r,this._week.dow):e?r[e.day()]:r}function jt(e){return!0===e?Pt(this._weekdaysShort,this._week.dow):e?this._weekdaysShort[e.day()]:this._weekdaysShort}function Ht(e){return!0===e?Pt(this._weekdaysMin,this._week.dow):e?this._weekdaysMin[e.day()]:this._weekdaysMin}function Bt(e,t,r){var a,n,s,o=e.toLocaleLowerCase();if(!this._weekdaysParse)for(this._weekdaysParse=[],this._shortWeekdaysParse=[],this._minWeekdaysParse=[],a=0;a<7;++a)s=m([2e3,1]).day(a),this._minWeekdaysParse[a]=this.weekdaysMin(s,"").toLocaleLowerCase(),this._shortWeekdaysParse[a]=this.weekdaysShort(s,"").toLocaleLowerCase(),this._weekdaysParse[a]=this.weekdays(s,"").toLocaleLowerCase();return r?"dddd"===t?-1!==(n=He.call(this._weekdaysParse,o))?n:null:"ddd"===t?-1!==(n=He.call(this._shortWeekdaysParse,o))?n:null:-1!==(n=He.call(this._minWeekdaysParse,o))?n:null:"dddd"===t?-1!==(n=He.call(this._weekdaysParse,o))||-1!==(n=He.call(this._shortWeekdaysParse,o))||-1!==(n=He.call(this._minWeekdaysParse,o))?n:null:"ddd"===t?-1!==(n=He.call(this._shortWeekdaysParse,o))||-1!==(n=He.call(this._weekdaysParse,o))||-1!==(n=He.call(this._minWeekdaysParse,o))?n:null:-1!==(n=He.call(this._minWeekdaysParse,o))||-1!==(n=He.call(this._weekdaysParse,o))||-1!==(n=He.call(this._shortWeekdaysParse,o))?n:null}function Wt(e,t,r){var a,n,s;if(this._weekdaysParseExact)return Bt.call(this,e,t,r);for(this._weekdaysParse||(this._weekdaysParse=[],this._minWeekdaysParse=[],this._shortWeekdaysParse=[],this._fullWeekdaysParse=[]),a=0;a<7;a++){if(n=m([2e3,1]).day(a),r&&!this._fullWeekdaysParse[a]&&(this._fullWeekdaysParse[a]=new RegExp("^"+this.weekdays(n,"").replace(".","\\.?")+"$","i"),this._shortWeekdaysParse[a]=new RegExp("^"+this.weekdaysShort(n,"").replace(".","\\.?")+"$","i"),this._minWeekdaysParse[a]=new RegExp("^"+this.weekdaysMin(n,"").replace(".","\\.?")+"$","i")),this._weekdaysParse[a]||(s="^"+this.weekdays(n,"")+"|^"+this.weekdaysShort(n,"")+"|^"+this.weekdaysMin(n,""),this._weekdaysParse[a]=new RegExp(s.replace(".",""),"i")),r&&"dddd"===t&&this._fullWeekdaysParse[a].test(e))return a;if(r&&"ddd"===t&&this._shortWeekdaysParse[a].test(e))return a;if(r&&"dd"===t&&this._minWeekdaysParse[a].test(e))return a;if(!r&&this._weekdaysParse[a].test(e))return a}}function Ft(e){if(!this.isValid())return null!=e?this:NaN;var t=this._isUTC?this._d.getUTCDay():this._d.getDay();return null!=e?(e=Nt(e,this.localeData()),this.add(e-t,"d")):t}function Gt(e){if(!this.isValid())return null!=e?this:NaN;var t=(this.day()+7-this.localeData()._week.dow)%7;return null==e?t:this.add(e-t,"d")}function qt(e){if(!this.isValid())return null!=e?this:NaN;if(null!=e){var t=Ot(e,this.localeData());return this.day(this.day()%7?t:t-7)}return this.day()||7}function zt(e){return this._weekdaysParseExact?(i(this,"_weekdaysRegex")||Xt.call(this),e?this._weekdaysStrictRegex:this._weekdaysRegex):(i(this,"_weekdaysRegex")||(this._weekdaysRegex=Ct),this._weekdaysStrictRegex&&e?this._weekdaysStrictRegex:this._weekdaysRegex)}function Zt(e){return this._weekdaysParseExact?(i(this,"_weekdaysRegex")||Xt.call(this),e?this._weekdaysShortStrictRegex:this._weekdaysShortRegex):(i(this,"_weekdaysShortRegex")||(this._weekdaysShortRegex=Lt),this._weekdaysShortStrictRegex&&e?this._weekdaysShortStrictRegex:this._weekdaysShortRegex)}function Jt(e){return this._weekdaysParseExact?(i(this,"_weekdaysRegex")||Xt.call(this),e?this._weekdaysMinStrictRegex:this._weekdaysMinRegex):(i(this,"_weekdaysMinRegex")||(this._weekdaysMinRegex=Rt),this._weekdaysMinStrictRegex&&e?this._weekdaysMinStrictRegex:this._weekdaysMinRegex)}function Xt(){function e(e,t){return t.length-e.length}var t,r,a,n,s,o=[],i=[],l=[],c=[];for(t=0;t<7;t++)r=m([2e3,1]).day(t),a=Ce(this.weekdaysMin(r,"")),n=Ce(this.weekdaysShort(r,"")),s=Ce(this.weekdays(r,"")),o.push(a),i.push(n),l.push(s),c.push(a),c.push(n),c.push(s);o.sort(e),i.sort(e),l.sort(e),c.sort(e),this._weekdaysRegex=new RegExp("^("+c.join("|")+")","i"),this._weekdaysShortRegex=this._weekdaysRegex,this._weekdaysMinRegex=this._weekdaysRegex,this._weekdaysStrictRegex=new RegExp("^("+l.join("|")+")","i"),this._weekdaysShortStrictRegex=new RegExp("^("+i.join("|")+")","i"),this._weekdaysMinStrictRegex=new RegExp("^("+o.join("|")+")","i")}function Qt(){return this.hours()%12||12}function Kt(){return this.hours()||24}function er(e,t){U(e,0,0,(function(){return this.localeData().meridiem(this.hours(),this.minutes(),t)}))}function tr(e,t){return t._meridiemParse}function rr(e){return"p"===(e+"").toLowerCase().charAt(0)}U("H",["HH",2],0,"hour"),U("h",["hh",2],0,Qt),U("k",["kk",2],0,Kt),U("hmm",0,0,(function(){return""+Qt.apply(this)+Y(this.minutes(),2)})),U("hmmss",0,0,(function(){return""+Qt.apply(this)+Y(this.minutes(),2)+Y(this.seconds(),2)})),U("Hmm",0,0,(function(){return""+this.hours()+Y(this.minutes(),2)})),U("Hmmss",0,0,(function(){return""+this.hours()+Y(this.minutes(),2)+Y(this.seconds(),2)})),er("a",!0),er("A",!1),re("hour","h"),oe("hour",13),Ve("a",tr),Ve("A",tr),Ve("H",Ee),Ve("h",Ee),Ve("k",Ee),Ve("HH",Ee,ye),Ve("hh",Ee,ye),Ve("kk",Ee,ye),Ve("hmm",xe),Ve("hmmss",De),Ve("Hmm",xe),Ve("Hmmss",De),Re(["H","HH"],Ge),Re(["k","kk"],(function(e,t,r){var a=ue(e);t[Ge]=24===a?0:a})),Re(["a","A"],(function(e,t,r){r._isPm=r._locale.isPM(e),r._meridiem=e})),Re(["h","hh"],(function(e,t,r){t[Ge]=ue(e),g(r).bigHour=!0})),Re("hmm",(function(e,t,r){var a=e.length-2;t[Ge]=ue(e.substr(0,a)),t[qe]=ue(e.substr(a)),g(r).bigHour=!0})),Re("hmmss",(function(e,t,r){var a=e.length-4,n=e.length-2;t[Ge]=ue(e.substr(0,a)),t[qe]=ue(e.substr(a,2)),t[ze]=ue(e.substr(n)),g(r).bigHour=!0})),Re("Hmm",(function(e,t,r){var a=e.length-2;t[Ge]=ue(e.substr(0,a)),t[qe]=ue(e.substr(a))})),Re("Hmmss",(function(e,t,r){var a=e.length-4,n=e.length-2;t[Ge]=ue(e.substr(0,a)),t[qe]=ue(e.substr(a,2)),t[ze]=ue(e.substr(n))}));var ar=/[ap]\.?m?\.?/i,nr=de("Hours",!0);function sr(e,t,r){return e>11?r?"pm":"PM":r?"am":"AM"}var or,ir={calendar:P,longDateFormat:F,invalidDate:q,ordinal:Z,dayOfMonthOrdinalParse:J,relativeTime:Q,months:et,monthsShort:tt,week:St,weekdays:Vt,weekdaysMin:At,weekdaysShort:Yt,meridiemParse:ar},lr={},cr={};function ur(e,t){var r,a=Math.min(e.length,t.length);for(r=0;r<a;r+=1)if(e[r]!==t[r])return r;return a}function dr(e){return e?e.toLowerCase().replace("_","-"):e}function fr(e){for(var t,r,a,n,s=0;s<e.length;){for(t=(n=dr(e[s]).split("-")).length,r=(r=dr(e[s+1]))?r.split("-"):null;t>0;){if(a=mr(n.slice(0,t).join("-")))return a;if(r&&r.length>=t&&ur(n,r)>=t-1)break;t--}s++}return or}function hr(e){return null!=e.match("^[^/\\\\]*$")}function mr(t){var r=null;if(void 0===lr[t]&&e&&e.exports&&hr(t))try{r=or._abbr,rt("./locale/"+t),pr(r)}catch(e){lr[t]=null}return lr[t]}function pr(e,t){var r;return e&&((r=c(t)?yr(e):gr(e,t))?or=r:"undefined"!=typeof console&&console.warn&&console.warn("Locale "+e+" not found. Did you forget to load it?")),or._abbr}function gr(e,t){if(null!==t){var r,a=ir;if(t.abbr=e,null!=lr[e])M("defineLocaleOverride","use moment.updateLocale(localeName, config) to change an existing locale. moment.defineLocale(localeName, config) should only be used for creating a new locale See http://momentjs.com/guides/#/warnings/define-locale/ for more info."),a=lr[e]._config;else if(null!=t.parentLocale)if(null!=lr[t.parentLocale])a=lr[t.parentLocale]._config;else{if(null==(r=mr(t.parentLocale)))return cr[t.parentLocale]||(cr[t.parentLocale]=[]),cr[t.parentLocale].push({name:e,config:t}),null;a=r._config}return lr[e]=new O(N(a,t)),cr[e]&&cr[e].forEach((function(e){gr(e.name,e.config)})),pr(e),lr[e]}return delete lr[e],null}function vr(e,t){if(null!=t){var r,a,n=ir;null!=lr[e]&&null!=lr[e].parentLocale?lr[e].set(N(lr[e]._config,t)):(null!=(a=mr(e))&&(n=a._config),t=N(n,t),null==a&&(t.abbr=e),(r=new O(t)).parentLocale=lr[e],lr[e]=r),pr(e)}else null!=lr[e]&&(null!=lr[e].parentLocale?(lr[e]=lr[e].parentLocale,e===pr()&&pr(e)):null!=lr[e]&&delete lr[e]);return lr[e]}function yr(e){var t;if(e&&e._locale&&e._locale._abbr&&(e=e._locale._abbr),!e)return or;if(!s(e)){if(t=mr(e))return t;e=[e]}return fr(e)}function _r(){return S(lr)}function wr(e){var t,r=e._a;return r&&-2===g(e).overflow&&(t=r[We]<0||r[We]>11?We:r[Fe]<1||r[Fe]>Ke(r[Be],r[We])?Fe:r[Ge]<0||r[Ge]>24||24===r[Ge]&&(0!==r[qe]||0!==r[ze]||0!==r[Ze])?Ge:r[qe]<0||r[qe]>59?qe:r[ze]<0||r[ze]>59?ze:r[Ze]<0||r[Ze]>999?Ze:-1,g(e)._overflowDayOfYear&&(t<Be||t>Fe)&&(t=Fe),g(e)._overflowWeeks&&-1===t&&(t=Je),g(e)._overflowWeekday&&-1===t&&(t=Xe),g(e).overflow=t),e}var br=/^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,Er=/^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,xr=/Z|[+-]\d\d(?::?\d\d)?/,Dr=[["YYYYYY-MM-DD",/[+-]\d{6}-\d\d-\d\d/],["YYYY-MM-DD",/\d{4}-\d\d-\d\d/],["GGGG-[W]WW-E",/\d{4}-W\d\d-\d/],["GGGG-[W]WW",/\d{4}-W\d\d/,!1],["YYYY-DDD",/\d{4}-\d{3}/],["YYYY-MM",/\d{4}-\d\d/,!1],["YYYYYYMMDD",/[+-]\d{10}/],["YYYYMMDD",/\d{8}/],["GGGG[W]WWE",/\d{4}W\d{3}/],["GGGG[W]WW",/\d{4}W\d{2}/,!1],["YYYYDDD",/\d{7}/],["YYYYMM",/\d{6}/,!1],["YYYY",/\d{4}/,!1]],$r=[["HH:mm:ss.SSSS",/\d\d:\d\d:\d\d\.\d+/],["HH:mm:ss,SSSS",/\d\d:\d\d:\d\d,\d+/],["HH:mm:ss",/\d\d:\d\d:\d\d/],["HH:mm",/\d\d:\d\d/],["HHmmss.SSSS",/\d\d\d\d\d\d\.\d+/],["HHmmss,SSSS",/\d\d\d\d\d\d,\d+/],["HHmmss",/\d\d\d\d\d\d/],["HHmm",/\d\d\d\d/],["HH",/\d\d/]],Sr=/^\/?Date\((-?\d+)/i,kr=/^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/,Mr={UT:0,GMT:0,EDT:-240,EST:-300,CDT:-300,CST:-360,MDT:-360,MST:-420,PDT:-420,PST:-480};function Ir(e){var t,r,a,n,s,o,i=e._i,l=br.exec(i)||Er.exec(i),c=Dr.length,u=$r.length;if(l){for(g(e).iso=!0,t=0,r=c;t<r;t++)if(Dr[t][1].exec(l[1])){n=Dr[t][0],a=!1!==Dr[t][2];break}if(null==n)return void(e._isValid=!1);if(l[3]){for(t=0,r=u;t<r;t++)if($r[t][1].exec(l[3])){s=(l[2]||" ")+$r[t][0];break}if(null==s)return void(e._isValid=!1)}if(!a&&null!=s)return void(e._isValid=!1);if(l[4]){if(!xr.exec(l[4]))return void(e._isValid=!1);o="Z"}e._f=n+(s||"")+(o||""),jr(e)}else e._isValid=!1}function Tr(e,t,r,a,n,s){var o=[Nr(e),tt.indexOf(t),parseInt(r,10),parseInt(a,10),parseInt(n,10)];return s&&o.push(parseInt(s,10)),o}function Nr(e){var t=parseInt(e,10);return t<=49?2e3+t:t<=999?1900+t:t}function Or(e){return e.replace(/\([^)]*\)|[\n\t]/g," ").replace(/(\s\s+)/g," ").replace(/^\s\s*/,"").replace(/\s\s*$/,"")}function Pr(e,t,r){return!e||Yt.indexOf(e)===new Date(t[0],t[1],t[2]).getDay()||(g(r).weekdayMismatch=!0,r._isValid=!1,!1)}function Vr(e,t,r){if(e)return Mr[e];if(t)return 0;var a=parseInt(r,10),n=a%100;return(a-n)/100*60+n}function Yr(e){var t,r=kr.exec(Or(e._i));if(r){if(t=Tr(r[4],r[3],r[2],r[5],r[6],r[7]),!Pr(r[1],t,e))return;e._a=t,e._tzm=Vr(r[8],r[9],r[10]),e._d=wt.apply(null,e._a),e._d.setUTCMinutes(e._d.getUTCMinutes()-e._tzm),g(e).rfc2822=!0}else e._isValid=!1}function Ar(e){var t=Sr.exec(e._i);null===t?(Ir(e),!1===e._isValid&&(delete e._isValid,Yr(e),!1===e._isValid&&(delete e._isValid,e._strict?e._isValid=!1:a.createFromInputFallback(e)))):e._d=new Date(+t[1])}function Cr(e,t,r){return null!=e?e:null!=t?t:r}function Lr(e){var t=new Date(a.now());return e._useUTC?[t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate()]:[t.getFullYear(),t.getMonth(),t.getDate()]}function Rr(e){var t,r,a,n,s,o=[];if(!e._d){for(a=Lr(e),e._w&&null==e._a[Fe]&&null==e._a[We]&&Ur(e),null!=e._dayOfYear&&(s=Cr(e._a[Be],a[Be]),(e._dayOfYear>gt(s)||0===e._dayOfYear)&&(g(e)._overflowDayOfYear=!0),r=wt(s,0,e._dayOfYear),e._a[We]=r.getUTCMonth(),e._a[Fe]=r.getUTCDate()),t=0;t<3&&null==e._a[t];++t)e._a[t]=o[t]=a[t];for(;t<7;t++)e._a[t]=o[t]=null==e._a[t]?2===t?1:0:e._a[t];24===e._a[Ge]&&0===e._a[qe]&&0===e._a[ze]&&0===e._a[Ze]&&(e._nextDay=!0,e._a[Ge]=0),e._d=(e._useUTC?wt:_t).apply(null,o),n=e._useUTC?e._d.getUTCDay():e._d.getDay(),null!=e._tzm&&e._d.setUTCMinutes(e._d.getUTCMinutes()-e._tzm),e._nextDay&&(e._a[Ge]=24),e._w&&void 0!==e._w.d&&e._w.d!==n&&(g(e).weekdayMismatch=!0)}}function Ur(e){var t,r,a,n,s,o,i,l,c;null!=(t=e._w).GG||null!=t.W||null!=t.E?(s=1,o=4,r=Cr(t.GG,e._a[Be],xt(Zr(),1,4).year),a=Cr(t.W,1),((n=Cr(t.E,1))<1||n>7)&&(l=!0)):(s=e._locale._week.dow,o=e._locale._week.doy,c=xt(Zr(),s,o),r=Cr(t.gg,e._a[Be],c.year),a=Cr(t.w,c.week),null!=t.d?((n=t.d)<0||n>6)&&(l=!0):null!=t.e?(n=t.e+s,(t.e<0||t.e>6)&&(l=!0)):n=s),a<1||a>Dt(r,s,o)?g(e)._overflowWeeks=!0:null!=l?g(e)._overflowWeekday=!0:(i=Et(r,a,n,s,o),e._a[Be]=i.year,e._dayOfYear=i.dayOfYear)}function jr(e){if(e._f!==a.ISO_8601)if(e._f!==a.RFC_2822){e._a=[],g(e).empty=!0;var t,r,n,s,o,i,l,c=""+e._i,u=c.length,d=0;for(l=(n=W(e._f,e._locale).match(A)||[]).length,t=0;t<l;t++)s=n[t],(r=(c.match(Ye(s,e))||[])[0])&&((o=c.substr(0,c.indexOf(r))).length>0&&g(e).unusedInput.push(o),c=c.slice(c.indexOf(r)+r.length),d+=r.length),R[s]?(r?g(e).empty=!1:g(e).unusedTokens.push(s),je(s,r,e)):e._strict&&!r&&g(e).unusedTokens.push(s);g(e).charsLeftOver=u-d,c.length>0&&g(e).unusedInput.push(c),e._a[Ge]<=12&&!0===g(e).bigHour&&e._a[Ge]>0&&(g(e).bigHour=void 0),g(e).parsedDateParts=e._a.slice(0),g(e).meridiem=e._meridiem,e._a[Ge]=Hr(e._locale,e._a[Ge],e._meridiem),null!==(i=g(e).era)&&(e._a[Be]=e._locale.erasConvertYear(i,e._a[Be])),Rr(e),wr(e)}else Yr(e);else Ir(e)}function Hr(e,t,r){var a;return null==r?t:null!=e.meridiemHour?e.meridiemHour(t,r):null!=e.isPM?((a=e.isPM(r))&&t<12&&(t+=12),a||12!==t||(t=0),t):t}function Br(e){var t,r,a,n,s,o,i=!1,l=e._f.length;if(0===l)return g(e).invalidFormat=!0,void(e._d=new Date(NaN));for(n=0;n<l;n++)s=0,o=!1,t=b({},e),null!=e._useUTC&&(t._useUTC=e._useUTC),t._f=e._f[n],jr(t),v(t)&&(o=!0),s+=g(t).charsLeftOver,s+=10*g(t).unusedTokens.length,g(t).score=s,i?s<a&&(a=s,r=t):(null==a||s<a||o)&&(a=s,r=t,o&&(i=!0));h(e,r||t)}function Wr(e){if(!e._d){var t=ne(e._i),r=void 0===t.day?t.date:t.day;e._a=f([t.year,t.month,r,t.hour,t.minute,t.second,t.millisecond],(function(e){return e&&parseInt(e,10)})),Rr(e)}}function Fr(e){var t=new E(wr(Gr(e)));return t._nextDay&&(t.add(1,"d"),t._nextDay=void 0),t}function Gr(e){var t=e._i,r=e._f;return e._locale=e._locale||yr(e._l),null===t||void 0===r&&""===t?y({nullInput:!0}):("string"==typeof t&&(e._i=t=e._locale.preparse(t)),x(t)?new E(wr(t)):(d(t)?e._d=t:s(r)?Br(e):r?jr(e):qr(e),v(e)||(e._d=null),e))}function qr(e){var t=e._i;c(t)?e._d=new Date(a.now()):d(t)?e._d=new Date(t.valueOf()):"string"==typeof t?Ar(e):s(t)?(e._a=f(t.slice(0),(function(e){return parseInt(e,10)})),Rr(e)):o(t)?Wr(e):u(t)?e._d=new Date(t):a.createFromInputFallback(e)}function zr(e,t,r,a,n){var i={};return!0!==t&&!1!==t||(a=t,t=void 0),!0!==r&&!1!==r||(a=r,r=void 0),(o(e)&&l(e)||s(e)&&0===e.length)&&(e=void 0),i._isAMomentObject=!0,i._useUTC=i._isUTC=n,i._l=r,i._i=e,i._f=t,i._strict=a,Fr(i)}function Zr(e,t,r,a){return zr(e,t,r,a,!1)}a.createFromInputFallback=$("value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.",(function(e){e._d=new Date(e._i+(e._useUTC?" UTC":""))})),a.ISO_8601=function(){},a.RFC_2822=function(){};var Jr=$("moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/",(function(){var e=Zr.apply(null,arguments);return this.isValid()&&e.isValid()?e<this?this:e:y()})),Xr=$("moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/",(function(){var e=Zr.apply(null,arguments);return this.isValid()&&e.isValid()?e>this?this:e:y()}));function Qr(e,t){var r,a;if(1===t.length&&s(t[0])&&(t=t[0]),!t.length)return Zr();for(r=t[0],a=1;a<t.length;++a)t[a].isValid()&&!t[a][e](r)||(r=t[a]);return r}function Kr(){return Qr("isBefore",[].slice.call(arguments,0))}function ea(){return Qr("isAfter",[].slice.call(arguments,0))}var ta=function(){return Date.now?Date.now():+new Date},ra=["year","quarter","month","week","day","hour","minute","second","millisecond"];function aa(e){var t,r,a=!1,n=ra.length;for(t in e)if(i(e,t)&&(-1===He.call(ra,t)||null!=e[t]&&isNaN(e[t])))return!1;for(r=0;r<n;++r)if(e[ra[r]]){if(a)return!1;parseFloat(e[ra[r]])!==ue(e[ra[r]])&&(a=!0)}return!0}function na(){return this._isValid}function sa(){return Ma(NaN)}function oa(e){var t=ne(e),r=t.year||0,a=t.quarter||0,n=t.month||0,s=t.week||t.isoWeek||0,o=t.day||0,i=t.hour||0,l=t.minute||0,c=t.second||0,u=t.millisecond||0;this._isValid=aa(t),this._milliseconds=+u+1e3*c+6e4*l+1e3*i*60*60,this._days=+o+7*s,this._months=+n+3*a+12*r,this._data={},this._locale=yr(),this._bubble()}function ia(e){return e instanceof oa}function la(e){return e<0?-1*Math.round(-1*e):Math.round(e)}function ca(e,t,r){var a,n=Math.min(e.length,t.length),s=Math.abs(e.length-t.length),o=0;for(a=0;a<n;a++)(r&&e[a]!==t[a]||!r&&ue(e[a])!==ue(t[a]))&&o++;return o+s}function ua(e,t){U(e,0,0,(function(){var e=this.utcOffset(),r="+";return e<0&&(e=-e,r="-"),r+Y(~~(e/60),2)+t+Y(~~e%60,2)}))}ua("Z",":"),ua("ZZ",""),Ve("Z",Ne),Ve("ZZ",Ne),Re(["Z","ZZ"],(function(e,t,r){r._useUTC=!0,r._tzm=fa(Ne,e)}));var da=/([\+\-]|\d\d)/gi;function fa(e,t){var r,a,n=(t||"").match(e);return null===n?null:0===(a=60*(r=((n[n.length-1]||[])+"").match(da)||["-",0,0])[1]+ue(r[2]))?0:"+"===r[0]?a:-a}function ha(e,t){var r,n;return t._isUTC?(r=t.clone(),n=(x(e)||d(e)?e.valueOf():Zr(e).valueOf())-r.valueOf(),r._d.setTime(r._d.valueOf()+n),a.updateOffset(r,!1),r):Zr(e).local()}function ma(e){return-Math.round(e._d.getTimezoneOffset())}function pa(e,t,r){var n,s=this._offset||0;if(!this.isValid())return null!=e?this:NaN;if(null!=e){if("string"==typeof e){if(null===(e=fa(Ne,e)))return this}else Math.abs(e)<16&&!r&&(e*=60);return!this._isUTC&&t&&(n=ma(this)),this._offset=e,this._isUTC=!0,null!=n&&this.add(n,"m"),s!==e&&(!t||this._changeInProgress?Pa(this,Ma(e-s,"m"),1,!1):this._changeInProgress||(this._changeInProgress=!0,a.updateOffset(this,!0),this._changeInProgress=null)),this}return this._isUTC?s:ma(this)}function ga(e,t){return null!=e?("string"!=typeof e&&(e=-e),this.utcOffset(e,t),this):-this.utcOffset()}function va(e){return this.utcOffset(0,e)}function ya(e){return this._isUTC&&(this.utcOffset(0,e),this._isUTC=!1,e&&this.subtract(ma(this),"m")),this}function _a(){if(null!=this._tzm)this.utcOffset(this._tzm,!1,!0);else if("string"==typeof this._i){var e=fa(Te,this._i);null!=e?this.utcOffset(e):this.utcOffset(0,!0)}return this}function wa(e){return!!this.isValid()&&(e=e?Zr(e).utcOffset():0,(this.utcOffset()-e)%60==0)}function ba(){return this.utcOffset()>this.clone().month(0).utcOffset()||this.utcOffset()>this.clone().month(5).utcOffset()}function Ea(){if(!c(this._isDSTShifted))return this._isDSTShifted;var e,t={};return b(t,this),(t=Gr(t))._a?(e=t._isUTC?m(t._a):Zr(t._a),this._isDSTShifted=this.isValid()&&ca(t._a,e.toArray())>0):this._isDSTShifted=!1,this._isDSTShifted}function xa(){return!!this.isValid()&&!this._isUTC}function Da(){return!!this.isValid()&&this._isUTC}function $a(){return!!this.isValid()&&this._isUTC&&0===this._offset}a.updateOffset=function(){};var Sa=/^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/,ka=/^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;function Ma(e,t){var r,a,n,s=e,o=null;return ia(e)?s={ms:e._milliseconds,d:e._days,M:e._months}:u(e)||!isNaN(+e)?(s={},t?s[t]=+e:s.milliseconds=+e):(o=Sa.exec(e))?(r="-"===o[1]?-1:1,s={y:0,d:ue(o[Fe])*r,h:ue(o[Ge])*r,m:ue(o[qe])*r,s:ue(o[ze])*r,ms:ue(la(1e3*o[Ze]))*r}):(o=ka.exec(e))?(r="-"===o[1]?-1:1,s={y:Ia(o[2],r),M:Ia(o[3],r),w:Ia(o[4],r),d:Ia(o[5],r),h:Ia(o[6],r),m:Ia(o[7],r),s:Ia(o[8],r)}):null==s?s={}:"object"==typeof s&&("from"in s||"to"in s)&&(n=Na(Zr(s.from),Zr(s.to)),(s={}).ms=n.milliseconds,s.M=n.months),a=new oa(s),ia(e)&&i(e,"_locale")&&(a._locale=e._locale),ia(e)&&i(e,"_isValid")&&(a._isValid=e._isValid),a}function Ia(e,t){var r=e&&parseFloat(e.replace(",","."));return(isNaN(r)?0:r)*t}function Ta(e,t){var r={};return r.months=t.month()-e.month()+12*(t.year()-e.year()),e.clone().add(r.months,"M").isAfter(t)&&--r.months,r.milliseconds=+t-+e.clone().add(r.months,"M"),r}function Na(e,t){var r;return e.isValid()&&t.isValid()?(t=ha(t,e),e.isBefore(t)?r=Ta(e,t):((r=Ta(t,e)).milliseconds=-r.milliseconds,r.months=-r.months),r):{milliseconds:0,months:0}}function Oa(e,t){return function(r,a){var n;return null===a||isNaN(+a)||(M(t,"moment()."+t+"(period, number) is deprecated. Please use moment()."+t+"(number, period). See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info."),n=r,r=a,a=n),Pa(this,Ma(r,a),e),this}}function Pa(e,t,r,n){var s=t._milliseconds,o=la(t._days),i=la(t._months);e.isValid()&&(n=null==n||n,i&&ut(e,fe(e,"Month")+i*r),o&&he(e,"Date",fe(e,"Date")+o*r),s&&e._d.setTime(e._d.valueOf()+s*r),n&&a.updateOffset(e,o||i))}Ma.fn=oa.prototype,Ma.invalid=sa;var Va=Oa(1,"add"),Ya=Oa(-1,"subtract");function Aa(e){return"string"==typeof e||e instanceof String}function Ca(e){return x(e)||d(e)||Aa(e)||u(e)||Ra(e)||La(e)||null==e}function La(e){var t,r,a=o(e)&&!l(e),n=!1,s=["years","year","y","months","month","M","days","day","d","dates","date","D","hours","hour","h","minutes","minute","m","seconds","second","s","milliseconds","millisecond","ms"],c=s.length;for(t=0;t<c;t+=1)r=s[t],n=n||i(e,r);return a&&n}function Ra(e){var t=s(e),r=!1;return t&&(r=0===e.filter((function(t){return!u(t)&&Aa(e)})).length),t&&r}function Ua(e){var t,r,a=o(e)&&!l(e),n=!1,s=["sameDay","nextDay","lastDay","nextWeek","lastWeek","sameElse"];for(t=0;t<s.length;t+=1)r=s[t],n=n||i(e,r);return a&&n}function ja(e,t){var r=e.diff(t,"days",!0);return r<-6?"sameElse":r<-1?"lastWeek":r<0?"lastDay":r<1?"sameDay":r<2?"nextDay":r<7?"nextWeek":"sameElse"}function Ha(e,t){1===arguments.length&&(arguments[0]?Ca(arguments[0])?(e=arguments[0],t=void 0):Ua(arguments[0])&&(t=arguments[0],e=void 0):(e=void 0,t=void 0));var r=e||Zr(),n=ha(r,this).startOf("day"),s=a.calendarFormat(this,n)||"sameElse",o=t&&(I(t[s])?t[s].call(this,r):t[s]);return this.format(o||this.localeData().calendar(s,this,Zr(r)))}function Ba(){return new E(this)}function Wa(e,t){var r=x(e)?e:Zr(e);return!(!this.isValid()||!r.isValid())&&("millisecond"===(t=ae(t)||"millisecond")?this.valueOf()>r.valueOf():r.valueOf()<this.clone().startOf(t).valueOf())}function Fa(e,t){var r=x(e)?e:Zr(e);return!(!this.isValid()||!r.isValid())&&("millisecond"===(t=ae(t)||"millisecond")?this.valueOf()<r.valueOf():this.clone().endOf(t).valueOf()<r.valueOf())}function Ga(e,t,r,a){var n=x(e)?e:Zr(e),s=x(t)?t:Zr(t);return!!(this.isValid()&&n.isValid()&&s.isValid())&&("("===(a=a||"()")[0]?this.isAfter(n,r):!this.isBefore(n,r))&&(")"===a[1]?this.isBefore(s,r):!this.isAfter(s,r))}function qa(e,t){var r,a=x(e)?e:Zr(e);return!(!this.isValid()||!a.isValid())&&("millisecond"===(t=ae(t)||"millisecond")?this.valueOf()===a.valueOf():(r=a.valueOf(),this.clone().startOf(t).valueOf()<=r&&r<=this.clone().endOf(t).valueOf()))}function za(e,t){return this.isSame(e,t)||this.isAfter(e,t)}function Za(e,t){return this.isSame(e,t)||this.isBefore(e,t)}function Ja(e,t,r){var a,n,s;if(!this.isValid())return NaN;if(!(a=ha(e,this)).isValid())return NaN;switch(n=6e4*(a.utcOffset()-this.utcOffset()),t=ae(t)){case"year":s=Xa(this,a)/12;break;case"month":s=Xa(this,a);break;case"quarter":s=Xa(this,a)/3;break;case"second":s=(this-a)/1e3;break;case"minute":s=(this-a)/6e4;break;case"hour":s=(this-a)/36e5;break;case"day":s=(this-a-n)/864e5;break;case"week":s=(this-a-n)/6048e5;break;default:s=this-a}return r?s:ce(s)}function Xa(e,t){if(e.date()<t.date())return-Xa(t,e);var r=12*(t.year()-e.year())+(t.month()-e.month()),a=e.clone().add(r,"months");return-(r+(t-a<0?(t-a)/(a-e.clone().add(r-1,"months")):(t-a)/(e.clone().add(r+1,"months")-a)))||0}function Qa(){return this.clone().locale("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ")}function Ka(e){if(!this.isValid())return null;var t=!0!==e,r=t?this.clone().utc():this;return r.year()<0||r.year()>9999?B(r,t?"YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]":"YYYYYY-MM-DD[T]HH:mm:ss.SSSZ"):I(Date.prototype.toISOString)?t?this.toDate().toISOString():new Date(this.valueOf()+60*this.utcOffset()*1e3).toISOString().replace("Z",B(r,"Z")):B(r,t?"YYYY-MM-DD[T]HH:mm:ss.SSS[Z]":"YYYY-MM-DD[T]HH:mm:ss.SSSZ")}function en(){if(!this.isValid())return"moment.invalid(/* "+this._i+" */)";var e,t,r,a,n="moment",s="";return this.isLocal()||(n=0===this.utcOffset()?"moment.utc":"moment.parseZone",s="Z"),e="["+n+'("]',t=0<=this.year()&&this.year()<=9999?"YYYY":"YYYYYY",r="-MM-DD[T]HH:mm:ss.SSS",a=s+'[")]',this.format(e+t+r+a)}function tn(e){e||(e=this.isUtc()?a.defaultFormatUtc:a.defaultFormat);var t=B(this,e);return this.localeData().postformat(t)}function rn(e,t){return this.isValid()&&(x(e)&&e.isValid()||Zr(e).isValid())?Ma({to:this,from:e}).locale(this.locale()).humanize(!t):this.localeData().invalidDate()}function an(e){return this.from(Zr(),e)}function nn(e,t){return this.isValid()&&(x(e)&&e.isValid()||Zr(e).isValid())?Ma({from:this,to:e}).locale(this.locale()).humanize(!t):this.localeData().invalidDate()}function sn(e){return this.to(Zr(),e)}function on(e){var t;return void 0===e?this._locale._abbr:(null!=(t=yr(e))&&(this._locale=t),this)}a.defaultFormat="YYYY-MM-DDTHH:mm:ssZ",a.defaultFormatUtc="YYYY-MM-DDTHH:mm:ss[Z]";var ln=$("moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.",(function(e){return void 0===e?this.localeData():this.locale(e)}));function cn(){return this._locale}var un=1e3,dn=60*un,fn=60*dn,hn=3506328*fn;function mn(e,t){return(e%t+t)%t}function pn(e,t,r){return e<100&&e>=0?new Date(e+400,t,r)-hn:new Date(e,t,r).valueOf()}function gn(e,t,r){return e<100&&e>=0?Date.UTC(e+400,t,r)-hn:Date.UTC(e,t,r)}function vn(e){var t,r;if(void 0===(e=ae(e))||"millisecond"===e||!this.isValid())return this;switch(r=this._isUTC?gn:pn,e){case"year":t=r(this.year(),0,1);break;case"quarter":t=r(this.year(),this.month()-this.month()%3,1);break;case"month":t=r(this.year(),this.month(),1);break;case"week":t=r(this.year(),this.month(),this.date()-this.weekday());break;case"isoWeek":t=r(this.year(),this.month(),this.date()-(this.isoWeekday()-1));break;case"day":case"date":t=r(this.year(),this.month(),this.date());break;case"hour":t=this._d.valueOf(),t-=mn(t+(this._isUTC?0:this.utcOffset()*dn),fn);break;case"minute":t=this._d.valueOf(),t-=mn(t,dn);break;case"second":t=this._d.valueOf(),t-=mn(t,un)}return this._d.setTime(t),a.updateOffset(this,!0),this}function yn(e){var t,r;if(void 0===(e=ae(e))||"millisecond"===e||!this.isValid())return this;switch(r=this._isUTC?gn:pn,e){case"year":t=r(this.year()+1,0,1)-1;break;case"quarter":t=r(this.year(),this.month()-this.month()%3+3,1)-1;break;case"month":t=r(this.year(),this.month()+1,1)-1;break;case"week":t=r(this.year(),this.month(),this.date()-this.weekday()+7)-1;break;case"isoWeek":t=r(this.year(),this.month(),this.date()-(this.isoWeekday()-1)+7)-1;break;case"day":case"date":t=r(this.year(),this.month(),this.date()+1)-1;break;case"hour":t=this._d.valueOf(),t+=fn-mn(t+(this._isUTC?0:this.utcOffset()*dn),fn)-1;break;case"minute":t=this._d.valueOf(),t+=dn-mn(t,dn)-1;break;case"second":t=this._d.valueOf(),t+=un-mn(t,un)-1}return this._d.setTime(t),a.updateOffset(this,!0),this}function _n(){return this._d.valueOf()-6e4*(this._offset||0)}function wn(){return Math.floor(this.valueOf()/1e3)}function bn(){return new Date(this.valueOf())}function En(){var e=this;return[e.year(),e.month(),e.date(),e.hour(),e.minute(),e.second(),e.millisecond()]}function xn(){var e=this;return{years:e.year(),months:e.month(),date:e.date(),hours:e.hours(),minutes:e.minutes(),seconds:e.seconds(),milliseconds:e.milliseconds()}}function Dn(){return this.isValid()?this.toISOString():null}function $n(){return v(this)}function Sn(){return h({},g(this))}function kn(){return g(this).overflow}function Mn(){return{input:this._i,format:this._f,locale:this._locale,isUTC:this._isUTC,strict:this._strict}}function In(e,t){var r,n,s,o=this._eras||yr("en")._eras;for(r=0,n=o.length;r<n;++r)switch("string"==typeof o[r].since&&(s=a(o[r].since).startOf("day"),o[r].since=s.valueOf()),typeof o[r].until){case"undefined":o[r].until=1/0;break;case"string":s=a(o[r].until).startOf("day").valueOf(),o[r].until=s.valueOf()}return o}function Tn(e,t,r){var a,n,s,o,i,l=this.eras();for(e=e.toUpperCase(),a=0,n=l.length;a<n;++a)if(s=l[a].name.toUpperCase(),o=l[a].abbr.toUpperCase(),i=l[a].narrow.toUpperCase(),r)switch(t){case"N":case"NN":case"NNN":if(o===e)return l[a];break;case"NNNN":if(s===e)return l[a];break;case"NNNNN":if(i===e)return l[a]}else if([s,o,i].indexOf(e)>=0)return l[a]}function Nn(e,t){var r=e.since<=e.until?1:-1;return void 0===t?a(e.since).year():a(e.since).year()+(t-e.offset)*r}function On(){var e,t,r,a=this.localeData().eras();for(e=0,t=a.length;e<t;++e){if(r=this.clone().startOf("day").valueOf(),a[e].since<=r&&r<=a[e].until)return a[e].name;if(a[e].until<=r&&r<=a[e].since)return a[e].name}return""}function Pn(){var e,t,r,a=this.localeData().eras();for(e=0,t=a.length;e<t;++e){if(r=this.clone().startOf("day").valueOf(),a[e].since<=r&&r<=a[e].until)return a[e].narrow;if(a[e].until<=r&&r<=a[e].since)return a[e].narrow}return""}function Vn(){var e,t,r,a=this.localeData().eras();for(e=0,t=a.length;e<t;++e){if(r=this.clone().startOf("day").valueOf(),a[e].since<=r&&r<=a[e].until)return a[e].abbr;if(a[e].until<=r&&r<=a[e].since)return a[e].abbr}return""}function Yn(){var e,t,r,n,s=this.localeData().eras();for(e=0,t=s.length;e<t;++e)if(r=s[e].since<=s[e].until?1:-1,n=this.clone().startOf("day").valueOf(),s[e].since<=n&&n<=s[e].until||s[e].until<=n&&n<=s[e].since)return(this.year()-a(s[e].since).year())*r+s[e].offset;return this.year()}function An(e){return i(this,"_erasNameRegex")||Bn.call(this),e?this._erasNameRegex:this._erasRegex}function Cn(e){return i(this,"_erasAbbrRegex")||Bn.call(this),e?this._erasAbbrRegex:this._erasRegex}function Ln(e){return i(this,"_erasNarrowRegex")||Bn.call(this),e?this._erasNarrowRegex:this._erasRegex}function Rn(e,t){return t.erasAbbrRegex(e)}function Un(e,t){return t.erasNameRegex(e)}function jn(e,t){return t.erasNarrowRegex(e)}function Hn(e,t){return t._eraYearOrdinalRegex||Me}function Bn(){var e,t,r=[],a=[],n=[],s=[],o=this.eras();for(e=0,t=o.length;e<t;++e)a.push(Ce(o[e].name)),r.push(Ce(o[e].abbr)),n.push(Ce(o[e].narrow)),s.push(Ce(o[e].name)),s.push(Ce(o[e].abbr)),s.push(Ce(o[e].narrow));this._erasRegex=new RegExp("^("+s.join("|")+")","i"),this._erasNameRegex=new RegExp("^("+a.join("|")+")","i"),this._erasAbbrRegex=new RegExp("^("+r.join("|")+")","i"),this._erasNarrowRegex=new RegExp("^("+n.join("|")+")","i")}function Wn(e,t){U(0,[e,e.length],0,t)}function Fn(e){return Xn.call(this,e,this.week(),this.weekday(),this.localeData()._week.dow,this.localeData()._week.doy)}function Gn(e){return Xn.call(this,e,this.isoWeek(),this.isoWeekday(),1,4)}function qn(){return Dt(this.year(),1,4)}function zn(){return Dt(this.isoWeekYear(),1,4)}function Zn(){var e=this.localeData()._week;return Dt(this.year(),e.dow,e.doy)}function Jn(){var e=this.localeData()._week;return Dt(this.weekYear(),e.dow,e.doy)}function Xn(e,t,r,a,n){var s;return null==e?xt(this,a,n).year:(t>(s=Dt(e,a,n))&&(t=s),Qn.call(this,e,t,r,a,n))}function Qn(e,t,r,a,n){var s=Et(e,t,r,a,n),o=wt(s.year,0,s.dayOfYear);return this.year(o.getUTCFullYear()),this.month(o.getUTCMonth()),this.date(o.getUTCDate()),this}function Kn(e){return null==e?Math.ceil((this.month()+1)/3):this.month(3*(e-1)+this.month()%3)}U("N",0,0,"eraAbbr"),U("NN",0,0,"eraAbbr"),U("NNN",0,0,"eraAbbr"),U("NNNN",0,0,"eraName"),U("NNNNN",0,0,"eraNarrow"),U("y",["y",1],"yo","eraYear"),U("y",["yy",2],0,"eraYear"),U("y",["yyy",3],0,"eraYear"),U("y",["yyyy",4],0,"eraYear"),Ve("N",Rn),Ve("NN",Rn),Ve("NNN",Rn),Ve("NNNN",Un),Ve("NNNNN",jn),Re(["N","NN","NNN","NNNN","NNNNN"],(function(e,t,r,a){var n=r._locale.erasParse(e,a,r._strict);n?g(r).era=n:g(r).invalidEra=e})),Ve("y",Me),Ve("yy",Me),Ve("yyy",Me),Ve("yyyy",Me),Ve("yo",Hn),Re(["y","yy","yyy","yyyy"],Be),Re(["yo"],(function(e,t,r,a){var n;r._locale._eraYearOrdinalRegex&&(n=e.match(r._locale._eraYearOrdinalRegex)),r._locale.eraYearOrdinalParse?t[Be]=r._locale.eraYearOrdinalParse(e,n):t[Be]=parseInt(e,10)})),U(0,["gg",2],0,(function(){return this.weekYear()%100})),U(0,["GG",2],0,(function(){return this.isoWeekYear()%100})),Wn("gggg","weekYear"),Wn("ggggg","weekYear"),Wn("GGGG","isoWeekYear"),Wn("GGGGG","isoWeekYear"),re("weekYear","gg"),re("isoWeekYear","GG"),oe("weekYear",1),oe("isoWeekYear",1),Ve("G",Ie),Ve("g",Ie),Ve("GG",Ee,ye),Ve("gg",Ee,ye),Ve("GGGG",Se,we),Ve("gggg",Se,we),Ve("GGGGG",ke,be),Ve("ggggg",ke,be),Ue(["gggg","ggggg","GGGG","GGGGG"],(function(e,t,r,a){t[a.substr(0,2)]=ue(e)})),Ue(["gg","GG"],(function(e,t,r,n){t[n]=a.parseTwoDigitYear(e)})),U("Q",0,"Qo","quarter"),re("quarter","Q"),oe("quarter",7),Ve("Q",ve),Re("Q",(function(e,t){t[We]=3*(ue(e)-1)})),U("D",["DD",2],"Do","date"),re("date","D"),oe("date",9),Ve("D",Ee),Ve("DD",Ee,ye),Ve("Do",(function(e,t){return e?t._dayOfMonthOrdinalParse||t._ordinalParse:t._dayOfMonthOrdinalParseLenient})),Re(["D","DD"],Fe),Re("Do",(function(e,t){t[Fe]=ue(e.match(Ee)[0])}));var es=de("Date",!0);function ts(e){var t=Math.round((this.clone().startOf("day")-this.clone().startOf("year"))/864e5)+1;return null==e?t:this.add(e-t,"d")}U("DDD",["DDDD",3],"DDDo","dayOfYear"),re("dayOfYear","DDD"),oe("dayOfYear",4),Ve("DDD",$e),Ve("DDDD",_e),Re(["DDD","DDDD"],(function(e,t,r){r._dayOfYear=ue(e)})),U("m",["mm",2],0,"minute"),re("minute","m"),oe("minute",14),Ve("m",Ee),Ve("mm",Ee,ye),Re(["m","mm"],qe);var rs=de("Minutes",!1);U("s",["ss",2],0,"second"),re("second","s"),oe("second",15),Ve("s",Ee),Ve("ss",Ee,ye),Re(["s","ss"],ze);var as,ns,ss=de("Seconds",!1);for(U("S",0,0,(function(){return~~(this.millisecond()/100)})),U(0,["SS",2],0,(function(){return~~(this.millisecond()/10)})),U(0,["SSS",3],0,"millisecond"),U(0,["SSSS",4],0,(function(){return 10*this.millisecond()})),U(0,["SSSSS",5],0,(function(){return 100*this.millisecond()})),U(0,["SSSSSS",6],0,(function(){return 1e3*this.millisecond()})),U(0,["SSSSSSS",7],0,(function(){return 1e4*this.millisecond()})),U(0,["SSSSSSSS",8],0,(function(){return 1e5*this.millisecond()})),U(0,["SSSSSSSSS",9],0,(function(){return 1e6*this.millisecond()})),re("millisecond","ms"),oe("millisecond",16),Ve("S",$e,ve),Ve("SS",$e,ye),Ve("SSS",$e,_e),as="SSSS";as.length<=9;as+="S")Ve(as,Me);function os(e,t){t[Ze]=ue(1e3*("0."+e))}for(as="S";as.length<=9;as+="S")Re(as,os);function is(){return this._isUTC?"UTC":""}function ls(){return this._isUTC?"Coordinated Universal Time":""}ns=de("Milliseconds",!1),U("z",0,0,"zoneAbbr"),U("zz",0,0,"zoneName");var cs=E.prototype;function us(e){return Zr(1e3*e)}function ds(){return Zr.apply(null,arguments).parseZone()}function fs(e){return e}cs.add=Va,cs.calendar=Ha,cs.clone=Ba,cs.diff=Ja,cs.endOf=yn,cs.format=tn,cs.from=rn,cs.fromNow=an,cs.to=nn,cs.toNow=sn,cs.get=me,cs.invalidAt=kn,cs.isAfter=Wa,cs.isBefore=Fa,cs.isBetween=Ga,cs.isSame=qa,cs.isSameOrAfter=za,cs.isSameOrBefore=Za,cs.isValid=$n,cs.lang=ln,cs.locale=on,cs.localeData=cn,cs.max=Xr,cs.min=Jr,cs.parsingFlags=Sn,cs.set=pe,cs.startOf=vn,cs.subtract=Ya,cs.toArray=En,cs.toObject=xn,cs.toDate=bn,cs.toISOString=Ka,cs.inspect=en,"undefined"!=typeof Symbol&&null!=Symbol.for&&(cs[Symbol.for("nodejs.util.inspect.custom")]=function(){return"Moment<"+this.format()+">"}),cs.toJSON=Dn,cs.toString=Qa,cs.unix=wn,cs.valueOf=_n,cs.creationData=Mn,cs.eraName=On,cs.eraNarrow=Pn,cs.eraAbbr=Vn,cs.eraYear=Yn,cs.year=vt,cs.isLeapYear=yt,cs.weekYear=Fn,cs.isoWeekYear=Gn,cs.quarter=cs.quarters=Kn,cs.month=dt,cs.daysInMonth=ft,cs.week=cs.weeks=It,cs.isoWeek=cs.isoWeeks=Tt,cs.weeksInYear=Zn,cs.weeksInWeekYear=Jn,cs.isoWeeksInYear=qn,cs.isoWeeksInISOWeekYear=zn,cs.date=es,cs.day=cs.days=Ft,cs.weekday=Gt,cs.isoWeekday=qt,cs.dayOfYear=ts,cs.hour=cs.hours=nr,cs.minute=cs.minutes=rs,cs.second=cs.seconds=ss,cs.millisecond=cs.milliseconds=ns,cs.utcOffset=pa,cs.utc=va,cs.local=ya,cs.parseZone=_a,cs.hasAlignedHourOffset=wa,cs.isDST=ba,cs.isLocal=xa,cs.isUtcOffset=Da,cs.isUtc=$a,cs.isUTC=$a,cs.zoneAbbr=is,cs.zoneName=ls,cs.dates=$("dates accessor is deprecated. Use date instead.",es),cs.months=$("months accessor is deprecated. Use month instead",dt),cs.years=$("years accessor is deprecated. Use year instead",vt),cs.zone=$("moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/",ga),cs.isDSTShifted=$("isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information",Ea);var hs=O.prototype;function ms(e,t,r,a){var n=yr(),s=m().set(a,t);return n[r](s,e)}function ps(e,t,r){if(u(e)&&(t=e,e=void 0),e=e||"",null!=t)return ms(e,t,r,"month");var a,n=[];for(a=0;a<12;a++)n[a]=ms(e,a,r,"month");return n}function gs(e,t,r,a){"boolean"==typeof e?(u(t)&&(r=t,t=void 0),t=t||""):(r=t=e,e=!1,u(t)&&(r=t,t=void 0),t=t||"");var n,s=yr(),o=e?s._week.dow:0,i=[];if(null!=r)return ms(t,(r+o)%7,a,"day");for(n=0;n<7;n++)i[n]=ms(t,(n+o)%7,a,"day");return i}function vs(e,t){return ps(e,t,"months")}function ys(e,t){return ps(e,t,"monthsShort")}function _s(e,t,r){return gs(e,t,r,"weekdays")}function ws(e,t,r){return gs(e,t,r,"weekdaysShort")}function bs(e,t,r){return gs(e,t,r,"weekdaysMin")}hs.calendar=V,hs.longDateFormat=G,hs.invalidDate=z,hs.ordinal=X,hs.preparse=fs,hs.postformat=fs,hs.relativeTime=K,hs.pastFuture=ee,hs.set=T,hs.eras=In,hs.erasParse=Tn,hs.erasConvertYear=Nn,hs.erasAbbrRegex=Cn,hs.erasNameRegex=An,hs.erasNarrowRegex=Ln,hs.months=ot,hs.monthsShort=it,hs.monthsParse=ct,hs.monthsRegex=mt,hs.monthsShortRegex=ht,hs.week=$t,hs.firstDayOfYear=Mt,hs.firstDayOfWeek=kt,hs.weekdays=Ut,hs.weekdaysMin=Ht,hs.weekdaysShort=jt,hs.weekdaysParse=Wt,hs.weekdaysRegex=zt,hs.weekdaysShortRegex=Zt,hs.weekdaysMinRegex=Jt,hs.isPM=rr,hs.meridiem=sr,pr("en",{eras:[{since:"0001-01-01",until:1/0,offset:1,name:"Anno Domini",narrow:"AD",abbr:"AD"},{since:"0000-12-31",until:-1/0,offset:1,name:"Before Christ",narrow:"BC",abbr:"BC"}],dayOfMonthOrdinalParse:/\d{1,2}(th|st|nd|rd)/,ordinal:function(e){var t=e%10;return e+(1===ue(e%100/10)?"th":1===t?"st":2===t?"nd":3===t?"rd":"th")}}),a.lang=$("moment.lang is deprecated. Use moment.locale instead.",pr),a.langData=$("moment.langData is deprecated. Use moment.localeData instead.",yr);var Es=Math.abs;function xs(){var e=this._data;return this._milliseconds=Es(this._milliseconds),this._days=Es(this._days),this._months=Es(this._months),e.milliseconds=Es(e.milliseconds),e.seconds=Es(e.seconds),e.minutes=Es(e.minutes),e.hours=Es(e.hours),e.months=Es(e.months),e.years=Es(e.years),this}function Ds(e,t,r,a){var n=Ma(t,r);return e._milliseconds+=a*n._milliseconds,e._days+=a*n._days,e._months+=a*n._months,e._bubble()}function $s(e,t){return Ds(this,e,t,1)}function Ss(e,t){return Ds(this,e,t,-1)}function ks(e){return e<0?Math.floor(e):Math.ceil(e)}function Ms(){var e,t,r,a,n,s=this._milliseconds,o=this._days,i=this._months,l=this._data;return s>=0&&o>=0&&i>=0||s<=0&&o<=0&&i<=0||(s+=864e5*ks(Ts(i)+o),o=0,i=0),l.milliseconds=s%1e3,e=ce(s/1e3),l.seconds=e%60,t=ce(e/60),l.minutes=t%60,r=ce(t/60),l.hours=r%24,o+=ce(r/24),i+=n=ce(Is(o)),o-=ks(Ts(n)),a=ce(i/12),i%=12,l.days=o,l.months=i,l.years=a,this}function Is(e){return 4800*e/146097}function Ts(e){return 146097*e/4800}function Ns(e){if(!this.isValid())return NaN;var t,r,a=this._milliseconds;if("month"===(e=ae(e))||"quarter"===e||"year"===e)switch(t=this._days+a/864e5,r=this._months+Is(t),e){case"month":return r;case"quarter":return r/3;case"year":return r/12}else switch(t=this._days+Math.round(Ts(this._months)),e){case"week":return t/7+a/6048e5;case"day":return t+a/864e5;case"hour":return 24*t+a/36e5;case"minute":return 1440*t+a/6e4;case"second":return 86400*t+a/1e3;case"millisecond":return Math.floor(864e5*t)+a;default:throw new Error("Unknown unit "+e)}}function Os(){return this.isValid()?this._milliseconds+864e5*this._days+this._months%12*2592e6+31536e6*ue(this._months/12):NaN}function Ps(e){return function(){return this.as(e)}}var Vs=Ps("ms"),Ys=Ps("s"),As=Ps("m"),Cs=Ps("h"),Ls=Ps("d"),Rs=Ps("w"),Us=Ps("M"),js=Ps("Q"),Hs=Ps("y");function Bs(){return Ma(this)}function Ws(e){return e=ae(e),this.isValid()?this[e+"s"]():NaN}function Fs(e){return function(){return this.isValid()?this._data[e]:NaN}}var Gs=Fs("milliseconds"),qs=Fs("seconds"),zs=Fs("minutes"),Zs=Fs("hours"),Js=Fs("days"),Xs=Fs("months"),Qs=Fs("years");function Ks(){return ce(this.days()/7)}var eo=Math.round,to={ss:44,s:45,m:45,h:22,d:26,w:null,M:11};function ro(e,t,r,a,n){return n.relativeTime(t||1,!!r,e,a)}function ao(e,t,r,a){var n=Ma(e).abs(),s=eo(n.as("s")),o=eo(n.as("m")),i=eo(n.as("h")),l=eo(n.as("d")),c=eo(n.as("M")),u=eo(n.as("w")),d=eo(n.as("y")),f=s<=r.ss&&["s",s]||s<r.s&&["ss",s]||o<=1&&["m"]||o<r.m&&["mm",o]||i<=1&&["h"]||i<r.h&&["hh",i]||l<=1&&["d"]||l<r.d&&["dd",l];return null!=r.w&&(f=f||u<=1&&["w"]||u<r.w&&["ww",u]),(f=f||c<=1&&["M"]||c<r.M&&["MM",c]||d<=1&&["y"]||["yy",d])[2]=t,f[3]=+e>0,f[4]=a,ro.apply(null,f)}function no(e){return void 0===e?eo:"function"==typeof e&&(eo=e,!0)}function so(e,t){return void 0!==to[e]&&(void 0===t?to[e]:(to[e]=t,"s"===e&&(to.ss=t-1),!0))}function oo(e,t){if(!this.isValid())return this.localeData().invalidDate();var r,a,n=!1,s=to;return"object"==typeof e&&(t=e,e=!1),"boolean"==typeof e&&(n=e),"object"==typeof t&&(s=Object.assign({},to,t),null!=t.s&&null==t.ss&&(s.ss=t.s-1)),a=ao(this,!n,s,r=this.localeData()),n&&(a=r.pastFuture(+this,a)),r.postformat(a)}var io=Math.abs;function lo(e){return(e>0)-(e<0)||+e}function co(){if(!this.isValid())return this.localeData().invalidDate();var e,t,r,a,n,s,o,i,l=io(this._milliseconds)/1e3,c=io(this._days),u=io(this._months),d=this.asSeconds();return d?(e=ce(l/60),t=ce(e/60),l%=60,e%=60,r=ce(u/12),u%=12,a=l?l.toFixed(3).replace(/\.?0+$/,""):"",n=d<0?"-":"",s=lo(this._months)!==lo(d)?"-":"",o=lo(this._days)!==lo(d)?"-":"",i=lo(this._milliseconds)!==lo(d)?"-":"",n+"P"+(r?s+r+"Y":"")+(u?s+u+"M":"")+(c?o+c+"D":"")+(t||e||l?"T":"")+(t?i+t+"H":"")+(e?i+e+"M":"")+(l?i+a+"S":"")):"P0D"}var uo=oa.prototype;return uo.isValid=na,uo.abs=xs,uo.add=$s,uo.subtract=Ss,uo.as=Ns,uo.asMilliseconds=Vs,uo.asSeconds=Ys,uo.asMinutes=As,uo.asHours=Cs,uo.asDays=Ls,uo.asWeeks=Rs,uo.asMonths=Us,uo.asQuarters=js,uo.asYears=Hs,uo.valueOf=Os,uo._bubble=Ms,uo.clone=Bs,uo.get=Ws,uo.milliseconds=Gs,uo.seconds=qs,uo.minutes=zs,uo.hours=Zs,uo.days=Js,uo.weeks=Ks,uo.months=Xs,uo.years=Qs,uo.humanize=oo,uo.toISOString=co,uo.toString=co,uo.toJSON=co,uo.locale=on,uo.localeData=cn,uo.toIsoString=$("toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)",co),uo.lang=ln,U("X",0,0,"unix"),U("x",0,0,"valueOf"),Ve("x",Ie),Ve("X",Oe),Re("X",(function(e,t,r){r._d=new Date(1e3*parseFloat(e))})),Re("x",(function(e,t,r){r._d=new Date(ue(e))})),
-//! moment.js
-a.version="2.29.2",n(Zr),a.fn=cs,a.min=Kr,a.max=ea,a.now=ta,a.utc=m,a.unix=us,a.months=vs,a.isDate=d,a.locale=pr,a.invalid=y,a.duration=Ma,a.isMoment=x,a.weekdays=_s,a.parseZone=ds,a.localeData=yr,a.isDuration=ia,a.monthsShort=ys,a.weekdaysMin=bs,a.defineLocale=gr,a.updateLocale=vr,a.locales=_r,a.weekdaysShort=ws,a.normalizeUnits=ae,a.relativeTimeRounding=no,a.relativeTimeThreshold=so,a.calendarFormat=ja,a.prototype=cs,a.HTML5_FMT={DATETIME_LOCAL:"YYYY-MM-DDTHH:mm",DATETIME_LOCAL_SECONDS:"YYYY-MM-DDTHH:mm:ss",DATETIME_LOCAL_MS:"YYYY-MM-DDTHH:mm:ss.SSS",DATE:"YYYY-MM-DD",TIME:"HH:mm",TIME_SECONDS:"HH:mm:ss",TIME_MS:"HH:mm:ss.SSS",WEEK:"GGGG-[W]WW",MONTH:"YYYY-MM"},a}()}(Ha);var Ba,Wa=Ha.exports;function Fa(t){let r,a,n,s,o,i,c,u,d,f,h,m,p,g,v,y,_,w,D,M,I,O,C,L,R,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,ee,te,re,ae,ne,se,oe,ie=t[0].instagram+"";return{c(){r=$("nav"),a=$("a"),n=$("i"),s=k(),o=$("form"),i=$("div"),c=$("input"),u=k(),d=$("div"),f=$("button"),h=$("i"),m=k(),p=$("div"),g=$("ul"),v=$("li"),y=$("a"),_=$("i"),w=k(),D=$("a"),M=$("img"),C=k(),L=$("span"),R=S(ie),U=k(),j=$("div"),H=$("a"),B=$("i"),W=S(" Perfil"),G=k(),q=$("a"),z=$("i"),Z=S(" Principal"),J=k(),X=$("div"),Q=k(),K=$("a"),ee=S("Configurações e Privacidade"),te=k(),re=$("a"),ae=S("Ajuda"),ne=k(),se=$("a"),oe=S("Sair"),this.h()},l(e){r=P(e,"NAV",{class:!0});var t=N(r);a=P(t,"A",{class:!0,href:!0});var l=N(a);n=P(l,"I",{class:!0}),N(n).forEach(x),l.forEach(x),s=Y(t),o=P(t,"FORM",{class:!0});var b=N(o);i=P(b,"DIV",{class:!0});var E=N(i);c=P(E,"INPUT",{type:!0,class:!0,placeholder:!0,"aria-label":!0}),u=Y(E),d=P(E,"DIV",{class:!0});var $=N(d);f=P($,"BUTTON",{class:!0,type:!0});var S=N(f);h=P(S,"I",{class:!0,"data-feather":!0}),N(h).forEach(x),S.forEach(x),$.forEach(x),E.forEach(x),b.forEach(x),m=Y(t),p=P(t,"DIV",{class:!0});var k=N(p);g=P(k,"UL",{class:!0});var I=N(g);v=P(I,"LI",{class:!0});var T=N(v);y=P(T,"A",{class:!0,href:!0,"data-toggle":!0});var O=N(y);_=P(O,"I",{class:!0,"data-feather":!0}),N(_).forEach(x),O.forEach(x),w=Y(T),D=P(T,"A",{class:!0,href:!0,"data-toggle":!0});var A=N(D);M=P(A,"IMG",{src:!0,class:!0,alt:!0}),C=Y(A),L=P(A,"SPAN",{class:!0});var F=N(L);R=V(F,ie),F.forEach(x),A.forEach(x),U=Y(T),j=P(T,"DIV",{class:!0});var le=N(j);H=P(le,"A",{class:!0,href:!0});var ce=N(H);B=P(ce,"I",{class:!0,"data-feather":!0}),N(B).forEach(x),W=V(ce," Perfil"),ce.forEach(x),G=Y(le),q=P(le,"A",{class:!0,href:!0});var ue=N(q);z=P(ue,"I",{class:!0,"data-feather":!0}),N(z).forEach(x),Z=V(ue," Principal"),ue.forEach(x),J=Y(le),X=P(le,"DIV",{class:!0}),N(X).forEach(x),Q=Y(le),K=P(le,"A",{class:!0,href:!0});var de=N(K);ee=V(de,"Configurações e Privacidade"),de.forEach(x),te=Y(le),re=P(le,"A",{class:!0,href:!0});var fe=N(re);ae=V(fe,"Ajuda"),fe.forEach(x),ne=Y(le),se=P(le,"A",{class:!0,href:!0});var he=N(se);oe=V(he,"Sair"),he.forEach(x),le.forEach(x),T.forEach(x),I.forEach(x),k.forEach(x),t.forEach(x),this.h()},h(){T(n,"class","hamburger align-self-center"),T(a,"class","sidebar-toggle"),T(a,"href","/"),T(c,"type","text"),T(c,"class","form-control"),T(c,"placeholder","Pesquisar"),T(c,"aria-label","Search"),T(h,"class","align-middle"),T(h,"data-feather","search"),T(f,"class","btn"),T(f,"type","button"),T(d,"class","input-group-append"),T(i,"class","input-group input-group-navbar"),T(o,"class","d-none d-sm-inline-block"),T(_,"class","align-middle"),T(_,"data-feather","settings"),T(y,"class","nav-icon dropdown-toggle d-inline-block d-sm-none"),T(y,"href","/"),T(y,"data-toggle","dropdown"),l(M.src,I=t[0].dp)||T(M,"src",I),T(M,"class","avatar img-fluid rounded-circle mr-1"),T(M,"alt",O=t[0].instagram),T(L,"class","text-dark"),T(D,"class","nav-link dropdown-toggle d-none d-sm-inline-block"),T(D,"href","/"),T(D,"data-toggle","dropdown"),T(B,"class","align-middle mr-1"),T(B,"data-feather","user"),T(H,"class","dropdown-item"),T(H,"href",F="/"+t[0].instagram),T(z,"class","align-middle mr-1"),T(z,"data-feather","pie-chart"),T(q,"class","dropdown-item"),T(q,"href","/dashboard"),T(X,"class","dropdown-divider"),T(K,"class","dropdown-item"),T(K,"href","/settings"),T(re,"class","dropdown-item"),T(re,"href","/copyright"),T(se,"class","dropdown-item"),T(se,"href","/"),T(j,"class","dropdown-menu dropdown-menu-right"),T(v,"class","nav-item dropdown"),T(g,"class","navbar-nav navbar-align"),T(p,"class","navbar-collapse collapse"),T(r,"class","navbar navbar-expand navbar-light navbar-bg")},m(e,t){E(e,r,t),b(r,a),b(a,n),b(r,s),b(r,o),b(o,i),b(i,c),b(i,u),b(i,d),b(d,f),b(f,h),b(r,m),b(r,p),b(p,g),b(g,v),b(v,y),b(y,_),b(v,w),b(v,D),b(D,M),b(D,C),b(D,L),b(L,R),b(v,U),b(v,j),b(j,H),b(H,B),b(H,W),b(j,G),b(j,q),b(q,z),b(q,Z),b(j,J),b(j,X),b(j,Q),b(j,K),b(K,ee),b(j,te),b(j,re),b(re,ae),b(j,ne),b(j,se),b(se,oe)},p(e,[t]){1&t&&!l(M.src,I=e[0].dp)&&T(M,"src",I),1&t&&O!==(O=e[0].instagram)&&T(M,"alt",O),1&t&&ie!==(ie=e[0].instagram+"")&&A(R,ie),1&t&&F!==(F="/"+e[0].instagram)&&T(H,"href",F)},i:e,o:e,d(e){e&&x(r)}}}function Ga(e,t,r){let{user:a}=t;return e.$$set=e=>{"user"in e&&r(0,a=e.user)},[a]}Ba=function(e){return e.defineLocale("pt",{months:"janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro".split("_"),monthsShort:"jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez".split("_"),weekdays:"Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado".split("_"),weekdaysShort:"Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),weekdaysMin:"Do_2ª_3ª_4ª_5ª_6ª_Sá".split("_"),weekdaysParseExact:!0,longDateFormat:{LT:"HH:mm",LTS:"HH:mm:ss",L:"DD/MM/YYYY",LL:"D [de] MMMM [de] YYYY",LLL:"D [de] MMMM [de] YYYY HH:mm",LLLL:"dddd, D [de] MMMM [de] YYYY HH:mm"},calendar:{sameDay:"[Hoje às] LT",nextDay:"[Amanhã às] LT",nextWeek:"dddd [às] LT",lastDay:"[Ontem às] LT",lastWeek:function(){return 0===this.day()||6===this.day()?"[Último] dddd [às] LT":"[Última] dddd [às] LT"},sameElse:"L"},relativeTime:{future:"em %s",past:"há %s",s:"segundos",ss:"%d segundos",m:"um minuto",mm:"%d minutos",h:"uma hora",hh:"%d horas",d:"um dia",dd:"%d dias",w:"uma semana",ww:"%d semanas",M:"um mês",MM:"%d meses",y:"um ano",yy:"%d anos"},dayOfMonthOrdinalParse:/\d{1,2}º/,ordinal:"%dº",week:{dow:1,doy:4}})},Ba(Ha.exports);class qa extends we{constructor(e){super(),_e(this,e,Ga,Fa,o,{user:0})}}function za(e,t,r){const a=e.slice();return a[11]=t[r],a}function Za(t){let r,a,n,s,o,i,c,u,d,f;return{c(){r=$("div"),a=$("img"),s=k(),o=$("h1"),i=S("Crie seu primeiro Produto ou Serviço"),c=k(),u=$("a"),d=S("Criar"),f=k(),this.h()},l(e){r=P(e,"DIV",{style:!0});var t=N(r);a=P(t,"IMG",{alt:!0,src:!0,width:!0}),s=Y(t),o=P(t,"H1",{});var n=N(o);i=V(n,"Crie seu primeiro Produto ou Serviço"),n.forEach(x),c=Y(t),u=P(t,"A",{href:!0,class:!0});var l=N(u);d=V(l,"Criar"),l.forEach(x),f=Y(t),t.forEach(x),this.h()},h(){T(a,"alt",""),l(a.src,n="img/upload.png")||T(a,"src","img/upload.png"),T(a,"width","300px"),T(u,"href","/addlink"),T(u,"class","btn btn-primary"),L(r,"display","flex"),L(r,"flex-direction","column"),L(r,"justify-content","center"),L(r,"align-items","center")},m(e,t){E(e,r,t),b(r,a),b(r,s),b(r,o),b(o,i),b(r,c),b(r,u),b(u,d),b(r,f)},p:e,d(e){e&&x(r)}}}function Ja(e){let t,r,a,n,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,M,O,C,L,R,U,j,H=Wa(e[11].created_date).startOf("hour").fromNow()+"",B=e[11].title+"",W=e[11].description+"",F=Wa(e[11].created_date).calendar()+"";function G(){return e[6](e[11])}return{c(){t=$("div"),r=$("div"),a=$("small"),n=S(H),s=k(),o=$("p"),i=$("strong"),l=S(B),c=k(),u=$("p"),d=S(W),f=k(),h=$("small"),m=S(F),p=$("br"),g=k(),v=$("a"),y=S("Go to link"),w=k(),D=$("a"),M=S("Edit"),C=k(),L=$("button"),R=S("Delete"),this.h()},l(e){t=P(e,"DIV",{class:!0});var _=N(t);r=P(_,"DIV",{class:!0});var b=N(r);a=P(b,"SMALL",{class:!0});var E=N(a);n=V(E,H),E.forEach(x),s=Y(b),o=P(b,"P",{class:!0});var $=N(o);i=P($,"STRONG",{});var S=N(i);l=V(S,B),S.forEach(x),$.forEach(x),c=Y(b),u=P(b,"P",{});var k=N(u);d=V(k,W),k.forEach(x),f=Y(b),h=P(b,"SMALL",{class:!0});var I=N(h);m=V(I,F),I.forEach(x),p=P(b,"BR",{}),g=Y(b),v=P(b,"A",{href:!0,class:!0});var T=N(v);y=V(T,"Go to link"),T.forEach(x),w=Y(b),D=P(b,"A",{href:!0,class:!0});var O=N(D);M=V(O,"Edit"),O.forEach(x),C=Y(b),L=P(b,"BUTTON",{class:!0});var A=N(L);R=V(A,"Delete"),A.forEach(x),b.forEach(x),_.forEach(x),this.h()},h(){T(a,"class","float-right text-navy"),T(o,"class","mb-2"),T(h,"class","text-muted"),T(v,"href",_=e[11].url),T(v,"class","btn btn-sm btn-success mt-1"),T(D,"href",O=e[11].url),T(D,"class","btn btn-sm btn-primary mt-1"),T(L,"class","btn btn-sm btn-danger mt-1"),T(r,"class","media-body"),T(t,"class","media")},m(e,_){E(e,t,_),b(t,r),b(r,a),b(a,n),b(r,s),b(r,o),b(o,i),b(i,l),b(r,c),b(r,u),b(u,d),b(r,f),b(r,h),b(h,m),b(r,p),b(r,g),b(r,v),b(v,y),b(r,w),b(r,D),b(D,M),b(r,C),b(r,L),b(L,R),U||(j=I(L,"click",G),U=!0)},p(t,r){e=t,1&r&&H!==(H=Wa(e[11].created_date).startOf("hour").fromNow()+"")&&A(n,H),1&r&&B!==(B=e[11].title+"")&&A(l,B),1&r&&W!==(W=e[11].description+"")&&A(d,W),1&r&&F!==(F=Wa(e[11].created_date).calendar()+"")&&A(m,F),1&r&&_!==(_=e[11].url)&&T(v,"href",_),1&r&&O!==(O=e[11].url)&&T(D,"href",O)},d(e){e&&x(t),U=!1,j()}}}function Xa(e){let t,r,a,s,o,i,c,u,d,f,h,m,p,g,v,y,_,w,D,M,O,C,R,U,j,H,B,W,F,G,q,z,Z=Wa(e[11].created_date).startOf("hour").fromNow()+"",J=e[11].title+"",X=e[11].description+"",Q=Wa(e[11].created_date).calendar()+"";function K(){return e[4](e[11])}function ee(){return e[5](e[11])}return{c(){t=$("div"),r=$("div"),a=$("small"),s=S(Z),o=k(),i=$("p"),c=$("strong"),u=S(J),d=k(),f=$("p"),h=S(X),m=k(),p=$("div"),g=$("img"),_=k(),w=$("small"),D=S(Q),M=$("br"),O=k(),C=$("a"),R=S("Ir para página"),j=k(),H=$("button"),B=S("Editar"),W=k(),F=$("button"),G=S("Apagar"),this.h()},l(e){t=P(e,"DIV",{class:!0});var n=N(t);r=P(n,"DIV",{class:!0});var l=N(r);a=P(l,"SMALL",{class:!0});var v=N(a);s=V(v,Z),v.forEach(x),o=Y(l),i=P(l,"P",{class:!0});var y=N(i);c=P(y,"STRONG",{});var b=N(c);u=V(b,J),b.forEach(x),y.forEach(x),d=Y(l),f=P(l,"P",{});var E=N(f);h=V(E,X),E.forEach(x),m=Y(l),p=P(l,"DIV",{class:!0,style:!0});var $=N(p);g=P($,"IMG",{src:!0,style:!0,height:!0,alt:!0}),$.forEach(x),_=Y(l),w=P(l,"SMALL",{class:!0});var S=N(w);D=V(S,Q),S.forEach(x),M=P(l,"BR",{}),O=Y(l),C=P(l,"A",{href:!0,class:!0});var k=N(C);R=V(k,"Ir para página"),k.forEach(x),j=Y(l),H=P(l,"BUTTON",{class:!0});var I=N(H);B=V(I,"Editar"),I.forEach(x),W=Y(l),F=P(l,"BUTTON",{class:!0});var T=N(F);G=V(T,"Apagar"),T.forEach(x),l.forEach(x),n.forEach(x),this.h()},h(){T(a,"class","float-right text-navy"),T(i,"class","mb-2"),l(g.src,v=e[11].image)||T(g,"src",v),L(g,"margin","10px"),T(g,"height","200px"),T(g,"alt",y=e[11].title),T(p,"class","row no-gutters mt-1"),L(p,"display","flex"),L(p,"flex-wrap","wrap"),T(w,"class","text-muted"),T(C,"href",U=e[11].url),T(C,"class","btn btn-sm btn-success mt-1"),T(H,"class","btn btn-sm btn-primary mt-1"),T(F,"class","btn btn-sm btn-danger mt-1"),T(r,"class","media-body"),T(t,"class","media")},m(e,n){E(e,t,n),b(t,r),b(r,a),b(a,s),b(r,o),b(r,i),b(i,c),b(c,u),b(r,d),b(r,f),b(f,h),b(r,m),b(r,p),b(p,g),b(r,_),b(r,w),b(w,D),b(r,M),b(r,O),b(r,C),b(C,R),b(r,j),b(r,H),b(H,B),b(r,W),b(r,F),b(F,G),q||(z=[I(H,"click",K),I(F,"click",ee)],q=!0)},p(t,r){e=t,1&r&&Z!==(Z=Wa(e[11].created_date).startOf("hour").fromNow()+"")&&A(s,Z),1&r&&J!==(J=e[11].title+"")&&A(u,J),1&r&&X!==(X=e[11].description+"")&&A(h,X),1&r&&!l(g.src,v=e[11].image)&&T(g,"src",v),1&r&&y!==(y=e[11].title)&&T(g,"alt",y),1&r&&Q!==(Q=Wa(e[11].created_date).calendar()+"")&&A(D,Q),1&r&&U!==(U=e[11].url)&&T(C,"href",U)},d(e){e&&x(t),q=!1,n(z)}}}function Qa(e){let t,r;function a(e,t){return null!=e[11].image&&""!=e[11].image?Xa:Ja}let n=a(e),s=n(e);return{c(){s.c(),t=k(),r=$("hr")},l(e){s.l(e),t=Y(e),r=P(e,"HR",{})},m(e,a){s.m(e,a),E(e,t,a),E(e,r,a)},p(e,r){n===(n=a(e))&&s?s.p(e,r):(s.d(1),s=n(e),s&&(s.c(),s.m(t.parentNode,t)))},d(e){s.d(e),e&&x(t),e&&x(r)}}}function Ka(e){let t,r,a,s,o,i,c,u,d,f,h,m,p,g,y,_,w,M,O,C,R,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,ee,te,re,ae,ne,se,oe,ie,le,de,fe,he,ye,_e,we,be,Ee,xe,De,$e,Se,ke,Me,Ie,Te,Ne,Oe,Pe,Ve,Ye,Ae,Ce,Le,Re,Ue,je,He,Be,We,Fe,Ge,ze,Ze,Je,Qe,Ke,et,tt,rt,at,nt,st,ot,it=e[0].instagram+"",lt=(e[0].total_links||0)+"",ct=e[0].views+"";r=new qa({props:{user:e[0]}});let ut=e[0].links,dt=[];for(let t=0;t<ut.length;t+=1)dt[t]=Qa(za(e,ut,t));let ft=null;return ut.length||(ft=Za()),at=new Xe({}),{c(){t=$("div"),me(r.$$.fragment),a=k(),s=$("main"),o=$("div"),i=$("div"),c=$("div"),u=$("div"),d=$("div"),f=$("img"),p=k(),g=$("h4"),y=S(it),_=k(),w=$("input"),O=k(),C=$("div"),R=$("button"),U=$("span"),j=S("Copiar Link"),H=S("\r\n                  Copiar"),B=k(),W=$("div"),F=S("Total de Produtos e Serviços oferecidos : "),G=S(lt),q=k(),z=$("div"),Z=$("a"),J=S("Adicionar Produto/Serviço"),X=k(),Q=$("a"),K=S("Adicionar Agenda"),ee=k(),te=$("a"),re=$("span"),ae=S(" Instagram"),se=k(),oe=$("div"),ie=$("div"),le=$("div"),de=$("div"),fe=$("a"),he=$("i"),ye=k(),_e=$("div"),we=$("a"),be=S("View all"),Ee=k(),xe=$("h5"),De=S("Estatísticas"),$e=k(),Se=$("div"),ke=$("div"),Me=$("div"),Ie=$("p"),Te=$("strong"),Ne=S("Total de visitas"),Oe=k(),Pe=$("p"),Ve=S(ct),Ye=k(),Ae=$("hr"),Ce=k(),Le=$("div"),Re=$("div"),Ue=$("p"),je=$("strong"),He=S("Total de Cliques"),Be=k(),We=$("p"),Fe=S(e[1]),Ge=k(),ze=$("hr"),Ze=k(),Je=$("div"),Qe=k(),Ke=$("div"),et=$("div"),tt=$("div");for(let e=0;e<dt.length;e+=1)dt[e].c();ft&&ft.c(),rt=k(),me(at.$$.fragment),this.h()},l(n){t=P(n,"DIV",{class:!0});var l=N(t);pe(r.$$.fragment,l),a=Y(l),s=P(l,"MAIN",{class:!0});var h=N(s);o=P(h,"DIV",{class:!0});var m=N(o);i=P(m,"DIV",{class:!0});var v=N(i);c=P(v,"DIV",{class:!0});var b=N(c);u=P(b,"DIV",{class:!0});var E=N(u);d=P(E,"DIV",{class:!0});var D=N(d);f=P(D,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0}),p=Y(D),g=P(D,"H4",{class:!0});var $=N(g);y=V($,it),$.forEach(x),_=Y(D),w=P(D,"INPUT",{type:!0,id:!0,style:!0}),O=Y(D),C=P(D,"DIV",{class:!0});var S=N(C);R=P(S,"BUTTON",{class:!0});var k=N(R);U=P(k,"SPAN",{class:!0,id:!0});var M=N(U);j=V(M,"Copiar Link"),M.forEach(x),H=V(k,"\r\n                  Copiar"),k.forEach(x),S.forEach(x),B=Y(D),W=P(D,"DIV",{class:!0});var I=N(W);F=V(I,"Total de Produtos e Serviços oferecidos : "),G=V(I,lt),I.forEach(x),q=Y(D),z=P(D,"DIV",{});var T=N(z);Z=P(T,"A",{class:!0,replace:!0,href:!0});var A=N(Z);J=V(A,"Adicionar Produto/Serviço"),A.forEach(x),X=Y(T),Q=P(T,"A",{class:!0,replace:!0,href:!0});var L=N(Q);K=V(L,"Adicionar Agenda"),L.forEach(x),ee=Y(T),te=P(T,"A",{class:!0,target:!0,href:!0});var ne=N(te);re=P(ne,"SPAN",{"data-feather":!0}),N(re).forEach(x),ae=V(ne," Instagram"),ne.forEach(x),T.forEach(x),D.forEach(x),E.forEach(x),se=Y(b),oe=P(b,"DIV",{class:!0});var ce=N(oe);ie=P(ce,"DIV",{class:!0});var ue=N(ie);le=P(ue,"DIV",{class:!0});var me=N(le);de=P(me,"DIV",{class:!0});var ge=N(de);fe=P(ge,"A",{href:!0,"data-toggle":!0,"data-display":!0});var ve=N(fe);he=P(ve,"I",{class:!0,"data-feather":!0}),N(he).forEach(x),ve.forEach(x),ye=Y(ge),_e=P(ge,"DIV",{class:!0});var qe=N(_e);we=P(qe,"A",{class:!0,href:!0});var Xe=N(we);be=V(Xe,"View all"),Xe.forEach(x),qe.forEach(x),ge.forEach(x),me.forEach(x),Ee=Y(ue),xe=P(ue,"H5",{class:!0});var nt=N(xe);De=V(nt,"Estatísticas"),nt.forEach(x),ue.forEach(x),$e=Y(ce),Se=P(ce,"DIV",{class:!0});var st=N(Se);ke=P(st,"DIV",{class:!0});var ot=N(ke);Me=P(ot,"DIV",{class:!0});var ut=N(Me);Ie=P(ut,"P",{class:!0});var ht=N(Ie);Te=P(ht,"STRONG",{});var mt=N(Te);Ne=V(mt,"Total de visitas"),mt.forEach(x),ht.forEach(x),Oe=Y(ut),Pe=P(ut,"P",{class:!0});var pt=N(Pe);Ve=V(pt,ct),pt.forEach(x),ut.forEach(x),ot.forEach(x),Ye=Y(st),Ae=P(st,"HR",{class:!0}),Ce=Y(st),Le=P(st,"DIV",{class:!0});var gt=N(Le);Re=P(gt,"DIV",{class:!0});var vt=N(Re);Ue=P(vt,"P",{class:!0});var yt=N(Ue);je=P(yt,"STRONG",{});var _t=N(je);He=V(_t,"Total de Cliques"),_t.forEach(x),yt.forEach(x),Be=Y(vt),We=P(vt,"P",{class:!0});var wt=N(We);Fe=V(wt,e[1]),wt.forEach(x),vt.forEach(x),gt.forEach(x),Ge=Y(st),ze=P(st,"HR",{class:!0}),st.forEach(x),ce.forEach(x),b.forEach(x),Ze=Y(v),Je=P(v,"DIV",{class:!0}),N(Je).forEach(x),Qe=Y(v),Ke=P(v,"DIV",{class:!0});var bt=N(Ke);et=P(bt,"DIV",{class:!0});var Et=N(et);tt=P(Et,"DIV",{class:!0});var xt=N(tt);for(let e=0;e<dt.length;e+=1)dt[e].l(xt);ft&&ft.l(xt),xt.forEach(x),Et.forEach(x),bt.forEach(x),v.forEach(x),m.forEach(x),h.forEach(x),rt=Y(l),pe(at.$$.fragment,l),l.forEach(x),this.h()},h(){l(f.src,h=e[0].dp)||T(f,"src",h),T(f,"alt",m=e[0].instagram),T(f,"class","img-fluid rounded-circle mb-2"),T(f,"width","128"),T(f,"height","128"),T(g,"class","card-title mb-0"),T(w,"type","text"),w.value=M=`https://vitrinedacasa.com.br/${e[0].instagram}`,T(w,"id","myInput"),L(w,"border","none"),L(w,"width","100%"),L(w,"text-align","center"),L(w,"margin","5px"),L(w,"pointer-events","none"),T(U,"class","tooltiptext svelte-4rq2pt"),T(U,"id","myTooltip"),T(R,"class","btn btn-sm btn-success"),T(C,"class","tooltip svelte-4rq2pt"),T(W,"class","text-muted mb-2"),T(Z,"class","btn btn-primary btn-sm"),T(Z,"replace",""),T(Z,"href","/addlink"),T(Q,"class","btn btn-primary btn-sm"),T(Q,"replace",""),T(Q,"href","/addschedule"),T(re,"data-feather","instagram"),T(te,"class","btn btn-danger btn-sm"),T(te,"target","_blank"),T(te,"href",ne="https://www.instagram.com/"+e[0].instagram+"/"),T(d,"class","card-body text-center"),T(u,"class","card mb-3"),T(he,"class","align-middle"),T(he,"data-feather","more-horizontal"),T(fe,"href","/dashboard"),T(fe,"data-toggle","dropdown"),T(fe,"data-display","static"),T(we,"class","dropdown-item"),T(we,"href","/dashboard"),T(_e,"class","dropdown-menu dropdown-menu-right"),T(de,"class","dropdown show"),T(le,"class","card-actions float-right"),T(xe,"class","card-title mb-0"),T(ie,"class","card-header"),T(Ie,"class","my-1"),T(Pe,"class","text-info"),T(Me,"class","media-body"),T(ke,"class","media"),T(Ae,"class","my-2"),T(Ue,"class","my-1"),T(We,"class","text-warning"),T(Re,"class","media-body"),T(Le,"class","media"),T(ze,"class","my-2"),T(Se,"class","card-body"),T(oe,"class","card mb-3"),T(c,"class","col-12 col-lg-3"),T(Je,"class","col-12 col-lg-5"),T(tt,"class","card-body h-100"),T(et,"class","card"),T(Ke,"class","col-12 col-lg-4"),T(i,"class","row"),T(o,"class","container-fluid p-0"),T(s,"class","content"),T(t,"class","main")},m(e,n){E(e,t,n),ge(r,t,null),b(t,a),b(t,s),b(s,o),b(o,i),b(i,c),b(c,u),b(u,d),b(d,f),b(d,p),b(d,g),b(g,y),b(d,_),b(d,w),b(d,O),b(d,C),b(C,R),b(R,U),b(U,j),b(R,H),b(d,B),b(d,W),b(W,F),b(W,G),b(d,q),b(d,z),b(z,Z),b(Z,J),b(z,X),b(z,Q),b(Q,K),b(z,ee),b(z,te),b(te,re),b(te,ae),b(c,se),b(c,oe),b(oe,ie),b(ie,le),b(le,de),b(de,fe),b(fe,he),b(de,ye),b(de,_e),b(_e,we),b(we,be),b(ie,Ee),b(ie,xe),b(xe,De),b(oe,$e),b(oe,Se),b(Se,ke),b(ke,Me),b(Me,Ie),b(Ie,Te),b(Te,Ne),b(Me,Oe),b(Me,Pe),b(Pe,Ve),b(Se,Ye),b(Se,Ae),b(Se,Ce),b(Se,Le),b(Le,Re),b(Re,Ue),b(Ue,je),b(je,He),b(Re,Be),b(Re,We),b(We,Fe),b(Se,Ge),b(Se,ze),b(i,Ze),b(i,Je),b(i,Qe),b(i,Ke),b(Ke,et),b(et,tt);for(let e=0;e<dt.length;e+=1)dt[e].m(tt,null);ft&&ft.m(tt,null),b(t,rt),ge(at,t,null),nt=!0,st||(ot=[I(R,"click",en),I(R,"mouseout",tn),I(R,"blur",tn),v(qe.call(null,Z)),v(qe.call(null,Q))],st=!0)},p(e,[t]){const a={};if(1&t&&(a.user=e[0]),r.$set(a),(!nt||1&t&&!l(f.src,h=e[0].dp))&&T(f,"src",h),(!nt||1&t&&m!==(m=e[0].instagram))&&T(f,"alt",m),(!nt||1&t)&&it!==(it=e[0].instagram+"")&&A(y,it),(!nt||1&t&&M!==(M=`https://vitrinedacasa.com.br/${e[0].instagram}`)&&w.value!==M)&&(w.value=M),(!nt||1&t)&&lt!==(lt=(e[0].total_links||0)+"")&&A(G,lt),(!nt||1&t&&ne!==(ne="https://www.instagram.com/"+e[0].instagram+"/"))&&T(te,"href",ne),(!nt||1&t)&&ct!==(ct=e[0].views+"")&&A(Ve,ct),(!nt||2&t)&&A(Fe,e[1]),13&t){let r;for(ut=e[0].links,r=0;r<ut.length;r+=1){const a=za(e,ut,r);dt[r]?dt[r].p(a,t):(dt[r]=Qa(a),dt[r].c(),dt[r].m(tt,null))}for(;r<dt.length;r+=1)dt[r].d(1);dt.length=ut.length,!ut.length&&ft?ft.p(e,t):ut.length?ft&&(ft.d(1),ft=null):(ft=Za(),ft.c(),ft.m(tt,null))}},i(e){nt||(ce(r.$$.fragment,e),ce(at.$$.fragment,e),nt=!0)},o(e){ue(r.$$.fragment,e),ue(at.$$.fragment,e),nt=!1},d(e){e&&x(t),ve(r),D(dt,e),ft&&ft.d(),ve(at),st=!1,n(ot)}}}function en(){var e=document.getElementById("myInput");e.select(),e.setSelectionRange(0,99999),document.execCommand("copy"),document.getElementById("myTooltip").innerHTML="Copied: "+e.value}function tn(){document.getElementById("myTooltip").innerHTML="Copy to clipboard"}function rn(e,t,r){let a={},n=0;Wa.locale("pt"),W((()=>{Wr()}));const s=Hr.subscribe((async e=>{if(console.log(a),r(0,a=e.user),a.links)for(var t=0;t<a.links.length;t++)r(1,n+=a.links[t].clicks)}));F(s);const o=async e=>{confirm("Are you sure you want to delete this ?")&&await(async e=>{let t="",r=1,a="Something went wrong";Hr.subscribe((e=>{t=e.token}));const n={headers:{"Content-type":"application/json"}};return t&&(n.headers["auth-token"]=t),console.log(e),Ar.post("/api/user/deletelink",{_id:e},n).then((e=>{r=0,a="Successfully added"})).catch((e=>{console.log(e)})),await Wr(),{status:r,mssg:a}})(e)},i=async e=>{await Hr.update((t=>(console.log("updated"),{token:t.token,user:t.user,link:e}))),document.location.href="/editlink"};return[a,n,o,i,e=>{i(e)},e=>{o(e._id)},e=>{o(e._id)}]}class an extends we{constructor(e){super(),_e(this,e,rn,Ka,o,{})}}function nn(e){let t,r;return{c(){t=$("img"),this.h()},l(e){t=P(e,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0}),this.h()},h(){l(t.src,r=e[3])||T(t,"src",r),T(t,"alt","Not found user"),T(t,"class","img-fluid"),T(t,"width","132"),T(t,"height","132")},m(e,r){E(e,t,r)},p(e,a){8&a&&!l(t.src,r=e[3])&&T(t,"src",r)},d(e){e&&x(t)}}}function sn(t){let r,a,n;return{c(){r=$("div"),a=$("span"),n=S("Carregando..."),this.h()},l(e){r=P(e,"DIV",{class:!0,role:!0});var t=N(r);a=P(t,"SPAN",{class:!0});var s=N(a);n=V(s,"Carregando..."),s.forEach(x),t.forEach(x),this.h()},h(){T(a,"class","sr-only"),T(r,"class","spinner-border text-primary"),T(r,"role","status")},m(e,t){E(e,r,t),b(r,a),b(a,n)},p:e,d(e){e&&x(r)}}}function on(e){let t,r,a,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,M,O,A,L,R,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,ee,te,re,ae,ne,se,oe,ie,le,de,fe,he;function ye(e,t){return e[0]?sn:nn}let _e=ye(e),we=_e(e);return le=new jr({props:{mssg:e[2],status:e[1]}}),{c(){t=$("div"),r=$("main"),a=$("div"),s=$("div"),o=$("div"),i=$("div"),l=$("div"),c=$("h1"),u=S("Criar página de produto ou serviço"),d=k(),f=$("p"),h=S("Digite os detalhes"),m=k(),p=$("div"),g=$("div"),v=$("div"),y=$("div"),we.c(),_=k(),w=$("form"),D=$("div"),M=$("label"),O=S("Titulo"),A=k(),L=$("input"),R=k(),U=$("div"),j=$("label"),H=S("Url"),B=k(),W=$("input"),F=k(),G=$("div"),q=$("label"),z=S("Descrição"),Z=k(),J=$("textarea"),X=k(),Q=$("div"),K=$("label"),ee=S("Carregue uma imagem (se desejar)"),te=k(),re=$("input"),ae=k(),ne=$("div"),se=$("button"),oe=S("Criar Página"),ie=k(),me(le.$$.fragment),this.h()},l(e){t=P(e,"DIV",{class:!0});var n=N(t);r=P(n,"MAIN",{class:!0});var b=N(r);a=P(b,"DIV",{class:!0});var E=N(a);s=P(E,"DIV",{class:!0});var $=N(s);o=P($,"DIV",{class:!0});var S=N(o);i=P(S,"DIV",{class:!0});var k=N(i);l=P(k,"DIV",{class:!0});var I=N(l);c=P(I,"H1",{class:!0});var T=N(c);u=V(T,"Criar página de produto ou serviço"),T.forEach(x),d=Y(I),f=P(I,"P",{class:!0});var C=N(f);h=V(C,"Digite os detalhes"),C.forEach(x),I.forEach(x),m=Y(k),p=P(k,"DIV",{class:!0});var ce=N(p);g=P(ce,"DIV",{class:!0});var ue=N(g);v=P(ue,"DIV",{class:!0});var de=N(v);y=P(de,"DIV",{class:!0});var fe=N(y);we.l(fe),fe.forEach(x),_=Y(de),w=P(de,"FORM",{});var he=N(w);D=P(he,"DIV",{class:!0});var me=N(D);M=P(me,"LABEL",{for:!0});var ge=N(M);O=V(ge,"Titulo"),ge.forEach(x),A=Y(me),L=P(me,"INPUT",{class:!0,type:!0,placeholder:!0}),me.forEach(x),R=Y(he),U=P(he,"DIV",{class:!0});var ve=N(U);j=P(ve,"LABEL",{for:!0});var ye=N(j);H=V(ye,"Url"),ye.forEach(x),B=Y(ve),W=P(ve,"INPUT",{class:!0,type:!0,placeholder:!0}),ve.forEach(x),F=Y(he),G=P(he,"DIV",{class:!0});var _e=N(G);q=P(_e,"LABEL",{for:!0});var be=N(q);z=V(be,"Descrição"),be.forEach(x),Z=Y(_e),J=P(_e,"TEXTAREA",{class:!0,placeholder:!0}),N(J).forEach(x),_e.forEach(x),X=Y(he),Q=P(he,"DIV",{class:!0});var Ee=N(Q);K=P(Ee,"LABEL",{for:!0});var xe=N(K);ee=V(xe,"Carregue uma imagem (se desejar)"),xe.forEach(x),te=Y(Ee),re=P(Ee,"INPUT",{id:!0,name:!0,type:!0}),Ee.forEach(x),ae=Y(he),ne=P(he,"DIV",{class:!0});var De=N(ne);se=P(De,"BUTTON",{type:!0,class:!0});var $e=N(se);oe=V($e,"Criar Página"),$e.forEach(x),De.forEach(x),he.forEach(x),de.forEach(x),ue.forEach(x),ce.forEach(x),k.forEach(x),S.forEach(x),$.forEach(x),E.forEach(x),b.forEach(x),n.forEach(x),ie=Y(e),pe(le.$$.fragment,e),this.h()},h(){T(c,"class","h2"),T(f,"class","lead"),T(l,"class","text-center mt-4"),T(y,"class","text-center"),T(M,"for",""),T(L,"class","form-control form-control-lg"),T(L,"type","text"),L.required=!0,T(L,"placeholder","Produto ou Serviço"),T(D,"class","form-group"),T(j,"for",""),T(W,"class","form-control form-control-lg"),T(W,"type","text"),W.required=!0,T(W,"placeholder","https://vitrinedacasa.com.br/usuario/urldoproduto"),T(U,"class","form-group"),T(q,"for",""),T(J,"class","form-control form-control-lg"),T(J,"placeholder","Descreva o que você está oferecendo, seja objetivo com o seu cliente."),T(G,"class","form-group"),T(K,"for",""),T(re,"id","file"),T(re,"name","file"),T(re,"type","file"),T(Q,"class","form-group"),T(se,"type","submit"),T(se,"class","btn btn-lg btn-primary"),T(ne,"class","text-center mt-3"),T(v,"class","m-sm-4"),T(g,"class","card-body"),T(p,"class","card"),T(i,"class","d-table-cell align-middle"),T(o,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(s,"class","row h-100"),T(a,"class","container d-flex flex-column"),T(r,"class","content d-flex p-0"),T(t,"class","main d-flex justify-content-center w-100")},m(n,x){E(n,t,x),b(t,r),b(r,a),b(a,s),b(s,o),b(o,i),b(i,l),b(l,c),b(c,u),b(l,d),b(l,f),b(f,h),b(i,m),b(i,p),b(p,g),b(g,v),b(v,y),we.m(y,null),b(v,_),b(v,w),b(w,D),b(D,M),b(M,O),b(D,A),b(D,L),C(L,e[4].title),b(w,R),b(w,U),b(U,j),b(j,H),b(U,B),b(U,W),C(W,e[4].url),b(w,F),b(w,G),b(G,q),b(q,z),b(G,Z),b(G,J),C(J,e[4].description),b(w,X),b(w,Q),b(Q,K),b(K,ee),b(Q,te),b(Q,re),b(w,ae),b(w,ne),b(ne,se),b(se,oe),E(n,ie,x),ge(le,n,x),de=!0,fe||(he=[I(L,"input",e[7]),I(W,"input",e[8]),I(J,"input",e[9]),I(re,"change",e[5]),I(w,"submit",e[6])],fe=!0)},p(e,[t]){_e===(_e=ye(e))&&we?we.p(e,t):(we.d(1),we=_e(e),we&&(we.c(),we.m(y,null))),16&t&&L.value!==e[4].title&&C(L,e[4].title),16&t&&W.value!==e[4].url&&C(W,e[4].url),16&t&&C(J,e[4].description);const r={};4&t&&(r.mssg=e[2]),2&t&&(r.status=e[1]),le.$set(r)},i(e){de||(ce(le.$$.fragment,e),de=!0)},o(e){ue(le.$$.fragment,e),de=!1},d(e){e&&x(t),we.d(),e&&x(ie),ve(le,e),fe=!1,n(he)}}}function ln(e,t,r){let a=!1,n=-1,s="",o="https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg",i={url:"",title:"",image:"",description:"",clicks:0,likes:0};return[a,n,s,o,i,async e=>{r(0,a=!0);const t=e.target.files,n=new FormData;n.append("file",t[0]),n.append("upload_preset","vitrinedacasa");const s=await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload",{method:"POST",body:n});r(0,a=!1);const l=await s.json();r(4,i.image=l.secure_url,i),r(3,o=l.secure_url)},async e=>{e.preventDefault();let t=await Fr(i);r(1,n=t.status),r(2,s=t.mssg),console.log(t),document.location.href="/dashboard"},function(){i.title=this.value,r(4,i)},function(){i.url=this.value,r(4,i)},function(){i.description=this.value,r(4,i)}]}class cn extends we{constructor(e){super(),_e(this,e,ln,on,o,{})}}function un(e,t,r){const a=e.slice();return a[15]=t[r],a}function dn(e){let t,r;return{c(){t=$("img"),this.h()},l(e){t=P(e,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0}),this.h()},h(){l(t.src,r=e[3])||T(t,"src",r),T(t,"alt","Not found user"),T(t,"class","img-fluid"),T(t,"width","132"),T(t,"height","132")},m(e,r){E(e,t,r)},p(e,a){8&a&&!l(t.src,r=e[3])&&T(t,"src",r)},d(e){e&&x(t)}}}function fn(t){let r,a,n;return{c(){r=$("div"),a=$("span"),n=S("Carregando..."),this.h()},l(e){r=P(e,"DIV",{class:!0,role:!0});var t=N(r);a=P(t,"SPAN",{class:!0});var s=N(a);n=V(s,"Carregando..."),s.forEach(x),t.forEach(x),this.h()},h(){T(a,"class","sr-only"),T(r,"class","spinner-border text-primary"),T(r,"role","status")},m(e,t){E(e,r,t),b(r,a),b(a,n)},p:e,d(e){e&&x(r)}}}function hn(e,t){let r,a,n,s=t[15]+"";return{key:e,first:null,c(){r=$("option"),a=S(s),this.h()},l(e){r=P(e,"OPTION",{});var t=N(r);a=V(t,s),t.forEach(x),this.h()},h(){r.__value=n=t[15],r.value=r.__value,this.first=r},m(e,t){E(e,r,t),b(r,a)},p(e,r){t=e},d(e){e&&x(r)}}}function mn(e){let t,r,a,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,M,O,A,L,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,te,re,ae,ne,se,oe,ie,le,he,ye,_e,we,be,Ee,xe,De,$e,Se,ke,Me,Ie,Te,Ne,Oe,Pe,Ve,Ye,Ae,Ce,Le=[],Re=new Map;function Ue(e,t){return e[0]?fn:dn}t=new qa({props:{user:e[5]}});let je=Ue(e),He=je(e),Be=e[6];const We=e=>e[15];for(let t=0;t<Be.length;t+=1){let r=un(e,Be,t),a=We(r);Re.set(a,Le[t]=hn(a,r))}return Oe=new jr({props:{mssg:e[2],status:e[1]}}),Ve=new Xe({}),{c(){me(t.$$.fragment),r=k(),a=$("div"),s=$("main"),o=$("div"),i=$("div"),l=$("div"),c=$("div"),u=$("div"),d=$("h1"),f=S("Multiplique as possibilidades"),h=k(),m=$("p"),p=S("Uma página personalizada para seu Produto ou Serviço"),g=k(),v=$("div"),y=$("div"),_=$("div"),w=$("div"),He.c(),D=k(),M=$("form"),O=$("div"),A=$("label"),L=S("Url"),U=k(),j=$("input"),H=k(),B=$("div"),W=$("label"),F=S("Título"),G=k(),q=$("input"),z=k(),Z=$("div"),J=$("label"),X=S("Carregue uma imagem (se desejar)"),Q=k(),K=$("input"),te=k(),re=$("div"),ae=$("label"),ne=S("Descrição"),se=k(),oe=$("input"),ie=k(),le=$("div"),he=$("label"),ye=S("Preço"),_e=k(),we=$("input"),be=k(),Ee=$("div"),xe=$("label"),De=S("Tipo"),$e=k(),Se=$("select");for(let e=0;e<Le.length;e+=1)Le[e].c();ke=k(),Me=$("div"),Ie=$("button"),Te=S("Salvar"),Ne=k(),me(Oe.$$.fragment),Pe=k(),me(Ve.$$.fragment),this.h()},l(e){pe(t.$$.fragment,e),r=Y(e),a=P(e,"DIV",{class:!0});var n=N(a);s=P(n,"MAIN",{class:!0});var b=N(s);o=P(b,"DIV",{class:!0});var E=N(o);i=P(E,"DIV",{class:!0});var $=N(i);l=P($,"DIV",{class:!0});var S=N(l);c=P(S,"DIV",{class:!0});var k=N(c);u=P(k,"DIV",{class:!0});var I=N(u);d=P(I,"H1",{class:!0});var T=N(d);f=V(T,"Multiplique as possibilidades"),T.forEach(x),h=Y(I),m=P(I,"P",{class:!0});var C=N(m);p=V(C,"Uma página personalizada para seu Produto ou Serviço"),C.forEach(x),I.forEach(x),g=Y(k),v=P(k,"DIV",{class:!0});var R=N(v);y=P(R,"DIV",{class:!0});var ee=N(y);_=P(ee,"DIV",{class:!0});var ce=N(_);w=P(ce,"DIV",{class:!0});var ue=N(w);He.l(ue),ue.forEach(x),D=Y(ce),M=P(ce,"FORM",{});var de=N(M);O=P(de,"DIV",{class:!0});var fe=N(O);A=P(fe,"LABEL",{for:!0});var me=N(A);L=V(me,"Url"),me.forEach(x),U=Y(fe),j=P(fe,"INPUT",{class:!0,type:!0,placeholder:!0}),fe.forEach(x),H=Y(de),B=P(de,"DIV",{class:!0});var ge=N(B);W=P(ge,"LABEL",{for:!0});var ve=N(W);F=V(ve,"Título"),ve.forEach(x),G=Y(ge),q=P(ge,"INPUT",{class:!0,type:!0,placeholder:!0}),ge.forEach(x),z=Y(de),Z=P(de,"DIV",{class:!0});var Ye=N(Z);J=P(Ye,"LABEL",{for:!0});var Ae=N(J);X=V(Ae,"Carregue uma imagem (se desejar)"),Ae.forEach(x),Q=Y(Ye),K=P(Ye,"INPUT",{id:!0,name:!0,type:!0}),Ye.forEach(x),te=Y(de),re=P(de,"DIV",{class:!0});var Ce=N(re);ae=P(Ce,"LABEL",{for:!0});var Re=N(ae);ne=V(Re,"Descrição"),Re.forEach(x),se=Y(Ce),oe=P(Ce,"INPUT",{class:!0,type:!0,placeholder:!0}),Ce.forEach(x),ie=Y(de),le=P(de,"DIV",{class:!0});var Ue=N(le);he=P(Ue,"LABEL",{for:!0});var je=N(he);ye=V(je,"Preço"),je.forEach(x),_e=Y(Ue),we=P(Ue,"INPUT",{class:!0,type:!0}),Ue.forEach(x),be=Y(de),Ee=P(de,"DIV",{class:!0});var Be=N(Ee);xe=P(Be,"LABEL",{for:!0});var We=N(xe);De=V(We,"Tipo"),We.forEach(x),$e=Y(Be),Se=P(Be,"SELECT",{class:!0});var Fe=N(Se);for(let e=0;e<Le.length;e+=1)Le[e].l(Fe);Fe.forEach(x),Be.forEach(x),ke=Y(de),Me=P(de,"DIV",{class:!0});var Ge=N(Me);Ie=P(Ge,"BUTTON",{type:!0,class:!0});var qe=N(Ie);Te=V(qe,"Salvar"),qe.forEach(x),Ge.forEach(x),de.forEach(x),ce.forEach(x),ee.forEach(x),R.forEach(x),k.forEach(x),S.forEach(x),$.forEach(x),E.forEach(x),b.forEach(x),n.forEach(x),Ne=Y(e),pe(Oe.$$.fragment,e),Pe=Y(e),pe(Ve.$$.fragment,e),this.h()},h(){T(d,"class","h2"),T(m,"class","lead"),T(u,"class","text-center mt-4"),T(w,"class","text-center"),T(A,"for",""),T(j,"class","form-control form-control-lg"),T(j,"type","text"),j.required=!0,T(j,"placeholder","https://itesmesankar.herokuapp.com/"),T(O,"class","form-group"),T(W,"for",""),T(q,"class","form-control form-control-lg"),T(q,"type","text"),q.required=!0,T(q,"placeholder","Nome do Produto ou Serviço"),T(B,"class","form-group"),T(J,"for",""),T(K,"id","file"),T(K,"name","file"),T(K,"type","file"),T(Z,"class","form-group"),T(ae,"for",""),T(oe,"class","form-control form-control-lg"),T(oe,"type","text"),T(oe,"placeholder","Descreva o que você está oferecendo, seja objetivo com o seu cliente."),T(re,"class","form-group"),T(he,"for",""),T(we,"class","form-control form-control-lg"),T(we,"type","tel"),T(le,"class","form-group"),T(xe,"for",""),T(Se,"class","form-control form-control-lg"),void 0===e[4].type&&ee((()=>e[13].call(Se))),T(Ee,"class","form-group"),T(Ie,"type","submit"),T(Ie,"class","btn btn-lg btn-primary"),T(Me,"class","text-center mt-3"),T(_,"class","m-sm-4"),T(y,"class","card-body"),T(v,"class","card"),T(c,"class","d-table-cell align-middle"),T(l,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(i,"class","row h-100"),T(o,"class","container d-flex flex-column"),T(s,"class","content d-flex p-0"),T(a,"class","main d-flex justify-content-center w-100")},m(n,x){ge(t,n,x),E(n,r,x),E(n,a,x),b(a,s),b(s,o),b(o,i),b(i,l),b(l,c),b(c,u),b(u,d),b(d,f),b(u,h),b(u,m),b(m,p),b(c,g),b(c,v),b(v,y),b(y,_),b(_,w),He.m(w,null),b(_,D),b(_,M),b(M,O),b(O,A),b(A,L),b(O,U),b(O,j),C(j,e[4].url),b(M,H),b(M,B),b(B,W),b(W,F),b(B,G),b(B,q),C(q,e[4].title),b(M,z),b(M,Z),b(Z,J),b(J,X),b(Z,Q),b(Z,K),b(M,te),b(M,re),b(re,ae),b(ae,ne),b(re,se),b(re,oe),C(oe,e[4].description),b(M,ie),b(M,le),b(le,he),b(he,ye),b(le,_e),b(le,we),C(we,e[4].price),b(M,be),b(M,Ee),b(Ee,xe),b(xe,De),b(Ee,$e),b(Ee,Se);for(let e=0;e<Le.length;e+=1)Le[e].m(Se,null);R(Se,e[4].type),b(M,ke),b(M,Me),b(Me,Ie),b(Ie,Te),E(n,Ne,x),ge(Oe,n,x),E(n,Pe,x),ge(Ve,n,x),Ye=!0,Ae||(Ce=[I(j,"input",e[9]),I(q,"input",e[10]),I(K,"change",e[7]),I(oe,"input",e[11]),I(we,"input",e[12]),I(Se,"change",e[13]),I(M,"submit",e[8])],Ae=!0)},p(e,[r]){const a={};32&r&&(a.user=e[5]),t.$set(a),je===(je=Ue(e))&&He?He.p(e,r):(He.d(1),He=je(e),He&&(He.c(),He.m(w,null))),80&r&&j.value!==e[4].url&&C(j,e[4].url),80&r&&q.value!==e[4].title&&C(q,e[4].title),80&r&&oe.value!==e[4].description&&C(oe,e[4].description),80&r&&C(we,e[4].price),64&r&&(Be=e[6],Le=fe(Le,r,We,1,e,Be,Re,Se,de,hn,null,un)),80&r&&R(Se,e[4].type);const n={};4&r&&(n.mssg=e[2]),2&r&&(n.status=e[1]),Oe.$set(n)},i(e){Ye||(ce(t.$$.fragment,e),ce(Oe.$$.fragment,e),ce(Ve.$$.fragment,e),Ye=!0)},o(e){ue(t.$$.fragment,e),ue(Oe.$$.fragment,e),ue(Ve.$$.fragment,e),Ye=!1},d(e){ve(t,e),e&&x(r),e&&x(a),He.d();for(let e=0;e<Le.length;e+=1)Le[e].d();e&&x(Ne),ve(Oe,e),e&&x(Pe),ve(Ve,e),Ae=!1,n(Ce)}}}function pn(e,t,r){let a,n,s=!1,o=-1,i="",l="https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg",c=["Serviço","Produto"];Hr.subscribe((e=>{console.log(e),r(4,a=e.link),r(5,n=e.user),r(3,l=""!=a.image||null!=a.image?a.image:l)}));return[s,o,i,l,a,n,c,async e=>{r(0,s=!0);const t=e.target.files,n=new FormData;n.append("file",t[0]),n.append("upload_preset","vitrinedacasa");const o=await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload",{method:"POST",body:n});r(0,s=!1);const i=await o.json();r(4,a.image=i.secure_url,a),r(3,l=i.secure_url)},async e=>{e.preventDefault();let t=await Fr(a);r(1,o=t.status),r(2,i=t.mssg),console.log(t),document.location.href="/dashboard"},function(){a.url=this.value,r(4,a),r(6,c)},function(){a.title=this.value,r(4,a),r(6,c)},function(){a.description=this.value,r(4,a),r(6,c)},function(){a.price=this.value,r(4,a),r(6,c)},function(){a.type=U(this),r(4,a),r(6,c)}]}class gn extends we{constructor(e){super(),_e(this,e,pn,mn,o,{})}}function vn(e){let t,r;return{c(){t=$("img"),this.h()},l(e){t=P(e,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0}),this.h()},h(){l(t.src,r=e[3])||T(t,"src",r),T(t,"alt","Not found user"),T(t,"class","img-fluid"),T(t,"width","132"),T(t,"height","132")},m(e,r){E(e,t,r)},p(e,a){8&a&&!l(t.src,r=e[3])&&T(t,"src",r)},d(e){e&&x(t)}}}function yn(t){let r,a,n;return{c(){r=$("div"),a=$("span"),n=S("Carregando..."),this.h()},l(e){r=P(e,"DIV",{class:!0,role:!0});var t=N(r);a=P(t,"SPAN",{class:!0});var s=N(a);n=V(s,"Carregando..."),s.forEach(x),t.forEach(x),this.h()},h(){T(a,"class","sr-only"),T(r,"class","spinner-border text-primary"),T(r,"role","status")},m(e,t){E(e,r,t),b(r,a),b(a,n)},p:e,d(e){e&&x(r)}}}function _n(e){let t,r,a,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,M,O,A,L,R,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,ee,te,re,ae,ne,se,oe,ie,le,de,fe,he;function ye(e,t){return e[0]?yn:vn}let _e=ye(e),we=_e(e);return le=new jr({props:{mssg:e[2],status:e[1]}}),{c(){t=$("div"),r=$("main"),a=$("div"),s=$("div"),o=$("div"),i=$("div"),l=$("div"),c=$("h1"),u=S("Abra uma agenda para seus clientes"),d=k(),f=$("p"),h=S("Digite os detalhes"),m=k(),p=$("div"),g=$("div"),v=$("div"),y=$("div"),we.c(),_=k(),w=$("form"),D=$("div"),M=$("label"),O=S("Titulo"),A=k(),L=$("input"),R=k(),U=$("div"),j=$("label"),H=S("Url"),B=k(),W=$("input"),F=k(),G=$("div"),q=$("label"),z=S("Descrição"),Z=k(),J=$("textarea"),X=k(),Q=$("div"),K=$("label"),ee=S("Carregue uma imagem (se desejar)"),te=k(),re=$("input"),ae=k(),ne=$("div"),se=$("button"),oe=S("Criar Página"),ie=k(),me(le.$$.fragment),this.h()},l(e){t=P(e,"DIV",{class:!0});var n=N(t);r=P(n,"MAIN",{class:!0});var b=N(r);a=P(b,"DIV",{class:!0});var E=N(a);s=P(E,"DIV",{class:!0});var $=N(s);o=P($,"DIV",{class:!0});var S=N(o);i=P(S,"DIV",{class:!0});var k=N(i);l=P(k,"DIV",{class:!0});var I=N(l);c=P(I,"H1",{class:!0});var T=N(c);u=V(T,"Abra uma agenda para seus clientes"),T.forEach(x),d=Y(I),f=P(I,"P",{class:!0});var C=N(f);h=V(C,"Digite os detalhes"),C.forEach(x),I.forEach(x),m=Y(k),p=P(k,"DIV",{class:!0});var ce=N(p);g=P(ce,"DIV",{class:!0});var ue=N(g);v=P(ue,"DIV",{class:!0});var de=N(v);y=P(de,"DIV",{class:!0});var fe=N(y);we.l(fe),fe.forEach(x),_=Y(de),w=P(de,"FORM",{});var he=N(w);D=P(he,"DIV",{class:!0});var me=N(D);M=P(me,"LABEL",{for:!0});var ge=N(M);O=V(ge,"Titulo"),ge.forEach(x),A=Y(me),L=P(me,"INPUT",{class:!0,type:!0,placeholder:!0}),me.forEach(x),R=Y(he),U=P(he,"DIV",{class:!0});var ve=N(U);j=P(ve,"LABEL",{for:!0});var ye=N(j);H=V(ye,"Url"),ye.forEach(x),B=Y(ve),W=P(ve,"INPUT",{class:!0,type:!0,placeholder:!0}),ve.forEach(x),F=Y(he),G=P(he,"DIV",{class:!0});var _e=N(G);q=P(_e,"LABEL",{for:!0});var be=N(q);z=V(be,"Descrição"),be.forEach(x),Z=Y(_e),J=P(_e,"TEXTAREA",{class:!0,placeholder:!0}),N(J).forEach(x),_e.forEach(x),X=Y(he),Q=P(he,"DIV",{class:!0});var Ee=N(Q);K=P(Ee,"LABEL",{for:!0});var xe=N(K);ee=V(xe,"Carregue uma imagem (se desejar)"),xe.forEach(x),te=Y(Ee),re=P(Ee,"INPUT",{id:!0,name:!0,type:!0}),Ee.forEach(x),ae=Y(he),ne=P(he,"DIV",{class:!0});var De=N(ne);se=P(De,"BUTTON",{type:!0,class:!0});var $e=N(se);oe=V($e,"Criar Página"),$e.forEach(x),De.forEach(x),he.forEach(x),de.forEach(x),ue.forEach(x),ce.forEach(x),k.forEach(x),S.forEach(x),$.forEach(x),E.forEach(x),b.forEach(x),n.forEach(x),ie=Y(e),pe(le.$$.fragment,e),this.h()},h(){T(c,"class","h2"),T(f,"class","lead"),T(l,"class","text-center mt-4"),T(y,"class","text-center"),T(M,"for",""),T(L,"class","form-control form-control-lg"),T(L,"type","text"),L.required=!0,T(L,"placeholder","Produto ou Serviço"),T(D,"class","form-group"),T(j,"for",""),T(W,"class","form-control form-control-lg"),T(W,"type","text"),W.required=!0,T(W,"placeholder","https://vitrinedacasa.com.br/usuario/urldoproduto"),T(U,"class","form-group"),T(q,"for",""),T(J,"class","form-control form-control-lg"),T(J,"placeholder","Descreva o que você está oferecendo, seja objetivo com o seu cliente."),T(G,"class","form-group"),T(K,"for",""),T(re,"id","file"),T(re,"name","file"),T(re,"type","file"),T(Q,"class","form-group"),T(se,"type","submit"),T(se,"class","btn btn-lg btn-primary"),T(ne,"class","text-center mt-3"),T(v,"class","m-sm-4"),T(g,"class","card-body"),T(p,"class","card"),T(i,"class","d-table-cell align-middle"),T(o,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(s,"class","row h-100"),T(a,"class","container d-flex flex-column"),T(r,"class","content d-flex p-0"),T(t,"class","main d-flex justify-content-center w-100")},m(n,x){E(n,t,x),b(t,r),b(r,a),b(a,s),b(s,o),b(o,i),b(i,l),b(l,c),b(c,u),b(l,d),b(l,f),b(f,h),b(i,m),b(i,p),b(p,g),b(g,v),b(v,y),we.m(y,null),b(v,_),b(v,w),b(w,D),b(D,M),b(M,O),b(D,A),b(D,L),C(L,e[4].title),b(w,R),b(w,U),b(U,j),b(j,H),b(U,B),b(U,W),C(W,e[4].url),b(w,F),b(w,G),b(G,q),b(q,z),b(G,Z),b(G,J),C(J,e[4].description),b(w,X),b(w,Q),b(Q,K),b(K,ee),b(Q,te),b(Q,re),b(w,ae),b(w,ne),b(ne,se),b(se,oe),E(n,ie,x),ge(le,n,x),de=!0,fe||(he=[I(L,"input",e[7]),I(W,"input",e[8]),I(J,"input",e[9]),I(re,"change",e[5]),I(w,"submit",e[6])],fe=!0)},p(e,[t]){_e===(_e=ye(e))&&we?we.p(e,t):(we.d(1),we=_e(e),we&&(we.c(),we.m(y,null))),16&t&&L.value!==e[4].title&&C(L,e[4].title),16&t&&W.value!==e[4].url&&C(W,e[4].url),16&t&&C(J,e[4].description);const r={};4&t&&(r.mssg=e[2]),2&t&&(r.status=e[1]),le.$set(r)},i(e){de||(ce(le.$$.fragment,e),de=!0)},o(e){ue(le.$$.fragment,e),de=!1},d(e){e&&x(t),we.d(),e&&x(ie),ve(le,e),fe=!1,n(he)}}}function wn(e,t,r){let a=!1,n=-1,s="",o="https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg",i={url:"",title:"",image:"",description:"",clicks:0,likes:0};return[a,n,s,o,i,async e=>{r(0,a=!0);const t=e.target.files,n=new FormData;n.append("file",t[0]),n.append("upload_preset","vitrinedacasa");const s=await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload",{method:"POST",body:n});r(0,a=!1);const l=await s.json();r(4,i.image=l.secure_url,i),r(3,o=l.secure_url)},async e=>{e.preventDefault();let t=await Gr(i);r(1,n=t.status),r(2,s=t.mssg),console.log(t),document.location.href="/dashboard"},function(){i.title=this.value,r(4,i)},function(){i.url=this.value,r(4,i)},function(){i.description=this.value,r(4,i)}]}class bn extends we{constructor(e){super(),_e(this,e,wn,_n,o,{})}}function En(e,t,r){const a=e.slice();return a[15]=t[r],a}function xn(e){let t,r;return{c(){t=$("img"),this.h()},l(e){t=P(e,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0}),this.h()},h(){l(t.src,r=e[3])||T(t,"src",r),T(t,"alt","Not found user"),T(t,"class","img-fluid"),T(t,"width","132"),T(t,"height","132")},m(e,r){E(e,t,r)},p(e,a){8&a&&!l(t.src,r=e[3])&&T(t,"src",r)},d(e){e&&x(t)}}}function Dn(t){let r,a,n;return{c(){r=$("div"),a=$("span"),n=S("Carregando..."),this.h()},l(e){r=P(e,"DIV",{class:!0,role:!0});var t=N(r);a=P(t,"SPAN",{class:!0});var s=N(a);n=V(s,"Carregando..."),s.forEach(x),t.forEach(x),this.h()},h(){T(a,"class","sr-only"),T(r,"class","spinner-border text-primary"),T(r,"role","status")},m(e,t){E(e,r,t),b(r,a),b(a,n)},p:e,d(e){e&&x(r)}}}function $n(e,t){let r,a,n,s=t[15]+"";return{key:e,first:null,c(){r=$("option"),a=S(s),this.h()},l(e){r=P(e,"OPTION",{});var t=N(r);a=V(t,s),t.forEach(x),this.h()},h(){r.__value=n=t[15],r.value=r.__value,this.first=r},m(e,t){E(e,r,t),b(r,a)},p(e,r){t=e},d(e){e&&x(r)}}}function Sn(e){let t,r,a,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,M,O,A,L,U,j,H,B,W,F,G,q,z,Z,J,X,Q,K,te,re,ae,ne,se,oe,ie,le,he,ye,_e,we,be,Ee,xe,De,$e,Se,ke,Me,Ie,Te,Ne,Oe,Pe,Ve,Ye,Ae,Ce,Le=[],Re=new Map;function Ue(e,t){return e[0]?Dn:xn}t=new qa({props:{user:e[5]}});let je=Ue(e),He=je(e),Be=e[6];const We=e=>e[15];for(let t=0;t<Be.length;t+=1){let r=En(e,Be,t),a=We(r);Re.set(a,Le[t]=$n(a,r))}return Oe=new jr({props:{mssg:e[2],status:e[1]}}),Ve=new Xe({}),{c(){me(t.$$.fragment),r=k(),a=$("div"),s=$("main"),o=$("div"),i=$("div"),l=$("div"),c=$("div"),u=$("div"),d=$("h1"),f=S("Multiplique as possibilidades"),h=k(),m=$("p"),p=S("Uma página personalizada para seu Produto ou Serviço"),g=k(),v=$("div"),y=$("div"),_=$("div"),w=$("div"),He.c(),D=k(),M=$("form"),O=$("div"),A=$("label"),L=S("Url"),U=k(),j=$("input"),H=k(),B=$("div"),W=$("label"),F=S("Título"),G=k(),q=$("input"),z=k(),Z=$("div"),J=$("label"),X=S("Carregue uma imagem (se desejar)"),Q=k(),K=$("input"),te=k(),re=$("div"),ae=$("label"),ne=S("Descrição"),se=k(),oe=$("input"),ie=k(),le=$("div"),he=$("label"),ye=S("Preço"),_e=k(),we=$("input"),be=k(),Ee=$("div"),xe=$("label"),De=S("Tipo"),$e=k(),Se=$("select");for(let e=0;e<Le.length;e+=1)Le[e].c();ke=k(),Me=$("div"),Ie=$("button"),Te=S("Salvar"),Ne=k(),me(Oe.$$.fragment),Pe=k(),me(Ve.$$.fragment),this.h()},l(e){pe(t.$$.fragment,e),r=Y(e),a=P(e,"DIV",{class:!0});var n=N(a);s=P(n,"MAIN",{class:!0});var b=N(s);o=P(b,"DIV",{class:!0});var E=N(o);i=P(E,"DIV",{class:!0});var $=N(i);l=P($,"DIV",{class:!0});var S=N(l);c=P(S,"DIV",{class:!0});var k=N(c);u=P(k,"DIV",{class:!0});var I=N(u);d=P(I,"H1",{class:!0});var T=N(d);f=V(T,"Multiplique as possibilidades"),T.forEach(x),h=Y(I),m=P(I,"P",{class:!0});var C=N(m);p=V(C,"Uma página personalizada para seu Produto ou Serviço"),C.forEach(x),I.forEach(x),g=Y(k),v=P(k,"DIV",{class:!0});var R=N(v);y=P(R,"DIV",{class:!0});var ee=N(y);_=P(ee,"DIV",{class:!0});var ce=N(_);w=P(ce,"DIV",{class:!0});var ue=N(w);He.l(ue),ue.forEach(x),D=Y(ce),M=P(ce,"FORM",{});var de=N(M);O=P(de,"DIV",{class:!0});var fe=N(O);A=P(fe,"LABEL",{for:!0});var me=N(A);L=V(me,"Url"),me.forEach(x),U=Y(fe),j=P(fe,"INPUT",{class:!0,type:!0,placeholder:!0}),fe.forEach(x),H=Y(de),B=P(de,"DIV",{class:!0});var ge=N(B);W=P(ge,"LABEL",{for:!0});var ve=N(W);F=V(ve,"Título"),ve.forEach(x),G=Y(ge),q=P(ge,"INPUT",{class:!0,type:!0,placeholder:!0}),ge.forEach(x),z=Y(de),Z=P(de,"DIV",{class:!0});var Ye=N(Z);J=P(Ye,"LABEL",{for:!0});var Ae=N(J);X=V(Ae,"Carregue uma imagem (se desejar)"),Ae.forEach(x),Q=Y(Ye),K=P(Ye,"INPUT",{id:!0,name:!0,type:!0}),Ye.forEach(x),te=Y(de),re=P(de,"DIV",{class:!0});var Ce=N(re);ae=P(Ce,"LABEL",{for:!0});var Re=N(ae);ne=V(Re,"Descrição"),Re.forEach(x),se=Y(Ce),oe=P(Ce,"INPUT",{class:!0,type:!0,placeholder:!0}),Ce.forEach(x),ie=Y(de),le=P(de,"DIV",{class:!0});var Ue=N(le);he=P(Ue,"LABEL",{for:!0});var je=N(he);ye=V(je,"Preço"),je.forEach(x),_e=Y(Ue),we=P(Ue,"INPUT",{class:!0,type:!0}),Ue.forEach(x),be=Y(de),Ee=P(de,"DIV",{class:!0});var Be=N(Ee);xe=P(Be,"LABEL",{for:!0});var We=N(xe);De=V(We,"Tipo"),We.forEach(x),$e=Y(Be),Se=P(Be,"SELECT",{class:!0});var Fe=N(Se);for(let e=0;e<Le.length;e+=1)Le[e].l(Fe);Fe.forEach(x),Be.forEach(x),ke=Y(de),Me=P(de,"DIV",{class:!0});var Ge=N(Me);Ie=P(Ge,"BUTTON",{type:!0,class:!0});var qe=N(Ie);Te=V(qe,"Salvar"),qe.forEach(x),Ge.forEach(x),de.forEach(x),ce.forEach(x),ee.forEach(x),R.forEach(x),k.forEach(x),S.forEach(x),$.forEach(x),E.forEach(x),b.forEach(x),n.forEach(x),Ne=Y(e),pe(Oe.$$.fragment,e),Pe=Y(e),pe(Ve.$$.fragment,e),this.h()},h(){T(d,"class","h2"),T(m,"class","lead"),T(u,"class","text-center mt-4"),T(w,"class","text-center"),T(A,"for",""),T(j,"class","form-control form-control-lg"),T(j,"type","text"),j.required=!0,T(j,"placeholder","https://itesmesankar.herokuapp.com/"),T(O,"class","form-group"),T(W,"for",""),T(q,"class","form-control form-control-lg"),T(q,"type","text"),q.required=!0,T(q,"placeholder","Nome do Produto ou Serviço"),T(B,"class","form-group"),T(J,"for",""),T(K,"id","file"),T(K,"name","file"),T(K,"type","file"),T(Z,"class","form-group"),T(ae,"for",""),T(oe,"class","form-control form-control-lg"),T(oe,"type","text"),T(oe,"placeholder","Descreva o que você está oferecendo, seja objetivo com o seu cliente."),T(re,"class","form-group"),T(he,"for",""),T(we,"class","form-control form-control-lg"),T(we,"type","tel"),T(le,"class","form-group"),T(xe,"for",""),T(Se,"class","form-control form-control-lg"),void 0===e[4].type&&ee((()=>e[13].call(Se))),T(Ee,"class","form-group"),T(Ie,"type","submit"),T(Ie,"class","btn btn-lg btn-primary"),T(Me,"class","text-center mt-3"),T(_,"class","m-sm-4"),T(y,"class","card-body"),T(v,"class","card"),T(c,"class","d-table-cell align-middle"),T(l,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(i,"class","row h-100"),T(o,"class","container d-flex flex-column"),T(s,"class","content d-flex p-0"),T(a,"class","main d-flex justify-content-center w-100")},m(n,x){ge(t,n,x),E(n,r,x),E(n,a,x),b(a,s),b(s,o),b(o,i),b(i,l),b(l,c),b(c,u),b(u,d),b(d,f),b(u,h),b(u,m),b(m,p),b(c,g),b(c,v),b(v,y),b(y,_),b(_,w),He.m(w,null),b(_,D),b(_,M),b(M,O),b(O,A),b(A,L),b(O,U),b(O,j),C(j,e[4].url),b(M,H),b(M,B),b(B,W),b(W,F),b(B,G),b(B,q),C(q,e[4].title),b(M,z),b(M,Z),b(Z,J),b(J,X),b(Z,Q),b(Z,K),b(M,te),b(M,re),b(re,ae),b(ae,ne),b(re,se),b(re,oe),C(oe,e[4].description),b(M,ie),b(M,le),b(le,he),b(he,ye),b(le,_e),b(le,we),C(we,e[4].price),b(M,be),b(M,Ee),b(Ee,xe),b(xe,De),b(Ee,$e),b(Ee,Se);for(let e=0;e<Le.length;e+=1)Le[e].m(Se,null);R(Se,e[4].type),b(M,ke),b(M,Me),b(Me,Ie),b(Ie,Te),E(n,Ne,x),ge(Oe,n,x),E(n,Pe,x),ge(Ve,n,x),Ye=!0,Ae||(Ce=[I(j,"input",e[9]),I(q,"input",e[10]),I(K,"change",e[7]),I(oe,"input",e[11]),I(we,"input",e[12]),I(Se,"change",e[13]),I(M,"submit",e[8])],Ae=!0)},p(e,[r]){const a={};32&r&&(a.user=e[5]),t.$set(a),je===(je=Ue(e))&&He?He.p(e,r):(He.d(1),He=je(e),He&&(He.c(),He.m(w,null))),80&r&&j.value!==e[4].url&&C(j,e[4].url),80&r&&q.value!==e[4].title&&C(q,e[4].title),80&r&&oe.value!==e[4].description&&C(oe,e[4].description),80&r&&C(we,e[4].price),64&r&&(Be=e[6],Le=fe(Le,r,We,1,e,Be,Re,Se,de,$n,null,En)),80&r&&R(Se,e[4].type);const n={};4&r&&(n.mssg=e[2]),2&r&&(n.status=e[1]),Oe.$set(n)},i(e){Ye||(ce(t.$$.fragment,e),ce(Oe.$$.fragment,e),ce(Ve.$$.fragment,e),Ye=!0)},o(e){ue(t.$$.fragment,e),ue(Oe.$$.fragment,e),ue(Ve.$$.fragment,e),Ye=!1},d(e){ve(t,e),e&&x(r),e&&x(a),He.d();for(let e=0;e<Le.length;e+=1)Le[e].d();e&&x(Ne),ve(Oe,e),e&&x(Pe),ve(Ve,e),Ae=!1,n(Ce)}}}function kn(e,t,r){let a,n,s=!1,o=-1,i="",l="https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg",c=["Serviço","Produto"];Hr.subscribe((e=>{console.log(e),r(4,a=e.schedule),r(5,n=e.user),r(3,l=""!=a.image||null!=a.image?a.image:l)}));return[s,o,i,l,a,n,c,async e=>{r(0,s=!0);const t=e.target.files,n=new FormData;n.append("file",t[0]),n.append("upload_preset","vitrinedacasa");const o=await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload",{method:"POST",body:n});r(0,s=!1);const i=await o.json();r(4,a.image=i.secure_url,a),r(3,l=i.secure_url)},async e=>{e.preventDefault();let t=await Gr(a);r(1,o=t.status),r(2,i=t.mssg),console.log(t),document.location.href="/dashboard"},function(){a.url=this.value,r(4,a),r(6,c)},function(){a.title=this.value,r(4,a),r(6,c)},function(){a.description=this.value,r(4,a),r(6,c)},function(){a.price=this.value,r(4,a),r(6,c)},function(){a.type=U(this),r(4,a),r(6,c)}]}class Mn extends we{constructor(e){super(),_e(this,e,kn,Sn,o,{})}}function In(e){let t,r;return{c(){t=$("img"),this.h()},l(e){t=P(e,"IMG",{class:!0,style:!0,src:!0,alt:!0}),this.h()},h(){T(t,"class","card-img-top"),L(t,"max-height","250px"),l(t.src,r=e[0].image)||T(t,"src",r),T(t,"alt","Not available")},m(e,r){E(e,t,r)},p(e,a){1&a&&!l(t.src,r=e[0].image)&&T(t,"src",r)},d(e){e&&x(t)}}}function Tn(t){let r,a,n,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w=t[0].title+"",D=t[0].description.substr(0,100)+"...",M=null!==t[0].image&&""!==t[0].image&&In(t);return{c(){r=$("div"),a=$("div"),M&&M.c(),n=k(),s=$("div"),o=$("h5"),i=S(w),l=k(),c=$("hr"),u=k(),d=$("div"),f=$("p"),h=S(D),m=k(),p=$("a"),g=S("Entre"),this.h()},l(e){r=P(e,"DIV",{style:!0});var t=N(r);a=P(t,"DIV",{class:!0});var v=N(a);M&&M.l(v),n=Y(v),s=P(v,"DIV",{class:!0});var y=N(s);o=P(y,"H5",{class:!0});var _=N(o);i=V(_,w),_.forEach(x),y.forEach(x),l=Y(v),c=P(v,"HR",{class:!0}),u=Y(v),d=P(v,"DIV",{class:!0});var b=N(d);f=P(b,"P",{class:!0});var E=N(f);h=V(E,D),E.forEach(x),m=Y(b),p=P(b,"A",{href:!0,target:!0,class:!0});var $=N(p);g=V($,"Entre"),$.forEach(x),b.forEach(x),v.forEach(x),t.forEach(x),this.h()},h(){T(o,"class","card-title mb-0"),T(s,"class","card-header"),T(c,"class","mb-0"),T(f,"class","card-text"),T(p,"href",v=t[0].url),T(p,"target","_blank"),T(p,"class","btn btn-primary"),T(d,"class","card-body"),T(a,"class","card sankarcard"),L(r,"margin","10px"),L(r,"max-width","400px")},m(e,v){E(e,r,v),b(r,a),M&&M.m(a,null),b(a,n),b(a,s),b(s,o),b(o,i),b(a,l),b(a,c),b(a,u),b(a,d),b(d,f),b(f,h),b(d,m),b(d,p),b(p,g),y||(_=I(p,"click",t[1]),y=!0)},p(e,[t]){null!==e[0].image&&""!==e[0].image?M?M.p(e,t):(M=In(e),M.c(),M.m(a,n)):M&&(M.d(1),M=null),1&t&&w!==(w=e[0].title+"")&&A(i,w),1&t&&D!==(D=e[0].description.substr(0,100)+"...")&&A(h,D),1&t&&v!==(v=e[0].url)&&T(p,"href",v)},i:e,o:e,d(e){e&&x(r),M&&M.d(),y=!1,_()}}}function Nn(e,t,r){let{link:a}=t,{name:n}=t;return e.$$set=e=>{"link"in e&&r(0,a=e.link),"name"in e&&r(2,n=e.name)},[a,async()=>{await Ar.post("/api/user/clickadd",{instagram:n,_id:a._id}).then((e=>console.log("done")))},n]}class On extends we{constructor(e){super(),_e(this,e,Nn,Tn,o,{link:0,name:2})}}function Pn(t){let r,a,n,s,o,i,l,c,u;return{c(){r=$("div"),a=$("div"),n=k(),s=$("div"),o=k(),i=$("div"),l=k(),c=$("h1"),u=S("Wait for it..."),this.h()},l(e){r=P(e,"DIV",{class:!0});var t=N(r);a=P(t,"DIV",{class:!0}),N(a).forEach(x),n=Y(t),s=P(t,"DIV",{class:!0}),N(s).forEach(x),o=Y(t),i=P(t,"DIV",{class:!0}),N(i).forEach(x),t.forEach(x),l=Y(e),c=P(e,"H1",{style:!0});var d=N(c);u=V(d,"Wait for it..."),d.forEach(x),this.h()},h(){T(a,"class","line svelte-1wgo5po"),T(s,"class","line svelte-1wgo5po"),T(i,"class","line svelte-1wgo5po"),T(r,"class","load-1 svelte-1wgo5po"),L(c,"text-align","center")},m(e,t){E(e,r,t),b(r,a),b(r,n),b(r,s),b(r,o),b(r,i),E(e,l,t),E(e,c,t),b(c,u)},p:e,i:e,o:e,d(e){e&&x(r),e&&x(l),e&&x(c)}}}class Vn extends we{constructor(e){super(),_e(this,e,null,Pn,o,{})}}function Yn(e,t,r){const a=e.slice();return a[3]=t[r],a}function An(t){let r,a,n,s;return n=new Vn({}),{c(){r=$("div"),a=$("div"),me(n.$$.fragment),this.h()},l(e){r=P(e,"DIV",{class:!0});var t=N(r);a=P(t,"DIV",{style:!0});var s=N(a);pe(n.$$.fragment,s),s.forEach(x),t.forEach(x),this.h()},h(){L(a,"margin-left","50%"),L(a,"margin-top","50vh"),L(a,"transform","translate(-50%,-50%)"),T(r,"class","row")},m(e,t){E(e,r,t),b(r,a),ge(n,a,null),s=!0},p:e,i(e){s||(ce(n.$$.fragment,e),s=!0)},o(e){ue(n.$$.fragment,e),s=!1},d(e){e&&x(r),ve(n)}}}function Cn(e){let t,r,a,n,s,o,i,c,u,d,f,h,m,p,g,v,y,_,w,M,I,O,C,R,U,j,H,B,W,F,G,q,z=e[1].instagram+"",Z=e[1].total_links+"";r=new Ze({});let J=e[2],X=[];for(let t=0;t<J.length;t+=1)X[t]=Ln(Yn(e,J,t));const Q=e=>ue(X[e],1,1,(()=>{X[e]=null}));return G=new Xe({}),{c(){t=$("div"),me(r.$$.fragment),a=k(),n=$("div"),s=$("div"),o=$("div"),i=$("div"),c=$("h5"),u=S("Detalhes do Perfil"),d=k(),f=$("div"),h=$("img"),g=k(),v=$("h5"),y=S(z),_=k(),w=$("div"),M=S("Opções : "),I=S(Z),O=k(),C=$("div"),R=$("a"),U=$("span"),j=S("Instagram"),B=k(),W=$("div");for(let e=0;e<X.length;e+=1)X[e].c();F=k(),me(G.$$.fragment),this.h()},l(e){t=P(e,"DIV",{class:!0});var l=N(t);pe(r.$$.fragment,l),a=Y(l),n=P(l,"DIV",{class:!0});var m=N(n);s=P(m,"DIV",{class:!0,style:!0});var p=N(s);o=P(p,"DIV",{class:!0,style:!0});var b=N(o);i=P(b,"DIV",{class:!0});var E=N(i);c=P(E,"H5",{class:!0});var D=N(c);u=V(D,"Detalhes do Perfil"),D.forEach(x),E.forEach(x),d=Y(b),f=P(b,"DIV",{class:!0});var $=N(f);h=P($,"IMG",{src:!0,alt:!0,class:!0,width:!0,height:!0}),g=Y($),v=P($,"H5",{class:!0});var S=N(v);y=V(S,z),S.forEach(x),_=Y($),w=P($,"DIV",{class:!0});var k=N(w);M=V(k,"Opções : "),I=V(k,Z),k.forEach(x),O=Y($),C=P($,"DIV",{});var T=N(C);R=P(T,"A",{class:!0,href:!0});var A=N(R);U=P(A,"SPAN",{"data-feather":!0}),N(U).forEach(x),j=V(A,"Instagram"),A.forEach(x),T.forEach(x),$.forEach(x),b.forEach(x),p.forEach(x),B=Y(m),W=P(m,"DIV",{class:!0,style:!0});var L=N(W);for(let e=0;e<X.length;e+=1)X[e].l(L);L.forEach(x),m.forEach(x),F=Y(l),pe(G.$$.fragment,l),l.forEach(x),this.h()},h(){T(c,"class","card-title mb-0"),T(i,"class","card-header"),l(h.src,m=e[1].dp)||T(h,"src",m),T(h,"alt",p=e[1].instagram),T(h,"class","img-fluid rounded-circle mb-2"),T(h,"width","128"),T(h,"height","128"),T(v,"class","card-title mb-0"),T(w,"class","text-muted mb-2"),T(U,"data-feather","instagram"),T(R,"class","btn btn-danger btn-sm"),T(R,"href",H="https://www.instagram.com/"+e[1].instagram+"/"),T(f,"class","card-body text-center"),T(o,"class","card mb-2"),L(o,"min-width","300px"),T(s,"class","row"),L(s,"justify-content","center"),T(W,"class","row"),L(W,"justify-content","center"),T(n,"class","content"),T(t,"class","main")},m(e,l){E(e,t,l),ge(r,t,null),b(t,a),b(t,n),b(n,s),b(s,o),b(o,i),b(i,c),b(c,u),b(o,d),b(o,f),b(f,h),b(f,g),b(f,v),b(v,y),b(f,_),b(f,w),b(w,M),b(w,I),b(f,O),b(f,C),b(C,R),b(R,U),b(R,j),b(n,B),b(n,W);for(let e=0;e<X.length;e+=1)X[e].m(W,null);b(t,F),ge(G,t,null),q=!0},p(e,t){if((!q||2&t&&!l(h.src,m=e[1].dp))&&T(h,"src",m),(!q||2&t&&p!==(p=e[1].instagram))&&T(h,"alt",p),(!q||2&t)&&z!==(z=e[1].instagram+"")&&A(y,z),(!q||2&t)&&Z!==(Z=e[1].total_links+"")&&A(I,Z),(!q||2&t&&H!==(H="https://www.instagram.com/"+e[1].instagram+"/"))&&T(R,"href",H),5&t){let r;for(J=e[2],r=0;r<J.length;r+=1){const a=Yn(e,J,r);X[r]?(X[r].p(a,t),ce(X[r],1)):(X[r]=Ln(a),X[r].c(),ce(X[r],1),X[r].m(W,null))}for(ie(),r=J.length;r<X.length;r+=1)Q(r);le()}},i(e){if(!q){ce(r.$$.fragment,e);for(let e=0;e<J.length;e+=1)ce(X[e]);ce(G.$$.fragment,e),q=!0}},o(e){ue(r.$$.fragment,e),X=X.filter(Boolean);for(let e=0;e<X.length;e+=1)ue(X[e]);ue(G.$$.fragment,e),q=!1},d(e){e&&x(t),ve(r),D(X,e),ve(G)}}}function Ln(e){let t,r;return t=new On({props:{link:e[3],name:e[0]}}),{c(){me(t.$$.fragment)},l(e){pe(t.$$.fragment,e)},m(e,a){ge(t,e,a),r=!0},p(e,r){const a={};4&r&&(a.link=e[3]),1&r&&(a.name=e[0]),t.$set(a)},i(e){r||(ce(t.$$.fragment,e),r=!0)},o(e){ue(t.$$.fragment,e),r=!1},d(e){ve(t,e)}}}function Rn(e){let t,r,a,n;const s=[Cn,An],o=[];function i(e,t){return null!=e[1]?0:1}return t=i(e),r=o[t]=s[t](e),{c(){r.c(),a=M()},l(e){r.l(e),a=M()},m(e,r){o[t].m(e,r),E(e,a,r),n=!0},p(e,[n]){let l=t;t=i(e),t===l?o[t].p(e,n):(ie(),ue(o[l],1,1,(()=>{o[l]=null})),le(),r=o[t],r?r.p(e,n):(r=o[t]=s[t](e),r.c()),ce(r,1),r.m(a.parentNode,a))},i(e){n||(ce(r),n=!0)},o(e){ue(r),n=!1},d(e){o[t].d(e),e&&x(a)}}}function Un(e,t,r){let a,{name:n}=t,s=[];return W((async()=>{console.log(n),r(1,a=await Br(n)),null===a&&(document.location.href="notfound"),r(2,s=a.links),console.log(a),Ar.post("/api/user/viewadd",{instagram:n}).then((e=>console.log("Done")))})),e.$$set=e=>{"name"in e&&r(0,n=e.name)},[n,a,s]}class jn extends we{constructor(e){super(),_e(this,e,Un,Rn,o,{name:0})}}function Hn(t){let r,a,n,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_;return{c(){r=$("div"),a=$("main"),n=$("div"),s=$("div"),o=$("div"),i=$("div"),l=$("div"),c=$("h1"),u=S("404"),d=k(),f=$("p"),h=S("Página não encontrada."),m=k(),p=$("p"),g=S("A página que você está procurando pode ter sido removida."),v=k(),y=$("a"),_=S("Voltar para o Início"),this.h()},l(e){r=P(e,"DIV",{class:!0});var t=N(r);a=P(t,"MAIN",{class:!0});var w=N(a);n=P(w,"DIV",{class:!0});var b=N(n);s=P(b,"DIV",{class:!0});var E=N(s);o=P(E,"DIV",{class:!0});var D=N(o);i=P(D,"DIV",{class:!0});var $=N(i);l=P($,"DIV",{class:!0});var S=N(l);c=P(S,"H1",{class:!0});var k=N(c);u=V(k,"404"),k.forEach(x),d=Y(S),f=P(S,"P",{class:!0});var M=N(f);h=V(M,"Página não encontrada."),M.forEach(x),m=Y(S),p=P(S,"P",{class:!0});var I=N(p);g=V(I,"A página que você está procurando pode ter sido removida."),I.forEach(x),v=Y(S),y=P(S,"A",{href:!0,class:!0});var T=N(y);_=V(T,"Voltar para o Início"),T.forEach(x),S.forEach(x),$.forEach(x),D.forEach(x),E.forEach(x),b.forEach(x),w.forEach(x),t.forEach(x),this.h()},h(){T(c,"class","display-1 font-weight-bold"),T(f,"class","h1"),T(p,"class","h2 font-weight-normal mt-3 mb-4"),T(y,"href","/"),T(y,"class","btn btn-primary btn-lg"),T(l,"class","text-center"),T(i,"class","d-table-cell align-middle"),T(o,"class","col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100"),T(s,"class","row h-100"),T(n,"class","container d-flex flex-column"),T(a,"class","content d-flex p-0"),T(r,"class","main d-flex justify-content-center w-100")},m(e,t){E(e,r,t),b(r,a),b(a,n),b(n,s),b(s,o),b(o,i),b(i,l),b(l,c),b(c,u),b(l,d),b(l,f),b(f,h),b(l,m),b(l,p),b(p,g),b(l,v),b(l,y),b(y,_)},p:e,i:e,o:e,d(e){e&&x(r)}}}class Bn extends we{constructor(e){super(),_e(this,e,null,Hn,o,{})}}function Wn(e){let t,r;return t=new et({}),{c(){me(t.$$.fragment)},l(e){pe(t.$$.fragment,e)},m(e,a){ge(t,e,a),r=!0},i(e){r||(ce(t.$$.fragment,e),r=!0)},o(e){ue(t.$$.fragment,e),r=!1},d(e){ve(t,e)}}}function Fn(e){let t,r;return t=new jn({props:{name:e[1].name}}),{c(){me(t.$$.fragment)},l(e){pe(t.$$.fragment,e)},m(e,a){ge(t,e,a),r=!0},p(e,r){const a={};2&r&&(a.name=e[1].name),t.$set(a)},i(e){r||(ce(t.$$.fragment,e),r=!0)},o(e){ue(t.$$.fragment,e),r=!1},d(e){ve(t,e)}}}function Gn(e){let t,r,a,n,s,o,i,l,c,u,d,f,h,m,p,g,v,y,_,w,D,S,M,I,T;return r=new Ge({props:{path:"/",$$slots:{default:[Wn]},$$scope:{ctx:e}}}),n=new Ge({props:{path:"/login",component:Xr}}),o=new Ge({props:{path:"/register",component:Aa}}),l=new Ge({props:{path:"/resetpassword",component:ja}}),u=new Ge({props:{path:"/dashboard",component:an}}),f=new Ge({props:{path:"/addlink",component:cn}}),m=new Ge({props:{path:"/editlink",component:gn}}),g=new Ge({props:{path:"/addschedule",component:bn}}),y=new Ge({props:{path:"/editschedule",component:Mn}}),w=new Ge({props:{path:"/notfound",component:Bn}}),S=new Ge({props:{path:"/:name",$$slots:{default:[Fn,({params:e})=>({1:e}),({params:e})=>e?2:0]},$$scope:{ctx:e}}}),I=new Ge({props:{path:"*",component:Bn}}),{c(){t=$("div"),me(r.$$.fragment),a=k(),me(n.$$.fragment),s=k(),me(o.$$.fragment),i=k(),me(l.$$.fragment),c=k(),me(u.$$.fragment),d=k(),me(f.$$.fragment),h=k(),me(m.$$.fragment),p=k(),me(g.$$.fragment),v=k(),me(y.$$.fragment),_=k(),me(w.$$.fragment),D=k(),me(S.$$.fragment),M=k(),me(I.$$.fragment)},l(e){t=P(e,"DIV",{});var b=N(t);pe(r.$$.fragment,b),a=Y(b),pe(n.$$.fragment,b),s=Y(b),pe(o.$$.fragment,b),i=Y(b),pe(l.$$.fragment,b),c=Y(b),pe(u.$$.fragment,b),d=Y(b),pe(f.$$.fragment,b),h=Y(b),pe(m.$$.fragment,b),p=Y(b),pe(g.$$.fragment,b),v=Y(b),pe(y.$$.fragment,b),_=Y(b),pe(w.$$.fragment,b),D=Y(b),pe(S.$$.fragment,b),M=Y(b),pe(I.$$.fragment,b),b.forEach(x)},m(e,x){E(e,t,x),ge(r,t,null),b(t,a),ge(n,t,null),b(t,s),ge(o,t,null),b(t,i),ge(l,t,null),b(t,c),ge(u,t,null),b(t,d),ge(f,t,null),b(t,h),ge(m,t,null),b(t,p),ge(g,t,null),b(t,v),ge(y,t,null),b(t,_),ge(w,t,null),b(t,D),ge(S,t,null),b(t,M),ge(I,t,null),T=!0},p(e,t){const a={};4&t&&(a.$$scope={dirty:t,ctx:e}),r.$set(a);const n={};6&t&&(n.$$scope={dirty:t,ctx:e}),S.$set(n)},i(e){T||(ce(r.$$.fragment,e),ce(n.$$.fragment,e),ce(o.$$.fragment,e),ce(l.$$.fragment,e),ce(u.$$.fragment,e),ce(f.$$.fragment,e),ce(m.$$.fragment,e),ce(g.$$.fragment,e),ce(y.$$.fragment,e),ce(w.$$.fragment,e),ce(S.$$.fragment,e),ce(I.$$.fragment,e),T=!0)},o(e){ue(r.$$.fragment,e),ue(n.$$.fragment,e),ue(o.$$.fragment,e),ue(l.$$.fragment,e),ue(u.$$.fragment,e),ue(f.$$.fragment,e),ue(m.$$.fragment,e),ue(g.$$.fragment,e),ue(y.$$.fragment,e),ue(w.$$.fragment,e),ue(S.$$.fragment,e),ue(I.$$.fragment,e),T=!1},d(e){e&&x(t),ve(r),ve(n),ve(o),ve(l),ve(u),ve(f),ve(m),ve(g),ve(y),ve(w),ve(S),ve(I)}}}function qn(e){let t,r;return t=new Le({props:{url:e[0],$$slots:{default:[Gn]},$$scope:{ctx:e}}}),{c(){me(t.$$.fragment)},l(e){pe(t.$$.fragment,e)},m(e,a){ge(t,e,a),r=!0},p(e,[r]){const a={};1&r&&(a.url=e[0]),4&r&&(a.$$scope={dirty:r,ctx:e}),t.$set(a)},i(e){r||(ce(t.$$.fragment,e),r=!0)},o(e){ue(t.$$.fragment,e),r=!1},d(e){ve(t,e)}}}function zn(e,t,r){let{url:a=""}=t;return e.$$set=e=>{"url"in e&&r(0,a=e.url)},[a]}return new class extends we{constructor(e){super(),_e(this,e,zn,qn,o,{url:0})}}({target:document.body,hydrate:!0})}();
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+var app = (function () {
+    'use strict';
+
+    function noop() { }
+    function assign(tar, src) {
+        // @ts-ignore
+        for (const k in src)
+            tar[k] = src[k];
+        return tar;
+    }
+    function add_location(element, file, line, column, char) {
+        element.__svelte_meta = {
+            loc: { file, line, column, char }
+        };
+    }
+    function run(fn) {
+        return fn();
+    }
+    function blank_object() {
+        return Object.create(null);
+    }
+    function run_all(fns) {
+        fns.forEach(run);
+    }
+    function is_function(thing) {
+        return typeof thing === 'function';
+    }
+    function safe_not_equal(a, b) {
+        return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+    }
+    let src_url_equal_anchor;
+    function src_url_equal(element_src, url) {
+        if (!src_url_equal_anchor) {
+            src_url_equal_anchor = document.createElement('a');
+        }
+        src_url_equal_anchor.href = url;
+        return element_src === src_url_equal_anchor.href;
+    }
+    function is_empty(obj) {
+        return Object.keys(obj).length === 0;
+    }
+    function validate_store(store, name) {
+        if (store != null && typeof store.subscribe !== 'function') {
+            throw new Error(`'${name}' is not a store with a 'subscribe' method`);
+        }
+    }
+    function subscribe(store, ...callbacks) {
+        if (store == null) {
+            return noop;
+        }
+        const unsub = store.subscribe(...callbacks);
+        return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+    }
+    function component_subscribe(component, store, callback) {
+        component.$$.on_destroy.push(subscribe(store, callback));
+    }
+    function create_slot(definition, ctx, $$scope, fn) {
+        if (definition) {
+            const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
+            return definition[0](slot_ctx);
+        }
+    }
+    function get_slot_context(definition, ctx, $$scope, fn) {
+        return definition[1] && fn
+            ? assign($$scope.ctx.slice(), definition[1](fn(ctx)))
+            : $$scope.ctx;
+    }
+    function get_slot_changes(definition, $$scope, dirty, fn) {
+        if (definition[2] && fn) {
+            const lets = definition[2](fn(dirty));
+            if ($$scope.dirty === undefined) {
+                return lets;
+            }
+            if (typeof lets === 'object') {
+                const merged = [];
+                const len = Math.max($$scope.dirty.length, lets.length);
+                for (let i = 0; i < len; i += 1) {
+                    merged[i] = $$scope.dirty[i] | lets[i];
+                }
+                return merged;
+            }
+            return $$scope.dirty | lets;
+        }
+        return $$scope.dirty;
+    }
+    function update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn) {
+        if (slot_changes) {
+            const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
+            slot.p(slot_context, slot_changes);
+        }
+    }
+    function get_all_dirty_from_scope($$scope) {
+        if ($$scope.ctx.length > 32) {
+            const dirty = [];
+            const length = $$scope.ctx.length / 32;
+            for (let i = 0; i < length; i++) {
+                dirty[i] = -1;
+            }
+            return dirty;
+        }
+        return -1;
+    }
+    function exclude_internal_props(props) {
+        const result = {};
+        for (const k in props)
+            if (k[0] !== '$')
+                result[k] = props[k];
+        return result;
+    }
+    function compute_rest_props(props, keys) {
+        const rest = {};
+        keys = new Set(keys);
+        for (const k in props)
+            if (!keys.has(k) && k[0] !== '$')
+                rest[k] = props[k];
+        return rest;
+    }
+    function action_destroyer(action_result) {
+        return action_result && is_function(action_result.destroy) ? action_result.destroy : noop;
+    }
+
+    // Track which nodes are claimed during hydration. Unclaimed nodes can then be removed from the DOM
+    // at the end of hydration without touching the remaining nodes.
+    let is_hydrating = false;
+    function start_hydrating() {
+        is_hydrating = true;
+    }
+    function end_hydrating() {
+        is_hydrating = false;
+    }
+    function upper_bound(low, high, key, value) {
+        // Return first index of value larger than input value in the range [low, high)
+        while (low < high) {
+            const mid = low + ((high - low) >> 1);
+            if (key(mid) <= value) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+    function init_hydrate(target) {
+        if (target.hydrate_init)
+            return;
+        target.hydrate_init = true;
+        // We know that all children have claim_order values since the unclaimed have been detached if target is not <head>
+        let children = target.childNodes;
+        // If target is <head>, there may be children without claim_order
+        if (target.nodeName === 'HEAD') {
+            const myChildren = [];
+            for (let i = 0; i < children.length; i++) {
+                const node = children[i];
+                if (node.claim_order !== undefined) {
+                    myChildren.push(node);
+                }
+            }
+            children = myChildren;
+        }
+        /*
+        * Reorder claimed children optimally.
+        * We can reorder claimed children optimally by finding the longest subsequence of
+        * nodes that are already claimed in order and only moving the rest. The longest
+        * subsequence subsequence of nodes that are claimed in order can be found by
+        * computing the longest increasing subsequence of .claim_order values.
+        *
+        * This algorithm is optimal in generating the least amount of reorder operations
+        * possible.
+        *
+        * Proof:
+        * We know that, given a set of reordering operations, the nodes that do not move
+        * always form an increasing subsequence, since they do not move among each other
+        * meaning that they must be already ordered among each other. Thus, the maximal
+        * set of nodes that do not move form a longest increasing subsequence.
+        */
+        // Compute longest increasing subsequence
+        // m: subsequence length j => index k of smallest value that ends an increasing subsequence of length j
+        const m = new Int32Array(children.length + 1);
+        // Predecessor indices + 1
+        const p = new Int32Array(children.length);
+        m[0] = -1;
+        let longest = 0;
+        for (let i = 0; i < children.length; i++) {
+            const current = children[i].claim_order;
+            // Find the largest subsequence length such that it ends in a value less than our current value
+            // upper_bound returns first greater value, so we subtract one
+            // with fast path for when we are on the current longest subsequence
+            const seqLen = ((longest > 0 && children[m[longest]].claim_order <= current) ? longest + 1 : upper_bound(1, longest, idx => children[m[idx]].claim_order, current)) - 1;
+            p[i] = m[seqLen] + 1;
+            const newLen = seqLen + 1;
+            // We can guarantee that current is the smallest value. Otherwise, we would have generated a longer sequence.
+            m[newLen] = i;
+            longest = Math.max(newLen, longest);
+        }
+        // The longest increasing subsequence of nodes (initially reversed)
+        const lis = [];
+        // The rest of the nodes, nodes that will be moved
+        const toMove = [];
+        let last = children.length - 1;
+        for (let cur = m[longest] + 1; cur != 0; cur = p[cur - 1]) {
+            lis.push(children[cur - 1]);
+            for (; last >= cur; last--) {
+                toMove.push(children[last]);
+            }
+            last--;
+        }
+        for (; last >= 0; last--) {
+            toMove.push(children[last]);
+        }
+        lis.reverse();
+        // We sort the nodes being moved to guarantee that their insertion order matches the claim order
+        toMove.sort((a, b) => a.claim_order - b.claim_order);
+        // Finally, we move the nodes
+        for (let i = 0, j = 0; i < toMove.length; i++) {
+            while (j < lis.length && toMove[i].claim_order >= lis[j].claim_order) {
+                j++;
+            }
+            const anchor = j < lis.length ? lis[j] : null;
+            target.insertBefore(toMove[i], anchor);
+        }
+    }
+    function append_hydration(target, node) {
+        if (is_hydrating) {
+            init_hydrate(target);
+            if ((target.actual_end_child === undefined) || ((target.actual_end_child !== null) && (target.actual_end_child.parentElement !== target))) {
+                target.actual_end_child = target.firstChild;
+            }
+            // Skip nodes of undefined ordering
+            while ((target.actual_end_child !== null) && (target.actual_end_child.claim_order === undefined)) {
+                target.actual_end_child = target.actual_end_child.nextSibling;
+            }
+            if (node !== target.actual_end_child) {
+                // We only insert if the ordering of this node should be modified or the parent node is not target
+                if (node.claim_order !== undefined || node.parentNode !== target) {
+                    target.insertBefore(node, target.actual_end_child);
+                }
+            }
+            else {
+                target.actual_end_child = node.nextSibling;
+            }
+        }
+        else if (node.parentNode !== target || node.nextSibling !== null) {
+            target.appendChild(node);
+        }
+    }
+    function insert_hydration(target, node, anchor) {
+        if (is_hydrating && !anchor) {
+            append_hydration(target, node);
+        }
+        else if (node.parentNode !== target || node.nextSibling != anchor) {
+            target.insertBefore(node, anchor || null);
+        }
+    }
+    function detach(node) {
+        node.parentNode.removeChild(node);
+    }
+    function destroy_each(iterations, detaching) {
+        for (let i = 0; i < iterations.length; i += 1) {
+            if (iterations[i])
+                iterations[i].d(detaching);
+        }
+    }
+    function element(name) {
+        return document.createElement(name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
+    }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else if (node.getAttribute(attribute) !== value)
+            node.setAttribute(attribute, value);
+    }
+    function set_attributes(node, attributes) {
+        // @ts-ignore
+        const descriptors = Object.getOwnPropertyDescriptors(node.__proto__);
+        for (const key in attributes) {
+            if (attributes[key] == null) {
+                node.removeAttribute(key);
+            }
+            else if (key === 'style') {
+                node.style.cssText = attributes[key];
+            }
+            else if (key === '__value') {
+                node.value = node[key] = attributes[key];
+            }
+            else if (descriptors[key] && descriptors[key].set) {
+                node[key] = attributes[key];
+            }
+            else {
+                attr(node, key, attributes[key]);
+            }
+        }
+    }
+    function children(element) {
+        return Array.from(element.childNodes);
+    }
+    function init_claim_info(nodes) {
+        if (nodes.claim_info === undefined) {
+            nodes.claim_info = { last_index: 0, total_claimed: 0 };
+        }
+    }
+    function claim_node(nodes, predicate, processNode, createNode, dontUpdateLastIndex = false) {
+        // Try to find nodes in an order such that we lengthen the longest increasing subsequence
+        init_claim_info(nodes);
+        const resultNode = (() => {
+            // We first try to find an element after the previous one
+            for (let i = nodes.claim_info.last_index; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (predicate(node)) {
+                    const replacement = processNode(node);
+                    if (replacement === undefined) {
+                        nodes.splice(i, 1);
+                    }
+                    else {
+                        nodes[i] = replacement;
+                    }
+                    if (!dontUpdateLastIndex) {
+                        nodes.claim_info.last_index = i;
+                    }
+                    return node;
+                }
+            }
+            // Otherwise, we try to find one before
+            // We iterate in reverse so that we don't go too far back
+            for (let i = nodes.claim_info.last_index - 1; i >= 0; i--) {
+                const node = nodes[i];
+                if (predicate(node)) {
+                    const replacement = processNode(node);
+                    if (replacement === undefined) {
+                        nodes.splice(i, 1);
+                    }
+                    else {
+                        nodes[i] = replacement;
+                    }
+                    if (!dontUpdateLastIndex) {
+                        nodes.claim_info.last_index = i;
+                    }
+                    else if (replacement === undefined) {
+                        // Since we spliced before the last_index, we decrease it
+                        nodes.claim_info.last_index--;
+                    }
+                    return node;
+                }
+            }
+            // If we can't find any matching node, we create a new one
+            return createNode();
+        })();
+        resultNode.claim_order = nodes.claim_info.total_claimed;
+        nodes.claim_info.total_claimed += 1;
+        return resultNode;
+    }
+    function claim_element_base(nodes, name, attributes, create_element) {
+        return claim_node(nodes, (node) => node.nodeName === name, (node) => {
+            const remove = [];
+            for (let j = 0; j < node.attributes.length; j++) {
+                const attribute = node.attributes[j];
+                if (!attributes[attribute.name]) {
+                    remove.push(attribute.name);
+                }
+            }
+            remove.forEach(v => node.removeAttribute(v));
+            return undefined;
+        }, () => create_element(name));
+    }
+    function claim_element(nodes, name, attributes) {
+        return claim_element_base(nodes, name, attributes, element);
+    }
+    function claim_text(nodes, data) {
+        return claim_node(nodes, (node) => node.nodeType === 3, (node) => {
+            const dataStr = '' + data;
+            if (node.data.startsWith(dataStr)) {
+                if (node.data.length !== dataStr.length) {
+                    return node.splitText(dataStr.length);
+                }
+            }
+            else {
+                node.data = dataStr;
+            }
+        }, () => text(data), true // Text nodes should not update last index since it is likely not worth it to eliminate an increasing subsequence of actual elements
+        );
+    }
+    function claim_space(nodes) {
+        return claim_text(nodes, ' ');
+    }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
+    }
+    function set_style(node, key, value, important) {
+        if (value === null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
+    }
+    function select_option(select, value) {
+        for (let i = 0; i < select.options.length; i += 1) {
+            const option = select.options[i];
+            if (option.__value === value) {
+                option.selected = true;
+                return;
+            }
+        }
+        select.selectedIndex = -1; // no option should be selected
+    }
+    function select_value(select) {
+        const selected_option = select.querySelector(':checked') || select.options[0];
+        return selected_option && selected_option.__value;
+    }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
+    function custom_event(type, detail, bubbles = false) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, bubbles, false, detail);
+        return e;
+    }
+
+    let current_component;
+    function set_current_component(component) {
+        current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error('Function called outside component initialization');
+        return current_component;
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
+    function onDestroy(fn) {
+        get_current_component().$$.on_destroy.push(fn);
+    }
+    function createEventDispatcher() {
+        const component = get_current_component();
+        return (type, detail) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail);
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+            }
+        };
+    }
+    function setContext(key, context) {
+        get_current_component().$$.context.set(key, context);
+    }
+    function getContext(key) {
+        return get_current_component().$$.context.get(key);
+    }
+
+    const dirty_components = [];
+    const binding_callbacks = [];
+    const render_callbacks = [];
+    const flush_callbacks = [];
+    const resolved_promise = Promise.resolve();
+    let update_scheduled = false;
+    function schedule_update() {
+        if (!update_scheduled) {
+            update_scheduled = true;
+            resolved_promise.then(flush);
+        }
+    }
+    function add_render_callback(fn) {
+        render_callbacks.push(fn);
+    }
+    // flush() calls callbacks in this order:
+    // 1. All beforeUpdate callbacks, in order: parents before children
+    // 2. All bind:this callbacks, in reverse order: children before parents.
+    // 3. All afterUpdate callbacks, in order: parents before children. EXCEPT
+    //    for afterUpdates called during the initial onMount, which are called in
+    //    reverse order: children before parents.
+    // Since callbacks might update component values, which could trigger another
+    // call to flush(), the following steps guard against this:
+    // 1. During beforeUpdate, any updated components will be added to the
+    //    dirty_components array and will cause a reentrant call to flush(). Because
+    //    the flush index is kept outside the function, the reentrant call will pick
+    //    up where the earlier call left off and go through all dirty components. The
+    //    current_component value is saved and restored so that the reentrant call will
+    //    not interfere with the "parent" flush() call.
+    // 2. bind:this callbacks cannot trigger new flush() calls.
+    // 3. During afterUpdate, any updated components will NOT have their afterUpdate
+    //    callback called a second time; the seen_callbacks set, outside the flush()
+    //    function, guarantees this behavior.
+    const seen_callbacks = new Set();
+    let flushidx = 0; // Do *not* move this inside the flush() function
+    function flush() {
+        const saved_component = current_component;
+        do {
+            // first, call beforeUpdate functions
+            // and update components
+            while (flushidx < dirty_components.length) {
+                const component = dirty_components[flushidx];
+                flushidx++;
+                set_current_component(component);
+                update(component.$$);
+            }
+            set_current_component(null);
+            dirty_components.length = 0;
+            flushidx = 0;
+            while (binding_callbacks.length)
+                binding_callbacks.pop()();
+            // then, once components are updated, call
+            // afterUpdate functions. This may cause
+            // subsequent updates...
+            for (let i = 0; i < render_callbacks.length; i += 1) {
+                const callback = render_callbacks[i];
+                if (!seen_callbacks.has(callback)) {
+                    // ...so guard against infinite loops
+                    seen_callbacks.add(callback);
+                    callback();
+                }
+            }
+            render_callbacks.length = 0;
+        } while (dirty_components.length);
+        while (flush_callbacks.length) {
+            flush_callbacks.pop()();
+        }
+        update_scheduled = false;
+        seen_callbacks.clear();
+        set_current_component(saved_component);
+    }
+    function update($$) {
+        if ($$.fragment !== null) {
+            $$.update();
+            run_all($$.before_update);
+            const dirty = $$.dirty;
+            $$.dirty = [-1];
+            $$.fragment && $$.fragment.p($$.ctx, dirty);
+            $$.after_update.forEach(add_render_callback);
+        }
+    }
+    const outroing = new Set();
+    let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
+    function transition_in(block, local) {
+        if (block && block.i) {
+            outroing.delete(block);
+            block.i(local);
+        }
+    }
+    function transition_out(block, local, detach, callback) {
+        if (block && block.o) {
+            if (outroing.has(block))
+                return;
+            outroing.add(block);
+            outros.c.push(() => {
+                outroing.delete(block);
+                if (callback) {
+                    if (detach)
+                        block.d(1);
+                    callback();
+                }
+            });
+            block.o(local);
+        }
+    }
+
+    const globals = (typeof window !== 'undefined'
+        ? window
+        : typeof globalThis !== 'undefined'
+            ? globalThis
+            : global);
+
+    function destroy_block(block, lookup) {
+        block.d(1);
+        lookup.delete(block.key);
+    }
+    function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block, next, get_context) {
+        let o = old_blocks.length;
+        let n = list.length;
+        let i = o;
+        const old_indexes = {};
+        while (i--)
+            old_indexes[old_blocks[i].key] = i;
+        const new_blocks = [];
+        const new_lookup = new Map();
+        const deltas = new Map();
+        i = n;
+        while (i--) {
+            const child_ctx = get_context(ctx, list, i);
+            const key = get_key(child_ctx);
+            let block = lookup.get(key);
+            if (!block) {
+                block = create_each_block(key, child_ctx);
+                block.c();
+            }
+            else if (dynamic) {
+                block.p(child_ctx, dirty);
+            }
+            new_lookup.set(key, new_blocks[i] = block);
+            if (key in old_indexes)
+                deltas.set(key, Math.abs(i - old_indexes[key]));
+        }
+        const will_move = new Set();
+        const did_move = new Set();
+        function insert(block) {
+            transition_in(block, 1);
+            block.m(node, next);
+            lookup.set(block.key, block);
+            next = block.first;
+            n--;
+        }
+        while (o && n) {
+            const new_block = new_blocks[n - 1];
+            const old_block = old_blocks[o - 1];
+            const new_key = new_block.key;
+            const old_key = old_block.key;
+            if (new_block === old_block) {
+                // do nothing
+                next = new_block.first;
+                o--;
+                n--;
+            }
+            else if (!new_lookup.has(old_key)) {
+                // remove old block
+                destroy(old_block, lookup);
+                o--;
+            }
+            else if (!lookup.has(new_key) || will_move.has(new_key)) {
+                insert(new_block);
+            }
+            else if (did_move.has(old_key)) {
+                o--;
+            }
+            else if (deltas.get(new_key) > deltas.get(old_key)) {
+                did_move.add(new_key);
+                insert(new_block);
+            }
+            else {
+                will_move.add(old_key);
+                o--;
+            }
+        }
+        while (o--) {
+            const old_block = old_blocks[o];
+            if (!new_lookup.has(old_block.key))
+                destroy(old_block, lookup);
+        }
+        while (n)
+            insert(new_blocks[n - 1]);
+        return new_blocks;
+    }
+    function validate_each_keys(ctx, list, get_context, get_key) {
+        const keys = new Set();
+        for (let i = 0; i < list.length; i++) {
+            const key = get_key(get_context(ctx, list, i));
+            if (keys.has(key)) {
+                throw new Error('Cannot have duplicate keys in a keyed each');
+            }
+            keys.add(key);
+        }
+    }
+
+    function get_spread_update(levels, updates) {
+        const update = {};
+        const to_null_out = {};
+        const accounted_for = { $$scope: 1 };
+        let i = levels.length;
+        while (i--) {
+            const o = levels[i];
+            const n = updates[i];
+            if (n) {
+                for (const key in o) {
+                    if (!(key in n))
+                        to_null_out[key] = 1;
+                }
+                for (const key in n) {
+                    if (!accounted_for[key]) {
+                        update[key] = n[key];
+                        accounted_for[key] = 1;
+                    }
+                }
+                levels[i] = n;
+            }
+            else {
+                for (const key in o) {
+                    accounted_for[key] = 1;
+                }
+            }
+        }
+        for (const key in to_null_out) {
+            if (!(key in update))
+                update[key] = undefined;
+        }
+        return update;
+    }
+    function get_spread_object(spread_props) {
+        return typeof spread_props === 'object' && spread_props !== null ? spread_props : {};
+    }
+    function create_component(block) {
+        block && block.c();
+    }
+    function claim_component(block, parent_nodes) {
+        block && block.l(parent_nodes);
+    }
+    function mount_component(component, target, anchor, customElement) {
+        const { fragment, on_mount, on_destroy, after_update } = component.$$;
+        fragment && fragment.m(target, anchor);
+        if (!customElement) {
+            // onMount happens before the initial afterUpdate
+            add_render_callback(() => {
+                const new_on_destroy = on_mount.map(run).filter(is_function);
+                if (on_destroy) {
+                    on_destroy.push(...new_on_destroy);
+                }
+                else {
+                    // Edge case - component was destroyed immediately,
+                    // most likely as a result of a binding initialising
+                    run_all(new_on_destroy);
+                }
+                component.$$.on_mount = [];
+            });
+        }
+        after_update.forEach(add_render_callback);
+    }
+    function destroy_component(component, detaching) {
+        const $$ = component.$$;
+        if ($$.fragment !== null) {
+            run_all($$.on_destroy);
+            $$.fragment && $$.fragment.d(detaching);
+            // TODO null out other refs, including component.$$ (but need to
+            // preserve final state?)
+            $$.on_destroy = $$.fragment = null;
+            $$.ctx = [];
+        }
+    }
+    function make_dirty(component, i) {
+        if (component.$$.dirty[0] === -1) {
+            dirty_components.push(component);
+            schedule_update();
+            component.$$.dirty.fill(0);
+        }
+        component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
+    }
+    function init(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
+        const parent_component = current_component;
+        set_current_component(component);
+        const $$ = component.$$ = {
+            fragment: null,
+            ctx: null,
+            // state
+            props,
+            update: noop,
+            not_equal,
+            bound: blank_object(),
+            // lifecycle
+            on_mount: [],
+            on_destroy: [],
+            on_disconnect: [],
+            before_update: [],
+            after_update: [],
+            context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
+            // everything else
+            callbacks: blank_object(),
+            dirty,
+            skip_bound: false,
+            root: options.target || parent_component.$$.root
+        };
+        append_styles && append_styles($$.root);
+        let ready = false;
+        $$.ctx = instance
+            ? instance(component, options.props || {}, (i, ret, ...rest) => {
+                const value = rest.length ? rest[0] : ret;
+                if ($$.ctx && not_equal($$.ctx[i], $$.ctx[i] = value)) {
+                    if (!$$.skip_bound && $$.bound[i])
+                        $$.bound[i](value);
+                    if (ready)
+                        make_dirty(component, i);
+                }
+                return ret;
+            })
+            : [];
+        $$.update();
+        ready = true;
+        run_all($$.before_update);
+        // `false` as a special case of no DOM component
+        $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
+        if (options.target) {
+            if (options.hydrate) {
+                start_hydrating();
+                const nodes = children(options.target);
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.l(nodes);
+                nodes.forEach(detach);
+            }
+            else {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.c();
+            }
+            if (options.intro)
+                transition_in(component.$$.fragment);
+            mount_component(component, options.target, options.anchor, options.customElement);
+            end_hydrating();
+            flush();
+        }
+        set_current_component(parent_component);
+    }
+    /**
+     * Base class for Svelte components. Used when dev=false.
+     */
+    class SvelteComponent {
+        $destroy() {
+            destroy_component(this, 1);
+            this.$destroy = noop;
+        }
+        $on(type, callback) {
+            const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+            callbacks.push(callback);
+            return () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1)
+                    callbacks.splice(index, 1);
+            };
+        }
+        $set($$props) {
+            if (this.$$set && !is_empty($$props)) {
+                this.$$.skip_bound = true;
+                this.$$set($$props);
+                this.$$.skip_bound = false;
+            }
+        }
+    }
+
+    function dispatch_dev(type, detail) {
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.47.0' }, detail), true));
+    }
+    function append_hydration_dev(target, node) {
+        dispatch_dev('SvelteDOMInsert', { target, node });
+        append_hydration(target, node);
+    }
+    function insert_hydration_dev(target, node, anchor) {
+        dispatch_dev('SvelteDOMInsert', { target, node, anchor });
+        insert_hydration(target, node, anchor);
+    }
+    function detach_dev(node) {
+        dispatch_dev('SvelteDOMRemove', { node });
+        detach(node);
+    }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ['capture'] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev('SvelteDOMAddEventListener', { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev('SvelteDOMRemoveEventListener', { node, event, handler, modifiers });
+            dispose();
+        };
+    }
+    function attr_dev(node, attribute, value) {
+        attr(node, attribute, value);
+        if (value == null)
+            dispatch_dev('SvelteDOMRemoveAttribute', { node, attribute });
+        else
+            dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
+    }
+    function prop_dev(node, property, value) {
+        node[property] = value;
+        dispatch_dev('SvelteDOMSetProperty', { node, property, value });
+    }
+    function set_data_dev(text, data) {
+        data = '' + data;
+        if (text.wholeText === data)
+            return;
+        dispatch_dev('SvelteDOMSetData', { node: text, data });
+        text.data = data;
+    }
+    function validate_each_argument(arg) {
+        if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
+            let msg = '{#each} only iterates over array-like objects.';
+            if (typeof Symbol === 'function' && arg && Symbol.iterator in arg) {
+                msg += ' You can use a spread to convert this iterable into an array.';
+            }
+            throw new Error(msg);
+        }
+    }
+    function validate_slots(name, slot, keys) {
+        for (const slot_key of Object.keys(slot)) {
+            if (!~keys.indexOf(slot_key)) {
+                console.warn(`<${name}> received an unexpected slot "${slot_key}".`);
+            }
+        }
+    }
+    /**
+     * Base class for Svelte components with some minor dev-enhancements. Used when dev=true.
+     */
+    class SvelteComponentDev extends SvelteComponent {
+        constructor(options) {
+            if (!options || (!options.target && !options.$$inline)) {
+                throw new Error("'target' is a required option");
+            }
+            super();
+        }
+        $destroy() {
+            super.$destroy();
+            this.$destroy = () => {
+                console.warn('Component was already destroyed'); // eslint-disable-line no-console
+            };
+        }
+        $capture_state() { }
+        $inject_state() { }
+    }
+
+    const subscriber_queue = [];
+    /**
+     * Creates a `Readable` store that allows reading by subscription.
+     * @param value initial value
+     * @param {StartStopNotifier}start start and stop notifications for subscriptions
+     */
+    function readable(value, start) {
+        return {
+            subscribe: writable(value, start).subscribe
+        };
+    }
+    /**
+     * Create a `Writable` store that allows both updating and reading by subscription.
+     * @param {*=}value initial value
+     * @param {StartStopNotifier=}start start and stop notifications for subscriptions
+     */
+    function writable(value, start = noop) {
+        let stop;
+        const subscribers = new Set();
+        function set(new_value) {
+            if (safe_not_equal(value, new_value)) {
+                value = new_value;
+                if (stop) { // store is ready
+                    const run_queue = !subscriber_queue.length;
+                    for (const subscriber of subscribers) {
+                        subscriber[1]();
+                        subscriber_queue.push(subscriber, value);
+                    }
+                    if (run_queue) {
+                        for (let i = 0; i < subscriber_queue.length; i += 2) {
+                            subscriber_queue[i][0](subscriber_queue[i + 1]);
+                        }
+                        subscriber_queue.length = 0;
+                    }
+                }
+            }
+        }
+        function update(fn) {
+            set(fn(value));
+        }
+        function subscribe(run, invalidate = noop) {
+            const subscriber = [run, invalidate];
+            subscribers.add(subscriber);
+            if (subscribers.size === 1) {
+                stop = start(set) || noop;
+            }
+            run(value);
+            return () => {
+                subscribers.delete(subscriber);
+                if (subscribers.size === 0) {
+                    stop();
+                    stop = null;
+                }
+            };
+        }
+        return { set, update, subscribe };
+    }
+    function derived(stores, fn, initial_value) {
+        const single = !Array.isArray(stores);
+        const stores_array = single
+            ? [stores]
+            : stores;
+        const auto = fn.length < 2;
+        return readable(initial_value, (set) => {
+            let inited = false;
+            const values = [];
+            let pending = 0;
+            let cleanup = noop;
+            const sync = () => {
+                if (pending) {
+                    return;
+                }
+                cleanup();
+                const result = fn(single ? values[0] : values, set);
+                if (auto) {
+                    set(result);
+                }
+                else {
+                    cleanup = is_function(result) ? result : noop;
+                }
+            };
+            const unsubscribers = stores_array.map((store, i) => subscribe(store, (value) => {
+                values[i] = value;
+                pending &= ~(1 << i);
+                if (inited) {
+                    sync();
+                }
+            }, () => {
+                pending |= (1 << i);
+            }));
+            inited = true;
+            sync();
+            return function stop() {
+                run_all(unsubscribers);
+                cleanup();
+            };
+        });
+    }
+
+    const LOCATION = {};
+    const ROUTER = {};
+
+    /**
+     * Adapted from https://github.com/reach/router/blob/b60e6dd781d5d3a4bdaaf4de665649c0f6a7e78d/src/lib/history.js
+     *
+     * https://github.com/reach/router/blob/master/LICENSE
+     * */
+
+    function getLocation(source) {
+      return {
+        ...source.location,
+        state: source.history.state,
+        key: (source.history.state && source.history.state.key) || "initial"
+      };
+    }
+
+    function createHistory(source, options) {
+      const listeners = [];
+      let location = getLocation(source);
+
+      return {
+        get location() {
+          return location;
+        },
+
+        listen(listener) {
+          listeners.push(listener);
+
+          const popstateListener = () => {
+            location = getLocation(source);
+            listener({ location, action: "POP" });
+          };
+
+          source.addEventListener("popstate", popstateListener);
+
+          return () => {
+            source.removeEventListener("popstate", popstateListener);
+
+            const index = listeners.indexOf(listener);
+            listeners.splice(index, 1);
+          };
+        },
+
+        navigate(to, { state, replace = false } = {}) {
+          state = { ...state, key: Date.now() + "" };
+          // try...catch iOS Safari limits to 100 pushState calls
+          try {
+            if (replace) {
+              source.history.replaceState(state, null, to);
+            } else {
+              source.history.pushState(state, null, to);
+            }
+          } catch (e) {
+            source.location[replace ? "replace" : "assign"](to);
+          }
+
+          location = getLocation(source);
+          listeners.forEach(listener => listener({ location, action: "PUSH" }));
+        }
+      };
+    }
+
+    // Stores history entries in memory for testing or other platforms like Native
+    function createMemorySource(initialPathname = "/") {
+      let index = 0;
+      const stack = [{ pathname: initialPathname, search: "" }];
+      const states = [];
+
+      return {
+        get location() {
+          return stack[index];
+        },
+        addEventListener(name, fn) {},
+        removeEventListener(name, fn) {},
+        history: {
+          get entries() {
+            return stack;
+          },
+          get index() {
+            return index;
+          },
+          get state() {
+            return states[index];
+          },
+          pushState(state, _, uri) {
+            const [pathname, search = ""] = uri.split("?");
+            index++;
+            stack.push({ pathname, search });
+            states.push(state);
+          },
+          replaceState(state, _, uri) {
+            const [pathname, search = ""] = uri.split("?");
+            stack[index] = { pathname, search };
+            states[index] = state;
+          }
+        }
+      };
+    }
+
+    // Global history uses window.history as the source if available,
+    // otherwise a memory history
+    const canUseDOM = Boolean(
+      typeof window !== "undefined" &&
+        window.document &&
+        window.document.createElement
+    );
+    const globalHistory = createHistory(canUseDOM ? window : createMemorySource());
+    const { navigate } = globalHistory;
+
+    /**
+     * Adapted from https://github.com/reach/router/blob/b60e6dd781d5d3a4bdaaf4de665649c0f6a7e78d/src/lib/utils.js
+     *
+     * https://github.com/reach/router/blob/master/LICENSE
+     * */
+
+    const paramRe = /^:(.+)/;
+
+    const SEGMENT_POINTS = 4;
+    const STATIC_POINTS = 3;
+    const DYNAMIC_POINTS = 2;
+    const SPLAT_PENALTY = 1;
+    const ROOT_POINTS = 1;
+
+    /**
+     * Check if `string` starts with `search`
+     * @param {string} string
+     * @param {string} search
+     * @return {boolean}
+     */
+    function startsWith(string, search) {
+      return string.substr(0, search.length) === search;
+    }
+
+    /**
+     * Check if `segment` is a root segment
+     * @param {string} segment
+     * @return {boolean}
+     */
+    function isRootSegment(segment) {
+      return segment === "";
+    }
+
+    /**
+     * Check if `segment` is a dynamic segment
+     * @param {string} segment
+     * @return {boolean}
+     */
+    function isDynamic(segment) {
+      return paramRe.test(segment);
+    }
+
+    /**
+     * Check if `segment` is a splat
+     * @param {string} segment
+     * @return {boolean}
+     */
+    function isSplat(segment) {
+      return segment[0] === "*";
+    }
+
+    /**
+     * Split up the URI into segments delimited by `/`
+     * @param {string} uri
+     * @return {string[]}
+     */
+    function segmentize(uri) {
+      return (
+        uri
+          // Strip starting/ending `/`
+          .replace(/(^\/+|\/+$)/g, "")
+          .split("/")
+      );
+    }
+
+    /**
+     * Strip `str` of potential start and end `/`
+     * @param {string} str
+     * @return {string}
+     */
+    function stripSlashes(str) {
+      return str.replace(/(^\/+|\/+$)/g, "");
+    }
+
+    /**
+     * Score a route depending on how its individual segments look
+     * @param {object} route
+     * @param {number} index
+     * @return {object}
+     */
+    function rankRoute(route, index) {
+      const score = route.default
+        ? 0
+        : segmentize(route.path).reduce((score, segment) => {
+            score += SEGMENT_POINTS;
+
+            if (isRootSegment(segment)) {
+              score += ROOT_POINTS;
+            } else if (isDynamic(segment)) {
+              score += DYNAMIC_POINTS;
+            } else if (isSplat(segment)) {
+              score -= SEGMENT_POINTS + SPLAT_PENALTY;
+            } else {
+              score += STATIC_POINTS;
+            }
+
+            return score;
+          }, 0);
+
+      return { route, score, index };
+    }
+
+    /**
+     * Give a score to all routes and sort them on that
+     * @param {object[]} routes
+     * @return {object[]}
+     */
+    function rankRoutes(routes) {
+      return (
+        routes
+          .map(rankRoute)
+          // If two routes have the exact same score, we go by index instead
+          .sort((a, b) =>
+            a.score < b.score ? 1 : a.score > b.score ? -1 : a.index - b.index
+          )
+      );
+    }
+
+    /**
+     * Ranks and picks the best route to match. Each segment gets the highest
+     * amount of points, then the type of segment gets an additional amount of
+     * points where
+     *
+     *  static > dynamic > splat > root
+     *
+     * This way we don't have to worry about the order of our routes, let the
+     * computers do it.
+     *
+     * A route looks like this
+     *
+     *  { path, default, value }
+     *
+     * And a returned match looks like:
+     *
+     *  { route, params, uri }
+     *
+     * @param {object[]} routes
+     * @param {string} uri
+     * @return {?object}
+     */
+    function pick(routes, uri) {
+      let match;
+      let default_;
+
+      const [uriPathname] = uri.split("?");
+      const uriSegments = segmentize(uriPathname);
+      const isRootUri = uriSegments[0] === "";
+      const ranked = rankRoutes(routes);
+
+      for (let i = 0, l = ranked.length; i < l; i++) {
+        const route = ranked[i].route;
+        let missed = false;
+
+        if (route.default) {
+          default_ = {
+            route,
+            params: {},
+            uri
+          };
+          continue;
+        }
+
+        const routeSegments = segmentize(route.path);
+        const params = {};
+        const max = Math.max(uriSegments.length, routeSegments.length);
+        let index = 0;
+
+        for (; index < max; index++) {
+          const routeSegment = routeSegments[index];
+          const uriSegment = uriSegments[index];
+
+          if (routeSegment !== undefined && isSplat(routeSegment)) {
+            // Hit a splat, just grab the rest, and return a match
+            // uri:   /files/documents/work
+            // route: /files/* or /files/*splatname
+            const splatName = routeSegment === "*" ? "*" : routeSegment.slice(1);
+
+            params[splatName] = uriSegments
+              .slice(index)
+              .map(decodeURIComponent)
+              .join("/");
+            break;
+          }
+
+          if (uriSegment === undefined) {
+            // URI is shorter than the route, no match
+            // uri:   /users
+            // route: /users/:userId
+            missed = true;
+            break;
+          }
+
+          let dynamicMatch = paramRe.exec(routeSegment);
+
+          if (dynamicMatch && !isRootUri) {
+            const value = decodeURIComponent(uriSegment);
+            params[dynamicMatch[1]] = value;
+          } else if (routeSegment !== uriSegment) {
+            // Current segments don't match, not dynamic, not splat, so no match
+            // uri:   /users/123/settings
+            // route: /users/:id/profile
+            missed = true;
+            break;
+          }
+        }
+
+        if (!missed) {
+          match = {
+            route,
+            params,
+            uri: "/" + uriSegments.slice(0, index).join("/")
+          };
+          break;
+        }
+      }
+
+      return match || default_ || null;
+    }
+
+    /**
+     * Check if the `path` matches the `uri`.
+     * @param {string} path
+     * @param {string} uri
+     * @return {?object}
+     */
+    function match(route, uri) {
+      return pick([route], uri);
+    }
+
+    /**
+     * Add the query to the pathname if a query is given
+     * @param {string} pathname
+     * @param {string} [query]
+     * @return {string}
+     */
+    function addQuery(pathname, query) {
+      return pathname + (query ? `?${query}` : "");
+    }
+
+    /**
+     * Resolve URIs as though every path is a directory, no files. Relative URIs
+     * in the browser can feel awkward because not only can you be "in a directory",
+     * you can be "at a file", too. For example:
+     *
+     *  browserSpecResolve('foo', '/bar/') => /bar/foo
+     *  browserSpecResolve('foo', '/bar') => /foo
+     *
+     * But on the command line of a file system, it's not as complicated. You can't
+     * `cd` from a file, only directories. This way, links have to know less about
+     * their current path. To go deeper you can do this:
+     *
+     *  <Link to="deeper"/>
+     *  // instead of
+     *  <Link to=`{${props.uri}/deeper}`/>
+     *
+     * Just like `cd`, if you want to go deeper from the command line, you do this:
+     *
+     *  cd deeper
+     *  # not
+     *  cd $(pwd)/deeper
+     *
+     * By treating every path as a directory, linking to relative paths should
+     * require less contextual information and (fingers crossed) be more intuitive.
+     * @param {string} to
+     * @param {string} base
+     * @return {string}
+     */
+    function resolve(to, base) {
+      // /foo/bar, /baz/qux => /foo/bar
+      if (startsWith(to, "/")) {
+        return to;
+      }
+
+      const [toPathname, toQuery] = to.split("?");
+      const [basePathname] = base.split("?");
+      const toSegments = segmentize(toPathname);
+      const baseSegments = segmentize(basePathname);
+
+      // ?a=b, /users?b=c => /users?a=b
+      if (toSegments[0] === "") {
+        return addQuery(basePathname, toQuery);
+      }
+
+      // profile, /users/789 => /users/789/profile
+      if (!startsWith(toSegments[0], ".")) {
+        const pathname = baseSegments.concat(toSegments).join("/");
+
+        return addQuery((basePathname === "/" ? "" : "/") + pathname, toQuery);
+      }
+
+      // ./       , /users/123 => /users/123
+      // ../      , /users/123 => /users
+      // ../..    , /users/123 => /
+      // ../../one, /a/b/c/d   => /a/b/one
+      // .././one , /a/b/c/d   => /a/b/c/one
+      const allSegments = baseSegments.concat(toSegments);
+      const segments = [];
+
+      allSegments.forEach(segment => {
+        if (segment === "..") {
+          segments.pop();
+        } else if (segment !== ".") {
+          segments.push(segment);
+        }
+      });
+
+      return addQuery("/" + segments.join("/"), toQuery);
+    }
+
+    /**
+     * Combines the `basepath` and the `path` into one path.
+     * @param {string} basepath
+     * @param {string} path
+     */
+    function combinePaths(basepath, path) {
+      return `${stripSlashes(
+    path === "/" ? basepath : `${stripSlashes(basepath)}/${stripSlashes(path)}`
+  )}/`;
+    }
+
+    /**
+     * Decides whether a given `event` should result in a navigation or not.
+     * @param {object} event
+     */
+    function shouldNavigate(event) {
+      return (
+        !event.defaultPrevented &&
+        event.button === 0 &&
+        !(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey)
+      );
+    }
+
+    function hostMatches(anchor) {
+      const host = location.host;
+      return (
+        anchor.host == host ||
+        // svelte seems to kill anchor.host value in ie11, so fall back to checking href
+        anchor.href.indexOf(`https://${host}`) === 0 ||
+        anchor.href.indexOf(`http://${host}`) === 0
+      )
+    }
+
+    /* node_modules\svelte-routing\src\Router.svelte generated by Svelte v3.47.0 */
+
+    function create_fragment$n(ctx) {
+    	let current;
+    	const default_slot_template = /*#slots*/ ctx[9].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[8], null);
+
+    	const block = {
+    		c: function create() {
+    			if (default_slot) default_slot.c();
+    		},
+    		l: function claim(nodes) {
+    			if (default_slot) default_slot.l(nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			if (default_slot) {
+    				default_slot.m(target, anchor);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 256)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[8],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[8])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[8], dirty, null),
+    						null
+    					);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (default_slot) default_slot.d(detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$n.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$n($$self, $$props, $$invalidate) {
+    	let $location;
+    	let $routes;
+    	let $base;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Router', slots, ['default']);
+    	let { basepath = "/" } = $$props;
+    	let { url = null } = $$props;
+    	const locationContext = getContext(LOCATION);
+    	const routerContext = getContext(ROUTER);
+    	const routes = writable([]);
+    	validate_store(routes, 'routes');
+    	component_subscribe($$self, routes, value => $$invalidate(6, $routes = value));
+    	const activeRoute = writable(null);
+    	let hasActiveRoute = false; // Used in SSR to synchronously set that a Route is active.
+
+    	// If locationContext is not set, this is the topmost Router in the tree.
+    	// If the `url` prop is given we force the location to it.
+    	const location = locationContext || writable(url ? { pathname: url } : globalHistory.location);
+
+    	validate_store(location, 'location');
+    	component_subscribe($$self, location, value => $$invalidate(5, $location = value));
+
+    	// If routerContext is set, the routerBase of the parent Router
+    	// will be the base for this Router's descendants.
+    	// If routerContext is not set, the path and resolved uri will both
+    	// have the value of the basepath prop.
+    	const base = routerContext
+    	? routerContext.routerBase
+    	: writable({ path: basepath, uri: basepath });
+
+    	validate_store(base, 'base');
+    	component_subscribe($$self, base, value => $$invalidate(7, $base = value));
+
+    	const routerBase = derived([base, activeRoute], ([base, activeRoute]) => {
+    		// If there is no activeRoute, the routerBase will be identical to the base.
+    		if (activeRoute === null) {
+    			return base;
+    		}
+
+    		const { path: basepath } = base;
+    		const { route, uri } = activeRoute;
+
+    		// Remove the potential /* or /*splatname from
+    		// the end of the child Routes relative paths.
+    		const path = route.default
+    		? basepath
+    		: route.path.replace(/\*.*$/, "");
+
+    		return { path, uri };
+    	});
+
+    	function registerRoute(route) {
+    		const { path: basepath } = $base;
+    		let { path } = route;
+
+    		// We store the original path in the _path property so we can reuse
+    		// it when the basepath changes. The only thing that matters is that
+    		// the route reference is intact, so mutation is fine.
+    		route._path = path;
+
+    		route.path = combinePaths(basepath, path);
+
+    		if (typeof window === "undefined") {
+    			// In SSR we should set the activeRoute immediately if it is a match.
+    			// If there are more Routes being registered after a match is found,
+    			// we just skip them.
+    			if (hasActiveRoute) {
+    				return;
+    			}
+
+    			const matchingRoute = match(route, $location.pathname);
+
+    			if (matchingRoute) {
+    				activeRoute.set(matchingRoute);
+    				hasActiveRoute = true;
+    			}
+    		} else {
+    			routes.update(rs => {
+    				rs.push(route);
+    				return rs;
+    			});
+    		}
+    	}
+
+    	function unregisterRoute(route) {
+    		routes.update(rs => {
+    			const index = rs.indexOf(route);
+    			rs.splice(index, 1);
+    			return rs;
+    		});
+    	}
+
+    	if (!locationContext) {
+    		// The topmost Router in the tree is responsible for updating
+    		// the location store and supplying it through context.
+    		onMount(() => {
+    			const unlisten = globalHistory.listen(history => {
+    				location.set(history.location);
+    			});
+
+    			return unlisten;
+    		});
+
+    		setContext(LOCATION, location);
+    	}
+
+    	setContext(ROUTER, {
+    		activeRoute,
+    		base,
+    		routerBase,
+    		registerRoute,
+    		unregisterRoute
+    	});
+
+    	const writable_props = ['basepath', 'url'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Router> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('basepath' in $$props) $$invalidate(3, basepath = $$props.basepath);
+    		if ('url' in $$props) $$invalidate(4, url = $$props.url);
+    		if ('$$scope' in $$props) $$invalidate(8, $$scope = $$props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		getContext,
+    		setContext,
+    		onMount,
+    		writable,
+    		derived,
+    		LOCATION,
+    		ROUTER,
+    		globalHistory,
+    		pick,
+    		match,
+    		stripSlashes,
+    		combinePaths,
+    		basepath,
+    		url,
+    		locationContext,
+    		routerContext,
+    		routes,
+    		activeRoute,
+    		hasActiveRoute,
+    		location,
+    		base,
+    		routerBase,
+    		registerRoute,
+    		unregisterRoute,
+    		$location,
+    		$routes,
+    		$base
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('basepath' in $$props) $$invalidate(3, basepath = $$props.basepath);
+    		if ('url' in $$props) $$invalidate(4, url = $$props.url);
+    		if ('hasActiveRoute' in $$props) hasActiveRoute = $$props.hasActiveRoute;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$base*/ 128) {
+    			// This reactive statement will update all the Routes' path when
+    			// the basepath changes.
+    			{
+    				const { path: basepath } = $base;
+
+    				routes.update(rs => {
+    					rs.forEach(r => r.path = combinePaths(basepath, r._path));
+    					return rs;
+    				});
+    			}
+    		}
+
+    		if ($$self.$$.dirty & /*$routes, $location*/ 96) {
+    			// This reactive statement will be run when the Router is created
+    			// when there are no Routes and then again the following tick, so it
+    			// will not find an active Route in SSR and in the browser it will only
+    			// pick an active Route after all Routes have been registered.
+    			{
+    				const bestMatch = pick($routes, $location.pathname);
+    				activeRoute.set(bestMatch);
+    			}
+    		}
+    	};
+
+    	return [
+    		routes,
+    		location,
+    		base,
+    		basepath,
+    		url,
+    		$location,
+    		$routes,
+    		$base,
+    		$$scope,
+    		slots
+    	];
+    }
+
+    class Router extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$n, create_fragment$n, safe_not_equal, { basepath: 3, url: 4 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Router",
+    			options,
+    			id: create_fragment$n.name
+    		});
+    	}
+
+    	get basepath() {
+    		throw new Error("<Router>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set basepath(value) {
+    		throw new Error("<Router>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get url() {
+    		throw new Error("<Router>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set url(value) {
+    		throw new Error("<Router>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* node_modules\svelte-routing\src\Route.svelte generated by Svelte v3.47.0 */
+
+    const get_default_slot_changes$1 = dirty => ({
+    	params: dirty & /*routeParams*/ 4,
+    	location: dirty & /*$location*/ 16
+    });
+
+    const get_default_slot_context$1 = ctx => ({
+    	params: /*routeParams*/ ctx[2],
+    	location: /*$location*/ ctx[4]
+    });
+
+    // (40:0) {#if $activeRoute !== null && $activeRoute.route === route}
+    function create_if_block$c(ctx) {
+    	let current_block_type_index;
+    	let if_block;
+    	let if_block_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block_1$1, create_else_block$a];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*component*/ ctx[0] !== null) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			if_block.l(nodes);
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$c.name,
+    		type: "if",
+    		source: "(40:0) {#if $activeRoute !== null && $activeRoute.route === route}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (43:2) {:else}
+    function create_else_block$a(ctx) {
+    	let current;
+    	const default_slot_template = /*#slots*/ ctx[10].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[9], get_default_slot_context$1);
+
+    	const block = {
+    		c: function create() {
+    			if (default_slot) default_slot.c();
+    		},
+    		l: function claim(nodes) {
+    			if (default_slot) default_slot.l(nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			if (default_slot) {
+    				default_slot.m(target, anchor);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope, routeParams, $location*/ 532)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[9],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[9])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[9], dirty, get_default_slot_changes$1),
+    						get_default_slot_context$1
+    					);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (default_slot) default_slot.d(detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$a.name,
+    		type: "else",
+    		source: "(43:2) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (41:2) {#if component !== null}
+    function create_if_block_1$1(ctx) {
+    	let switch_instance;
+    	let switch_instance_anchor;
+    	let current;
+
+    	const switch_instance_spread_levels = [
+    		{ location: /*$location*/ ctx[4] },
+    		/*routeParams*/ ctx[2],
+    		/*routeProps*/ ctx[3]
+    	];
+
+    	var switch_value = /*component*/ ctx[0];
+
+    	function switch_props(ctx) {
+    		let switch_instance_props = {};
+
+    		for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
+    			switch_instance_props = assign(switch_instance_props, switch_instance_spread_levels[i]);
+    		}
+
+    		return {
+    			props: switch_instance_props,
+    			$$inline: true
+    		};
+    	}
+
+    	if (switch_value) {
+    		switch_instance = new switch_value(switch_props());
+    	}
+
+    	const block = {
+    		c: function create() {
+    			if (switch_instance) create_component(switch_instance.$$.fragment);
+    			switch_instance_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			if (switch_instance) claim_component(switch_instance.$$.fragment, nodes);
+    			switch_instance_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (switch_instance) {
+    				mount_component(switch_instance, target, anchor);
+    			}
+
+    			insert_hydration_dev(target, switch_instance_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const switch_instance_changes = (dirty & /*$location, routeParams, routeProps*/ 28)
+    			? get_spread_update(switch_instance_spread_levels, [
+    					dirty & /*$location*/ 16 && { location: /*$location*/ ctx[4] },
+    					dirty & /*routeParams*/ 4 && get_spread_object(/*routeParams*/ ctx[2]),
+    					dirty & /*routeProps*/ 8 && get_spread_object(/*routeProps*/ ctx[3])
+    				])
+    			: {};
+
+    			if (switch_value !== (switch_value = /*component*/ ctx[0])) {
+    				if (switch_instance) {
+    					group_outros();
+    					const old_component = switch_instance;
+
+    					transition_out(old_component.$$.fragment, 1, 0, () => {
+    						destroy_component(old_component, 1);
+    					});
+
+    					check_outros();
+    				}
+
+    				if (switch_value) {
+    					switch_instance = new switch_value(switch_props());
+    					create_component(switch_instance.$$.fragment);
+    					transition_in(switch_instance.$$.fragment, 1);
+    					mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
+    				} else {
+    					switch_instance = null;
+    				}
+    			} else if (switch_value) {
+    				switch_instance.$set(switch_instance_changes);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			if (switch_instance) transition_in(switch_instance.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (switch_instance) transition_out(switch_instance.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(switch_instance_anchor);
+    			if (switch_instance) destroy_component(switch_instance, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$1.name,
+    		type: "if",
+    		source: "(41:2) {#if component !== null}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$m(ctx) {
+    	let if_block_anchor;
+    	let current;
+    	let if_block = /*$activeRoute*/ ctx[1] !== null && /*$activeRoute*/ ctx[1].route === /*route*/ ctx[7] && create_if_block$c(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			if (if_block) if_block.l(nodes);
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*$activeRoute*/ ctx[1] !== null && /*$activeRoute*/ ctx[1].route === /*route*/ ctx[7]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty & /*$activeRoute*/ 2) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block$c(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$m.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$m($$self, $$props, $$invalidate) {
+    	let $activeRoute;
+    	let $location;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Route', slots, ['default']);
+    	let { path = "" } = $$props;
+    	let { component = null } = $$props;
+    	const { registerRoute, unregisterRoute, activeRoute } = getContext(ROUTER);
+    	validate_store(activeRoute, 'activeRoute');
+    	component_subscribe($$self, activeRoute, value => $$invalidate(1, $activeRoute = value));
+    	const location = getContext(LOCATION);
+    	validate_store(location, 'location');
+    	component_subscribe($$self, location, value => $$invalidate(4, $location = value));
+
+    	const route = {
+    		path,
+    		// If no path prop is given, this Route will act as the default Route
+    		// that is rendered if no other Route in the Router is a match.
+    		default: path === ""
+    	};
+
+    	let routeParams = {};
+    	let routeProps = {};
+    	registerRoute(route);
+
+    	// There is no need to unregister Routes in SSR since it will all be
+    	// thrown away anyway.
+    	if (typeof window !== "undefined") {
+    		onDestroy(() => {
+    			unregisterRoute(route);
+    		});
+    	}
+
+    	$$self.$$set = $$new_props => {
+    		$$invalidate(13, $$props = assign(assign({}, $$props), exclude_internal_props($$new_props)));
+    		if ('path' in $$new_props) $$invalidate(8, path = $$new_props.path);
+    		if ('component' in $$new_props) $$invalidate(0, component = $$new_props.component);
+    		if ('$$scope' in $$new_props) $$invalidate(9, $$scope = $$new_props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		getContext,
+    		onDestroy,
+    		ROUTER,
+    		LOCATION,
+    		path,
+    		component,
+    		registerRoute,
+    		unregisterRoute,
+    		activeRoute,
+    		location,
+    		route,
+    		routeParams,
+    		routeProps,
+    		$activeRoute,
+    		$location
+    	});
+
+    	$$self.$inject_state = $$new_props => {
+    		$$invalidate(13, $$props = assign(assign({}, $$props), $$new_props));
+    		if ('path' in $$props) $$invalidate(8, path = $$new_props.path);
+    		if ('component' in $$props) $$invalidate(0, component = $$new_props.component);
+    		if ('routeParams' in $$props) $$invalidate(2, routeParams = $$new_props.routeParams);
+    		if ('routeProps' in $$props) $$invalidate(3, routeProps = $$new_props.routeProps);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$activeRoute*/ 2) {
+    			if ($activeRoute && $activeRoute.route === route) {
+    				$$invalidate(2, routeParams = $activeRoute.params);
+    			}
+    		}
+
+    		{
+    			const { path, component, ...rest } = $$props;
+    			$$invalidate(3, routeProps = rest);
+    		}
+    	};
+
+    	$$props = exclude_internal_props($$props);
+
+    	return [
+    		component,
+    		$activeRoute,
+    		routeParams,
+    		routeProps,
+    		$location,
+    		activeRoute,
+    		location,
+    		route,
+    		path,
+    		$$scope,
+    		slots
+    	];
+    }
+
+    class Route extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$m, create_fragment$m, safe_not_equal, { path: 8, component: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Route",
+    			options,
+    			id: create_fragment$m.name
+    		});
+    	}
+
+    	get path() {
+    		throw new Error("<Route>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set path(value) {
+    		throw new Error("<Route>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get component() {
+    		throw new Error("<Route>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set component(value) {
+    		throw new Error("<Route>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* node_modules\svelte-routing\src\Link.svelte generated by Svelte v3.47.0 */
+    const file$l = "node_modules\\svelte-routing\\src\\Link.svelte";
+
+    function create_fragment$l(ctx) {
+    	let a;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	const default_slot_template = /*#slots*/ ctx[16].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[15], null);
+
+    	let a_levels = [
+    		{ href: /*href*/ ctx[0] },
+    		{ "aria-current": /*ariaCurrent*/ ctx[2] },
+    		/*props*/ ctx[1],
+    		/*$$restProps*/ ctx[6]
+    	];
+
+    	let a_data = {};
+
+    	for (let i = 0; i < a_levels.length; i += 1) {
+    		a_data = assign(a_data, a_levels[i]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			a = element("a");
+    			if (default_slot) default_slot.c();
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			a = claim_element(nodes, "A", { href: true, "aria-current": true });
+    			var a_nodes = children(a);
+    			if (default_slot) default_slot.l(a_nodes);
+    			a_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			set_attributes(a, a_data);
+    			add_location(a, file$l, 40, 0, 1249);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, a, anchor);
+
+    			if (default_slot) {
+    				default_slot.m(a, null);
+    			}
+
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(a, "click", /*onClick*/ ctx[5], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 32768)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[15],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[15])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[15], dirty, null),
+    						null
+    					);
+    				}
+    			}
+
+    			set_attributes(a, a_data = get_spread_update(a_levels, [
+    				(!current || dirty & /*href*/ 1) && { href: /*href*/ ctx[0] },
+    				(!current || dirty & /*ariaCurrent*/ 4) && { "aria-current": /*ariaCurrent*/ ctx[2] },
+    				dirty & /*props*/ 2 && /*props*/ ctx[1],
+    				dirty & /*$$restProps*/ 64 && /*$$restProps*/ ctx[6]
+    			]));
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(a);
+    			if (default_slot) default_slot.d(detaching);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$l.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$l($$self, $$props, $$invalidate) {
+    	let ariaCurrent;
+    	const omit_props_names = ["to","replace","state","getProps"];
+    	let $$restProps = compute_rest_props($$props, omit_props_names);
+    	let $location;
+    	let $base;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Link', slots, ['default']);
+    	let { to = "#" } = $$props;
+    	let { replace = false } = $$props;
+    	let { state = {} } = $$props;
+    	let { getProps = () => ({}) } = $$props;
+    	const { base } = getContext(ROUTER);
+    	validate_store(base, 'base');
+    	component_subscribe($$self, base, value => $$invalidate(14, $base = value));
+    	const location = getContext(LOCATION);
+    	validate_store(location, 'location');
+    	component_subscribe($$self, location, value => $$invalidate(13, $location = value));
+    	const dispatch = createEventDispatcher();
+    	let href, isPartiallyCurrent, isCurrent, props;
+
+    	function onClick(event) {
+    		dispatch("click", event);
+
+    		if (shouldNavigate(event)) {
+    			event.preventDefault();
+
+    			// Don't push another entry to the history stack when the user
+    			// clicks on a Link to the page they are currently on.
+    			const shouldReplace = $location.pathname === href || replace;
+
+    			navigate(href, { state, replace: shouldReplace });
+    		}
+    	}
+
+    	$$self.$$set = $$new_props => {
+    		$$props = assign(assign({}, $$props), exclude_internal_props($$new_props));
+    		$$invalidate(6, $$restProps = compute_rest_props($$props, omit_props_names));
+    		if ('to' in $$new_props) $$invalidate(7, to = $$new_props.to);
+    		if ('replace' in $$new_props) $$invalidate(8, replace = $$new_props.replace);
+    		if ('state' in $$new_props) $$invalidate(9, state = $$new_props.state);
+    		if ('getProps' in $$new_props) $$invalidate(10, getProps = $$new_props.getProps);
+    		if ('$$scope' in $$new_props) $$invalidate(15, $$scope = $$new_props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		getContext,
+    		createEventDispatcher,
+    		ROUTER,
+    		LOCATION,
+    		navigate,
+    		startsWith,
+    		resolve,
+    		shouldNavigate,
+    		to,
+    		replace,
+    		state,
+    		getProps,
+    		base,
+    		location,
+    		dispatch,
+    		href,
+    		isPartiallyCurrent,
+    		isCurrent,
+    		props,
+    		onClick,
+    		ariaCurrent,
+    		$location,
+    		$base
+    	});
+
+    	$$self.$inject_state = $$new_props => {
+    		if ('to' in $$props) $$invalidate(7, to = $$new_props.to);
+    		if ('replace' in $$props) $$invalidate(8, replace = $$new_props.replace);
+    		if ('state' in $$props) $$invalidate(9, state = $$new_props.state);
+    		if ('getProps' in $$props) $$invalidate(10, getProps = $$new_props.getProps);
+    		if ('href' in $$props) $$invalidate(0, href = $$new_props.href);
+    		if ('isPartiallyCurrent' in $$props) $$invalidate(11, isPartiallyCurrent = $$new_props.isPartiallyCurrent);
+    		if ('isCurrent' in $$props) $$invalidate(12, isCurrent = $$new_props.isCurrent);
+    		if ('props' in $$props) $$invalidate(1, props = $$new_props.props);
+    		if ('ariaCurrent' in $$props) $$invalidate(2, ariaCurrent = $$new_props.ariaCurrent);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*to, $base*/ 16512) {
+    			$$invalidate(0, href = to === "/" ? $base.uri : resolve(to, $base.uri));
+    		}
+
+    		if ($$self.$$.dirty & /*$location, href*/ 8193) {
+    			$$invalidate(11, isPartiallyCurrent = startsWith($location.pathname, href));
+    		}
+
+    		if ($$self.$$.dirty & /*href, $location*/ 8193) {
+    			$$invalidate(12, isCurrent = href === $location.pathname);
+    		}
+
+    		if ($$self.$$.dirty & /*isCurrent*/ 4096) {
+    			$$invalidate(2, ariaCurrent = isCurrent ? "page" : undefined);
+    		}
+
+    		if ($$self.$$.dirty & /*getProps, $location, href, isPartiallyCurrent, isCurrent*/ 15361) {
+    			$$invalidate(1, props = getProps({
+    				location: $location,
+    				href,
+    				isPartiallyCurrent,
+    				isCurrent
+    			}));
+    		}
+    	};
+
+    	return [
+    		href,
+    		props,
+    		ariaCurrent,
+    		base,
+    		location,
+    		onClick,
+    		$$restProps,
+    		to,
+    		replace,
+    		state,
+    		getProps,
+    		isPartiallyCurrent,
+    		isCurrent,
+    		$location,
+    		$base,
+    		$$scope,
+    		slots
+    	];
+    }
+
+    class Link extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$l, create_fragment$l, safe_not_equal, {
+    			to: 7,
+    			replace: 8,
+    			state: 9,
+    			getProps: 10
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Link",
+    			options,
+    			id: create_fragment$l.name
+    		});
+    	}
+
+    	get to() {
+    		throw new Error("<Link>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set to(value) {
+    		throw new Error("<Link>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get replace() {
+    		throw new Error("<Link>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set replace(value) {
+    		throw new Error("<Link>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get state() {
+    		throw new Error("<Link>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set state(value) {
+    		throw new Error("<Link>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get getProps() {
+    		throw new Error("<Link>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set getProps(value) {
+    		throw new Error("<Link>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /**
+     * A link action that can be added to <a href=""> tags rather
+     * than using the <Link> component.
+     *
+     * Example:
+     * ```html
+     * <a href="/post/{postId}" use:link>{post.title}</a>
+     * ```
+     */
+    function link(node) {
+      function onClick(event) {
+        const anchor = event.currentTarget;
+
+        if (
+          anchor.target === "" &&
+          hostMatches(anchor) &&
+          shouldNavigate(event)
+        ) {
+          event.preventDefault();
+          navigate(anchor.pathname + anchor.search, { replace: anchor.hasAttribute("replace") });
+        }
+      }
+
+      node.addEventListener("click", onClick);
+
+      return {
+        destroy() {
+          node.removeEventListener("click", onClick);
+        }
+      };
+    }
+
+    /* src\components\HomeNav.svelte generated by Svelte v3.47.0 */
+
+    const file$k = "src\\components\\HomeNav.svelte";
+
+    function create_fragment$k(ctx) {
+    	let nav;
+    	let div;
+    	let a0;
+    	let img;
+    	let img_src_value;
+    	let t0;
+    	let t1;
+    	let a1;
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			nav = element("nav");
+    			div = element("div");
+    			a0 = element("a");
+    			img = element("img");
+    			t0 = text("\r\n      Vitrine da Casa parametrizar");
+    			t1 = space();
+    			a1 = element("a");
+    			t2 = text("Registrar");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			nav = claim_element(nodes, "NAV", { class: true });
+    			var nav_nodes = children(nav);
+    			div = claim_element(nav_nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+    			a0 = claim_element(div_nodes, "A", { class: true, href: true });
+    			var a0_nodes = children(a0);
+    			img = claim_element(a0_nodes, "IMG", { src: true, alt: true, height: true });
+    			t0 = claim_text(a0_nodes, "\r\n      Vitrine da Casa parametrizar");
+    			a0_nodes.forEach(detach_dev);
+    			t1 = claim_space(div_nodes);
+    			a1 = claim_element(div_nodes, "A", { href: true, target: true, class: true });
+    			var a1_nodes = children(a1);
+    			t2 = claim_text(a1_nodes, "Registrar");
+    			a1_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			nav_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = "/img/link.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "vitrinedacasa");
+    			attr_dev(img, "height", "34px");
+    			add_location(img, file$k, 3, 6, 153);
+    			attr_dev(a0, "class", "navbar-brand landing-brand");
+    			attr_dev(a0, "href", "/");
+    			add_location(a0, file$k, 2, 4, 98);
+    			attr_dev(a1, "href", "/register");
+    			attr_dev(a1, "target", "_blank");
+    			attr_dev(a1, "class", "btn btn-lg btn-success my-2 my-sm-0 ml-3");
+    			add_location(a1, file$k, 26, 4, 920);
+    			attr_dev(div, "class", "container");
+    			add_location(div, file$k, 1, 2, 69);
+    			attr_dev(nav, "class", "navbar navbar-expand-md navbar-light landing-navbar");
+    			add_location(nav, file$k, 0, 0, 0);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, nav, anchor);
+    			append_hydration_dev(nav, div);
+    			append_hydration_dev(div, a0);
+    			append_hydration_dev(a0, img);
+    			append_hydration_dev(a0, t0);
+    			append_hydration_dev(div, t1);
+    			append_hydration_dev(div, a1);
+    			append_hydration_dev(a1, t2);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(nav);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$k.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$k($$self, $$props) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('HomeNav', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<HomeNav> was created with unknown prop '${key}'`);
+    	});
+
+    	return [];
+    }
+
+    class HomeNav extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$k, create_fragment$k, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "HomeNav",
+    			options,
+    			id: create_fragment$k.name
+    		});
+    	}
+    }
+
+    /* src\components\Footer.svelte generated by Svelte v3.47.0 */
+
+    const file$j = "src\\components\\Footer.svelte";
+
+    function create_fragment$j(ctx) {
+    	let footer;
+    	let div3;
+    	let div2;
+    	let div0;
+    	let ul;
+    	let li0;
+    	let a0;
+    	let t0;
+    	let t1;
+    	let li1;
+    	let a1;
+    	let t2;
+    	let t3;
+    	let div1;
+    	let p;
+    	let t4;
+    	let a2;
+    	let t5;
+
+    	const block = {
+    		c: function create() {
+    			footer = element("footer");
+    			div3 = element("div");
+    			div2 = element("div");
+    			div0 = element("div");
+    			ul = element("ul");
+    			li0 = element("li");
+    			a0 = element("a");
+    			t0 = text("Github");
+    			t1 = space();
+    			li1 = element("li");
+    			a1 = element("a");
+    			t2 = text("Termos");
+    			t3 = space();
+    			div1 = element("div");
+    			p = element("p");
+    			t4 = text("Feito por ");
+    			a2 = element("a");
+    			t5 = text("Douglas Monteiro");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			footer = claim_element(nodes, "FOOTER", { class: true });
+    			var footer_nodes = children(footer);
+    			div3 = claim_element(footer_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			div0 = claim_element(div2_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			ul = claim_element(div0_nodes, "UL", { class: true });
+    			var ul_nodes = children(ul);
+    			li0 = claim_element(ul_nodes, "LI", { class: true });
+    			var li0_nodes = children(li0);
+    			a0 = claim_element(li0_nodes, "A", { class: true, href: true });
+    			var a0_nodes = children(a0);
+    			t0 = claim_text(a0_nodes, "Github");
+    			a0_nodes.forEach(detach_dev);
+    			li0_nodes.forEach(detach_dev);
+    			t1 = claim_space(ul_nodes);
+    			li1 = claim_element(ul_nodes, "LI", { class: true });
+    			var li1_nodes = children(li1);
+    			a1 = claim_element(li1_nodes, "A", { class: true, href: true });
+    			var a1_nodes = children(a1);
+    			t2 = claim_text(a1_nodes, "Termos");
+    			a1_nodes.forEach(detach_dev);
+    			li1_nodes.forEach(detach_dev);
+    			ul_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t3 = claim_space(div2_nodes);
+    			div1 = claim_element(div2_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			p = claim_element(div1_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t4 = claim_text(p_nodes, "Feito por ");
+    			a2 = claim_element(p_nodes, "A", { href: true });
+    			var a2_nodes = children(a2);
+    			t5 = claim_text(a2_nodes, "Douglas Monteiro");
+    			a2_nodes.forEach(detach_dev);
+    			p_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			footer_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(a0, "class", "text-muted");
+    			attr_dev(a0, "href", "https://github.com/douglasmonteiro-dev");
+    			add_location(a0, file$j, 6, 12, 216);
+    			attr_dev(li0, "class", "list-inline-item");
+    			add_location(li0, file$j, 5, 10, 173);
+    			attr_dev(a1, "class", "text-muted");
+    			attr_dev(a1, "href", "/");
+    			add_location(a1, file$j, 15, 12, 675);
+    			attr_dev(li1, "class", "list-inline-item");
+    			add_location(li1, file$j, 14, 10, 632);
+    			attr_dev(ul, "class", "list-inline");
+    			add_location(ul, file$j, 4, 8, 137);
+    			attr_dev(div0, "class", "col-6 text-left");
+    			add_location(div0, file$j, 3, 6, 98);
+    			attr_dev(a2, "href", "https://new-portfolio.dgsmonteiro.vercel.app/");
+    			add_location(a2, file$j, 21, 20, 848);
+    			attr_dev(p, "class", "mb-0");
+    			add_location(p, file$j, 20, 8, 810);
+    			attr_dev(div1, "class", "col-6 text-right");
+    			add_location(div1, file$j, 19, 6, 770);
+    			attr_dev(div2, "class", "row text-muted");
+    			add_location(div2, file$j, 2, 4, 62);
+    			attr_dev(div3, "class", "container-fluid");
+    			add_location(div3, file$j, 1, 2, 27);
+    			attr_dev(footer, "class", "footer");
+    			add_location(footer, file$j, 0, 0, 0);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, footer, anchor);
+    			append_hydration_dev(footer, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, div0);
+    			append_hydration_dev(div0, ul);
+    			append_hydration_dev(ul, li0);
+    			append_hydration_dev(li0, a0);
+    			append_hydration_dev(a0, t0);
+    			append_hydration_dev(ul, t1);
+    			append_hydration_dev(ul, li1);
+    			append_hydration_dev(li1, a1);
+    			append_hydration_dev(a1, t2);
+    			append_hydration_dev(div2, t3);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, p);
+    			append_hydration_dev(p, t4);
+    			append_hydration_dev(p, a2);
+    			append_hydration_dev(a2, t5);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(footer);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$j.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$j($$self, $$props) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Footer', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Footer> was created with unknown prop '${key}'`);
+    	});
+
+    	return [];
+    }
+
+    class Footer extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$j, create_fragment$j, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Footer",
+    			options,
+    			id: create_fragment$j.name
+    		});
+    	}
+    }
+
+    /* src\pages\Home.svelte generated by Svelte v3.47.0 */
+    const file$i = "src\\pages\\Home.svelte";
+
+    function create_fragment$i(ctx) {
+    	let homenav;
+    	let t0;
+    	let section;
+    	let div5;
+    	let div4;
+    	let div1;
+    	let span;
+    	let t1;
+    	let t2;
+    	let h1;
+    	let t3;
+    	let t4;
+    	let p;
+    	let t5;
+    	let br0;
+    	let t6;
+    	let br1;
+    	let t7;
+    	let t8;
+    	let div0;
+    	let a0;
+    	let t9;
+    	let t10;
+    	let a1;
+    	let t11;
+    	let t12;
+    	let div3;
+    	let div2;
+    	let img;
+    	let img_src_value;
+    	let t13;
+    	let footer;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	homenav = new HomeNav({ $$inline: true });
+    	footer = new Footer({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(homenav.$$.fragment);
+    			t0 = space();
+    			section = element("section");
+    			div5 = element("div");
+    			div4 = element("div");
+    			div1 = element("div");
+    			span = element("span");
+    			t1 = text("v1.0.0");
+    			t2 = space();
+    			h1 = element("h1");
+    			t3 = text("Somos inovação em atendimento de comércio e serviços");
+    			t4 = space();
+    			p = element("p");
+    			t5 = text("Ta cansado de procurar um site para o sua empresa ?? Não mais !! ");
+    			br0 = element("br");
+    			t6 = text("\r\n           Chegou o mais novo sistema de automação online que te disponibiliza uma página online.\r\n           ");
+    			br1 = element("br");
+    			t7 = text(" Chega de tentar procurar um criador de sites, disponibilize com facilidade seu produto ou serviço para seus clientes.");
+    			t8 = space();
+    			div0 = element("div");
+    			a0 = element("a");
+    			t9 = text("Criar");
+    			t10 = space();
+    			a1 = element("a");
+    			t11 = text("Entrar");
+    			t12 = space();
+    			div3 = element("div");
+    			div2 = element("div");
+    			img = element("img");
+    			t13 = space();
+    			create_component(footer.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			claim_component(homenav.$$.fragment, nodes);
+    			t0 = claim_space(nodes);
+    			section = claim_element(nodes, "SECTION", { class: true });
+    			var section_nodes = children(section);
+    			div5 = claim_element(section_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			div4 = claim_element(div5_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			div1 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			span = claim_element(div1_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t1 = claim_text(span_nodes, "v1.0.0");
+    			span_nodes.forEach(detach_dev);
+    			t2 = claim_space(div1_nodes);
+    			h1 = claim_element(div1_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t3 = claim_text(h1_nodes, "Somos inovação em atendimento de comércio e serviços");
+    			h1_nodes.forEach(detach_dev);
+    			t4 = claim_space(div1_nodes);
+    			p = claim_element(div1_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t5 = claim_text(p_nodes, "Ta cansado de procurar um site para o sua empresa ?? Não mais !! ");
+    			br0 = claim_element(p_nodes, "BR", {});
+    			t6 = claim_text(p_nodes, "\r\n           Chegou o mais novo sistema de automação online que te disponibiliza uma página online.\r\n           ");
+    			br1 = claim_element(p_nodes, "BR", {});
+    			t7 = claim_text(p_nodes, " Chega de tentar procurar um criador de sites, disponibilize com facilidade seu produto ou serviço para seus clientes.");
+    			p_nodes.forEach(detach_dev);
+    			t8 = claim_space(div1_nodes);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			a0 = claim_element(div0_nodes, "A", { href: true, replace: true, class: true });
+    			var a0_nodes = children(a0);
+    			t9 = claim_text(a0_nodes, "Criar");
+    			a0_nodes.forEach(detach_dev);
+    			t10 = claim_space(div0_nodes);
+    			a1 = claim_element(div0_nodes, "A", { href: true, replace: true, class: true });
+    			var a1_nodes = children(a1);
+    			t11 = claim_text(a1_nodes, "Entrar");
+    			a1_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			t12 = claim_space(div4_nodes);
+    			div3 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			img = claim_element(div2_nodes, "IMG", { src: true, alt: true, class: true });
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			div5_nodes.forEach(detach_dev);
+    			section_nodes.forEach(detach_dev);
+    			t13 = claim_space(nodes);
+    			claim_component(footer.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "badge badge-soft-primary p-1");
+    			add_location(span, file$i, 13, 8, 441);
+    			attr_dev(h1, "class", "my-4");
+    			add_location(h1, file$i, 15, 8, 509);
+    			add_location(br0, file$i, 18, 75, 692);
+    			add_location(br1, file$i, 20, 11, 809);
+    			attr_dev(p, "class", "text-lg");
+    			add_location(p, file$i, 17, 8, 596);
+    			attr_dev(a0, "href", "/register");
+    			attr_dev(a0, "replace", "");
+    			attr_dev(a0, "class", "btn btn-primary btn-lg mr-1");
+    			add_location(a0, file$i, 38, 10, 1520);
+    			attr_dev(a1, "href", "/login");
+    			attr_dev(a1, "replace", "");
+    			attr_dev(a1, "class", "btn btn-outline-primary btn-lg mr-1");
+    			add_location(a1, file$i, 44, 10, 1678);
+    			attr_dev(div0, "class", "my-4");
+    			add_location(div0, file$i, 37, 8, 1490);
+    			attr_dev(div1, "class", "col-lg-5 mx-auto");
+    			add_location(div1, file$i, 12, 6, 401);
+    			if (!src_url_equal(img.src, img_src_value = "img/screenshots/mixed.jpg")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Dark/Light Bootstrap Admin Template");
+    			attr_dev(img, "class", "img-fluid");
+    			add_location(img, file$i, 55, 10, 2021);
+    			attr_dev(div2, "class", "landing-intro-screenshot pb-3");
+    			add_location(div2, file$i, 54, 8, 1966);
+    			attr_dev(div3, "class", "col-lg-7 d-none d-lg-flex mx-auto text-center");
+    			add_location(div3, file$i, 53, 6, 1897);
+    			attr_dev(div4, "class", "row align-items-center");
+    			add_location(div4, file$i, 11, 4, 357);
+    			attr_dev(div5, "class", "landing-intro-content container");
+    			add_location(div5, file$i, 10, 2, 306);
+    			attr_dev(section, "class", "landing-intro landing-bg pt-5 pt-lg-6 pb-5 pb-lg-7");
+    			add_location(section, file$i, 9, 0, 234);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(homenav, target, anchor);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, section, anchor);
+    			append_hydration_dev(section, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, div1);
+    			append_hydration_dev(div1, span);
+    			append_hydration_dev(span, t1);
+    			append_hydration_dev(div1, t2);
+    			append_hydration_dev(div1, h1);
+    			append_hydration_dev(h1, t3);
+    			append_hydration_dev(div1, t4);
+    			append_hydration_dev(div1, p);
+    			append_hydration_dev(p, t5);
+    			append_hydration_dev(p, br0);
+    			append_hydration_dev(p, t6);
+    			append_hydration_dev(p, br1);
+    			append_hydration_dev(p, t7);
+    			append_hydration_dev(div1, t8);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, a0);
+    			append_hydration_dev(a0, t9);
+    			append_hydration_dev(div0, t10);
+    			append_hydration_dev(div0, a1);
+    			append_hydration_dev(a1, t11);
+    			append_hydration_dev(div4, t12);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, img);
+    			insert_hydration_dev(target, t13, anchor);
+    			mount_component(footer, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					action_destroyer(link.call(null, a0)),
+    					action_destroyer(link.call(null, a1)),
+    					listen_dev(a1, "click", /*push*/ ctx[0], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: noop,
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(homenav.$$.fragment, local);
+    			transition_in(footer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(homenav.$$.fragment, local);
+    			transition_out(footer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(homenav, detaching);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(section);
+    			if (detaching) detach_dev(t13);
+    			destroy_component(footer, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$i.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$i($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Home', slots, []);
+    	const push = () => history.push("/create");
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Home> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ link, HomeNav, Footer, push });
+    	return [push];
+    }
+
+    class Home extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$i, create_fragment$i, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Home",
+    			options,
+    			id: create_fragment$i.name
+    		});
+    	}
+    }
+
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function commonjsRequire (path) {
+    	throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+    }
+
+    var axios$2 = {exports: {}};
+
+    var bind$2 = function bind(fn, thisArg) {
+      return function wrap() {
+        var args = new Array(arguments.length);
+        for (var i = 0; i < args.length; i++) {
+          args[i] = arguments[i];
+        }
+        return fn.apply(thisArg, args);
+      };
+    };
+
+    var bind$1 = bind$2;
+
+    // utils is a library of generic helper functions non-specific to axios
+
+    var toString = Object.prototype.toString;
+
+    /**
+     * Determine if a value is an Array
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is an Array, otherwise false
+     */
+    function isArray(val) {
+      return Array.isArray(val);
+    }
+
+    /**
+     * Determine if a value is undefined
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if the value is undefined, otherwise false
+     */
+    function isUndefined(val) {
+      return typeof val === 'undefined';
+    }
+
+    /**
+     * Determine if a value is a Buffer
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a Buffer, otherwise false
+     */
+    function isBuffer(val) {
+      return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor)
+        && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
+    }
+
+    /**
+     * Determine if a value is an ArrayBuffer
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+     */
+    function isArrayBuffer(val) {
+      return toString.call(val) === '[object ArrayBuffer]';
+    }
+
+    /**
+     * Determine if a value is a FormData
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is an FormData, otherwise false
+     */
+    function isFormData(val) {
+      return toString.call(val) === '[object FormData]';
+    }
+
+    /**
+     * Determine if a value is a view on an ArrayBuffer
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+     */
+    function isArrayBufferView(val) {
+      var result;
+      if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+        result = ArrayBuffer.isView(val);
+      } else {
+        result = (val) && (val.buffer) && (isArrayBuffer(val.buffer));
+      }
+      return result;
+    }
+
+    /**
+     * Determine if a value is a String
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a String, otherwise false
+     */
+    function isString(val) {
+      return typeof val === 'string';
+    }
+
+    /**
+     * Determine if a value is a Number
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a Number, otherwise false
+     */
+    function isNumber(val) {
+      return typeof val === 'number';
+    }
+
+    /**
+     * Determine if a value is an Object
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is an Object, otherwise false
+     */
+    function isObject(val) {
+      return val !== null && typeof val === 'object';
+    }
+
+    /**
+     * Determine if a value is a plain Object
+     *
+     * @param {Object} val The value to test
+     * @return {boolean} True if value is a plain Object, otherwise false
+     */
+    function isPlainObject(val) {
+      if (toString.call(val) !== '[object Object]') {
+        return false;
+      }
+
+      var prototype = Object.getPrototypeOf(val);
+      return prototype === null || prototype === Object.prototype;
+    }
+
+    /**
+     * Determine if a value is a Date
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a Date, otherwise false
+     */
+    function isDate(val) {
+      return toString.call(val) === '[object Date]';
+    }
+
+    /**
+     * Determine if a value is a File
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a File, otherwise false
+     */
+    function isFile(val) {
+      return toString.call(val) === '[object File]';
+    }
+
+    /**
+     * Determine if a value is a Blob
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a Blob, otherwise false
+     */
+    function isBlob(val) {
+      return toString.call(val) === '[object Blob]';
+    }
+
+    /**
+     * Determine if a value is a Function
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a Function, otherwise false
+     */
+    function isFunction(val) {
+      return toString.call(val) === '[object Function]';
+    }
+
+    /**
+     * Determine if a value is a Stream
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a Stream, otherwise false
+     */
+    function isStream(val) {
+      return isObject(val) && isFunction(val.pipe);
+    }
+
+    /**
+     * Determine if a value is a URLSearchParams object
+     *
+     * @param {Object} val The value to test
+     * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+     */
+    function isURLSearchParams(val) {
+      return toString.call(val) === '[object URLSearchParams]';
+    }
+
+    /**
+     * Trim excess whitespace off the beginning and end of a string
+     *
+     * @param {String} str The String to trim
+     * @returns {String} The String freed of excess whitespace
+     */
+    function trim(str) {
+      return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
+    }
+
+    /**
+     * Determine if we're running in a standard browser environment
+     *
+     * This allows axios to run in a web worker, and react-native.
+     * Both environments support XMLHttpRequest, but not fully standard globals.
+     *
+     * web workers:
+     *  typeof window -> undefined
+     *  typeof document -> undefined
+     *
+     * react-native:
+     *  navigator.product -> 'ReactNative'
+     * nativescript
+     *  navigator.product -> 'NativeScript' or 'NS'
+     */
+    function isStandardBrowserEnv() {
+      if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                               navigator.product === 'NativeScript' ||
+                                               navigator.product === 'NS')) {
+        return false;
+      }
+      return (
+        typeof window !== 'undefined' &&
+        typeof document !== 'undefined'
+      );
+    }
+
+    /**
+     * Iterate over an Array or an Object invoking a function for each item.
+     *
+     * If `obj` is an Array callback will be called passing
+     * the value, index, and complete array for each item.
+     *
+     * If 'obj' is an Object callback will be called passing
+     * the value, key, and complete object for each property.
+     *
+     * @param {Object|Array} obj The object to iterate
+     * @param {Function} fn The callback to invoke for each item
+     */
+    function forEach(obj, fn) {
+      // Don't bother if no value provided
+      if (obj === null || typeof obj === 'undefined') {
+        return;
+      }
+
+      // Force an array if not already something iterable
+      if (typeof obj !== 'object') {
+        /*eslint no-param-reassign:0*/
+        obj = [obj];
+      }
+
+      if (isArray(obj)) {
+        // Iterate over array values
+        for (var i = 0, l = obj.length; i < l; i++) {
+          fn.call(null, obj[i], i, obj);
+        }
+      } else {
+        // Iterate over object keys
+        for (var key in obj) {
+          if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            fn.call(null, obj[key], key, obj);
+          }
+        }
+      }
+    }
+
+    /**
+     * Accepts varargs expecting each argument to be an object, then
+     * immutably merges the properties of each object and returns result.
+     *
+     * When multiple objects contain the same key the later object in
+     * the arguments list will take precedence.
+     *
+     * Example:
+     *
+     * ```js
+     * var result = merge({foo: 123}, {foo: 456});
+     * console.log(result.foo); // outputs 456
+     * ```
+     *
+     * @param {Object} obj1 Object to merge
+     * @returns {Object} Result of all merge properties
+     */
+    function merge(/* obj1, obj2, obj3, ... */) {
+      var result = {};
+      function assignValue(val, key) {
+        if (isPlainObject(result[key]) && isPlainObject(val)) {
+          result[key] = merge(result[key], val);
+        } else if (isPlainObject(val)) {
+          result[key] = merge({}, val);
+        } else if (isArray(val)) {
+          result[key] = val.slice();
+        } else {
+          result[key] = val;
+        }
+      }
+
+      for (var i = 0, l = arguments.length; i < l; i++) {
+        forEach(arguments[i], assignValue);
+      }
+      return result;
+    }
+
+    /**
+     * Extends object a by mutably adding to it the properties of object b.
+     *
+     * @param {Object} a The object to be extended
+     * @param {Object} b The object to copy properties from
+     * @param {Object} thisArg The object to bind function to
+     * @return {Object} The resulting value of object a
+     */
+    function extend(a, b, thisArg) {
+      forEach(b, function assignValue(val, key) {
+        if (thisArg && typeof val === 'function') {
+          a[key] = bind$1(val, thisArg);
+        } else {
+          a[key] = val;
+        }
+      });
+      return a;
+    }
+
+    /**
+     * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+     *
+     * @param {string} content with BOM
+     * @return {string} content value without BOM
+     */
+    function stripBOM(content) {
+      if (content.charCodeAt(0) === 0xFEFF) {
+        content = content.slice(1);
+      }
+      return content;
+    }
+
+    var utils$e = {
+      isArray: isArray,
+      isArrayBuffer: isArrayBuffer,
+      isBuffer: isBuffer,
+      isFormData: isFormData,
+      isArrayBufferView: isArrayBufferView,
+      isString: isString,
+      isNumber: isNumber,
+      isObject: isObject,
+      isPlainObject: isPlainObject,
+      isUndefined: isUndefined,
+      isDate: isDate,
+      isFile: isFile,
+      isBlob: isBlob,
+      isFunction: isFunction,
+      isStream: isStream,
+      isURLSearchParams: isURLSearchParams,
+      isStandardBrowserEnv: isStandardBrowserEnv,
+      forEach: forEach,
+      merge: merge,
+      extend: extend,
+      trim: trim,
+      stripBOM: stripBOM
+    };
+
+    var utils$d = utils$e;
+
+    function encode(val) {
+      return encodeURIComponent(val).
+        replace(/%3A/gi, ':').
+        replace(/%24/g, '$').
+        replace(/%2C/gi, ',').
+        replace(/%20/g, '+').
+        replace(/%5B/gi, '[').
+        replace(/%5D/gi, ']');
+    }
+
+    /**
+     * Build a URL by appending params to the end
+     *
+     * @param {string} url The base of the url (e.g., http://www.google.com)
+     * @param {object} [params] The params to be appended
+     * @returns {string} The formatted url
+     */
+    var buildURL$2 = function buildURL(url, params, paramsSerializer) {
+      /*eslint no-param-reassign:0*/
+      if (!params) {
+        return url;
+      }
+
+      var serializedParams;
+      if (paramsSerializer) {
+        serializedParams = paramsSerializer(params);
+      } else if (utils$d.isURLSearchParams(params)) {
+        serializedParams = params.toString();
+      } else {
+        var parts = [];
+
+        utils$d.forEach(params, function serialize(val, key) {
+          if (val === null || typeof val === 'undefined') {
+            return;
+          }
+
+          if (utils$d.isArray(val)) {
+            key = key + '[]';
+          } else {
+            val = [val];
+          }
+
+          utils$d.forEach(val, function parseValue(v) {
+            if (utils$d.isDate(v)) {
+              v = v.toISOString();
+            } else if (utils$d.isObject(v)) {
+              v = JSON.stringify(v);
+            }
+            parts.push(encode(key) + '=' + encode(v));
+          });
+        });
+
+        serializedParams = parts.join('&');
+      }
+
+      if (serializedParams) {
+        var hashmarkIndex = url.indexOf('#');
+        if (hashmarkIndex !== -1) {
+          url = url.slice(0, hashmarkIndex);
+        }
+
+        url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+      }
+
+      return url;
+    };
+
+    var utils$c = utils$e;
+
+    function InterceptorManager$1() {
+      this.handlers = [];
+    }
+
+    /**
+     * Add a new interceptor to the stack
+     *
+     * @param {Function} fulfilled The function to handle `then` for a `Promise`
+     * @param {Function} rejected The function to handle `reject` for a `Promise`
+     *
+     * @return {Number} An ID used to remove interceptor later
+     */
+    InterceptorManager$1.prototype.use = function use(fulfilled, rejected, options) {
+      this.handlers.push({
+        fulfilled: fulfilled,
+        rejected: rejected,
+        synchronous: options ? options.synchronous : false,
+        runWhen: options ? options.runWhen : null
+      });
+      return this.handlers.length - 1;
+    };
+
+    /**
+     * Remove an interceptor from the stack
+     *
+     * @param {Number} id The ID that was returned by `use`
+     */
+    InterceptorManager$1.prototype.eject = function eject(id) {
+      if (this.handlers[id]) {
+        this.handlers[id] = null;
+      }
+    };
+
+    /**
+     * Iterate over all the registered interceptors
+     *
+     * This method is particularly useful for skipping over any
+     * interceptors that may have become `null` calling `eject`.
+     *
+     * @param {Function} fn The function to call for each interceptor
+     */
+    InterceptorManager$1.prototype.forEach = function forEach(fn) {
+      utils$c.forEach(this.handlers, function forEachHandler(h) {
+        if (h !== null) {
+          fn(h);
+        }
+      });
+    };
+
+    var InterceptorManager_1 = InterceptorManager$1;
+
+    var utils$b = utils$e;
+
+    var normalizeHeaderName$1 = function normalizeHeaderName(headers, normalizedName) {
+      utils$b.forEach(headers, function processHeader(value, name) {
+        if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+          headers[normalizedName] = value;
+          delete headers[name];
+        }
+      });
+    };
+
+    /**
+     * Update an Error with the specified config, error code, and response.
+     *
+     * @param {Error} error The error to update.
+     * @param {Object} config The config.
+     * @param {string} [code] The error code (for example, 'ECONNABORTED').
+     * @param {Object} [request] The request.
+     * @param {Object} [response] The response.
+     * @returns {Error} The error.
+     */
+    var enhanceError$2 = function enhanceError(error, config, code, request, response) {
+      error.config = config;
+      if (code) {
+        error.code = code;
+      }
+
+      error.request = request;
+      error.response = response;
+      error.isAxiosError = true;
+
+      error.toJSON = function toJSON() {
+        return {
+          // Standard
+          message: this.message,
+          name: this.name,
+          // Microsoft
+          description: this.description,
+          number: this.number,
+          // Mozilla
+          fileName: this.fileName,
+          lineNumber: this.lineNumber,
+          columnNumber: this.columnNumber,
+          stack: this.stack,
+          // Axios
+          config: this.config,
+          code: this.code,
+          status: this.response && this.response.status ? this.response.status : null
+        };
+      };
+      return error;
+    };
+
+    var transitional = {
+      silentJSONParsing: true,
+      forcedJSONParsing: true,
+      clarifyTimeoutError: false
+    };
+
+    var enhanceError$1 = enhanceError$2;
+
+    /**
+     * Create an Error with the specified message, config, error code, request and response.
+     *
+     * @param {string} message The error message.
+     * @param {Object} config The config.
+     * @param {string} [code] The error code (for example, 'ECONNABORTED').
+     * @param {Object} [request] The request.
+     * @param {Object} [response] The response.
+     * @returns {Error} The created error.
+     */
+    var createError$2 = function createError(message, config, code, request, response) {
+      var error = new Error(message);
+      return enhanceError$1(error, config, code, request, response);
+    };
+
+    var createError$1 = createError$2;
+
+    /**
+     * Resolve or reject a Promise based on response status.
+     *
+     * @param {Function} resolve A function that resolves the promise.
+     * @param {Function} reject A function that rejects the promise.
+     * @param {object} response The response.
+     */
+    var settle$1 = function settle(resolve, reject, response) {
+      var validateStatus = response.config.validateStatus;
+      if (!response.status || !validateStatus || validateStatus(response.status)) {
+        resolve(response);
+      } else {
+        reject(createError$1(
+          'Request failed with status code ' + response.status,
+          response.config,
+          null,
+          response.request,
+          response
+        ));
+      }
+    };
+
+    var utils$a = utils$e;
+
+    var cookies$1 = (
+      utils$a.isStandardBrowserEnv() ?
+
+      // Standard browser envs support document.cookie
+        (function standardBrowserEnv() {
+          return {
+            write: function write(name, value, expires, path, domain, secure) {
+              var cookie = [];
+              cookie.push(name + '=' + encodeURIComponent(value));
+
+              if (utils$a.isNumber(expires)) {
+                cookie.push('expires=' + new Date(expires).toGMTString());
+              }
+
+              if (utils$a.isString(path)) {
+                cookie.push('path=' + path);
+              }
+
+              if (utils$a.isString(domain)) {
+                cookie.push('domain=' + domain);
+              }
+
+              if (secure === true) {
+                cookie.push('secure');
+              }
+
+              document.cookie = cookie.join('; ');
+            },
+
+            read: function read(name) {
+              var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+              return (match ? decodeURIComponent(match[3]) : null);
+            },
+
+            remove: function remove(name) {
+              this.write(name, '', Date.now() - 86400000);
+            }
+          };
+        })() :
+
+      // Non standard browser env (web workers, react-native) lack needed support.
+        (function nonStandardBrowserEnv() {
+          return {
+            write: function write() {},
+            read: function read() { return null; },
+            remove: function remove() {}
+          };
+        })()
+    );
+
+    /**
+     * Determines whether the specified URL is absolute
+     *
+     * @param {string} url The URL to test
+     * @returns {boolean} True if the specified URL is absolute, otherwise false
+     */
+    var isAbsoluteURL$1 = function isAbsoluteURL(url) {
+      // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+      // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+      // by any combination of letters, digits, plus, period, or hyphen.
+      return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
+    };
+
+    /**
+     * Creates a new URL by combining the specified URLs
+     *
+     * @param {string} baseURL The base URL
+     * @param {string} relativeURL The relative URL
+     * @returns {string} The combined URL
+     */
+    var combineURLs$1 = function combineURLs(baseURL, relativeURL) {
+      return relativeURL
+        ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+        : baseURL;
+    };
+
+    var isAbsoluteURL = isAbsoluteURL$1;
+    var combineURLs = combineURLs$1;
+
+    /**
+     * Creates a new URL by combining the baseURL with the requestedURL,
+     * only when the requestedURL is not already an absolute URL.
+     * If the requestURL is absolute, this function returns the requestedURL untouched.
+     *
+     * @param {string} baseURL The base URL
+     * @param {string} requestedURL Absolute or relative URL to combine
+     * @returns {string} The combined full path
+     */
+    var buildFullPath$1 = function buildFullPath(baseURL, requestedURL) {
+      if (baseURL && !isAbsoluteURL(requestedURL)) {
+        return combineURLs(baseURL, requestedURL);
+      }
+      return requestedURL;
+    };
+
+    var utils$9 = utils$e;
+
+    // Headers whose duplicates are ignored by node
+    // c.f. https://nodejs.org/api/http.html#http_message_headers
+    var ignoreDuplicateOf = [
+      'age', 'authorization', 'content-length', 'content-type', 'etag',
+      'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+      'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+      'referer', 'retry-after', 'user-agent'
+    ];
+
+    /**
+     * Parse headers into an object
+     *
+     * ```
+     * Date: Wed, 27 Aug 2014 08:58:49 GMT
+     * Content-Type: application/json
+     * Connection: keep-alive
+     * Transfer-Encoding: chunked
+     * ```
+     *
+     * @param {String} headers Headers needing to be parsed
+     * @returns {Object} Headers parsed into an object
+     */
+    var parseHeaders$1 = function parseHeaders(headers) {
+      var parsed = {};
+      var key;
+      var val;
+      var i;
+
+      if (!headers) { return parsed; }
+
+      utils$9.forEach(headers.split('\n'), function parser(line) {
+        i = line.indexOf(':');
+        key = utils$9.trim(line.substr(0, i)).toLowerCase();
+        val = utils$9.trim(line.substr(i + 1));
+
+        if (key) {
+          if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+            return;
+          }
+          if (key === 'set-cookie') {
+            parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+          } else {
+            parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+          }
+        }
+      });
+
+      return parsed;
+    };
+
+    var utils$8 = utils$e;
+
+    var isURLSameOrigin$1 = (
+      utils$8.isStandardBrowserEnv() ?
+
+      // Standard browser envs have full support of the APIs needed to test
+      // whether the request URL is of the same origin as current location.
+        (function standardBrowserEnv() {
+          var msie = /(msie|trident)/i.test(navigator.userAgent);
+          var urlParsingNode = document.createElement('a');
+          var originURL;
+
+          /**
+        * Parse a URL to discover it's components
+        *
+        * @param {String} url The URL to be parsed
+        * @returns {Object}
+        */
+          function resolveURL(url) {
+            var href = url;
+
+            if (msie) {
+            // IE needs attribute set twice to normalize properties
+              urlParsingNode.setAttribute('href', href);
+              href = urlParsingNode.href;
+            }
+
+            urlParsingNode.setAttribute('href', href);
+
+            // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+            return {
+              href: urlParsingNode.href,
+              protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+              host: urlParsingNode.host,
+              search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+              hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+              hostname: urlParsingNode.hostname,
+              port: urlParsingNode.port,
+              pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+                urlParsingNode.pathname :
+                '/' + urlParsingNode.pathname
+            };
+          }
+
+          originURL = resolveURL(window.location.href);
+
+          /**
+        * Determine if a URL shares the same origin as the current location
+        *
+        * @param {String} requestURL The URL to test
+        * @returns {boolean} True if URL shares the same origin, otherwise false
+        */
+          return function isURLSameOrigin(requestURL) {
+            var parsed = (utils$8.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+            return (parsed.protocol === originURL.protocol &&
+                parsed.host === originURL.host);
+          };
+        })() :
+
+      // Non standard browser envs (web workers, react-native) lack needed support.
+        (function nonStandardBrowserEnv() {
+          return function isURLSameOrigin() {
+            return true;
+          };
+        })()
+    );
+
+    /**
+     * A `Cancel` is an object that is thrown when an operation is canceled.
+     *
+     * @class
+     * @param {string=} message The message.
+     */
+    function Cancel$3(message) {
+      this.message = message;
+    }
+
+    Cancel$3.prototype.toString = function toString() {
+      return 'Cancel' + (this.message ? ': ' + this.message : '');
+    };
+
+    Cancel$3.prototype.__CANCEL__ = true;
+
+    var Cancel_1 = Cancel$3;
+
+    var utils$7 = utils$e;
+    var settle = settle$1;
+    var cookies = cookies$1;
+    var buildURL$1 = buildURL$2;
+    var buildFullPath = buildFullPath$1;
+    var parseHeaders = parseHeaders$1;
+    var isURLSameOrigin = isURLSameOrigin$1;
+    var createError = createError$2;
+    var transitionalDefaults$1 = transitional;
+    var Cancel$2 = Cancel_1;
+
+    var xhr = function xhrAdapter(config) {
+      return new Promise(function dispatchXhrRequest(resolve, reject) {
+        var requestData = config.data;
+        var requestHeaders = config.headers;
+        var responseType = config.responseType;
+        var onCanceled;
+        function done() {
+          if (config.cancelToken) {
+            config.cancelToken.unsubscribe(onCanceled);
+          }
+
+          if (config.signal) {
+            config.signal.removeEventListener('abort', onCanceled);
+          }
+        }
+
+        if (utils$7.isFormData(requestData)) {
+          delete requestHeaders['Content-Type']; // Let the browser set it
+        }
+
+        var request = new XMLHttpRequest();
+
+        // HTTP basic authentication
+        if (config.auth) {
+          var username = config.auth.username || '';
+          var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
+          requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+        }
+
+        var fullPath = buildFullPath(config.baseURL, config.url);
+        request.open(config.method.toUpperCase(), buildURL$1(fullPath, config.params, config.paramsSerializer), true);
+
+        // Set the request timeout in MS
+        request.timeout = config.timeout;
+
+        function onloadend() {
+          if (!request) {
+            return;
+          }
+          // Prepare the response
+          var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+          var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
+            request.responseText : request.response;
+          var response = {
+            data: responseData,
+            status: request.status,
+            statusText: request.statusText,
+            headers: responseHeaders,
+            config: config,
+            request: request
+          };
+
+          settle(function _resolve(value) {
+            resolve(value);
+            done();
+          }, function _reject(err) {
+            reject(err);
+            done();
+          }, response);
+
+          // Clean up request
+          request = null;
+        }
+
+        if ('onloadend' in request) {
+          // Use onloadend if available
+          request.onloadend = onloadend;
+        } else {
+          // Listen for ready state to emulate onloadend
+          request.onreadystatechange = function handleLoad() {
+            if (!request || request.readyState !== 4) {
+              return;
+            }
+
+            // The request errored out and we didn't get a response, this will be
+            // handled by onerror instead
+            // With one exception: request that using file: protocol, most browsers
+            // will return status as 0 even though it's a successful request
+            if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+              return;
+            }
+            // readystate handler is calling before onerror or ontimeout handlers,
+            // so we should call onloadend on the next 'tick'
+            setTimeout(onloadend);
+          };
+        }
+
+        // Handle browser request cancellation (as opposed to a manual cancellation)
+        request.onabort = function handleAbort() {
+          if (!request) {
+            return;
+          }
+
+          reject(createError('Request aborted', config, 'ECONNABORTED', request));
+
+          // Clean up request
+          request = null;
+        };
+
+        // Handle low level network errors
+        request.onerror = function handleError() {
+          // Real errors are hidden from us by the browser
+          // onerror should only fire if it's a network error
+          reject(createError('Network Error', config, null, request));
+
+          // Clean up request
+          request = null;
+        };
+
+        // Handle timeout
+        request.ontimeout = function handleTimeout() {
+          var timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
+          var transitional = config.transitional || transitionalDefaults$1;
+          if (config.timeoutErrorMessage) {
+            timeoutErrorMessage = config.timeoutErrorMessage;
+          }
+          reject(createError(
+            timeoutErrorMessage,
+            config,
+            transitional.clarifyTimeoutError ? 'ETIMEDOUT' : 'ECONNABORTED',
+            request));
+
+          // Clean up request
+          request = null;
+        };
+
+        // Add xsrf header
+        // This is only done if running in a standard browser environment.
+        // Specifically not if we're in a web worker, or react-native.
+        if (utils$7.isStandardBrowserEnv()) {
+          // Add xsrf header
+          var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
+            cookies.read(config.xsrfCookieName) :
+            undefined;
+
+          if (xsrfValue) {
+            requestHeaders[config.xsrfHeaderName] = xsrfValue;
+          }
+        }
+
+        // Add headers to the request
+        if ('setRequestHeader' in request) {
+          utils$7.forEach(requestHeaders, function setRequestHeader(val, key) {
+            if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+              // Remove Content-Type if data is undefined
+              delete requestHeaders[key];
+            } else {
+              // Otherwise add header to the request
+              request.setRequestHeader(key, val);
+            }
+          });
+        }
+
+        // Add withCredentials to request if needed
+        if (!utils$7.isUndefined(config.withCredentials)) {
+          request.withCredentials = !!config.withCredentials;
+        }
+
+        // Add responseType to request if needed
+        if (responseType && responseType !== 'json') {
+          request.responseType = config.responseType;
+        }
+
+        // Handle progress if needed
+        if (typeof config.onDownloadProgress === 'function') {
+          request.addEventListener('progress', config.onDownloadProgress);
+        }
+
+        // Not all browsers support upload events
+        if (typeof config.onUploadProgress === 'function' && request.upload) {
+          request.upload.addEventListener('progress', config.onUploadProgress);
+        }
+
+        if (config.cancelToken || config.signal) {
+          // Handle cancellation
+          // eslint-disable-next-line func-names
+          onCanceled = function(cancel) {
+            if (!request) {
+              return;
+            }
+            reject(!cancel || (cancel && cancel.type) ? new Cancel$2('canceled') : cancel);
+            request.abort();
+            request = null;
+          };
+
+          config.cancelToken && config.cancelToken.subscribe(onCanceled);
+          if (config.signal) {
+            config.signal.aborted ? onCanceled() : config.signal.addEventListener('abort', onCanceled);
+          }
+        }
+
+        if (!requestData) {
+          requestData = null;
+        }
+
+        // Send the request
+        request.send(requestData);
+      });
+    };
+
+    var utils$6 = utils$e;
+    var normalizeHeaderName = normalizeHeaderName$1;
+    var enhanceError = enhanceError$2;
+    var transitionalDefaults = transitional;
+
+    var DEFAULT_CONTENT_TYPE = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    };
+
+    function setContentTypeIfUnset(headers, value) {
+      if (!utils$6.isUndefined(headers) && utils$6.isUndefined(headers['Content-Type'])) {
+        headers['Content-Type'] = value;
+      }
+    }
+
+    function getDefaultAdapter() {
+      var adapter;
+      if (typeof XMLHttpRequest !== 'undefined') {
+        // For browsers use XHR adapter
+        adapter = xhr;
+      } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+        // For node use HTTP adapter
+        adapter = xhr;
+      }
+      return adapter;
+    }
+
+    function stringifySafely(rawValue, parser, encoder) {
+      if (utils$6.isString(rawValue)) {
+        try {
+          (parser || JSON.parse)(rawValue);
+          return utils$6.trim(rawValue);
+        } catch (e) {
+          if (e.name !== 'SyntaxError') {
+            throw e;
+          }
+        }
+      }
+
+      return (encoder || JSON.stringify)(rawValue);
+    }
+
+    var defaults$3 = {
+
+      transitional: transitionalDefaults,
+
+      adapter: getDefaultAdapter(),
+
+      transformRequest: [function transformRequest(data, headers) {
+        normalizeHeaderName(headers, 'Accept');
+        normalizeHeaderName(headers, 'Content-Type');
+
+        if (utils$6.isFormData(data) ||
+          utils$6.isArrayBuffer(data) ||
+          utils$6.isBuffer(data) ||
+          utils$6.isStream(data) ||
+          utils$6.isFile(data) ||
+          utils$6.isBlob(data)
+        ) {
+          return data;
+        }
+        if (utils$6.isArrayBufferView(data)) {
+          return data.buffer;
+        }
+        if (utils$6.isURLSearchParams(data)) {
+          setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+          return data.toString();
+        }
+        if (utils$6.isObject(data) || (headers && headers['Content-Type'] === 'application/json')) {
+          setContentTypeIfUnset(headers, 'application/json');
+          return stringifySafely(data);
+        }
+        return data;
+      }],
+
+      transformResponse: [function transformResponse(data) {
+        var transitional = this.transitional || defaults$3.transitional;
+        var silentJSONParsing = transitional && transitional.silentJSONParsing;
+        var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+        var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
+
+        if (strictJSONParsing || (forcedJSONParsing && utils$6.isString(data) && data.length)) {
+          try {
+            return JSON.parse(data);
+          } catch (e) {
+            if (strictJSONParsing) {
+              if (e.name === 'SyntaxError') {
+                throw enhanceError(e, this, 'E_JSON_PARSE');
+              }
+              throw e;
+            }
+          }
+        }
+
+        return data;
+      }],
+
+      /**
+       * A timeout in milliseconds to abort a request. If set to 0 (default) a
+       * timeout is not created.
+       */
+      timeout: 0,
+
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
+
+      maxContentLength: -1,
+      maxBodyLength: -1,
+
+      validateStatus: function validateStatus(status) {
+        return status >= 200 && status < 300;
+      },
+
+      headers: {
+        common: {
+          'Accept': 'application/json, text/plain, */*'
+        }
+      }
+    };
+
+    utils$6.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+      defaults$3.headers[method] = {};
+    });
+
+    utils$6.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+      defaults$3.headers[method] = utils$6.merge(DEFAULT_CONTENT_TYPE);
+    });
+
+    var defaults_1 = defaults$3;
+
+    var utils$5 = utils$e;
+    var defaults$2 = defaults_1;
+
+    /**
+     * Transform the data for a request or a response
+     *
+     * @param {Object|String} data The data to be transformed
+     * @param {Array} headers The headers for the request or response
+     * @param {Array|Function} fns A single function or Array of functions
+     * @returns {*} The resulting transformed data
+     */
+    var transformData$1 = function transformData(data, headers, fns) {
+      var context = this || defaults$2;
+      /*eslint no-param-reassign:0*/
+      utils$5.forEach(fns, function transform(fn) {
+        data = fn.call(context, data, headers);
+      });
+
+      return data;
+    };
+
+    var isCancel$1 = function isCancel(value) {
+      return !!(value && value.__CANCEL__);
+    };
+
+    var utils$4 = utils$e;
+    var transformData = transformData$1;
+    var isCancel = isCancel$1;
+    var defaults$1 = defaults_1;
+    var Cancel$1 = Cancel_1;
+
+    /**
+     * Throws a `Cancel` if cancellation has been requested.
+     */
+    function throwIfCancellationRequested(config) {
+      if (config.cancelToken) {
+        config.cancelToken.throwIfRequested();
+      }
+
+      if (config.signal && config.signal.aborted) {
+        throw new Cancel$1('canceled');
+      }
+    }
+
+    /**
+     * Dispatch a request to the server using the configured adapter.
+     *
+     * @param {object} config The config that is to be used for the request
+     * @returns {Promise} The Promise to be fulfilled
+     */
+    var dispatchRequest$1 = function dispatchRequest(config) {
+      throwIfCancellationRequested(config);
+
+      // Ensure headers exist
+      config.headers = config.headers || {};
+
+      // Transform request data
+      config.data = transformData.call(
+        config,
+        config.data,
+        config.headers,
+        config.transformRequest
+      );
+
+      // Flatten headers
+      config.headers = utils$4.merge(
+        config.headers.common || {},
+        config.headers[config.method] || {},
+        config.headers
+      );
+
+      utils$4.forEach(
+        ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+        function cleanHeaderConfig(method) {
+          delete config.headers[method];
+        }
+      );
+
+      var adapter = config.adapter || defaults$1.adapter;
+
+      return adapter(config).then(function onAdapterResolution(response) {
+        throwIfCancellationRequested(config);
+
+        // Transform response data
+        response.data = transformData.call(
+          config,
+          response.data,
+          response.headers,
+          config.transformResponse
+        );
+
+        return response;
+      }, function onAdapterRejection(reason) {
+        if (!isCancel(reason)) {
+          throwIfCancellationRequested(config);
+
+          // Transform response data
+          if (reason && reason.response) {
+            reason.response.data = transformData.call(
+              config,
+              reason.response.data,
+              reason.response.headers,
+              config.transformResponse
+            );
+          }
+        }
+
+        return Promise.reject(reason);
+      });
+    };
+
+    var utils$3 = utils$e;
+
+    /**
+     * Config-specific merge-function which creates a new config-object
+     * by merging two configuration objects together.
+     *
+     * @param {Object} config1
+     * @param {Object} config2
+     * @returns {Object} New object resulting from merging config2 to config1
+     */
+    var mergeConfig$2 = function mergeConfig(config1, config2) {
+      // eslint-disable-next-line no-param-reassign
+      config2 = config2 || {};
+      var config = {};
+
+      function getMergedValue(target, source) {
+        if (utils$3.isPlainObject(target) && utils$3.isPlainObject(source)) {
+          return utils$3.merge(target, source);
+        } else if (utils$3.isPlainObject(source)) {
+          return utils$3.merge({}, source);
+        } else if (utils$3.isArray(source)) {
+          return source.slice();
+        }
+        return source;
+      }
+
+      // eslint-disable-next-line consistent-return
+      function mergeDeepProperties(prop) {
+        if (!utils$3.isUndefined(config2[prop])) {
+          return getMergedValue(config1[prop], config2[prop]);
+        } else if (!utils$3.isUndefined(config1[prop])) {
+          return getMergedValue(undefined, config1[prop]);
+        }
+      }
+
+      // eslint-disable-next-line consistent-return
+      function valueFromConfig2(prop) {
+        if (!utils$3.isUndefined(config2[prop])) {
+          return getMergedValue(undefined, config2[prop]);
+        }
+      }
+
+      // eslint-disable-next-line consistent-return
+      function defaultToConfig2(prop) {
+        if (!utils$3.isUndefined(config2[prop])) {
+          return getMergedValue(undefined, config2[prop]);
+        } else if (!utils$3.isUndefined(config1[prop])) {
+          return getMergedValue(undefined, config1[prop]);
+        }
+      }
+
+      // eslint-disable-next-line consistent-return
+      function mergeDirectKeys(prop) {
+        if (prop in config2) {
+          return getMergedValue(config1[prop], config2[prop]);
+        } else if (prop in config1) {
+          return getMergedValue(undefined, config1[prop]);
+        }
+      }
+
+      var mergeMap = {
+        'url': valueFromConfig2,
+        'method': valueFromConfig2,
+        'data': valueFromConfig2,
+        'baseURL': defaultToConfig2,
+        'transformRequest': defaultToConfig2,
+        'transformResponse': defaultToConfig2,
+        'paramsSerializer': defaultToConfig2,
+        'timeout': defaultToConfig2,
+        'timeoutMessage': defaultToConfig2,
+        'withCredentials': defaultToConfig2,
+        'adapter': defaultToConfig2,
+        'responseType': defaultToConfig2,
+        'xsrfCookieName': defaultToConfig2,
+        'xsrfHeaderName': defaultToConfig2,
+        'onUploadProgress': defaultToConfig2,
+        'onDownloadProgress': defaultToConfig2,
+        'decompress': defaultToConfig2,
+        'maxContentLength': defaultToConfig2,
+        'maxBodyLength': defaultToConfig2,
+        'transport': defaultToConfig2,
+        'httpAgent': defaultToConfig2,
+        'httpsAgent': defaultToConfig2,
+        'cancelToken': defaultToConfig2,
+        'socketPath': defaultToConfig2,
+        'responseEncoding': defaultToConfig2,
+        'validateStatus': mergeDirectKeys
+      };
+
+      utils$3.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
+        var merge = mergeMap[prop] || mergeDeepProperties;
+        var configValue = merge(prop);
+        (utils$3.isUndefined(configValue) && merge !== mergeDirectKeys) || (config[prop] = configValue);
+      });
+
+      return config;
+    };
+
+    var data = {
+      "version": "0.26.1"
+    };
+
+    var VERSION = data.version;
+
+    var validators$1 = {};
+
+    // eslint-disable-next-line func-names
+    ['object', 'boolean', 'number', 'function', 'string', 'symbol'].forEach(function(type, i) {
+      validators$1[type] = function validator(thing) {
+        return typeof thing === type || 'a' + (i < 1 ? 'n ' : ' ') + type;
+      };
+    });
+
+    var deprecatedWarnings = {};
+
+    /**
+     * Transitional option validator
+     * @param {function|boolean?} validator - set to false if the transitional option has been removed
+     * @param {string?} version - deprecated version / removed since version
+     * @param {string?} message - some message with additional info
+     * @returns {function}
+     */
+    validators$1.transitional = function transitional(validator, version, message) {
+      function formatMessage(opt, desc) {
+        return '[Axios v' + VERSION + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
+      }
+
+      // eslint-disable-next-line func-names
+      return function(value, opt, opts) {
+        if (validator === false) {
+          throw new Error(formatMessage(opt, ' has been removed' + (version ? ' in ' + version : '')));
+        }
+
+        if (version && !deprecatedWarnings[opt]) {
+          deprecatedWarnings[opt] = true;
+          // eslint-disable-next-line no-console
+          console.warn(
+            formatMessage(
+              opt,
+              ' has been deprecated since v' + version + ' and will be removed in the near future'
+            )
+          );
+        }
+
+        return validator ? validator(value, opt, opts) : true;
+      };
+    };
+
+    /**
+     * Assert object's properties type
+     * @param {object} options
+     * @param {object} schema
+     * @param {boolean?} allowUnknown
+     */
+
+    function assertOptions(options, schema, allowUnknown) {
+      if (typeof options !== 'object') {
+        throw new TypeError('options must be an object');
+      }
+      var keys = Object.keys(options);
+      var i = keys.length;
+      while (i-- > 0) {
+        var opt = keys[i];
+        var validator = schema[opt];
+        if (validator) {
+          var value = options[opt];
+          var result = value === undefined || validator(value, opt, options);
+          if (result !== true) {
+            throw new TypeError('option ' + opt + ' must be ' + result);
+          }
+          continue;
+        }
+        if (allowUnknown !== true) {
+          throw Error('Unknown option ' + opt);
+        }
+      }
+    }
+
+    var validator$1 = {
+      assertOptions: assertOptions,
+      validators: validators$1
+    };
+
+    var utils$2 = utils$e;
+    var buildURL = buildURL$2;
+    var InterceptorManager = InterceptorManager_1;
+    var dispatchRequest = dispatchRequest$1;
+    var mergeConfig$1 = mergeConfig$2;
+    var validator = validator$1;
+
+    var validators = validator.validators;
+    /**
+     * Create a new instance of Axios
+     *
+     * @param {Object} instanceConfig The default config for the instance
+     */
+    function Axios$1(instanceConfig) {
+      this.defaults = instanceConfig;
+      this.interceptors = {
+        request: new InterceptorManager(),
+        response: new InterceptorManager()
+      };
+    }
+
+    /**
+     * Dispatch a request
+     *
+     * @param {Object} config The config specific for this request (merged with this.defaults)
+     */
+    Axios$1.prototype.request = function request(configOrUrl, config) {
+      /*eslint no-param-reassign:0*/
+      // Allow for axios('example/url'[, config]) a la fetch API
+      if (typeof configOrUrl === 'string') {
+        config = config || {};
+        config.url = configOrUrl;
+      } else {
+        config = configOrUrl || {};
+      }
+
+      config = mergeConfig$1(this.defaults, config);
+
+      // Set config.method
+      if (config.method) {
+        config.method = config.method.toLowerCase();
+      } else if (this.defaults.method) {
+        config.method = this.defaults.method.toLowerCase();
+      } else {
+        config.method = 'get';
+      }
+
+      var transitional = config.transitional;
+
+      if (transitional !== undefined) {
+        validator.assertOptions(transitional, {
+          silentJSONParsing: validators.transitional(validators.boolean),
+          forcedJSONParsing: validators.transitional(validators.boolean),
+          clarifyTimeoutError: validators.transitional(validators.boolean)
+        }, false);
+      }
+
+      // filter out skipped interceptors
+      var requestInterceptorChain = [];
+      var synchronousRequestInterceptors = true;
+      this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+        if (typeof interceptor.runWhen === 'function' && interceptor.runWhen(config) === false) {
+          return;
+        }
+
+        synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+
+        requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+      });
+
+      var responseInterceptorChain = [];
+      this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+        responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+      });
+
+      var promise;
+
+      if (!synchronousRequestInterceptors) {
+        var chain = [dispatchRequest, undefined];
+
+        Array.prototype.unshift.apply(chain, requestInterceptorChain);
+        chain = chain.concat(responseInterceptorChain);
+
+        promise = Promise.resolve(config);
+        while (chain.length) {
+          promise = promise.then(chain.shift(), chain.shift());
+        }
+
+        return promise;
+      }
+
+
+      var newConfig = config;
+      while (requestInterceptorChain.length) {
+        var onFulfilled = requestInterceptorChain.shift();
+        var onRejected = requestInterceptorChain.shift();
+        try {
+          newConfig = onFulfilled(newConfig);
+        } catch (error) {
+          onRejected(error);
+          break;
+        }
+      }
+
+      try {
+        promise = dispatchRequest(newConfig);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+
+      while (responseInterceptorChain.length) {
+        promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
+      }
+
+      return promise;
+    };
+
+    Axios$1.prototype.getUri = function getUri(config) {
+      config = mergeConfig$1(this.defaults, config);
+      return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+    };
+
+    // Provide aliases for supported request methods
+    utils$2.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+      /*eslint func-names:0*/
+      Axios$1.prototype[method] = function(url, config) {
+        return this.request(mergeConfig$1(config || {}, {
+          method: method,
+          url: url,
+          data: (config || {}).data
+        }));
+      };
+    });
+
+    utils$2.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+      /*eslint func-names:0*/
+      Axios$1.prototype[method] = function(url, data, config) {
+        return this.request(mergeConfig$1(config || {}, {
+          method: method,
+          url: url,
+          data: data
+        }));
+      };
+    });
+
+    var Axios_1 = Axios$1;
+
+    var Cancel = Cancel_1;
+
+    /**
+     * A `CancelToken` is an object that can be used to request cancellation of an operation.
+     *
+     * @class
+     * @param {Function} executor The executor function.
+     */
+    function CancelToken(executor) {
+      if (typeof executor !== 'function') {
+        throw new TypeError('executor must be a function.');
+      }
+
+      var resolvePromise;
+
+      this.promise = new Promise(function promiseExecutor(resolve) {
+        resolvePromise = resolve;
+      });
+
+      var token = this;
+
+      // eslint-disable-next-line func-names
+      this.promise.then(function(cancel) {
+        if (!token._listeners) return;
+
+        var i;
+        var l = token._listeners.length;
+
+        for (i = 0; i < l; i++) {
+          token._listeners[i](cancel);
+        }
+        token._listeners = null;
+      });
+
+      // eslint-disable-next-line func-names
+      this.promise.then = function(onfulfilled) {
+        var _resolve;
+        // eslint-disable-next-line func-names
+        var promise = new Promise(function(resolve) {
+          token.subscribe(resolve);
+          _resolve = resolve;
+        }).then(onfulfilled);
+
+        promise.cancel = function reject() {
+          token.unsubscribe(_resolve);
+        };
+
+        return promise;
+      };
+
+      executor(function cancel(message) {
+        if (token.reason) {
+          // Cancellation has already been requested
+          return;
+        }
+
+        token.reason = new Cancel(message);
+        resolvePromise(token.reason);
+      });
+    }
+
+    /**
+     * Throws a `Cancel` if cancellation has been requested.
+     */
+    CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+      if (this.reason) {
+        throw this.reason;
+      }
+    };
+
+    /**
+     * Subscribe to the cancel signal
+     */
+
+    CancelToken.prototype.subscribe = function subscribe(listener) {
+      if (this.reason) {
+        listener(this.reason);
+        return;
+      }
+
+      if (this._listeners) {
+        this._listeners.push(listener);
+      } else {
+        this._listeners = [listener];
+      }
+    };
+
+    /**
+     * Unsubscribe from the cancel signal
+     */
+
+    CancelToken.prototype.unsubscribe = function unsubscribe(listener) {
+      if (!this._listeners) {
+        return;
+      }
+      var index = this._listeners.indexOf(listener);
+      if (index !== -1) {
+        this._listeners.splice(index, 1);
+      }
+    };
+
+    /**
+     * Returns an object that contains a new `CancelToken` and a function that, when called,
+     * cancels the `CancelToken`.
+     */
+    CancelToken.source = function source() {
+      var cancel;
+      var token = new CancelToken(function executor(c) {
+        cancel = c;
+      });
+      return {
+        token: token,
+        cancel: cancel
+      };
+    };
+
+    var CancelToken_1 = CancelToken;
+
+    /**
+     * Syntactic sugar for invoking a function and expanding an array for arguments.
+     *
+     * Common use case would be to use `Function.prototype.apply`.
+     *
+     *  ```js
+     *  function f(x, y, z) {}
+     *  var args = [1, 2, 3];
+     *  f.apply(null, args);
+     *  ```
+     *
+     * With `spread` this example can be re-written.
+     *
+     *  ```js
+     *  spread(function(x, y, z) {})([1, 2, 3]);
+     *  ```
+     *
+     * @param {Function} callback
+     * @returns {Function}
+     */
+    var spread = function spread(callback) {
+      return function wrap(arr) {
+        return callback.apply(null, arr);
+      };
+    };
+
+    var utils$1 = utils$e;
+
+    /**
+     * Determines whether the payload is an error thrown by Axios
+     *
+     * @param {*} payload The value to test
+     * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+     */
+    var isAxiosError = function isAxiosError(payload) {
+      return utils$1.isObject(payload) && (payload.isAxiosError === true);
+    };
+
+    var utils = utils$e;
+    var bind = bind$2;
+    var Axios = Axios_1;
+    var mergeConfig = mergeConfig$2;
+    var defaults = defaults_1;
+
+    /**
+     * Create an instance of Axios
+     *
+     * @param {Object} defaultConfig The default config for the instance
+     * @return {Axios} A new instance of Axios
+     */
+    function createInstance(defaultConfig) {
+      var context = new Axios(defaultConfig);
+      var instance = bind(Axios.prototype.request, context);
+
+      // Copy axios.prototype to instance
+      utils.extend(instance, Axios.prototype, context);
+
+      // Copy context to instance
+      utils.extend(instance, context);
+
+      // Factory for creating new instances
+      instance.create = function create(instanceConfig) {
+        return createInstance(mergeConfig(defaultConfig, instanceConfig));
+      };
+
+      return instance;
+    }
+
+    // Create the default instance to be exported
+    var axios$1 = createInstance(defaults);
+
+    // Expose Axios class to allow class inheritance
+    axios$1.Axios = Axios;
+
+    // Expose Cancel & CancelToken
+    axios$1.Cancel = Cancel_1;
+    axios$1.CancelToken = CancelToken_1;
+    axios$1.isCancel = isCancel$1;
+    axios$1.VERSION = data.version;
+
+    // Expose all/spread
+    axios$1.all = function all(promises) {
+      return Promise.all(promises);
+    };
+    axios$1.spread = spread;
+
+    // Expose isAxiosError
+    axios$1.isAxiosError = isAxiosError;
+
+    axios$2.exports = axios$1;
+
+    // Allow use of default import syntax in TypeScript
+    axios$2.exports.default = axios$1;
+
+    var axios = axios$2.exports;
+
+    /* src\components\Alert.svelte generated by Svelte v3.47.0 */
+
+    const file$h = "src\\components\\Alert.svelte";
+
+    // (6:0) {#if status === 0}
+    function create_if_block_1(ctx) {
+    	let div1;
+    	let button;
+    	let span;
+    	let t0;
+    	let t1;
+    	let div0;
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			button = element("button");
+    			span = element("span");
+    			t0 = text("×");
+    			t1 = space();
+    			div0 = element("div");
+    			t2 = text(/*mssg*/ ctx[1]);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div1 = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div1_nodes = children(div1);
+
+    			button = claim_element(div1_nodes, "BUTTON", {
+    				type: true,
+    				class: true,
+    				"data-dismiss": true,
+    				"aria-label": true
+    			});
+
+    			var button_nodes = children(button);
+    			span = claim_element(button_nodes, "SPAN", { "aria-hidden": true });
+    			var span_nodes = children(span);
+    			t0 = claim_text(span_nodes, "×");
+    			span_nodes.forEach(detach_dev);
+    			button_nodes.forEach(detach_dev);
+    			t1 = claim_space(div1_nodes);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			t2 = claim_text(div0_nodes, /*mssg*/ ctx[1]);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "aria-hidden", "true");
+    			add_location(span, file$h, 8, 6, 241);
+    			attr_dev(button, "type", "button");
+    			attr_dev(button, "class", "close");
+    			attr_dev(button, "data-dismiss", "alert");
+    			attr_dev(button, "aria-label", "Close");
+    			add_location(button, file$h, 7, 4, 157);
+    			attr_dev(div0, "class", "alert-message");
+    			add_location(div0, file$h, 10, 4, 301);
+    			attr_dev(div1, "class", "alert alert-primary alert-dismissible svelte-1ptdg6g");
+    			attr_dev(div1, "role", "alert");
+    			add_location(div1, file$h, 6, 2, 87);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, button);
+    			append_hydration_dev(button, span);
+    			append_hydration_dev(span, t0);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*mssg*/ 2) set_data_dev(t2, /*mssg*/ ctx[1]);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(6:0) {#if status === 0}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (16:0) {#if status === 1}
+    function create_if_block$b(ctx) {
+    	let div1;
+    	let button;
+    	let span;
+    	let t0;
+    	let t1;
+    	let div0;
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			button = element("button");
+    			span = element("span");
+    			t0 = text("×");
+    			t1 = space();
+    			div0 = element("div");
+    			t2 = text(/*mssg*/ ctx[1]);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div1 = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div1_nodes = children(div1);
+
+    			button = claim_element(div1_nodes, "BUTTON", {
+    				type: true,
+    				class: true,
+    				"data-dismiss": true,
+    				"aria-label": true
+    			});
+
+    			var button_nodes = children(button);
+    			span = claim_element(button_nodes, "SPAN", { "aria-hidden": true });
+    			var span_nodes = children(span);
+    			t0 = claim_text(span_nodes, "×");
+    			span_nodes.forEach(detach_dev);
+    			button_nodes.forEach(detach_dev);
+    			t1 = claim_space(div1_nodes);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			t2 = claim_text(div0_nodes, /*mssg*/ ctx[1]);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "aria-hidden", "true");
+    			add_location(span, file$h, 18, 6, 548);
+    			attr_dev(button, "type", "button");
+    			attr_dev(button, "class", "close");
+    			attr_dev(button, "data-dismiss", "alert");
+    			attr_dev(button, "aria-label", "Close");
+    			add_location(button, file$h, 17, 4, 464);
+    			attr_dev(div0, "class", "alert-message");
+    			add_location(div0, file$h, 20, 4, 608);
+    			attr_dev(div1, "class", "alert alert-danger alert-dismissible svelte-1ptdg6g");
+    			attr_dev(div1, "role", "alert");
+    			add_location(div1, file$h, 16, 2, 395);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, button);
+    			append_hydration_dev(button, span);
+    			append_hydration_dev(span, t0);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*mssg*/ 2) set_data_dev(t2, /*mssg*/ ctx[1]);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$b.name,
+    		type: "if",
+    		source: "(16:0) {#if status === 1}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$h(ctx) {
+    	let t;
+    	let if_block1_anchor;
+    	let if_block0 = /*status*/ ctx[0] === 0 && create_if_block_1(ctx);
+    	let if_block1 = /*status*/ ctx[0] === 1 && create_if_block$b(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block0) if_block0.c();
+    			t = space();
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			if (if_block0) if_block0.l(nodes);
+    			t = claim_space(nodes);
+    			if (if_block1) if_block1.l(nodes);
+    			if_block1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block0) if_block0.m(target, anchor);
+    			insert_hydration_dev(target, t, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
+    			insert_hydration_dev(target, if_block1_anchor, anchor);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*status*/ ctx[0] === 0) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
+    				} else {
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					if_block0.m(t.parentNode, t);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (/*status*/ ctx[0] === 1) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block$b(ctx);
+    					if_block1.c();
+    					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (if_block0) if_block0.d(detaching);
+    			if (detaching) detach_dev(t);
+    			if (if_block1) if_block1.d(detaching);
+    			if (detaching) detach_dev(if_block1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$h.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$h($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Alert', slots, []);
+    	let { status } = $$props;
+    	let { mssg } = $$props;
+    	const writable_props = ['status', 'mssg'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Alert> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('status' in $$props) $$invalidate(0, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(1, mssg = $$props.mssg);
+    	};
+
+    	$$self.$capture_state = () => ({ status, mssg });
+
+    	$$self.$inject_state = $$props => {
+    		if ('status' in $$props) $$invalidate(0, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(1, mssg = $$props.mssg);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [status, mssg];
+    }
+
+    class Alert extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$h, create_fragment$h, safe_not_equal, { status: 0, mssg: 1 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Alert",
+    			options,
+    			id: create_fragment$h.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*status*/ ctx[0] === undefined && !('status' in props)) {
+    			console.warn("<Alert> was created without expected prop 'status'");
+    		}
+
+    		if (/*mssg*/ ctx[1] === undefined && !('mssg' in props)) {
+    			console.warn("<Alert> was created without expected prop 'mssg'");
+    		}
+    	}
+
+    	get status() {
+    		throw new Error("<Alert>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set status(value) {
+    		throw new Error("<Alert>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get mssg() {
+    		throw new Error("<Alert>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set mssg(value) {
+    		throw new Error("<Alert>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    function saveToLocalStorage(state) {
+      try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem("state", serializedState);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    function loadFromLocalStorage() {
+      try {
+        const serializedState = localStorage.getItem("state");
+        if (serializedState === null) return undefined;
+        return JSON.parse(serializedState);
+      } catch (e) {
+        console.log(e);
+        return undefined;
+      }
+    }
+
+    const persistedState = loadFromLocalStorage();
+
+    const userStore = writable(
+      persistedState || { token: null, user: null, link: null, schedule: null }
+    );
+
+    userStore.subscribe((val) => saveToLocalStorage(val));
+
+    const displayuser = async (name) => {
+      let user = null;
+      await axios
+        .post("/api/user/displayuser", { name })
+        .then((res) => {
+          user = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return user;
+    };
+
+    const reset = async (email) => {
+      let user;
+      await axios
+        .post("/api/user/resetpassword", { email })
+        .then((res) => {
+          user = res.data;
+        })
+        .catch((err) => {
+          user = res.data;
+        });
+      return user;
+    };
+
+    const check = async (email, otp, password) => {
+      let user;
+      await axios
+        .post("/api/user/check", { email, otp, password })
+        .then((res) => {
+          user = res.data;
+        })
+        .catch((err) => {
+          user = res.data;
+        });
+      return user;
+    };
+
+    const getinfo = async () => {
+      let token = "";
+      userStore.subscribe((data) => {
+        token = data.token;
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      if (token) config.headers["auth-token"] = token;
+      await axios.get("/api/user/info", config).then((res) =>
+        userStore.update((currUser) => {
+          console.log("updated");
+          return { ...currUser, token: currUser.token, user: res.data };
+        })
+      );
+    };
+
+    const addlink = async (a) => {
+      let token = "";
+      let status = 1,
+        mssg = "Something went wrong";
+      userStore.subscribe((data) => {
+        token = data.token;
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      if (token) config.headers["auth-token"] = token;
+      console.log(a);
+      axios
+        .post("/api/user/addlink", a, config)
+        .then((res) => {
+          status = 0;
+          mssg = "Successfully added";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      await getinfo();
+      return { status, mssg };
+    };
+
+    const deletelink = async (a) => {
+      let token = "";
+      let status = 1,
+        mssg = "Something went wrong";
+      userStore.subscribe((data) => {
+        token = data.token;
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      if (token) config.headers["auth-token"] = token;
+      console.log(a);
+      axios
+        .post("/api/user/deletelink", { _id: a }, config)
+        .then((res) => {
+          status = 0;
+          mssg = "Successfully added";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      await getinfo();
+      return { status, mssg };
+    };
+
+    const addschedule = async (a) => {
+      let token = "";
+      let status = 1,
+        mssg = "Something went wrong";
+      userStore.subscribe((data) => {
+        token = data.token;
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      if (token) config.headers["auth-token"] = token;
+      console.log(a);
+      axios
+        .post("/api/user/addschedule", a, config)
+        .then((res) => {
+          status = 0;
+          mssg = "Successfully added";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      await getinfo();
+      return { status, mssg };
+    };
+
+    /* src\pages\Login.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$8 } = globals;
+    const file$g = "src\\pages\\Login.svelte";
+
+    // (82:20) {:else}
+    function create_else_block$9(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			img = claim_element(nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true
+    			});
+
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = /*dp*/ ctx[1])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Not found user");
+    			attr_dev(img, "class", "img-fluid rounded-circle");
+    			attr_dev(img, "width", "132");
+    			attr_dev(img, "height", "132");
+    			add_location(img, file$g, 82, 22, 2926);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*dp*/ 2 && !src_url_equal(img.src, img_src_value = /*dp*/ ctx[1])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$9.name,
+    		type: "else",
+    		source: "(82:20) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (78:20) {#if loading}
+    function create_if_block$a(ctx) {
+    	let div;
+    	let span;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			t = text("Carregando...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div_nodes = children(div);
+    			span = claim_element(div_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t = claim_text(span_nodes, "Carregando...");
+    			span_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "sr-only");
+    			add_location(span, file$g, 79, 24, 2801);
+    			attr_dev(div, "class", "spinner-border text-primary");
+    			attr_dev(div, "role", "status");
+    			add_location(div, file$g, 78, 22, 2720);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$a.name,
+    		type: "if",
+    		source: "(78:20) {#if loading}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$g(ctx) {
+    	let homenav;
+    	let t0;
+    	let div14;
+    	let main;
+    	let div13;
+    	let div12;
+    	let div11;
+    	let div10;
+    	let div0;
+    	let h1;
+    	let t1;
+    	let t2;
+    	let p;
+    	let t3;
+    	let t4;
+    	let div9;
+    	let div8;
+    	let div7;
+    	let div1;
+    	let t5;
+    	let form;
+    	let div2;
+    	let label0;
+    	let t6;
+    	let t7;
+    	let input0;
+    	let t8;
+    	let div3;
+    	let label1;
+    	let t9;
+    	let t10;
+    	let input1;
+    	let t11;
+    	let small;
+    	let a;
+    	let t12;
+    	let t13;
+    	let div5;
+    	let div4;
+    	let input2;
+    	let t14;
+    	let label2;
+    	let t15;
+    	let t16;
+    	let div6;
+    	let button;
+    	let t17;
+    	let t18;
+    	let alert;
+    	let t19;
+    	let footer;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	homenav = new HomeNav({ $$inline: true });
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*loading*/ ctx[2]) return create_if_block$a;
+    		return create_else_block$9;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	alert = new Alert({
+    			props: {
+    				mssg: /*mssg*/ ctx[4],
+    				status: /*status*/ ctx[3]
+    			},
+    			$$inline: true
+    		});
+
+    	footer = new Footer({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(homenav.$$.fragment);
+    			t0 = space();
+    			div14 = element("div");
+    			main = element("main");
+    			div13 = element("div");
+    			div12 = element("div");
+    			div11 = element("div");
+    			div10 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t1 = text("Bem vindo novamente");
+    			t2 = space();
+    			p = element("p");
+    			t3 = text("Entre com sua conta para continuar");
+    			t4 = space();
+    			div9 = element("div");
+    			div8 = element("div");
+    			div7 = element("div");
+    			div1 = element("div");
+    			if_block.c();
+    			t5 = space();
+    			form = element("form");
+    			div2 = element("div");
+    			label0 = element("label");
+    			t6 = text("Instagram");
+    			t7 = space();
+    			input0 = element("input");
+    			t8 = space();
+    			div3 = element("div");
+    			label1 = element("label");
+    			t9 = text("Senha");
+    			t10 = space();
+    			input1 = element("input");
+    			t11 = space();
+    			small = element("small");
+    			a = element("a");
+    			t12 = text("Esqueceu a senha?");
+    			t13 = space();
+    			div5 = element("div");
+    			div4 = element("div");
+    			input2 = element("input");
+    			t14 = space();
+    			label2 = element("label");
+    			t15 = text("Lembrar");
+    			t16 = space();
+    			div6 = element("div");
+    			button = element("button");
+    			t17 = text("Entrar");
+    			t18 = space();
+    			create_component(alert.$$.fragment);
+    			t19 = space();
+    			create_component(footer.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			claim_component(homenav.$$.fragment, nodes);
+    			t0 = claim_space(nodes);
+    			div14 = claim_element(nodes, "DIV", { class: true });
+    			var div14_nodes = children(div14);
+    			main = claim_element(div14_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div13 = claim_element(main_nodes, "DIV", { class: true });
+    			var div13_nodes = children(div13);
+    			div12 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div12_nodes = children(div12);
+    			div11 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div11_nodes = children(div11);
+    			div10 = claim_element(div11_nodes, "DIV", { class: true });
+    			var div10_nodes = children(div10);
+    			div0 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t1 = claim_text(h1_nodes, "Bem vindo novamente");
+    			h1_nodes.forEach(detach_dev);
+    			t2 = claim_space(div0_nodes);
+    			p = claim_element(div0_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t3 = claim_text(p_nodes, "Entre com sua conta para continuar");
+    			p_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t4 = claim_space(div10_nodes);
+    			div9 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div9_nodes = children(div9);
+    			div8 = claim_element(div9_nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			div7 = claim_element(div8_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			div1 = claim_element(div7_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			if_block.l(div1_nodes);
+    			div1_nodes.forEach(detach_dev);
+    			t5 = claim_space(div7_nodes);
+    			form = claim_element(div7_nodes, "FORM", {});
+    			var form_nodes = children(form);
+    			div2 = claim_element(form_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			label0 = claim_element(div2_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t6 = claim_text(label0_nodes, "Instagram");
+    			label0_nodes.forEach(detach_dev);
+    			t7 = claim_space(div2_nodes);
+
+    			input0 = claim_element(div2_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div2_nodes.forEach(detach_dev);
+    			t8 = claim_space(form_nodes);
+    			div3 = claim_element(form_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			label1 = claim_element(div3_nodes, "LABEL", { for: true });
+    			var label1_nodes = children(label1);
+    			t9 = claim_text(label1_nodes, "Senha");
+    			label1_nodes.forEach(detach_dev);
+    			t10 = claim_space(div3_nodes);
+
+    			input1 = claim_element(div3_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			t11 = claim_space(div3_nodes);
+    			small = claim_element(div3_nodes, "SMALL", {});
+    			var small_nodes = children(small);
+    			a = claim_element(small_nodes, "A", { replace: true, href: true });
+    			var a_nodes = children(a);
+    			t12 = claim_text(a_nodes, "Esqueceu a senha?");
+    			a_nodes.forEach(detach_dev);
+    			small_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			t13 = claim_space(form_nodes);
+    			div5 = claim_element(form_nodes, "DIV", {});
+    			var div5_nodes = children(div5);
+    			div4 = claim_element(div5_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			input2 = claim_element(div4_nodes, "INPUT", { type: true, class: true, name: true });
+    			t14 = claim_space(div4_nodes);
+    			label2 = claim_element(div4_nodes, "LABEL", { for: true, class: true });
+    			var label2_nodes = children(label2);
+    			t15 = claim_text(label2_nodes, "Lembrar");
+    			label2_nodes.forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			div5_nodes.forEach(detach_dev);
+    			t16 = claim_space(form_nodes);
+    			div6 = claim_element(form_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+    			button = claim_element(div6_nodes, "BUTTON", { class: true });
+    			var button_nodes = children(button);
+    			t17 = claim_text(button_nodes, "Entrar");
+    			button_nodes.forEach(detach_dev);
+    			div6_nodes.forEach(detach_dev);
+    			form_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			div9_nodes.forEach(detach_dev);
+    			div10_nodes.forEach(detach_dev);
+    			div11_nodes.forEach(detach_dev);
+    			div12_nodes.forEach(detach_dev);
+    			div13_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div14_nodes.forEach(detach_dev);
+    			t18 = claim_space(nodes);
+    			claim_component(alert.$$.fragment, nodes);
+    			t19 = claim_space(nodes);
+    			claim_component(footer.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "h2");
+    			add_location(h1, file$g, 69, 14, 2376);
+    			attr_dev(p, "class", "lead");
+    			add_location(p, file$g, 70, 14, 2431);
+    			attr_dev(div0, "class", "text-center mt-4");
+    			add_location(div0, file$g, 68, 12, 2330);
+    			attr_dev(div1, "class", "text-center");
+    			add_location(div1, file$g, 76, 18, 2636);
+    			attr_dev(label0, "for", "");
+    			add_location(label0, file$g, 93, 22, 3336);
+    			attr_dev(input0, "class", "form-control form-control-lg");
+    			attr_dev(input0, "type", "text");
+    			attr_dev(input0, "placeholder", "usuario");
+    			add_location(input0, file$g, 94, 22, 3391);
+    			attr_dev(div2, "class", "form-group");
+    			add_location(div2, file$g, 92, 20, 3288);
+    			attr_dev(label1, "for", "");
+    			add_location(label1, file$g, 105, 22, 3845);
+    			attr_dev(input1, "class", "form-control form-control-lg");
+    			attr_dev(input1, "type", "password");
+    			attr_dev(input1, "placeholder", "senha");
+    			add_location(input1, file$g, 106, 22, 3896);
+    			attr_dev(a, "replace", "");
+    			attr_dev(a, "href", "/resetpassword");
+    			add_location(a, file$g, 113, 24, 4185);
+    			add_location(small, file$g, 112, 22, 4152);
+    			attr_dev(div3, "class", "form-group");
+    			add_location(div3, file$g, 104, 20, 3797);
+    			attr_dev(input2, "type", "checkbox");
+    			attr_dev(input2, "class", "custom-control-input");
+    			input2.value = "remember-me";
+    			attr_dev(input2, "name", "remember-me");
+    			input2.checked = true;
+    			add_location(input2, file$g, 122, 24, 4551);
+    			attr_dev(label2, "for", "");
+    			attr_dev(label2, "class", "custom-control-label text-small");
+    			add_location(label2, file$g, 129, 24, 4838);
+    			attr_dev(div4, "class", "custom-control custom-checkbox align-items-center");
+    			add_location(div4, file$g, 119, 22, 4413);
+    			add_location(div5, file$g, 118, 20, 4384);
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$g, 135, 22, 5095);
+    			attr_dev(div6, "class", "text-center mt-3");
+    			add_location(div6, file$g, 134, 20, 5041);
+    			add_location(form, file$g, 91, 18, 3242);
+    			attr_dev(div7, "class", "m-sm-4");
+    			add_location(div7, file$g, 75, 16, 2596);
+    			attr_dev(div8, "class", "card-body");
+    			add_location(div8, file$g, 74, 14, 2555);
+    			attr_dev(div9, "class", "card");
+    			add_location(div9, file$g, 73, 12, 2521);
+    			attr_dev(div10, "class", "align-middle");
+    			add_location(div10, file$g, 67, 10, 2290);
+    			attr_dev(div11, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div11, file$g, 66, 8, 2215);
+    			attr_dev(div12, "class", "row h-100");
+    			add_location(div12, file$g, 65, 6, 2182);
+    			attr_dev(div13, "class", "container d-flex flex-column");
+    			add_location(div13, file$g, 64, 4, 2132);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$g, 63, 2, 2093);
+    			attr_dev(div14, "class", "main d-flex justify-content-center w-100");
+    			add_location(div14, file$g, 62, 0, 2035);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(homenav, target, anchor);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, div14, anchor);
+    			append_hydration_dev(div14, main);
+    			append_hydration_dev(main, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div0, t2);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t3);
+    			append_hydration_dev(div10, t4);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div1);
+    			if_block.m(div1, null);
+    			append_hydration_dev(div7, t5);
+    			append_hydration_dev(div7, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, input0);
+    			set_input_value(input0, /*user*/ ctx[0].instagram);
+    			append_hydration_dev(form, t8);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, input1);
+    			set_input_value(input1, /*user*/ ctx[0].password);
+    			append_hydration_dev(div3, t11);
+    			append_hydration_dev(div3, small);
+    			append_hydration_dev(small, a);
+    			append_hydration_dev(a, t12);
+    			append_hydration_dev(form, t13);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, input2);
+    			append_hydration_dev(div4, t14);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t15);
+    			append_hydration_dev(form, t16);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, button);
+    			append_hydration_dev(button, t17);
+    			insert_hydration_dev(target, t18, anchor);
+    			mount_component(alert, target, anchor);
+    			insert_hydration_dev(target, t19, anchor);
+    			mount_component(footer, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "change", /*change_handler*/ ctx[7], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[8]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[9]),
+    					action_destroyer(link.call(null, a)),
+    					listen_dev(form, "submit", /*login*/ ctx[6], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div1, null);
+    				}
+    			}
+
+    			if (dirty & /*user*/ 1 && input0.value !== /*user*/ ctx[0].instagram) {
+    				set_input_value(input0, /*user*/ ctx[0].instagram);
+    			}
+
+    			if (dirty & /*user*/ 1 && input1.value !== /*user*/ ctx[0].password) {
+    				set_input_value(input1, /*user*/ ctx[0].password);
+    			}
+
+    			const alert_changes = {};
+    			if (dirty & /*mssg*/ 16) alert_changes.mssg = /*mssg*/ ctx[4];
+    			if (dirty & /*status*/ 8) alert_changes.status = /*status*/ ctx[3];
+    			alert.$set(alert_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(homenav.$$.fragment, local);
+    			transition_in(alert.$$.fragment, local);
+    			transition_in(footer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(homenav.$$.fragment, local);
+    			transition_out(alert.$$.fragment, local);
+    			transition_out(footer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(homenav, detaching);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div14);
+    			if_block.d();
+    			if (detaching) detach_dev(t18);
+    			destroy_component(alert, detaching);
+    			if (detaching) detach_dev(t19);
+    			destroy_component(footer, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$g.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$g($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Login', slots, []);
+    	let user = { password: "", instagram: "" };
+    	let dp = "img/avatars/avatar.jpg";
+    	let loading = false;
+
+    	async function getPhoto(a) {
+    		$$invalidate(2, loading = true);
+    		let u = await displayuser(user.instagram);
+    		console.log(u);
+    		if (u) $$invalidate(1, dp = u.dp);
+    		$$invalidate(2, loading = false);
+    	}
+
+    	let status = -1;
+    	let mssg = "";
+
+    	const login = e => {
+    		e.preventDefault();
+
+    		fetch("/api/user/login", {
+    			method: "POST", // *GET, POST, PUT, DELETE, etc.
+    			mode: "cors", // no-cors, *cors, same-origin
+    			cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    			credentials: "same-origin", // include, *same-origin, omit
+    			headers: { "Content-Type": "application/json" }, // 'Content-Type': 'application/x-www-form-urlencoded',
+    			redirect: "follow", // manual, *follow, error
+    			referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    			body: JSON.stringify(user)
+    		}).then(function (response) {
+    			return response.json();
+    		}).then(function (data) {
+    			console.log(data);
+
+    			if (data.status && data.status == 1) {
+    				$$invalidate(3, status = 1);
+    				$$invalidate(4, mssg = "Erro");
+    				return;
+    			}
+
+    			userStore.update(currUser => {
+    				return { token: data.token, user: data.user };
+    			});
+
+    			document.location.href = "/dashboard";
+    		}).catch(error => {
+    			$$invalidate(3, status = 1);
+    			$$invalidate(4, mssg = "Tivemos algum problema, por favor tente novamente");
+    		});
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$8.warn(`<Login> was created with unknown prop '${key}'`);
+    	});
+
+    	const change_handler = () => {
+    		getPhoto(user.instagram);
+    	};
+
+    	function input0_input_handler() {
+    		user.instagram = this.value;
+    		$$invalidate(0, user);
+    	}
+
+    	function input1_input_handler() {
+    		user.password = this.value;
+    		$$invalidate(0, user);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		link,
+    		axios,
+    		HomeNav,
+    		Footer,
+    		Alert,
+    		userStore,
+    		displayuser,
+    		user,
+    		dp,
+    		loading,
+    		getPhoto,
+    		status,
+    		mssg,
+    		login
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
+    		if ('dp' in $$props) $$invalidate(1, dp = $$props.dp);
+    		if ('loading' in $$props) $$invalidate(2, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(3, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(4, mssg = $$props.mssg);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		user,
+    		dp,
+    		loading,
+    		status,
+    		mssg,
+    		getPhoto,
+    		login,
+    		change_handler,
+    		input0_input_handler,
+    		input1_input_handler
+    	];
+    }
+
+    class Login extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$g, create_fragment$g, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Login",
+    			options,
+    			id: create_fragment$g.name
+    		});
+    	}
+    }
+
+    var dist = {};
+
+    var alea$1 = {exports: {}};
+
+    (function (module) {
+    // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
+    // http://baagoe.com/en/RandomMusings/javascript/
+    // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
+    // Original work is under MIT license -
+
+    // Copyright (C) 2010 by Johannes Baagøe <baagoe@baagoe.org>
+    //
+    // Permission is hereby granted, free of charge, to any person obtaining a copy
+    // of this software and associated documentation files (the "Software"), to deal
+    // in the Software without restriction, including without limitation the rights
+    // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    // copies of the Software, and to permit persons to whom the Software is
+    // furnished to do so, subject to the following conditions:
+    //
+    // The above copyright notice and this permission notice shall be included in
+    // all copies or substantial portions of the Software.
+    //
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    // THE SOFTWARE.
+
+
+
+    (function(global, module, define) {
+
+    function Alea(seed) {
+      var me = this, mash = Mash();
+
+      me.next = function() {
+        var t = 2091639 * me.s0 + me.c * 2.3283064365386963e-10; // 2^-32
+        me.s0 = me.s1;
+        me.s1 = me.s2;
+        return me.s2 = t - (me.c = t | 0);
+      };
+
+      // Apply the seeding algorithm from Baagoe.
+      me.c = 1;
+      me.s0 = mash(' ');
+      me.s1 = mash(' ');
+      me.s2 = mash(' ');
+      me.s0 -= mash(seed);
+      if (me.s0 < 0) { me.s0 += 1; }
+      me.s1 -= mash(seed);
+      if (me.s1 < 0) { me.s1 += 1; }
+      me.s2 -= mash(seed);
+      if (me.s2 < 0) { me.s2 += 1; }
+      mash = null;
+    }
+
+    function copy(f, t) {
+      t.c = f.c;
+      t.s0 = f.s0;
+      t.s1 = f.s1;
+      t.s2 = f.s2;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      var xg = new Alea(seed),
+          state = opts && opts.state,
+          prng = xg.next;
+      prng.int32 = function() { return (xg.next() * 0x100000000) | 0; };
+      prng.double = function() {
+        return prng() + (prng() * 0x200000 | 0) * 1.1102230246251565e-16; // 2^-53
+      };
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    function Mash() {
+      var n = 0xefc8249d;
+
+      var mash = function(data) {
+        data = String(data);
+        for (var i = 0; i < data.length; i++) {
+          n += data.charCodeAt(i);
+          var h = 0.02519603282416938 * n;
+          n = h >>> 0;
+          h -= n;
+          h *= n;
+          n = h >>> 0;
+          h -= n;
+          n += h * 0x100000000; // 2^32
+        }
+        return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
+      };
+
+      return mash;
+    }
+
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.alea = impl;
+    }
+
+    })(
+      commonjsGlobal,
+      module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    }(alea$1));
+
+    var xor128$1 = {exports: {}};
+
+    (function (module) {
+    // A Javascript implementaion of the "xor128" prng algorithm by
+    // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this, strseed = '';
+
+      me.x = 0;
+      me.y = 0;
+      me.z = 0;
+      me.w = 0;
+
+      // Set up generator function.
+      me.next = function() {
+        var t = me.x ^ (me.x << 11);
+        me.x = me.y;
+        me.y = me.z;
+        me.z = me.w;
+        return me.w ^= (me.w >>> 19) ^ t ^ (t >>> 8);
+      };
+
+      if (seed === (seed | 0)) {
+        // Integer seed.
+        me.x = seed;
+      } else {
+        // String seed.
+        strseed += seed;
+      }
+
+      // Mix in string seed, then discard an initial batch of 64 values.
+      for (var k = 0; k < strseed.length + 64; k++) {
+        me.x ^= strseed.charCodeAt(k) | 0;
+        me.next();
+      }
+    }
+
+    function copy(f, t) {
+      t.x = f.x;
+      t.y = f.y;
+      t.z = f.z;
+      t.w = f.w;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xor128 = impl;
+    }
+
+    })(
+      commonjsGlobal,
+      module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    }(xor128$1));
+
+    var xorwow$1 = {exports: {}};
+
+    (function (module) {
+    // A Javascript implementaion of the "xorwow" prng algorithm by
+    // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this, strseed = '';
+
+      // Set up generator function.
+      me.next = function() {
+        var t = (me.x ^ (me.x >>> 2));
+        me.x = me.y; me.y = me.z; me.z = me.w; me.w = me.v;
+        return (me.d = (me.d + 362437 | 0)) +
+           (me.v = (me.v ^ (me.v << 4)) ^ (t ^ (t << 1))) | 0;
+      };
+
+      me.x = 0;
+      me.y = 0;
+      me.z = 0;
+      me.w = 0;
+      me.v = 0;
+
+      if (seed === (seed | 0)) {
+        // Integer seed.
+        me.x = seed;
+      } else {
+        // String seed.
+        strseed += seed;
+      }
+
+      // Mix in string seed, then discard an initial batch of 64 values.
+      for (var k = 0; k < strseed.length + 64; k++) {
+        me.x ^= strseed.charCodeAt(k) | 0;
+        if (k == strseed.length) {
+          me.d = me.x << 10 ^ me.x >>> 4;
+        }
+        me.next();
+      }
+    }
+
+    function copy(f, t) {
+      t.x = f.x;
+      t.y = f.y;
+      t.z = f.z;
+      t.w = f.w;
+      t.v = f.v;
+      t.d = f.d;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xorwow = impl;
+    }
+
+    })(
+      commonjsGlobal,
+      module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    }(xorwow$1));
+
+    var xorshift7$1 = {exports: {}};
+
+    (function (module) {
+    // A Javascript implementaion of the "xorshift7" algorithm by
+    // François Panneton and Pierre L'ecuyer:
+    // "On the Xorgshift Random Number Generators"
+    // http://saluc.engr.uconn.edu/refs/crypto/rng/panneton05onthexorshift.pdf
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this;
+
+      // Set up generator function.
+      me.next = function() {
+        // Update xor generator.
+        var X = me.x, i = me.i, t, v;
+        t = X[i]; t ^= (t >>> 7); v = t ^ (t << 24);
+        t = X[(i + 1) & 7]; v ^= t ^ (t >>> 10);
+        t = X[(i + 3) & 7]; v ^= t ^ (t >>> 3);
+        t = X[(i + 4) & 7]; v ^= t ^ (t << 7);
+        t = X[(i + 7) & 7]; t = t ^ (t << 13); v ^= t ^ (t << 9);
+        X[i] = v;
+        me.i = (i + 1) & 7;
+        return v;
+      };
+
+      function init(me, seed) {
+        var j, X = [];
+
+        if (seed === (seed | 0)) {
+          // Seed state array using a 32-bit integer.
+          X[0] = seed;
+        } else {
+          // Seed state using a string.
+          seed = '' + seed;
+          for (j = 0; j < seed.length; ++j) {
+            X[j & 7] = (X[j & 7] << 15) ^
+                (seed.charCodeAt(j) + X[(j + 1) & 7] << 13);
+          }
+        }
+        // Enforce an array length of 8, not all zeroes.
+        while (X.length < 8) X.push(0);
+        for (j = 0; j < 8 && X[j] === 0; ++j);
+        if (j == 8) X[7] = -1;
+
+        me.x = X;
+        me.i = 0;
+
+        // Discard an initial 256 values.
+        for (j = 256; j > 0; --j) {
+          me.next();
+        }
+      }
+
+      init(me, seed);
+    }
+
+    function copy(f, t) {
+      t.x = f.x.slice();
+      t.i = f.i;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      if (seed == null) seed = +(new Date);
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (state.x) copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xorshift7 = impl;
+    }
+
+    })(
+      commonjsGlobal,
+      module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    }(xorshift7$1));
+
+    var xor4096$1 = {exports: {}};
+
+    (function (module) {
+    // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
+    //
+    // This fast non-cryptographic random number generator is designed for
+    // use in Monte-Carlo algorithms. It combines a long-period xorshift
+    // generator with a Weyl generator, and it passes all common batteries
+    // of stasticial tests for randomness while consuming only a few nanoseconds
+    // for each prng generated.  For background on the generator, see Brent's
+    // paper: "Some long-period random number generators using shifts and xors."
+    // http://arxiv.org/pdf/1004.3115v1.pdf
+    //
+    // Usage:
+    //
+    // var xor4096 = require('xor4096');
+    // random = xor4096(1);                        // Seed with int32 or string.
+    // assert.equal(random(), 0.1520436450538547); // (0, 1) range, 53 bits.
+    // assert.equal(random.int32(), 1806534897);   // signed int32, 32 bits.
+    //
+    // For nonzero numeric keys, this impelementation provides a sequence
+    // identical to that by Brent's xorgens 3 implementaion in C.  This
+    // implementation also provides for initalizing the generator with
+    // string seeds, or for saving and restoring the state of the generator.
+    //
+    // On Chrome, this prng benchmarks about 2.1 times slower than
+    // Javascript's built-in Math.random().
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this;
+
+      // Set up generator function.
+      me.next = function() {
+        var w = me.w,
+            X = me.X, i = me.i, t, v;
+        // Update Weyl generator.
+        me.w = w = (w + 0x61c88647) | 0;
+        // Update xor generator.
+        v = X[(i + 34) & 127];
+        t = X[i = ((i + 1) & 127)];
+        v ^= v << 13;
+        t ^= t << 17;
+        v ^= v >>> 15;
+        t ^= t >>> 12;
+        // Update Xor generator array state.
+        v = X[i] = v ^ t;
+        me.i = i;
+        // Result is the combination.
+        return (v + (w ^ (w >>> 16))) | 0;
+      };
+
+      function init(me, seed) {
+        var t, v, i, j, w, X = [], limit = 128;
+        if (seed === (seed | 0)) {
+          // Numeric seeds initialize v, which is used to generates X.
+          v = seed;
+          seed = null;
+        } else {
+          // String seeds are mixed into v and X one character at a time.
+          seed = seed + '\0';
+          v = 0;
+          limit = Math.max(limit, seed.length);
+        }
+        // Initialize circular array and weyl value.
+        for (i = 0, j = -32; j < limit; ++j) {
+          // Put the unicode characters into the array, and shuffle them.
+          if (seed) v ^= seed.charCodeAt((j + 32) % seed.length);
+          // After 32 shuffles, take v as the starting w value.
+          if (j === 0) w = v;
+          v ^= v << 10;
+          v ^= v >>> 15;
+          v ^= v << 4;
+          v ^= v >>> 13;
+          if (j >= 0) {
+            w = (w + 0x61c88647) | 0;     // Weyl.
+            t = (X[j & 127] ^= (v + w));  // Combine xor and weyl to init array.
+            i = (0 == t) ? i + 1 : 0;     // Count zeroes.
+          }
+        }
+        // We have detected all zeroes; make the key nonzero.
+        if (i >= 128) {
+          X[(seed && seed.length || 0) & 127] = -1;
+        }
+        // Run the generator 512 times to further mix the state before using it.
+        // Factoring this as a function slows the main generator, so it is just
+        // unrolled here.  The weyl generator is not advanced while warming up.
+        i = 127;
+        for (j = 4 * 128; j > 0; --j) {
+          v = X[(i + 34) & 127];
+          t = X[i = ((i + 1) & 127)];
+          v ^= v << 13;
+          t ^= t << 17;
+          v ^= v >>> 15;
+          t ^= t >>> 12;
+          X[i] = v ^ t;
+        }
+        // Storing state as object members is faster than using closure variables.
+        me.w = w;
+        me.X = X;
+        me.i = i;
+      }
+
+      init(me, seed);
+    }
+
+    function copy(f, t) {
+      t.i = f.i;
+      t.w = f.w;
+      t.X = f.X.slice();
+      return t;
+    }
+    function impl(seed, opts) {
+      if (seed == null) seed = +(new Date);
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (state.X) copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xor4096 = impl;
+    }
+
+    })(
+      commonjsGlobal,                                     // window object or global
+      module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    }(xor4096$1));
+
+    var tychei$1 = {exports: {}};
+
+    (function (module) {
+    // A Javascript implementaion of the "Tyche-i" prng algorithm by
+    // Samuel Neves and Filipe Araujo.
+    // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this, strseed = '';
+
+      // Set up generator function.
+      me.next = function() {
+        var b = me.b, c = me.c, d = me.d, a = me.a;
+        b = (b << 25) ^ (b >>> 7) ^ c;
+        c = (c - d) | 0;
+        d = (d << 24) ^ (d >>> 8) ^ a;
+        a = (a - b) | 0;
+        me.b = b = (b << 20) ^ (b >>> 12) ^ c;
+        me.c = c = (c - d) | 0;
+        me.d = (d << 16) ^ (c >>> 16) ^ a;
+        return me.a = (a - b) | 0;
+      };
+
+      /* The following is non-inverted tyche, which has better internal
+       * bit diffusion, but which is about 25% slower than tyche-i in JS.
+      me.next = function() {
+        var a = me.a, b = me.b, c = me.c, d = me.d;
+        a = (me.a + me.b | 0) >>> 0;
+        d = me.d ^ a; d = d << 16 ^ d >>> 16;
+        c = me.c + d | 0;
+        b = me.b ^ c; b = b << 12 ^ d >>> 20;
+        me.a = a = a + b | 0;
+        d = d ^ a; me.d = d = d << 8 ^ d >>> 24;
+        me.c = c = c + d | 0;
+        b = b ^ c;
+        return me.b = (b << 7 ^ b >>> 25);
+      }
+      */
+
+      me.a = 0;
+      me.b = 0;
+      me.c = 2654435769 | 0;
+      me.d = 1367130551;
+
+      if (seed === Math.floor(seed)) {
+        // Integer seed.
+        me.a = (seed / 0x100000000) | 0;
+        me.b = seed | 0;
+      } else {
+        // String seed.
+        strseed += seed;
+      }
+
+      // Mix in string seed, then discard an initial batch of 64 values.
+      for (var k = 0; k < strseed.length + 20; k++) {
+        me.b ^= strseed.charCodeAt(k) | 0;
+        me.next();
+      }
+    }
+
+    function copy(f, t) {
+      t.a = f.a;
+      t.b = f.b;
+      t.c = f.c;
+      t.d = f.d;
+      return t;
+    }
+    function impl(seed, opts) {
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.tychei = impl;
+    }
+
+    })(
+      commonjsGlobal,
+      module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    }(tychei$1));
+
+    var seedrandom$1 = {exports: {}};
+
+    /*
+    Copyright 2019 David Bau.
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    */
+
+    (function (module) {
+    (function (global, pool, math) {
+    //
+    // The following constants are related to IEEE 754 limits.
+    //
+
+    var width = 256,        // each RC4 output is 0 <= x < 256
+        chunks = 6,         // at least six RC4 outputs for each double
+        digits = 52,        // there are 52 significant digits in a double
+        rngname = 'random', // rngname: name for Math.random and Math.seedrandom
+        startdenom = math.pow(width, chunks),
+        significance = math.pow(2, digits),
+        overflow = significance * 2,
+        mask = width - 1,
+        nodecrypto;         // node.js crypto module, initialized at the bottom.
+
+    //
+    // seedrandom()
+    // This is the seedrandom function described above.
+    //
+    function seedrandom(seed, options, callback) {
+      var key = [];
+      options = (options == true) ? { entropy: true } : (options || {});
+
+      // Flatten the seed string or build one from local entropy if needed.
+      var shortseed = mixkey(flatten(
+        options.entropy ? [seed, tostring(pool)] :
+        (seed == null) ? autoseed() : seed, 3), key);
+
+      // Use the seed to initialize an ARC4 generator.
+      var arc4 = new ARC4(key);
+
+      // This function returns a random double in [0, 1) that contains
+      // randomness in every bit of the mantissa of the IEEE 754 value.
+      var prng = function() {
+        var n = arc4.g(chunks),             // Start with a numerator n < 2 ^ 48
+            d = startdenom,                 //   and denominator d = 2 ^ 48.
+            x = 0;                          //   and no 'extra last byte'.
+        while (n < significance) {          // Fill up all significant digits by
+          n = (n + x) * width;              //   shifting numerator and
+          d *= width;                       //   denominator and generating a
+          x = arc4.g(1);                    //   new least-significant-byte.
+        }
+        while (n >= overflow) {             // To avoid rounding up, before adding
+          n /= 2;                           //   last byte, shift everything
+          d /= 2;                           //   right using integer math until
+          x >>>= 1;                         //   we have exactly the desired bits.
+        }
+        return (n + x) / d;                 // Form the number within [0, 1).
+      };
+
+      prng.int32 = function() { return arc4.g(4) | 0; };
+      prng.quick = function() { return arc4.g(4) / 0x100000000; };
+      prng.double = prng;
+
+      // Mix the randomness into accumulated entropy.
+      mixkey(tostring(arc4.S), pool);
+
+      // Calling convention: what to return as a function of prng, seed, is_math.
+      return (options.pass || callback ||
+          function(prng, seed, is_math_call, state) {
+            if (state) {
+              // Load the arc4 state from the given state if it has an S array.
+              if (state.S) { copy(state, arc4); }
+              // Only provide the .state method if requested via options.state.
+              prng.state = function() { return copy(arc4, {}); };
+            }
+
+            // If called as a method of Math (Math.seedrandom()), mutate
+            // Math.random because that is how seedrandom.js has worked since v1.0.
+            if (is_math_call) { math[rngname] = prng; return seed; }
+
+            // Otherwise, it is a newer calling convention, so return the
+            // prng directly.
+            else return prng;
+          })(
+      prng,
+      shortseed,
+      'global' in options ? options.global : (this == math),
+      options.state);
+    }
+
+    //
+    // ARC4
+    //
+    // An ARC4 implementation.  The constructor takes a key in the form of
+    // an array of at most (width) integers that should be 0 <= x < (width).
+    //
+    // The g(count) method returns a pseudorandom integer that concatenates
+    // the next (count) outputs from ARC4.  Its return value is a number x
+    // that is in the range 0 <= x < (width ^ count).
+    //
+    function ARC4(key) {
+      var t, keylen = key.length,
+          me = this, i = 0, j = me.i = me.j = 0, s = me.S = [];
+
+      // The empty key [] is treated as [0].
+      if (!keylen) { key = [keylen++]; }
+
+      // Set up S using the standard key scheduling algorithm.
+      while (i < width) {
+        s[i] = i++;
+      }
+      for (i = 0; i < width; i++) {
+        s[i] = s[j = mask & (j + key[i % keylen] + (t = s[i]))];
+        s[j] = t;
+      }
+
+      // The "g" method returns the next (count) outputs as one number.
+      (me.g = function(count) {
+        // Using instance members instead of closure state nearly doubles speed.
+        var t, r = 0,
+            i = me.i, j = me.j, s = me.S;
+        while (count--) {
+          t = s[i = mask & (i + 1)];
+          r = r * width + s[mask & ((s[i] = s[j = mask & (j + t)]) + (s[j] = t))];
+        }
+        me.i = i; me.j = j;
+        return r;
+        // For robust unpredictability, the function call below automatically
+        // discards an initial batch of values.  This is called RC4-drop[256].
+        // See http://google.com/search?q=rsa+fluhrer+response&btnI
+      })(width);
+    }
+
+    //
+    // copy()
+    // Copies internal state of ARC4 to or from a plain object.
+    //
+    function copy(f, t) {
+      t.i = f.i;
+      t.j = f.j;
+      t.S = f.S.slice();
+      return t;
+    }
+    //
+    // flatten()
+    // Converts an object tree to nested arrays of strings.
+    //
+    function flatten(obj, depth) {
+      var result = [], typ = (typeof obj), prop;
+      if (depth && typ == 'object') {
+        for (prop in obj) {
+          try { result.push(flatten(obj[prop], depth - 1)); } catch (e) {}
+        }
+      }
+      return (result.length ? result : typ == 'string' ? obj : obj + '\0');
+    }
+
+    //
+    // mixkey()
+    // Mixes a string seed into a key that is an array of integers, and
+    // returns a shortened string seed that is equivalent to the result key.
+    //
+    function mixkey(seed, key) {
+      var stringseed = seed + '', smear, j = 0;
+      while (j < stringseed.length) {
+        key[mask & j] =
+          mask & ((smear ^= key[mask & j] * 19) + stringseed.charCodeAt(j++));
+      }
+      return tostring(key);
+    }
+
+    //
+    // autoseed()
+    // Returns an object for autoseeding, using window.crypto and Node crypto
+    // module if available.
+    //
+    function autoseed() {
+      try {
+        var out;
+        if (nodecrypto && (out = nodecrypto.randomBytes)) {
+          // The use of 'out' to remember randomBytes makes tight minified code.
+          out = out(width);
+        } else {
+          out = new Uint8Array(width);
+          (global.crypto || global.msCrypto).getRandomValues(out);
+        }
+        return tostring(out);
+      } catch (e) {
+        var browser = global.navigator,
+            plugins = browser && browser.plugins;
+        return [+new Date, global, plugins, global.screen, tostring(pool)];
+      }
+    }
+
+    //
+    // tostring()
+    // Converts an array of charcodes to a string
+    //
+    function tostring(a) {
+      return String.fromCharCode.apply(0, a);
+    }
+
+    //
+    // When seedrandom.js is loaded, we immediately mix a few bits
+    // from the built-in RNG into the entropy pool.  Because we do
+    // not want to interfere with deterministic PRNG state later,
+    // seedrandom will not call math.random on its own again after
+    // initialization.
+    //
+    mixkey(math.random(), pool);
+
+    //
+    // Nodejs and AMD support: export the implementation as a module using
+    // either convention.
+    //
+    if (module.exports) {
+      module.exports = seedrandom;
+      // When in node.js, try using crypto package for autoseeding.
+      try {
+        nodecrypto = require('crypto');
+      } catch (ex) {}
+    } else {
+      // When included as a plain script, set up Math.seedrandom global.
+      math['seed' + rngname] = seedrandom;
+    }
+
+
+    // End anonymous scope, and pass initial values.
+    })(
+      // global: `self` in browsers (including strict mode and web workers),
+      // otherwise `this` in Node and other environments
+      (typeof self !== 'undefined') ? self : commonjsGlobal,
+      [],     // pool: entropy pool starts empty
+      Math    // math: package containing random, pow, and seedrandom
+    );
+    }(seedrandom$1));
+
+    // A library of seedable RNGs implemented in Javascript.
+    //
+    // Usage:
+    //
+    // var seedrandom = require('seedrandom');
+    // var random = seedrandom(1); // or any seed.
+    // var x = random();       // 0 <= x < 1.  Every bit is random.
+    // var x = random.quick(); // 0 <= x < 1.  32 bits of randomness.
+
+    // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
+    // Period: ~2^116
+    // Reported to pass all BigCrush tests.
+    var alea = alea$1.exports;
+
+    // xor128, a pure xor-shift generator by George Marsaglia.
+    // Period: 2^128-1.
+    // Reported to fail: MatrixRank and LinearComp.
+    var xor128 = xor128$1.exports;
+
+    // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
+    // Period: 2^192-2^32
+    // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
+    var xorwow = xorwow$1.exports;
+
+    // xorshift7, by François Panneton and Pierre L'ecuyer, takes
+    // a different approach: it adds robustness by allowing more shifts
+    // than Marsaglia's original three.  It is a 7-shift generator
+    // with 256 bits, that passes BigCrush with no systmatic failures.
+    // Period 2^256-1.
+    // No systematic BigCrush failures reported.
+    var xorshift7 = xorshift7$1.exports;
+
+    // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
+    // very long period that also adds a Weyl generator. It also passes
+    // BigCrush with no systematic failures.  Its long period may
+    // be useful if you have many generators and need to avoid
+    // collisions.
+    // Period: 2^4128-2^32.
+    // No systematic BigCrush failures reported.
+    var xor4096 = xor4096$1.exports;
+
+    // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
+    // number generator derived from ChaCha, a modern stream cipher.
+    // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
+    // Period: ~2^127
+    // No systematic BigCrush failures reported.
+    var tychei = tychei$1.exports;
+
+    // The original ARC4-based prng included in this library.
+    // Period: ~2^1600
+    var sr = seedrandom$1.exports;
+
+    sr.alea = alea;
+    sr.xor128 = xor128;
+    sr.xorwow = xorwow;
+    sr.xorshift7 = xorshift7;
+    sr.xor4096 = xor4096;
+    sr.tychei = tychei;
+
+    var seedrandom = sr;
+
+    var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
+        return (mod && mod.__esModule) ? mod : { "default": mod };
+    };
+    Object.defineProperty(dist, "__esModule", { value: true });
+    var AvatarGenerator_1 = dist.AvatarGenerator = void 0;
+    var seedrandom_1 = __importDefault(seedrandom);
+    /** @description Class to generate avatars  */
+    var AvatarGenerator = /** @class */ (function () {
+        function AvatarGenerator() {
+        }
+        /** @description Generates random avatar image URL
+         * @returns Random avatar image URL
+         */
+        AvatarGenerator.prototype.generateRandomAvatar = function (seed) {
+            var topTypeOptions = new Array();
+            topTypeOptions.push("NoHair", "Eyepatch", "Hat", "Hijab", "Turban", "WinterHat1", "WinterHat2", "WinterHat3", "WinterHat4", "LongHairBigHair", "LongHairBob", "LongHairBun", "LongHairCurly", "LongHairCurvy", "LongHairDreads", "LongHairFrida", "LongHairFro", "LongHairFroBand", "LongHairNotTooLong", "LongHairShavedSides", "LongHairMiaWallace", "LongHairStraight", "LongHairStraight2", "LongHairStraightStrand", "ShortHairDreads01", "ShortHairDreads02", "ShortHairFrizzle", "ShortHairShaggyMullet", "ShortHairShortCurly", "ShortHairShortFlat", "ShortHairShortRound", "ShortHairShortWaved", "ShortHairSides", "ShortHairTheCaesar", "ShortHairTheCaesarSidePart");
+            var accessoriesTypeOptions = new Array();
+            accessoriesTypeOptions.push("Blank", "Kurt", "Prescription01", "Prescription02", "Round", "Sunglasses", "Wayfarers");
+            var facialHairTypeOptions = new Array();
+            facialHairTypeOptions.push("Blank", "BeardMedium", "BeardLight", "BeardMagestic", "MoustacheFancy", "MoustacheMagnum");
+            var facialHairColorOptions = new Array();
+            facialHairColorOptions.push("Auburn", "Black", "Blonde", "BlondeGolden", "Brown", "BrownDark", "Platinum", "Red");
+            var clotheTypeOptions = new Array();
+            clotheTypeOptions.push("BlazerShirt", "BlazerSweater", "CollarSweater", "GraphicShirt", "Hoodie", "Overall", "ShirtCrewNeck", "ShirtScoopNeck", "ShirtVNeck");
+            var eyeTypeOptions = new Array();
+            eyeTypeOptions.push("Close", "Cry", "Default", "Dizzy", "EyeRoll", "Happy", "Hearts", "Side", "Squint", "Surprised", "Wink", "WinkWacky");
+            var eyebrowTypeOptions = new Array();
+            eyebrowTypeOptions.push("Angry", "AngryNatural", "Default", "DefaultNatural", "FlatNatural", "RaisedExcited", "RaisedExcitedNatural", "SadConcerned", "SadConcernedNatural", "UnibrowNatural", "UpDown", "UpDownNatural");
+            var mouthTypeOptions = new Array();
+            mouthTypeOptions.push("Concerned", "Default", "Disbelief", "Eating", "Grimace", "Sad", "ScreamOpen", "Serious", "Smile", "Tongue", "Twinkle", "Vomit");
+            var skinColorOptions = new Array();
+            skinColorOptions.push("Tanned", "Yellow", "Pale", "Light", "Brown", "DarkBrown", "Black");
+            var hairColorTypes = new Array();
+            hairColorTypes.push("Auburn", "Black", "Blonde", "BlondeGolden", "Brown", "BrownDark", "PastelPink", "Platinum", "Red", "SilverGray");
+            var hatColorOptions = new Array();
+            hatColorOptions.push("Black", "Blue01", "Blue02", "Blue03", "Gray01", "Gray02", "Heather", "PastelBlue", "PastelGreen", "PastelOrange", "PastelRed", "PastelYellow", "Pink", "Red", "White");
+            var clotheColorOptions = new Array();
+            clotheColorOptions.push("Black", "Blue01", "Blue02", "Blue03", "Gray01", "Gray02", "Heather", "PastelBlue", "PastelGreen", "PastelOrange", "PastelRed", "PastelYellow", "Pink", "Red", "White");
+            var rng = seed ? seedrandom_1.default(seed) : seedrandom_1.default();
+            return "https://avataaars.io/?accessoriesType=" + accessoriesTypeOptions[Math.floor(rng() * accessoriesTypeOptions.length)] + "&avatarStyle=Circle&clotheColor=" + clotheColorOptions[Math.floor(rng() * clotheColorOptions.length)] + "&clotheType=" + clotheTypeOptions[Math.floor(rng() * clotheTypeOptions.length)] + "&eyeType=" + eyeTypeOptions[Math.floor(rng() * eyeTypeOptions.length)] + "&eyebrowType=" + eyebrowTypeOptions[Math.floor(rng() * eyebrowTypeOptions.length)] + "&facialHairColor=" + facialHairColorOptions[Math.floor(rng() * facialHairColorOptions.length)] + "&facialHairType=" + facialHairTypeOptions[Math.floor(rng() * facialHairTypeOptions.length)] + "&hairColor=" + hairColorTypes[Math.floor(rng() * hairColorTypes.length)] + "&hatColor=" + hatColorOptions[Math.floor(rng() * hatColorOptions.length)] + "&mouthType=" + mouthTypeOptions[Math.floor(rng() * mouthTypeOptions.length)] + "&skinColor=" + skinColorOptions[Math.floor(rng() * skinColorOptions.length)] + "&topType=" + topTypeOptions[Math.floor(rng() * topTypeOptions.length)];
+        };
+        return AvatarGenerator;
+    }());
+    AvatarGenerator_1 = dist.AvatarGenerator = AvatarGenerator;
+
+    /* src\components\IntersectionObserver.svelte generated by Svelte v3.47.0 */
+    const file$f = "src\\components\\IntersectionObserver.svelte";
+    const get_default_slot_changes = dirty => ({ intersecting: dirty & /*intersecting*/ 1 });
+    const get_default_slot_context = ctx => ({ intersecting: /*intersecting*/ ctx[0] });
+
+    function create_fragment$f(ctx) {
+    	let div;
+    	let current;
+    	const default_slot_template = /*#slots*/ ctx[8].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[7], get_default_slot_context);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if (default_slot) default_slot.c();
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+    			if (default_slot) default_slot.l(div_nodes);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(div, "class", "svelte-1kuj9kb");
+    			add_location(div, file$f, 44, 0, 1304);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+
+    			if (default_slot) {
+    				default_slot.m(div, null);
+    			}
+
+    			/*div_binding*/ ctx[9](div);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope, intersecting*/ 129)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[7],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[7])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[7], dirty, get_default_slot_changes),
+    						get_default_slot_context
+    					);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (default_slot) default_slot.d(detaching);
+    			/*div_binding*/ ctx[9](null);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$f.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$f($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('IntersectionObserver', slots, ['default']);
+    	let { once = false } = $$props;
+    	let { top = 0 } = $$props;
+    	let { bottom = 0 } = $$props;
+    	let { left = 0 } = $$props;
+    	let { right = 0 } = $$props;
+    	let intersecting = false;
+    	let container;
+
+    	onMount(() => {
+    		if (typeof IntersectionObserver !== "undefined") {
+    			const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
+
+    			const observer = new IntersectionObserver(entries => {
+    					$$invalidate(0, intersecting = entries[0].isIntersecting);
+
+    					if (intersecting && once) {
+    						observer.unobserve(container);
+    					}
+    				},
+    			{ rootMargin });
+
+    			observer.observe(container);
+    			return () => observer.unobserve(container);
+    		}
+    	}); // function handler() {
+    	// 	const bcr = container.getBoundingClientRect();
+    	// 	intersecting = (
+    	// 		(bcr.bottom + bottom) > 0 &&
+
+    	const writable_props = ['once', 'top', 'bottom', 'left', 'right'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<IntersectionObserver> was created with unknown prop '${key}'`);
+    	});
+
+    	function div_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			container = $$value;
+    			$$invalidate(1, container);
+    		});
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('once' in $$props) $$invalidate(2, once = $$props.once);
+    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
+    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
+    		if ('left' in $$props) $$invalidate(5, left = $$props.left);
+    		if ('right' in $$props) $$invalidate(6, right = $$props.right);
+    		if ('$$scope' in $$props) $$invalidate(7, $$scope = $$props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		once,
+    		top,
+    		bottom,
+    		left,
+    		right,
+    		intersecting,
+    		container
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('once' in $$props) $$invalidate(2, once = $$props.once);
+    		if ('top' in $$props) $$invalidate(3, top = $$props.top);
+    		if ('bottom' in $$props) $$invalidate(4, bottom = $$props.bottom);
+    		if ('left' in $$props) $$invalidate(5, left = $$props.left);
+    		if ('right' in $$props) $$invalidate(6, right = $$props.right);
+    		if ('intersecting' in $$props) $$invalidate(0, intersecting = $$props.intersecting);
+    		if ('container' in $$props) $$invalidate(1, container = $$props.container);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		intersecting,
+    		container,
+    		once,
+    		top,
+    		bottom,
+    		left,
+    		right,
+    		$$scope,
+    		slots,
+    		div_binding
+    	];
+    }
+
+    class IntersectionObserver_1 extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$f, create_fragment$f, safe_not_equal, {
+    			once: 2,
+    			top: 3,
+    			bottom: 4,
+    			left: 5,
+    			right: 6
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "IntersectionObserver_1",
+    			options,
+    			id: create_fragment$f.name
+    		});
+    	}
+
+    	get once() {
+    		throw new Error("<IntersectionObserver>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set once(value) {
+    		throw new Error("<IntersectionObserver>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get top() {
+    		throw new Error("<IntersectionObserver>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set top(value) {
+    		throw new Error("<IntersectionObserver>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get bottom() {
+    		throw new Error("<IntersectionObserver>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set bottom(value) {
+    		throw new Error("<IntersectionObserver>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get left() {
+    		throw new Error("<IntersectionObserver>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set left(value) {
+    		throw new Error("<IntersectionObserver>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get right() {
+    		throw new Error("<IntersectionObserver>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set right(value) {
+    		throw new Error("<IntersectionObserver>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\components\Image.svelte generated by Svelte v3.47.0 */
+    const file$e = "src\\components\\Image.svelte";
+
+    function create_fragment$e(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			img = claim_element(nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true,
+    				loading: true
+    			});
+
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = /*src*/ ctx[0])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", /*alt*/ ctx[1]);
+    			attr_dev(img, "class", "img-fluid rounded-circle");
+    			attr_dev(img, "width", "132");
+    			attr_dev(img, "height", "132");
+    			attr_dev(img, "loading", "lazy");
+    			toggle_class(img, "loaded", /*loaded*/ ctx[2]);
+    			add_location(img, file$e, 13, 0, 227);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, img, anchor);
+    			/*img_binding*/ ctx[4](img);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*src*/ 1 && !src_url_equal(img.src, img_src_value = /*src*/ ctx[0])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (dirty & /*alt*/ 2) {
+    				attr_dev(img, "alt", /*alt*/ ctx[1]);
+    			}
+
+    			if (dirty & /*loaded*/ 4) {
+    				toggle_class(img, "loaded", /*loaded*/ ctx[2]);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    			/*img_binding*/ ctx[4](null);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$e.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$e($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Image', slots, []);
+    	let { src } = $$props;
+    	let { alt } = $$props;
+    	let loaded = false;
+    	let thisImage;
+
+    	onMount(() => {
+    		$$invalidate(
+    			3,
+    			thisImage.onload = () => {
+    				$$invalidate(2, loaded = true);
+    			},
+    			thisImage
+    		);
+    	});
+
+    	const writable_props = ['src', 'alt'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Image> was created with unknown prop '${key}'`);
+    	});
+
+    	function img_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			thisImage = $$value;
+    			$$invalidate(3, thisImage);
+    		});
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
+    	};
+
+    	$$self.$capture_state = () => ({ src, alt, onMount, loaded, thisImage });
+
+    	$$self.$inject_state = $$props => {
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
+    		if ('loaded' in $$props) $$invalidate(2, loaded = $$props.loaded);
+    		if ('thisImage' in $$props) $$invalidate(3, thisImage = $$props.thisImage);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [src, alt, loaded, thisImage, img_binding];
+    }
+
+    class Image extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$e, create_fragment$e, safe_not_equal, { src: 0, alt: 1 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Image",
+    			options,
+    			id: create_fragment$e.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*src*/ ctx[0] === undefined && !('src' in props)) {
+    			console.warn("<Image> was created without expected prop 'src'");
+    		}
+
+    		if (/*alt*/ ctx[1] === undefined && !('alt' in props)) {
+    			console.warn("<Image> was created without expected prop 'alt'");
+    		}
+    	}
+
+    	get src() {
+    		throw new Error("<Image>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set src(value) {
+    		throw new Error("<Image>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get alt() {
+    		throw new Error("<Image>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set alt(value) {
+    		throw new Error("<Image>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\components\ImageLoader.svelte generated by Svelte v3.47.0 */
+    const file$d = "src\\components\\ImageLoader.svelte";
+
+    // (20:2) {:else}
+    function create_else_block$8(ctx) {
+    	let div;
+    	let span;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			t = text("Loading...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div_nodes = children(div);
+    			span = claim_element(div_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t = claim_text(span_nodes, "Loading...");
+    			span_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "sr-only");
+    			add_location(span, file$d, 21, 6, 606);
+    			attr_dev(div, "class", "spinner-border text-primary");
+    			attr_dev(div, "role", "status");
+    			add_location(div, file$d, 20, 4, 543);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$8.name,
+    		type: "else",
+    		source: "(20:2) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (18:2) {#if intersecting || nativeLoading}
+    function create_if_block$9(ctx) {
+    	let image;
+    	let current;
+
+    	image = new Image({
+    			props: { alt: /*alt*/ ctx[1], src: /*src*/ ctx[0] },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(image.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			claim_component(image.$$.fragment, nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(image, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const image_changes = {};
+    			if (dirty & /*alt*/ 2) image_changes.alt = /*alt*/ ctx[1];
+    			if (dirty & /*src*/ 1) image_changes.src = /*src*/ ctx[0];
+    			image.$set(image_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(image.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(image.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(image, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$9.name,
+    		type: "if",
+    		source: "(18:2) {#if intersecting || nativeLoading}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (17:0) <IntersectionObserver once={true} let:intersecting>
+    function create_default_slot$1(ctx) {
+    	let current_block_type_index;
+    	let if_block;
+    	let if_block_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block$9, create_else_block$8];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*intersecting*/ ctx[3] || /*nativeLoading*/ ctx[2]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			if_block.l(nodes);
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot$1.name,
+    		type: "slot",
+    		source: "(17:0) <IntersectionObserver once={true} let:intersecting>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$d(ctx) {
+    	let intersectionobserver;
+    	let current;
+
+    	intersectionobserver = new IntersectionObserver_1({
+    			props: {
+    				once: true,
+    				$$slots: {
+    					default: [
+    						create_default_slot$1,
+    						({ intersecting }) => ({ 3: intersecting }),
+    						({ intersecting }) => intersecting ? 8 : 0
+    					]
+    				},
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(intersectionobserver.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			claim_component(intersectionobserver.$$.fragment, nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(intersectionobserver, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const intersectionobserver_changes = {};
+
+    			if (dirty & /*$$scope, alt, src, intersecting, nativeLoading*/ 31) {
+    				intersectionobserver_changes.$$scope = { dirty, ctx };
+    			}
+
+    			intersectionobserver.$set(intersectionobserver_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(intersectionobserver.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(intersectionobserver.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(intersectionobserver, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$d.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$d($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('ImageLoader', slots, []);
+    	let { src } = $$props;
+    	let { alt } = $$props;
+    	let nativeLoading = false;
+
+    	// Determine whether to bypass our intersecting check
+    	onMount(() => {
+    		if ("loading" in HTMLImageElement.prototype) {
+    			$$invalidate(2, nativeLoading = true);
+    		}
+    	});
+
+    	const writable_props = ['src', 'alt'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ImageLoader> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		src,
+    		alt,
+    		onMount,
+    		IntersectionObserver: IntersectionObserver_1,
+    		Image,
+    		nativeLoading
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('src' in $$props) $$invalidate(0, src = $$props.src);
+    		if ('alt' in $$props) $$invalidate(1, alt = $$props.alt);
+    		if ('nativeLoading' in $$props) $$invalidate(2, nativeLoading = $$props.nativeLoading);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [src, alt, nativeLoading];
+    }
+
+    class ImageLoader extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$d, create_fragment$d, safe_not_equal, { src: 0, alt: 1 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "ImageLoader",
+    			options,
+    			id: create_fragment$d.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*src*/ ctx[0] === undefined && !('src' in props)) {
+    			console.warn("<ImageLoader> was created without expected prop 'src'");
+    		}
+
+    		if (/*alt*/ ctx[1] === undefined && !('alt' in props)) {
+    			console.warn("<ImageLoader> was created without expected prop 'alt'");
+    		}
+    	}
+
+    	get src() {
+    		throw new Error("<ImageLoader>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set src(value) {
+    		throw new Error("<ImageLoader>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get alt() {
+    		throw new Error("<ImageLoader>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set alt(value) {
+    		throw new Error("<ImageLoader>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\pages\Register.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$7 } = globals;
+    const file$c = "src\\pages\\Register.svelte";
+
+    // (86:20) {:else}
+    function create_else_block$7(ctx) {
+    	let imageloader;
+    	let current;
+
+    	imageloader = new ImageLoader({
+    			props: {
+    				src: /*dp*/ ctx[0],
+    				alt: "Não encontrado"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(imageloader.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			claim_component(imageloader.$$.fragment, nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(imageloader, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const imageloader_changes = {};
+    			if (dirty & /*dp*/ 1) imageloader_changes.src = /*dp*/ ctx[0];
+    			imageloader.$set(imageloader_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(imageloader.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(imageloader.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(imageloader, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$7.name,
+    		type: "else",
+    		source: "(86:20) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (82:20) {#if loading}
+    function create_if_block$8(ctx) {
+    	let div;
+    	let span;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			t = text("Carregando...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div_nodes = children(div);
+    			span = claim_element(div_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t = claim_text(span_nodes, "Carregando...");
+    			span_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "sr-only");
+    			add_location(span, file$c, 83, 24, 3065);
+    			attr_dev(div, "class", "spinner-border text-primary");
+    			attr_dev(div, "role", "status");
+    			add_location(div, file$c, 82, 22, 2984);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$8.name,
+    		type: "if",
+    		source: "(82:20) {#if loading}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$c(ctx) {
+    	let homenav;
+    	let t0;
+    	let div15;
+    	let main;
+    	let div14;
+    	let div13;
+    	let div12;
+    	let div11;
+    	let div0;
+    	let h1;
+    	let t1;
+    	let t2;
+    	let p;
+    	let t3;
+    	let t4;
+    	let div10;
+    	let div9;
+    	let div8;
+    	let div1;
+    	let current_block_type_index;
+    	let if_block;
+    	let t5;
+    	let form;
+    	let div2;
+    	let label0;
+    	let t6;
+    	let t7;
+    	let input0;
+    	let t8;
+    	let div3;
+    	let label1;
+    	let t9;
+    	let t10;
+    	let input1;
+    	let t11;
+    	let div4;
+    	let label2;
+    	let t12;
+    	let t13;
+    	let input2;
+    	let t14;
+    	let div5;
+    	let label3;
+    	let t15;
+    	let t16;
+    	let input3;
+    	let t17;
+    	let div6;
+    	let label4;
+    	let t18;
+    	let t19;
+    	let input4;
+    	let t20;
+    	let div7;
+    	let button;
+    	let t21;
+    	let t22;
+    	let alert;
+    	let t23;
+    	let footer;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	homenav = new HomeNav({ $$inline: true });
+    	const if_block_creators = [create_if_block$8, create_else_block$7];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*loading*/ ctx[2]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	alert = new Alert({
+    			props: {
+    				mssg: /*mssg*/ ctx[4],
+    				status: /*status*/ ctx[3]
+    			},
+    			$$inline: true
+    		});
+
+    	footer = new Footer({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(homenav.$$.fragment);
+    			t0 = space();
+    			div15 = element("div");
+    			main = element("main");
+    			div14 = element("div");
+    			div13 = element("div");
+    			div12 = element("div");
+    			div11 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t1 = text("Vamos começar");
+    			t2 = space();
+    			p = element("p");
+    			t3 = text("Esse é o início de uma nova experiência com seus clientes.");
+    			t4 = space();
+    			div10 = element("div");
+    			div9 = element("div");
+    			div8 = element("div");
+    			div1 = element("div");
+    			if_block.c();
+    			t5 = space();
+    			form = element("form");
+    			div2 = element("div");
+    			label0 = element("label");
+    			t6 = text("Usuário do Instagram");
+    			t7 = space();
+    			input0 = element("input");
+    			t8 = space();
+    			div3 = element("div");
+    			label1 = element("label");
+    			t9 = text("E-mail para recuperação");
+    			t10 = space();
+    			input1 = element("input");
+    			t11 = space();
+    			div4 = element("div");
+    			label2 = element("label");
+    			t12 = text("Facebook");
+    			t13 = space();
+    			input2 = element("input");
+    			t14 = space();
+    			div5 = element("div");
+    			label3 = element("label");
+    			t15 = text("Twitter");
+    			t16 = space();
+    			input3 = element("input");
+    			t17 = space();
+    			div6 = element("div");
+    			label4 = element("label");
+    			t18 = text("Senha");
+    			t19 = space();
+    			input4 = element("input");
+    			t20 = space();
+    			div7 = element("div");
+    			button = element("button");
+    			t21 = text("Cadastre-se");
+    			t22 = space();
+    			create_component(alert.$$.fragment);
+    			t23 = space();
+    			create_component(footer.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			claim_component(homenav.$$.fragment, nodes);
+    			t0 = claim_space(nodes);
+    			div15 = claim_element(nodes, "DIV", { class: true });
+    			var div15_nodes = children(div15);
+    			main = claim_element(div15_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div14 = claim_element(main_nodes, "DIV", { class: true });
+    			var div14_nodes = children(div14);
+    			div13 = claim_element(div14_nodes, "DIV", { class: true });
+    			var div13_nodes = children(div13);
+    			div12 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div12_nodes = children(div12);
+    			div11 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div11_nodes = children(div11);
+    			div0 = claim_element(div11_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t1 = claim_text(h1_nodes, "Vamos começar");
+    			h1_nodes.forEach(detach_dev);
+    			t2 = claim_space(div0_nodes);
+    			p = claim_element(div0_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t3 = claim_text(p_nodes, "Esse é o início de uma nova experiência com seus clientes.");
+    			p_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t4 = claim_space(div11_nodes);
+    			div10 = claim_element(div11_nodes, "DIV", { class: true });
+    			var div10_nodes = children(div10);
+    			div9 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div9_nodes = children(div9);
+    			div8 = claim_element(div9_nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			div1 = claim_element(div8_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			if_block.l(div1_nodes);
+    			div1_nodes.forEach(detach_dev);
+    			t5 = claim_space(div8_nodes);
+    			form = claim_element(div8_nodes, "FORM", {});
+    			var form_nodes = children(form);
+    			div2 = claim_element(form_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			label0 = claim_element(div2_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t6 = claim_text(label0_nodes, "Usuário do Instagram");
+    			label0_nodes.forEach(detach_dev);
+    			t7 = claim_space(div2_nodes);
+
+    			input0 = claim_element(div2_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div2_nodes.forEach(detach_dev);
+    			t8 = claim_space(form_nodes);
+    			div3 = claim_element(form_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			label1 = claim_element(div3_nodes, "LABEL", { for: true });
+    			var label1_nodes = children(label1);
+    			t9 = claim_text(label1_nodes, "E-mail para recuperação");
+    			label1_nodes.forEach(detach_dev);
+    			t10 = claim_space(div3_nodes);
+
+    			input1 = claim_element(div3_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div3_nodes.forEach(detach_dev);
+    			t11 = claim_space(form_nodes);
+    			div4 = claim_element(form_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			label2 = claim_element(div4_nodes, "LABEL", { for: true });
+    			var label2_nodes = children(label2);
+    			t12 = claim_text(label2_nodes, "Facebook");
+    			label2_nodes.forEach(detach_dev);
+    			t13 = claim_space(div4_nodes);
+
+    			input2 = claim_element(div4_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div4_nodes.forEach(detach_dev);
+    			t14 = claim_space(form_nodes);
+    			div5 = claim_element(form_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			label3 = claim_element(div5_nodes, "LABEL", { for: true });
+    			var label3_nodes = children(label3);
+    			t15 = claim_text(label3_nodes, "Twitter");
+    			label3_nodes.forEach(detach_dev);
+    			t16 = claim_space(div5_nodes);
+
+    			input3 = claim_element(div5_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div5_nodes.forEach(detach_dev);
+    			t17 = claim_space(form_nodes);
+    			div6 = claim_element(form_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+    			label4 = claim_element(div6_nodes, "LABEL", { for: true });
+    			var label4_nodes = children(label4);
+    			t18 = claim_text(label4_nodes, "Senha");
+    			label4_nodes.forEach(detach_dev);
+    			t19 = claim_space(div6_nodes);
+
+    			input4 = claim_element(div6_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div6_nodes.forEach(detach_dev);
+    			t20 = claim_space(form_nodes);
+    			div7 = claim_element(form_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			button = claim_element(div7_nodes, "BUTTON", { type: true, class: true });
+    			var button_nodes = children(button);
+    			t21 = claim_text(button_nodes, "Cadastre-se");
+    			button_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			form_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			div9_nodes.forEach(detach_dev);
+    			div10_nodes.forEach(detach_dev);
+    			div11_nodes.forEach(detach_dev);
+    			div12_nodes.forEach(detach_dev);
+    			div13_nodes.forEach(detach_dev);
+    			div14_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div15_nodes.forEach(detach_dev);
+    			t22 = claim_space(nodes);
+    			claim_component(alert.$$.fragment, nodes);
+    			t23 = claim_space(nodes);
+    			claim_component(footer.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "h2");
+    			add_location(h1, file$c, 71, 14, 2588);
+    			attr_dev(p, "class", "lead");
+    			add_location(p, file$c, 72, 14, 2637);
+    			attr_dev(div0, "class", "text-center mt-4");
+    			add_location(div0, file$c, 70, 12, 2542);
+    			attr_dev(div1, "class", "text-center");
+    			add_location(div1, file$c, 80, 18, 2900);
+    			attr_dev(label0, "for", "");
+    			add_location(label0, file$c, 91, 22, 3405);
+    			attr_dev(input0, "class", "form-control form-control-lg");
+    			attr_dev(input0, "type", "text");
+    			input0.required = true;
+    			attr_dev(input0, "placeholder", "usuario");
+    			add_location(input0, file$c, 92, 22, 3471);
+    			attr_dev(div2, "class", "form-group");
+    			add_location(div2, file$c, 90, 20, 3357);
+    			attr_dev(label1, "for", "");
+    			add_location(label1, file$c, 104, 22, 3959);
+    			attr_dev(input1, "class", "form-control form-control-lg");
+    			attr_dev(input1, "type", "text");
+    			input1.required = true;
+    			attr_dev(input1, "placeholder", "usuario@gmail.com");
+    			add_location(input1, file$c, 105, 22, 4028);
+    			attr_dev(div3, "class", "form-group");
+    			add_location(div3, file$c, 103, 20, 3911);
+    			attr_dev(label2, "for", "");
+    			add_location(label2, file$c, 114, 22, 4397);
+    			attr_dev(input2, "class", "form-control form-control-lg");
+    			attr_dev(input2, "type", "text");
+    			attr_dev(input2, "placeholder", "usuario");
+    			add_location(input2, file$c, 115, 22, 4451);
+    			attr_dev(div4, "class", "form-group");
+    			add_location(div4, file$c, 113, 20, 4349);
+    			attr_dev(label3, "for", "");
+    			add_location(label3, file$c, 123, 22, 4779);
+    			attr_dev(input3, "class", "form-control form-control-lg");
+    			attr_dev(input3, "type", "text");
+    			attr_dev(input3, "placeholder", "usuario");
+    			add_location(input3, file$c, 124, 22, 4832);
+    			attr_dev(div5, "class", "form-group");
+    			add_location(div5, file$c, 122, 20, 4731);
+    			attr_dev(label4, "for", "");
+    			add_location(label4, file$c, 132, 22, 5159);
+    			attr_dev(input4, "class", "form-control form-control-lg");
+    			attr_dev(input4, "type", "password");
+    			input4.required = true;
+    			attr_dev(input4, "placeholder", "Digite uma senha");
+    			add_location(input4, file$c, 133, 22, 5210);
+    			attr_dev(div6, "class", "form-group");
+    			add_location(div6, file$c, 131, 20, 5111);
+    			attr_dev(button, "type", "submit");
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$c, 142, 22, 5591);
+    			attr_dev(div7, "class", "text-center mt-3");
+    			add_location(div7, file$c, 141, 20, 5537);
+    			add_location(form, file$c, 89, 18, 3308);
+    			attr_dev(div8, "class", "m-sm-4");
+    			add_location(div8, file$c, 79, 16, 2860);
+    			attr_dev(div9, "class", "card-body");
+    			add_location(div9, file$c, 78, 14, 2819);
+    			attr_dev(div10, "class", "card");
+    			add_location(div10, file$c, 77, 12, 2785);
+    			attr_dev(div11, "class", "align-middle");
+    			add_location(div11, file$c, 69, 10, 2502);
+    			attr_dev(div12, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div12, file$c, 68, 8, 2427);
+    			attr_dev(div13, "class", "row h-100");
+    			add_location(div13, file$c, 67, 6, 2394);
+    			attr_dev(div14, "class", "container d-flex flex-column");
+    			add_location(div14, file$c, 66, 4, 2344);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$c, 65, 2, 2305);
+    			attr_dev(div15, "class", "main d-flex justify-content-center w-100");
+    			add_location(div15, file$c, 64, 0, 2247);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(homenav, target, anchor);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, div15, anchor);
+    			append_hydration_dev(div15, main);
+    			append_hydration_dev(main, div14);
+    			append_hydration_dev(div14, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div0, t2);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t3);
+    			append_hydration_dev(div11, t4);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div1);
+    			if_blocks[current_block_type_index].m(div1, null);
+    			append_hydration_dev(div8, t5);
+    			append_hydration_dev(div8, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, input0);
+    			set_input_value(input0, /*user*/ ctx[1].instagram);
+    			append_hydration_dev(form, t8);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, input1);
+    			set_input_value(input1, /*user*/ ctx[1].email);
+    			append_hydration_dev(form, t11);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t12);
+    			append_hydration_dev(div4, t13);
+    			append_hydration_dev(div4, input2);
+    			set_input_value(input2, /*user*/ ctx[1].facebook);
+    			append_hydration_dev(form, t14);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t15);
+    			append_hydration_dev(div5, t16);
+    			append_hydration_dev(div5, input3);
+    			set_input_value(input3, /*user*/ ctx[1].twitter);
+    			append_hydration_dev(form, t17);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, label4);
+    			append_hydration_dev(label4, t18);
+    			append_hydration_dev(div6, t19);
+    			append_hydration_dev(div6, input4);
+    			set_input_value(input4, /*user*/ ctx[1].password);
+    			append_hydration_dev(form, t20);
+    			append_hydration_dev(form, div7);
+    			append_hydration_dev(div7, button);
+    			append_hydration_dev(button, t21);
+    			insert_hydration_dev(target, t22, anchor);
+    			mount_component(alert, target, anchor);
+    			insert_hydration_dev(target, t23, anchor);
+    			mount_component(footer, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "change", /*change_handler*/ ctx[7], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[8]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[9]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[10]),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[11]),
+    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[12]),
+    					listen_dev(form, "submit", /*register*/ ctx[6], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(div1, null);
+    			}
+
+    			if (dirty & /*user*/ 2 && input0.value !== /*user*/ ctx[1].instagram) {
+    				set_input_value(input0, /*user*/ ctx[1].instagram);
+    			}
+
+    			if (dirty & /*user*/ 2 && input1.value !== /*user*/ ctx[1].email) {
+    				set_input_value(input1, /*user*/ ctx[1].email);
+    			}
+
+    			if (dirty & /*user*/ 2 && input2.value !== /*user*/ ctx[1].facebook) {
+    				set_input_value(input2, /*user*/ ctx[1].facebook);
+    			}
+
+    			if (dirty & /*user*/ 2 && input3.value !== /*user*/ ctx[1].twitter) {
+    				set_input_value(input3, /*user*/ ctx[1].twitter);
+    			}
+
+    			if (dirty & /*user*/ 2 && input4.value !== /*user*/ ctx[1].password) {
+    				set_input_value(input4, /*user*/ ctx[1].password);
+    			}
+
+    			const alert_changes = {};
+    			if (dirty & /*mssg*/ 16) alert_changes.mssg = /*mssg*/ ctx[4];
+    			if (dirty & /*status*/ 8) alert_changes.status = /*status*/ ctx[3];
+    			alert.$set(alert_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(homenav.$$.fragment, local);
+    			transition_in(if_block);
+    			transition_in(alert.$$.fragment, local);
+    			transition_in(footer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(homenav.$$.fragment, local);
+    			transition_out(if_block);
+    			transition_out(alert.$$.fragment, local);
+    			transition_out(footer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(homenav, detaching);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div15);
+    			if_blocks[current_block_type_index].d();
+    			if (detaching) detach_dev(t22);
+    			destroy_component(alert, detaching);
+    			if (detaching) detach_dev(t23);
+    			destroy_component(footer, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$c.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$c($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Register', slots, []);
+    	const generator = new AvatarGenerator_1();
+    	let dp = "https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg";
+
+    	let user = {
+    		password: "",
+    		instagram: "",
+    		facebook: "",
+    		twitter: "",
+    		email: "",
+    		dp: ""
+    	};
+
+    	let loading = false;
+
+    	function getPhoto(a) {
+    		$$invalidate(2, loading = true);
+    		$$invalidate(0, dp = generator.generateRandomAvatar());
+    		$$invalidate(1, user.dp = dp, user);
+    		$$invalidate(2, loading = false);
+    	}
+
+    	let status = -1;
+    	let mssg = "";
+
+    	const register = e => {
+    		console.log(JSON.stringify(user));
+    		e.preventDefault();
+
+    		fetch("/api/user/register", {
+    			method: "POST", // *GET, POST, PUT, DELETE, etc.
+    			mode: "cors", // no-cors, *cors, same-origin
+    			cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    			credentials: "same-origin", // include, *same-origin, omit
+    			headers: { "Content-Type": "application/json" }, // 'Content-Type': 'application/x-www-form-urlencoded',
+    			redirect: "follow", // manual, *follow, error
+    			referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    			body: JSON.stringify(user)
+    		}).then(function (response) {
+    			return response.json();
+    		}).then(function (data) {
+    			$$invalidate(4, mssg = "Registrado com Sucesso");
+    			$$invalidate(3, status = 0);
+
+    			userStore.update(currUser => {
+    				return { token: data.token, user: data.user };
+    			});
+
+    			document.location.href = "/dashboard";
+    		}).catch(error => {
+    			console.error("Error:", error);
+    			$$invalidate(3, status = 1);
+    			$$invalidate(4, mssg = "Tivemos algum problema, por favor tente novamente");
+    		});
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$7.warn(`<Register> was created with unknown prop '${key}'`);
+    	});
+
+    	const change_handler = () => {
+    		getPhoto(user.instagram);
+    	};
+
+    	function input0_input_handler() {
+    		user.instagram = this.value;
+    		$$invalidate(1, user);
+    	}
+
+    	function input1_input_handler() {
+    		user.email = this.value;
+    		$$invalidate(1, user);
+    	}
+
+    	function input2_input_handler() {
+    		user.facebook = this.value;
+    		$$invalidate(1, user);
+    	}
+
+    	function input3_input_handler() {
+    		user.twitter = this.value;
+    		$$invalidate(1, user);
+    	}
+
+    	function input4_input_handler() {
+    		user.password = this.value;
+    		$$invalidate(1, user);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		Alert,
+    		axios,
+    		HomeNav,
+    		Footer,
+    		userStore,
+    		AvatarGenerator: AvatarGenerator_1,
+    		ImageLoader,
+    		generator,
+    		dp,
+    		user,
+    		loading,
+    		getPhoto,
+    		status,
+    		mssg,
+    		register
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('dp' in $$props) $$invalidate(0, dp = $$props.dp);
+    		if ('user' in $$props) $$invalidate(1, user = $$props.user);
+    		if ('loading' in $$props) $$invalidate(2, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(3, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(4, mssg = $$props.mssg);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		dp,
+    		user,
+    		loading,
+    		status,
+    		mssg,
+    		getPhoto,
+    		register,
+    		change_handler,
+    		input0_input_handler,
+    		input1_input_handler,
+    		input2_input_handler,
+    		input3_input_handler,
+    		input4_input_handler
+    	];
+    }
+
+    class Register extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$c, create_fragment$c, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Register",
+    			options,
+    			id: create_fragment$c.name
+    		});
+    	}
+    }
+
+    /* src\pages\ResetPassword.svelte generated by Svelte v3.47.0 */
+    const file$b = "src\\pages\\ResetPassword.svelte";
+
+    // (53:20) {:else}
+    function create_else_block$6(ctx) {
+    	let div0;
+    	let label0;
+    	let t0;
+    	let t1;
+    	let input0;
+    	let t2;
+    	let div1;
+    	let label1;
+    	let t3;
+    	let t4;
+    	let input1;
+    	let t5;
+    	let div2;
+    	let button;
+    	let t6;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			div0 = element("div");
+    			label0 = element("label");
+    			t0 = text("Enter OTP");
+    			t1 = space();
+    			input0 = element("input");
+    			t2 = space();
+    			div1 = element("div");
+    			label1 = element("label");
+    			t3 = text("Enter new password");
+    			t4 = space();
+    			input1 = element("input");
+    			t5 = space();
+    			div2 = element("div");
+    			button = element("button");
+    			t6 = text("Change Password");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div0 = claim_element(nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			label0 = claim_element(div0_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t0 = claim_text(label0_nodes, "Enter OTP");
+    			label0_nodes.forEach(detach_dev);
+    			t1 = claim_space(div0_nodes);
+
+    			input0 = claim_element(div0_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div0_nodes.forEach(detach_dev);
+    			t2 = claim_space(nodes);
+    			div1 = claim_element(nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			label1 = claim_element(div1_nodes, "LABEL", { for: true });
+    			var label1_nodes = children(label1);
+    			t3 = claim_text(label1_nodes, "Enter new password");
+    			label1_nodes.forEach(detach_dev);
+    			t4 = claim_space(div1_nodes);
+
+    			input1 = claim_element(div1_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div1_nodes.forEach(detach_dev);
+    			t5 = claim_space(nodes);
+    			div2 = claim_element(nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			button = claim_element(div2_nodes, "BUTTON", { class: true });
+    			var button_nodes = children(button);
+    			t6 = claim_text(button_nodes, "Change Password");
+    			button_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(label0, "for", "");
+    			add_location(label0, file$b, 54, 24, 1921);
+    			attr_dev(input0, "class", "form-control form-control-lg");
+    			attr_dev(input0, "type", "text");
+    			attr_dev(input0, "placeholder", "Enter Otp");
+    			add_location(input0, file$b, 55, 24, 1978);
+    			attr_dev(div0, "class", "form-group");
+    			add_location(div0, file$b, 53, 22, 1871);
+    			attr_dev(label1, "for", "");
+    			add_location(label1, file$b, 63, 24, 2314);
+    			attr_dev(input1, "class", "form-control form-control-lg");
+    			attr_dev(input1, "type", "password");
+    			attr_dev(input1, "placeholder", "..........");
+    			add_location(input1, file$b, 64, 24, 2380);
+    			attr_dev(div1, "class", "form-group");
+    			add_location(div1, file$b, 62, 22, 2264);
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$b, 72, 24, 2732);
+    			attr_dev(div2, "class", "text-center mt-3");
+    			add_location(div2, file$b, 71, 22, 2676);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div0, anchor);
+    			append_hydration_dev(div0, label0);
+    			append_hydration_dev(label0, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, input0);
+    			set_input_value(input0, /*otp*/ ctx[4]);
+    			insert_hydration_dev(target, t2, anchor);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, label1);
+    			append_hydration_dev(label1, t3);
+    			append_hydration_dev(div1, t4);
+    			append_hydration_dev(div1, input1);
+    			set_input_value(input1, /*password*/ ctx[5]);
+    			insert_hydration_dev(target, t5, anchor);
+    			insert_hydration_dev(target, div2, anchor);
+    			append_hydration_dev(div2, button);
+    			append_hydration_dev(button, t6);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[8]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[9])
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*otp*/ 16 && input0.value !== /*otp*/ ctx[4]) {
+    				set_input_value(input0, /*otp*/ ctx[4]);
+    			}
+
+    			if (dirty & /*password*/ 32 && input1.value !== /*password*/ ctx[5]) {
+    				set_input_value(input1, /*password*/ ctx[5]);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t2);
+    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(div2);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$6.name,
+    		type: "else",
+    		source: "(53:20) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (38:20) {#if display}
+    function create_if_block$7(ctx) {
+    	let div0;
+    	let label;
+    	let t0;
+    	let t1;
+    	let input;
+    	let t2;
+    	let div1;
+    	let button;
+    	let t3;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			div0 = element("div");
+    			label = element("label");
+    			t0 = text("Email");
+    			t1 = space();
+    			input = element("input");
+    			t2 = space();
+    			div1 = element("div");
+    			button = element("button");
+    			t3 = text("Send email");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div0 = claim_element(nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			label = claim_element(div0_nodes, "LABEL", { for: true });
+    			var label_nodes = children(label);
+    			t0 = claim_text(label_nodes, "Email");
+    			label_nodes.forEach(detach_dev);
+    			t1 = claim_space(div0_nodes);
+
+    			input = claim_element(div0_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div0_nodes.forEach(detach_dev);
+    			t2 = claim_space(nodes);
+    			div1 = claim_element(nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			button = claim_element(div1_nodes, "BUTTON", { class: true });
+    			var button_nodes = children(button);
+    			t3 = claim_text(button_nodes, "Send email");
+    			button_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(label, "for", "");
+    			add_location(label, file$b, 39, 24, 1271);
+    			attr_dev(input, "class", "form-control form-control-lg");
+    			attr_dev(input, "type", "email");
+    			attr_dev(input, "placeholder", "Enter your email");
+    			add_location(input, file$b, 40, 24, 1324);
+    			attr_dev(div0, "class", "form-group");
+    			add_location(div0, file$b, 38, 22, 1221);
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$b, 48, 24, 1676);
+    			attr_dev(div1, "class", "text-center mt-3");
+    			add_location(div1, file$b, 47, 22, 1620);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div0, anchor);
+    			append_hydration_dev(div0, label);
+    			append_hydration_dev(label, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, input);
+    			set_input_value(input, /*email*/ ctx[3]);
+    			insert_hydration_dev(target, t2, anchor);
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, button);
+    			append_hydration_dev(button, t3);
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "input", /*input_input_handler*/ ctx[7]);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*email*/ 8 && input.value !== /*email*/ ctx[3]) {
+    				set_input_value(input, /*email*/ ctx[3]);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t2);
+    			if (detaching) detach_dev(div1);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$7.name,
+    		type: "if",
+    		source: "(38:20) {#if display}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$b(ctx) {
+    	let div8;
+    	let main;
+    	let div7;
+    	let div6;
+    	let div5;
+    	let div4;
+    	let div0;
+    	let h1;
+    	let t0;
+    	let t1;
+    	let p;
+    	let t2;
+    	let t3;
+    	let div3;
+    	let div2;
+    	let div1;
+    	let form;
+    	let t4;
+    	let alert;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*display*/ ctx[0]) return create_if_block$7;
+    		return create_else_block$6;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	alert = new Alert({
+    			props: {
+    				status: /*status*/ ctx[1],
+    				mssg: /*mssg*/ ctx[2]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			div8 = element("div");
+    			main = element("main");
+    			div7 = element("div");
+    			div6 = element("div");
+    			div5 = element("div");
+    			div4 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t0 = text("Reset password");
+    			t1 = space();
+    			p = element("p");
+    			t2 = text("Enter your email to reset your password.");
+    			t3 = space();
+    			div3 = element("div");
+    			div2 = element("div");
+    			div1 = element("div");
+    			form = element("form");
+    			if_block.c();
+    			t4 = space();
+    			create_component(alert.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div8 = claim_element(nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			main = claim_element(div8_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div7 = claim_element(main_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			div6 = claim_element(div7_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+    			div5 = claim_element(div6_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			div4 = claim_element(div5_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			div0 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t0 = claim_text(h1_nodes, "Reset password");
+    			h1_nodes.forEach(detach_dev);
+    			t1 = claim_space(div0_nodes);
+    			p = claim_element(div0_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t2 = claim_text(p_nodes, "Enter your email to reset your password.");
+    			p_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t3 = claim_space(div4_nodes);
+    			div3 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			div1 = claim_element(div2_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			form = claim_element(div1_nodes, "FORM", {});
+    			var form_nodes = children(form);
+    			if_block.l(form_nodes);
+    			form_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			div5_nodes.forEach(detach_dev);
+    			div6_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			t4 = claim_space(nodes);
+    			claim_component(alert.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "h2");
+    			add_location(h1, file$b, 29, 14, 877);
+    			attr_dev(p, "class", "lead");
+    			add_location(p, file$b, 30, 14, 927);
+    			attr_dev(div0, "class", "text-center mt-4");
+    			add_location(div0, file$b, 28, 12, 831);
+    			add_location(form, file$b, 36, 18, 1138);
+    			attr_dev(div1, "class", "m-sm-4");
+    			add_location(div1, file$b, 35, 16, 1098);
+    			attr_dev(div2, "class", "card-body");
+    			add_location(div2, file$b, 34, 14, 1057);
+    			attr_dev(div3, "class", "card");
+    			add_location(div3, file$b, 33, 12, 1023);
+    			attr_dev(div4, "class", "d-table-cell align-middle");
+    			add_location(div4, file$b, 27, 10, 778);
+    			attr_dev(div5, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div5, file$b, 26, 8, 703);
+    			attr_dev(div6, "class", "row h-100");
+    			add_location(div6, file$b, 25, 6, 670);
+    			attr_dev(div7, "class", "container d-flex flex-column");
+    			add_location(div7, file$b, 24, 4, 620);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$b, 23, 2, 581);
+    			attr_dev(div8, "class", "main d-flex justify-content-center w-100");
+    			add_location(div8, file$b, 22, 0, 523);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div8, anchor);
+    			append_hydration_dev(div8, main);
+    			append_hydration_dev(main, div7);
+    			append_hydration_dev(div7, div6);
+    			append_hydration_dev(div6, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t2);
+    			append_hydration_dev(div4, t3);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, form);
+    			if_block.m(form, null);
+    			insert_hydration_dev(target, t4, anchor);
+    			mount_component(alert, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(form, "submit", /*rpass*/ ctx[6], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(form, null);
+    				}
+    			}
+
+    			const alert_changes = {};
+    			if (dirty & /*status*/ 2) alert_changes.status = /*status*/ ctx[1];
+    			if (dirty & /*mssg*/ 4) alert_changes.mssg = /*mssg*/ ctx[2];
+    			alert.$set(alert_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(alert.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(alert.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div8);
+    			if_block.d();
+    			if (detaching) detach_dev(t4);
+    			destroy_component(alert, detaching);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$b.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$b($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('ResetPassword', slots, []);
+    	let display = true;
+    	let status = -1;
+    	let mssg = "";
+    	let email = "";
+    	let otp = "";
+    	let password = "";
+
+    	const rpass = async e => {
+    		e.preventDefault();
+    		let yes;
+    		if (display) yes = await reset(email); else yes = await check(email, otp, password);
+    		$$invalidate(2, mssg = yes.mssg);
+    		$$invalidate(1, status = yes.status);
+
+    		if (yes.status == 0) {
+    			$$invalidate(0, display = false);
+    		}
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ResetPassword> was created with unknown prop '${key}'`);
+    	});
+
+    	function input_input_handler() {
+    		email = this.value;
+    		$$invalidate(3, email);
+    	}
+
+    	function input0_input_handler() {
+    		otp = this.value;
+    		$$invalidate(4, otp);
+    	}
+
+    	function input1_input_handler() {
+    		password = this.value;
+    		$$invalidate(5, password);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		check,
+    		reset,
+    		Alert,
+    		display,
+    		status,
+    		mssg,
+    		email,
+    		otp,
+    		password,
+    		rpass
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('display' in $$props) $$invalidate(0, display = $$props.display);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('email' in $$props) $$invalidate(3, email = $$props.email);
+    		if ('otp' in $$props) $$invalidate(4, otp = $$props.otp);
+    		if ('password' in $$props) $$invalidate(5, password = $$props.password);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		display,
+    		status,
+    		mssg,
+    		email,
+    		otp,
+    		password,
+    		rpass,
+    		input_input_handler,
+    		input0_input_handler,
+    		input1_input_handler
+    	];
+    }
+
+    class ResetPassword extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$b, create_fragment$b, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "ResetPassword",
+    			options,
+    			id: create_fragment$b.name
+    		});
+    	}
+    }
+
+    var moment$1 = {exports: {}};
+
+    (function (module, exports) {
+    (function (global, factory) {
+        module.exports = factory() ;
+    }(commonjsGlobal, (function () {
+        var hookCallback;
+
+        function hooks() {
+            return hookCallback.apply(null, arguments);
+        }
+
+        // This is done to register the method called with moment()
+        // without creating circular dependencies.
+        function setHookCallback(callback) {
+            hookCallback = callback;
+        }
+
+        function isArray(input) {
+            return (
+                input instanceof Array ||
+                Object.prototype.toString.call(input) === '[object Array]'
+            );
+        }
+
+        function isObject(input) {
+            // IE8 will treat undefined and null as object if it wasn't for
+            // input != null
+            return (
+                input != null &&
+                Object.prototype.toString.call(input) === '[object Object]'
+            );
+        }
+
+        function hasOwnProp(a, b) {
+            return Object.prototype.hasOwnProperty.call(a, b);
+        }
+
+        function isObjectEmpty(obj) {
+            if (Object.getOwnPropertyNames) {
+                return Object.getOwnPropertyNames(obj).length === 0;
+            } else {
+                var k;
+                for (k in obj) {
+                    if (hasOwnProp(obj, k)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        function isUndefined(input) {
+            return input === void 0;
+        }
+
+        function isNumber(input) {
+            return (
+                typeof input === 'number' ||
+                Object.prototype.toString.call(input) === '[object Number]'
+            );
+        }
+
+        function isDate(input) {
+            return (
+                input instanceof Date ||
+                Object.prototype.toString.call(input) === '[object Date]'
+            );
+        }
+
+        function map(arr, fn) {
+            var res = [],
+                i,
+                arrLen = arr.length;
+            for (i = 0; i < arrLen; ++i) {
+                res.push(fn(arr[i], i));
+            }
+            return res;
+        }
+
+        function extend(a, b) {
+            for (var i in b) {
+                if (hasOwnProp(b, i)) {
+                    a[i] = b[i];
+                }
+            }
+
+            if (hasOwnProp(b, 'toString')) {
+                a.toString = b.toString;
+            }
+
+            if (hasOwnProp(b, 'valueOf')) {
+                a.valueOf = b.valueOf;
+            }
+
+            return a;
+        }
+
+        function createUTC(input, format, locale, strict) {
+            return createLocalOrUTC(input, format, locale, strict, true).utc();
+        }
+
+        function defaultParsingFlags() {
+            // We need to deep clone this object.
+            return {
+                empty: false,
+                unusedTokens: [],
+                unusedInput: [],
+                overflow: -2,
+                charsLeftOver: 0,
+                nullInput: false,
+                invalidEra: null,
+                invalidMonth: null,
+                invalidFormat: false,
+                userInvalidated: false,
+                iso: false,
+                parsedDateParts: [],
+                era: null,
+                meridiem: null,
+                rfc2822: false,
+                weekdayMismatch: false,
+            };
+        }
+
+        function getParsingFlags(m) {
+            if (m._pf == null) {
+                m._pf = defaultParsingFlags();
+            }
+            return m._pf;
+        }
+
+        var some;
+        if (Array.prototype.some) {
+            some = Array.prototype.some;
+        } else {
+            some = function (fun) {
+                var t = Object(this),
+                    len = t.length >>> 0,
+                    i;
+
+                for (i = 0; i < len; i++) {
+                    if (i in t && fun.call(this, t[i], i, t)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+        }
+
+        function isValid(m) {
+            if (m._isValid == null) {
+                var flags = getParsingFlags(m),
+                    parsedParts = some.call(flags.parsedDateParts, function (i) {
+                        return i != null;
+                    }),
+                    isNowValid =
+                        !isNaN(m._d.getTime()) &&
+                        flags.overflow < 0 &&
+                        !flags.empty &&
+                        !flags.invalidEra &&
+                        !flags.invalidMonth &&
+                        !flags.invalidWeekday &&
+                        !flags.weekdayMismatch &&
+                        !flags.nullInput &&
+                        !flags.invalidFormat &&
+                        !flags.userInvalidated &&
+                        (!flags.meridiem || (flags.meridiem && parsedParts));
+
+                if (m._strict) {
+                    isNowValid =
+                        isNowValid &&
+                        flags.charsLeftOver === 0 &&
+                        flags.unusedTokens.length === 0 &&
+                        flags.bigHour === undefined;
+                }
+
+                if (Object.isFrozen == null || !Object.isFrozen(m)) {
+                    m._isValid = isNowValid;
+                } else {
+                    return isNowValid;
+                }
+            }
+            return m._isValid;
+        }
+
+        function createInvalid(flags) {
+            var m = createUTC(NaN);
+            if (flags != null) {
+                extend(getParsingFlags(m), flags);
+            } else {
+                getParsingFlags(m).userInvalidated = true;
+            }
+
+            return m;
+        }
+
+        // Plugins that add properties should also add the key here (null value),
+        // so we can properly clone ourselves.
+        var momentProperties = (hooks.momentProperties = []),
+            updateInProgress = false;
+
+        function copyConfig(to, from) {
+            var i,
+                prop,
+                val,
+                momentPropertiesLen = momentProperties.length;
+
+            if (!isUndefined(from._isAMomentObject)) {
+                to._isAMomentObject = from._isAMomentObject;
+            }
+            if (!isUndefined(from._i)) {
+                to._i = from._i;
+            }
+            if (!isUndefined(from._f)) {
+                to._f = from._f;
+            }
+            if (!isUndefined(from._l)) {
+                to._l = from._l;
+            }
+            if (!isUndefined(from._strict)) {
+                to._strict = from._strict;
+            }
+            if (!isUndefined(from._tzm)) {
+                to._tzm = from._tzm;
+            }
+            if (!isUndefined(from._isUTC)) {
+                to._isUTC = from._isUTC;
+            }
+            if (!isUndefined(from._offset)) {
+                to._offset = from._offset;
+            }
+            if (!isUndefined(from._pf)) {
+                to._pf = getParsingFlags(from);
+            }
+            if (!isUndefined(from._locale)) {
+                to._locale = from._locale;
+            }
+
+            if (momentPropertiesLen > 0) {
+                for (i = 0; i < momentPropertiesLen; i++) {
+                    prop = momentProperties[i];
+                    val = from[prop];
+                    if (!isUndefined(val)) {
+                        to[prop] = val;
+                    }
+                }
+            }
+
+            return to;
+        }
+
+        // Moment prototype object
+        function Moment(config) {
+            copyConfig(this, config);
+            this._d = new Date(config._d != null ? config._d.getTime() : NaN);
+            if (!this.isValid()) {
+                this._d = new Date(NaN);
+            }
+            // Prevent infinite loop in case updateOffset creates new moment
+            // objects.
+            if (updateInProgress === false) {
+                updateInProgress = true;
+                hooks.updateOffset(this);
+                updateInProgress = false;
+            }
+        }
+
+        function isMoment(obj) {
+            return (
+                obj instanceof Moment || (obj != null && obj._isAMomentObject != null)
+            );
+        }
+
+        function warn(msg) {
+            if (
+                hooks.suppressDeprecationWarnings === false &&
+                typeof console !== 'undefined' &&
+                console.warn
+            ) {
+                console.warn('Deprecation warning: ' + msg);
+            }
+        }
+
+        function deprecate(msg, fn) {
+            var firstTime = true;
+
+            return extend(function () {
+                if (hooks.deprecationHandler != null) {
+                    hooks.deprecationHandler(null, msg);
+                }
+                if (firstTime) {
+                    var args = [],
+                        arg,
+                        i,
+                        key,
+                        argLen = arguments.length;
+                    for (i = 0; i < argLen; i++) {
+                        arg = '';
+                        if (typeof arguments[i] === 'object') {
+                            arg += '\n[' + i + '] ';
+                            for (key in arguments[0]) {
+                                if (hasOwnProp(arguments[0], key)) {
+                                    arg += key + ': ' + arguments[0][key] + ', ';
+                                }
+                            }
+                            arg = arg.slice(0, -2); // Remove trailing comma and space
+                        } else {
+                            arg = arguments[i];
+                        }
+                        args.push(arg);
+                    }
+                    warn(
+                        msg +
+                            '\nArguments: ' +
+                            Array.prototype.slice.call(args).join('') +
+                            '\n' +
+                            new Error().stack
+                    );
+                    firstTime = false;
+                }
+                return fn.apply(this, arguments);
+            }, fn);
+        }
+
+        var deprecations = {};
+
+        function deprecateSimple(name, msg) {
+            if (hooks.deprecationHandler != null) {
+                hooks.deprecationHandler(name, msg);
+            }
+            if (!deprecations[name]) {
+                warn(msg);
+                deprecations[name] = true;
+            }
+        }
+
+        hooks.suppressDeprecationWarnings = false;
+        hooks.deprecationHandler = null;
+
+        function isFunction(input) {
+            return (
+                (typeof Function !== 'undefined' && input instanceof Function) ||
+                Object.prototype.toString.call(input) === '[object Function]'
+            );
+        }
+
+        function set(config) {
+            var prop, i;
+            for (i in config) {
+                if (hasOwnProp(config, i)) {
+                    prop = config[i];
+                    if (isFunction(prop)) {
+                        this[i] = prop;
+                    } else {
+                        this['_' + i] = prop;
+                    }
+                }
+            }
+            this._config = config;
+            // Lenient ordinal parsing accepts just a number in addition to
+            // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
+            // TODO: Remove "ordinalParse" fallback in next major release.
+            this._dayOfMonthOrdinalParseLenient = new RegExp(
+                (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
+                    '|' +
+                    /\d{1,2}/.source
+            );
+        }
+
+        function mergeConfigs(parentConfig, childConfig) {
+            var res = extend({}, parentConfig),
+                prop;
+            for (prop in childConfig) {
+                if (hasOwnProp(childConfig, prop)) {
+                    if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
+                        res[prop] = {};
+                        extend(res[prop], parentConfig[prop]);
+                        extend(res[prop], childConfig[prop]);
+                    } else if (childConfig[prop] != null) {
+                        res[prop] = childConfig[prop];
+                    } else {
+                        delete res[prop];
+                    }
+                }
+            }
+            for (prop in parentConfig) {
+                if (
+                    hasOwnProp(parentConfig, prop) &&
+                    !hasOwnProp(childConfig, prop) &&
+                    isObject(parentConfig[prop])
+                ) {
+                    // make sure changes to properties don't modify parent config
+                    res[prop] = extend({}, res[prop]);
+                }
+            }
+            return res;
+        }
+
+        function Locale(config) {
+            if (config != null) {
+                this.set(config);
+            }
+        }
+
+        var keys;
+
+        if (Object.keys) {
+            keys = Object.keys;
+        } else {
+            keys = function (obj) {
+                var i,
+                    res = [];
+                for (i in obj) {
+                    if (hasOwnProp(obj, i)) {
+                        res.push(i);
+                    }
+                }
+                return res;
+            };
+        }
+
+        var defaultCalendar = {
+            sameDay: '[Today at] LT',
+            nextDay: '[Tomorrow at] LT',
+            nextWeek: 'dddd [at] LT',
+            lastDay: '[Yesterday at] LT',
+            lastWeek: '[Last] dddd [at] LT',
+            sameElse: 'L',
+        };
+
+        function calendar(key, mom, now) {
+            var output = this._calendar[key] || this._calendar['sameElse'];
+            return isFunction(output) ? output.call(mom, now) : output;
+        }
+
+        function zeroFill(number, targetLength, forceSign) {
+            var absNumber = '' + Math.abs(number),
+                zerosToFill = targetLength - absNumber.length,
+                sign = number >= 0;
+            return (
+                (sign ? (forceSign ? '+' : '') : '-') +
+                Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) +
+                absNumber
+            );
+        }
+
+        var formattingTokens =
+                /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,
+            localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,
+            formatFunctions = {},
+            formatTokenFunctions = {};
+
+        // token:    'M'
+        // padded:   ['MM', 2]
+        // ordinal:  'Mo'
+        // callback: function () { this.month() + 1 }
+        function addFormatToken(token, padded, ordinal, callback) {
+            var func = callback;
+            if (typeof callback === 'string') {
+                func = function () {
+                    return this[callback]();
+                };
+            }
+            if (token) {
+                formatTokenFunctions[token] = func;
+            }
+            if (padded) {
+                formatTokenFunctions[padded[0]] = function () {
+                    return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
+                };
+            }
+            if (ordinal) {
+                formatTokenFunctions[ordinal] = function () {
+                    return this.localeData().ordinal(
+                        func.apply(this, arguments),
+                        token
+                    );
+                };
+            }
+        }
+
+        function removeFormattingTokens(input) {
+            if (input.match(/\[[\s\S]/)) {
+                return input.replace(/^\[|\]$/g, '');
+            }
+            return input.replace(/\\/g, '');
+        }
+
+        function makeFormatFunction(format) {
+            var array = format.match(formattingTokens),
+                i,
+                length;
+
+            for (i = 0, length = array.length; i < length; i++) {
+                if (formatTokenFunctions[array[i]]) {
+                    array[i] = formatTokenFunctions[array[i]];
+                } else {
+                    array[i] = removeFormattingTokens(array[i]);
+                }
+            }
+
+            return function (mom) {
+                var output = '',
+                    i;
+                for (i = 0; i < length; i++) {
+                    output += isFunction(array[i])
+                        ? array[i].call(mom, format)
+                        : array[i];
+                }
+                return output;
+            };
+        }
+
+        // format date using native date object
+        function formatMoment(m, format) {
+            if (!m.isValid()) {
+                return m.localeData().invalidDate();
+            }
+
+            format = expandFormat(format, m.localeData());
+            formatFunctions[format] =
+                formatFunctions[format] || makeFormatFunction(format);
+
+            return formatFunctions[format](m);
+        }
+
+        function expandFormat(format, locale) {
+            var i = 5;
+
+            function replaceLongDateFormatTokens(input) {
+                return locale.longDateFormat(input) || input;
+            }
+
+            localFormattingTokens.lastIndex = 0;
+            while (i >= 0 && localFormattingTokens.test(format)) {
+                format = format.replace(
+                    localFormattingTokens,
+                    replaceLongDateFormatTokens
+                );
+                localFormattingTokens.lastIndex = 0;
+                i -= 1;
+            }
+
+            return format;
+        }
+
+        var defaultLongDateFormat = {
+            LTS: 'h:mm:ss A',
+            LT: 'h:mm A',
+            L: 'MM/DD/YYYY',
+            LL: 'MMMM D, YYYY',
+            LLL: 'MMMM D, YYYY h:mm A',
+            LLLL: 'dddd, MMMM D, YYYY h:mm A',
+        };
+
+        function longDateFormat(key) {
+            var format = this._longDateFormat[key],
+                formatUpper = this._longDateFormat[key.toUpperCase()];
+
+            if (format || !formatUpper) {
+                return format;
+            }
+
+            this._longDateFormat[key] = formatUpper
+                .match(formattingTokens)
+                .map(function (tok) {
+                    if (
+                        tok === 'MMMM' ||
+                        tok === 'MM' ||
+                        tok === 'DD' ||
+                        tok === 'dddd'
+                    ) {
+                        return tok.slice(1);
+                    }
+                    return tok;
+                })
+                .join('');
+
+            return this._longDateFormat[key];
+        }
+
+        var defaultInvalidDate = 'Invalid date';
+
+        function invalidDate() {
+            return this._invalidDate;
+        }
+
+        var defaultOrdinal = '%d',
+            defaultDayOfMonthOrdinalParse = /\d{1,2}/;
+
+        function ordinal(number) {
+            return this._ordinal.replace('%d', number);
+        }
+
+        var defaultRelativeTime = {
+            future: 'in %s',
+            past: '%s ago',
+            s: 'a few seconds',
+            ss: '%d seconds',
+            m: 'a minute',
+            mm: '%d minutes',
+            h: 'an hour',
+            hh: '%d hours',
+            d: 'a day',
+            dd: '%d days',
+            w: 'a week',
+            ww: '%d weeks',
+            M: 'a month',
+            MM: '%d months',
+            y: 'a year',
+            yy: '%d years',
+        };
+
+        function relativeTime(number, withoutSuffix, string, isFuture) {
+            var output = this._relativeTime[string];
+            return isFunction(output)
+                ? output(number, withoutSuffix, string, isFuture)
+                : output.replace(/%d/i, number);
+        }
+
+        function pastFuture(diff, output) {
+            var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
+            return isFunction(format) ? format(output) : format.replace(/%s/i, output);
+        }
+
+        var aliases = {};
+
+        function addUnitAlias(unit, shorthand) {
+            var lowerCase = unit.toLowerCase();
+            aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
+        }
+
+        function normalizeUnits(units) {
+            return typeof units === 'string'
+                ? aliases[units] || aliases[units.toLowerCase()]
+                : undefined;
+        }
+
+        function normalizeObjectUnits(inputObject) {
+            var normalizedInput = {},
+                normalizedProp,
+                prop;
+
+            for (prop in inputObject) {
+                if (hasOwnProp(inputObject, prop)) {
+                    normalizedProp = normalizeUnits(prop);
+                    if (normalizedProp) {
+                        normalizedInput[normalizedProp] = inputObject[prop];
+                    }
+                }
+            }
+
+            return normalizedInput;
+        }
+
+        var priorities = {};
+
+        function addUnitPriority(unit, priority) {
+            priorities[unit] = priority;
+        }
+
+        function getPrioritizedUnits(unitsObj) {
+            var units = [],
+                u;
+            for (u in unitsObj) {
+                if (hasOwnProp(unitsObj, u)) {
+                    units.push({ unit: u, priority: priorities[u] });
+                }
+            }
+            units.sort(function (a, b) {
+                return a.priority - b.priority;
+            });
+            return units;
+        }
+
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+        }
+
+        function absFloor(number) {
+            if (number < 0) {
+                // -0 -> 0
+                return Math.ceil(number) || 0;
+            } else {
+                return Math.floor(number);
+            }
+        }
+
+        function toInt(argumentForCoercion) {
+            var coercedNumber = +argumentForCoercion,
+                value = 0;
+
+            if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+                value = absFloor(coercedNumber);
+            }
+
+            return value;
+        }
+
+        function makeGetSet(unit, keepTime) {
+            return function (value) {
+                if (value != null) {
+                    set$1(this, unit, value);
+                    hooks.updateOffset(this, keepTime);
+                    return this;
+                } else {
+                    return get(this, unit);
+                }
+            };
+        }
+
+        function get(mom, unit) {
+            return mom.isValid()
+                ? mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]()
+                : NaN;
+        }
+
+        function set$1(mom, unit, value) {
+            if (mom.isValid() && !isNaN(value)) {
+                if (
+                    unit === 'FullYear' &&
+                    isLeapYear(mom.year()) &&
+                    mom.month() === 1 &&
+                    mom.date() === 29
+                ) {
+                    value = toInt(value);
+                    mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](
+                        value,
+                        mom.month(),
+                        daysInMonth(value, mom.month())
+                    );
+                } else {
+                    mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+                }
+            }
+        }
+
+        // MOMENTS
+
+        function stringGet(units) {
+            units = normalizeUnits(units);
+            if (isFunction(this[units])) {
+                return this[units]();
+            }
+            return this;
+        }
+
+        function stringSet(units, value) {
+            if (typeof units === 'object') {
+                units = normalizeObjectUnits(units);
+                var prioritized = getPrioritizedUnits(units),
+                    i,
+                    prioritizedLen = prioritized.length;
+                for (i = 0; i < prioritizedLen; i++) {
+                    this[prioritized[i].unit](units[prioritized[i].unit]);
+                }
+            } else {
+                units = normalizeUnits(units);
+                if (isFunction(this[units])) {
+                    return this[units](value);
+                }
+            }
+            return this;
+        }
+
+        var match1 = /\d/, //       0 - 9
+            match2 = /\d\d/, //      00 - 99
+            match3 = /\d{3}/, //     000 - 999
+            match4 = /\d{4}/, //    0000 - 9999
+            match6 = /[+-]?\d{6}/, // -999999 - 999999
+            match1to2 = /\d\d?/, //       0 - 99
+            match3to4 = /\d\d\d\d?/, //     999 - 9999
+            match5to6 = /\d\d\d\d\d\d?/, //   99999 - 999999
+            match1to3 = /\d{1,3}/, //       0 - 999
+            match1to4 = /\d{1,4}/, //       0 - 9999
+            match1to6 = /[+-]?\d{1,6}/, // -999999 - 999999
+            matchUnsigned = /\d+/, //       0 - inf
+            matchSigned = /[+-]?\d+/, //    -inf - inf
+            matchOffset = /Z|[+-]\d\d:?\d\d/gi, // +00:00 -00:00 +0000 -0000 or Z
+            matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi, // +00 -00 +00:00 -00:00 +0000 -0000 or Z
+            matchTimestamp = /[+-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
+            // any word (or two) characters or numbers including two/three word month in arabic.
+            // includes scottish gaelic two word and hyphenated months
+            matchWord =
+                /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i,
+            regexes;
+
+        regexes = {};
+
+        function addRegexToken(token, regex, strictRegex) {
+            regexes[token] = isFunction(regex)
+                ? regex
+                : function (isStrict, localeData) {
+                      return isStrict && strictRegex ? strictRegex : regex;
+                  };
+        }
+
+        function getParseRegexForToken(token, config) {
+            if (!hasOwnProp(regexes, token)) {
+                return new RegExp(unescapeFormat(token));
+            }
+
+            return regexes[token](config._strict, config._locale);
+        }
+
+        // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+        function unescapeFormat(s) {
+            return regexEscape(
+                s
+                    .replace('\\', '')
+                    .replace(
+                        /\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,
+                        function (matched, p1, p2, p3, p4) {
+                            return p1 || p2 || p3 || p4;
+                        }
+                    )
+            );
+        }
+
+        function regexEscape(s) {
+            return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        }
+
+        var tokens = {};
+
+        function addParseToken(token, callback) {
+            var i,
+                func = callback,
+                tokenLen;
+            if (typeof token === 'string') {
+                token = [token];
+            }
+            if (isNumber(callback)) {
+                func = function (input, array) {
+                    array[callback] = toInt(input);
+                };
+            }
+            tokenLen = token.length;
+            for (i = 0; i < tokenLen; i++) {
+                tokens[token[i]] = func;
+            }
+        }
+
+        function addWeekParseToken(token, callback) {
+            addParseToken(token, function (input, array, config, token) {
+                config._w = config._w || {};
+                callback(input, config._w, config, token);
+            });
+        }
+
+        function addTimeToArrayFromToken(token, input, config) {
+            if (input != null && hasOwnProp(tokens, token)) {
+                tokens[token](input, config._a, config, token);
+            }
+        }
+
+        var YEAR = 0,
+            MONTH = 1,
+            DATE = 2,
+            HOUR = 3,
+            MINUTE = 4,
+            SECOND = 5,
+            MILLISECOND = 6,
+            WEEK = 7,
+            WEEKDAY = 8;
+
+        function mod(n, x) {
+            return ((n % x) + x) % x;
+        }
+
+        var indexOf;
+
+        if (Array.prototype.indexOf) {
+            indexOf = Array.prototype.indexOf;
+        } else {
+            indexOf = function (o) {
+                // I know
+                var i;
+                for (i = 0; i < this.length; ++i) {
+                    if (this[i] === o) {
+                        return i;
+                    }
+                }
+                return -1;
+            };
+        }
+
+        function daysInMonth(year, month) {
+            if (isNaN(year) || isNaN(month)) {
+                return NaN;
+            }
+            var modMonth = mod(month, 12);
+            year += (month - modMonth) / 12;
+            return modMonth === 1
+                ? isLeapYear(year)
+                    ? 29
+                    : 28
+                : 31 - ((modMonth % 7) % 2);
+        }
+
+        // FORMATTING
+
+        addFormatToken('M', ['MM', 2], 'Mo', function () {
+            return this.month() + 1;
+        });
+
+        addFormatToken('MMM', 0, 0, function (format) {
+            return this.localeData().monthsShort(this, format);
+        });
+
+        addFormatToken('MMMM', 0, 0, function (format) {
+            return this.localeData().months(this, format);
+        });
+
+        // ALIASES
+
+        addUnitAlias('month', 'M');
+
+        // PRIORITY
+
+        addUnitPriority('month', 8);
+
+        // PARSING
+
+        addRegexToken('M', match1to2);
+        addRegexToken('MM', match1to2, match2);
+        addRegexToken('MMM', function (isStrict, locale) {
+            return locale.monthsShortRegex(isStrict);
+        });
+        addRegexToken('MMMM', function (isStrict, locale) {
+            return locale.monthsRegex(isStrict);
+        });
+
+        addParseToken(['M', 'MM'], function (input, array) {
+            array[MONTH] = toInt(input) - 1;
+        });
+
+        addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
+            var month = config._locale.monthsParse(input, token, config._strict);
+            // if we didn't find a month name, mark the date as invalid.
+            if (month != null) {
+                array[MONTH] = month;
+            } else {
+                getParsingFlags(config).invalidMonth = input;
+            }
+        });
+
+        // LOCALES
+
+        var defaultLocaleMonths =
+                'January_February_March_April_May_June_July_August_September_October_November_December'.split(
+                    '_'
+                ),
+            defaultLocaleMonthsShort =
+                'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+            MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/,
+            defaultMonthsShortRegex = matchWord,
+            defaultMonthsRegex = matchWord;
+
+        function localeMonths(m, format) {
+            if (!m) {
+                return isArray(this._months)
+                    ? this._months
+                    : this._months['standalone'];
+            }
+            return isArray(this._months)
+                ? this._months[m.month()]
+                : this._months[
+                      (this._months.isFormat || MONTHS_IN_FORMAT).test(format)
+                          ? 'format'
+                          : 'standalone'
+                  ][m.month()];
+        }
+
+        function localeMonthsShort(m, format) {
+            if (!m) {
+                return isArray(this._monthsShort)
+                    ? this._monthsShort
+                    : this._monthsShort['standalone'];
+            }
+            return isArray(this._monthsShort)
+                ? this._monthsShort[m.month()]
+                : this._monthsShort[
+                      MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'
+                  ][m.month()];
+        }
+
+        function handleStrictParse(monthName, format, strict) {
+            var i,
+                ii,
+                mom,
+                llc = monthName.toLocaleLowerCase();
+            if (!this._monthsParse) {
+                // this is not used
+                this._monthsParse = [];
+                this._longMonthsParse = [];
+                this._shortMonthsParse = [];
+                for (i = 0; i < 12; ++i) {
+                    mom = createUTC([2000, i]);
+                    this._shortMonthsParse[i] = this.monthsShort(
+                        mom,
+                        ''
+                    ).toLocaleLowerCase();
+                    this._longMonthsParse[i] = this.months(mom, '').toLocaleLowerCase();
+                }
+            }
+
+            if (strict) {
+                if (format === 'MMM') {
+                    ii = indexOf.call(this._shortMonthsParse, llc);
+                    return ii !== -1 ? ii : null;
+                } else {
+                    ii = indexOf.call(this._longMonthsParse, llc);
+                    return ii !== -1 ? ii : null;
+                }
+            } else {
+                if (format === 'MMM') {
+                    ii = indexOf.call(this._shortMonthsParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._longMonthsParse, llc);
+                    return ii !== -1 ? ii : null;
+                } else {
+                    ii = indexOf.call(this._longMonthsParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._shortMonthsParse, llc);
+                    return ii !== -1 ? ii : null;
+                }
+            }
+        }
+
+        function localeMonthsParse(monthName, format, strict) {
+            var i, mom, regex;
+
+            if (this._monthsParseExact) {
+                return handleStrictParse.call(this, monthName, format, strict);
+            }
+
+            if (!this._monthsParse) {
+                this._monthsParse = [];
+                this._longMonthsParse = [];
+                this._shortMonthsParse = [];
+            }
+
+            // TODO: add sorting
+            // Sorting makes sure if one month (or abbr) is a prefix of another
+            // see sorting in computeMonthsParse
+            for (i = 0; i < 12; i++) {
+                // make the regex if we don't have it already
+                mom = createUTC([2000, i]);
+                if (strict && !this._longMonthsParse[i]) {
+                    this._longMonthsParse[i] = new RegExp(
+                        '^' + this.months(mom, '').replace('.', '') + '$',
+                        'i'
+                    );
+                    this._shortMonthsParse[i] = new RegExp(
+                        '^' + this.monthsShort(mom, '').replace('.', '') + '$',
+                        'i'
+                    );
+                }
+                if (!strict && !this._monthsParse[i]) {
+                    regex =
+                        '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
+                    this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
+                }
+                // test the regex
+                if (
+                    strict &&
+                    format === 'MMMM' &&
+                    this._longMonthsParse[i].test(monthName)
+                ) {
+                    return i;
+                } else if (
+                    strict &&
+                    format === 'MMM' &&
+                    this._shortMonthsParse[i].test(monthName)
+                ) {
+                    return i;
+                } else if (!strict && this._monthsParse[i].test(monthName)) {
+                    return i;
+                }
+            }
+        }
+
+        // MOMENTS
+
+        function setMonth(mom, value) {
+            var dayOfMonth;
+
+            if (!mom.isValid()) {
+                // No op
+                return mom;
+            }
+
+            if (typeof value === 'string') {
+                if (/^\d+$/.test(value)) {
+                    value = toInt(value);
+                } else {
+                    value = mom.localeData().monthsParse(value);
+                    // TODO: Another silent failure?
+                    if (!isNumber(value)) {
+                        return mom;
+                    }
+                }
+            }
+
+            dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
+            mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+            return mom;
+        }
+
+        function getSetMonth(value) {
+            if (value != null) {
+                setMonth(this, value);
+                hooks.updateOffset(this, true);
+                return this;
+            } else {
+                return get(this, 'Month');
+            }
+        }
+
+        function getDaysInMonth() {
+            return daysInMonth(this.year(), this.month());
+        }
+
+        function monthsShortRegex(isStrict) {
+            if (this._monthsParseExact) {
+                if (!hasOwnProp(this, '_monthsRegex')) {
+                    computeMonthsParse.call(this);
+                }
+                if (isStrict) {
+                    return this._monthsShortStrictRegex;
+                } else {
+                    return this._monthsShortRegex;
+                }
+            } else {
+                if (!hasOwnProp(this, '_monthsShortRegex')) {
+                    this._monthsShortRegex = defaultMonthsShortRegex;
+                }
+                return this._monthsShortStrictRegex && isStrict
+                    ? this._monthsShortStrictRegex
+                    : this._monthsShortRegex;
+            }
+        }
+
+        function monthsRegex(isStrict) {
+            if (this._monthsParseExact) {
+                if (!hasOwnProp(this, '_monthsRegex')) {
+                    computeMonthsParse.call(this);
+                }
+                if (isStrict) {
+                    return this._monthsStrictRegex;
+                } else {
+                    return this._monthsRegex;
+                }
+            } else {
+                if (!hasOwnProp(this, '_monthsRegex')) {
+                    this._monthsRegex = defaultMonthsRegex;
+                }
+                return this._monthsStrictRegex && isStrict
+                    ? this._monthsStrictRegex
+                    : this._monthsRegex;
+            }
+        }
+
+        function computeMonthsParse() {
+            function cmpLenRev(a, b) {
+                return b.length - a.length;
+            }
+
+            var shortPieces = [],
+                longPieces = [],
+                mixedPieces = [],
+                i,
+                mom;
+            for (i = 0; i < 12; i++) {
+                // make the regex if we don't have it already
+                mom = createUTC([2000, i]);
+                shortPieces.push(this.monthsShort(mom, ''));
+                longPieces.push(this.months(mom, ''));
+                mixedPieces.push(this.months(mom, ''));
+                mixedPieces.push(this.monthsShort(mom, ''));
+            }
+            // Sorting makes sure if one month (or abbr) is a prefix of another it
+            // will match the longer piece.
+            shortPieces.sort(cmpLenRev);
+            longPieces.sort(cmpLenRev);
+            mixedPieces.sort(cmpLenRev);
+            for (i = 0; i < 12; i++) {
+                shortPieces[i] = regexEscape(shortPieces[i]);
+                longPieces[i] = regexEscape(longPieces[i]);
+            }
+            for (i = 0; i < 24; i++) {
+                mixedPieces[i] = regexEscape(mixedPieces[i]);
+            }
+
+            this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+            this._monthsShortRegex = this._monthsRegex;
+            this._monthsStrictRegex = new RegExp(
+                '^(' + longPieces.join('|') + ')',
+                'i'
+            );
+            this._monthsShortStrictRegex = new RegExp(
+                '^(' + shortPieces.join('|') + ')',
+                'i'
+            );
+        }
+
+        // FORMATTING
+
+        addFormatToken('Y', 0, 0, function () {
+            var y = this.year();
+            return y <= 9999 ? zeroFill(y, 4) : '+' + y;
+        });
+
+        addFormatToken(0, ['YY', 2], 0, function () {
+            return this.year() % 100;
+        });
+
+        addFormatToken(0, ['YYYY', 4], 0, 'year');
+        addFormatToken(0, ['YYYYY', 5], 0, 'year');
+        addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
+
+        // ALIASES
+
+        addUnitAlias('year', 'y');
+
+        // PRIORITIES
+
+        addUnitPriority('year', 1);
+
+        // PARSING
+
+        addRegexToken('Y', matchSigned);
+        addRegexToken('YY', match1to2, match2);
+        addRegexToken('YYYY', match1to4, match4);
+        addRegexToken('YYYYY', match1to6, match6);
+        addRegexToken('YYYYYY', match1to6, match6);
+
+        addParseToken(['YYYYY', 'YYYYYY'], YEAR);
+        addParseToken('YYYY', function (input, array) {
+            array[YEAR] =
+                input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+        });
+        addParseToken('YY', function (input, array) {
+            array[YEAR] = hooks.parseTwoDigitYear(input);
+        });
+        addParseToken('Y', function (input, array) {
+            array[YEAR] = parseInt(input, 10);
+        });
+
+        // HELPERS
+
+        function daysInYear(year) {
+            return isLeapYear(year) ? 366 : 365;
+        }
+
+        // HOOKS
+
+        hooks.parseTwoDigitYear = function (input) {
+            return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+        };
+
+        // MOMENTS
+
+        var getSetYear = makeGetSet('FullYear', true);
+
+        function getIsLeapYear() {
+            return isLeapYear(this.year());
+        }
+
+        function createDate(y, m, d, h, M, s, ms) {
+            // can't just apply() to create a date:
+            // https://stackoverflow.com/q/181348
+            var date;
+            // the date constructor remaps years 0-99 to 1900-1999
+            if (y < 100 && y >= 0) {
+                // preserve leap years using a full 400 year cycle, then reset
+                date = new Date(y + 400, m, d, h, M, s, ms);
+                if (isFinite(date.getFullYear())) {
+                    date.setFullYear(y);
+                }
+            } else {
+                date = new Date(y, m, d, h, M, s, ms);
+            }
+
+            return date;
+        }
+
+        function createUTCDate(y) {
+            var date, args;
+            // the Date.UTC function remaps years 0-99 to 1900-1999
+            if (y < 100 && y >= 0) {
+                args = Array.prototype.slice.call(arguments);
+                // preserve leap years using a full 400 year cycle, then reset
+                args[0] = y + 400;
+                date = new Date(Date.UTC.apply(null, args));
+                if (isFinite(date.getUTCFullYear())) {
+                    date.setUTCFullYear(y);
+                }
+            } else {
+                date = new Date(Date.UTC.apply(null, arguments));
+            }
+
+            return date;
+        }
+
+        // start-of-first-week - start-of-year
+        function firstWeekOffset(year, dow, doy) {
+            var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+                fwd = 7 + dow - doy,
+                // first-week day local weekday -- which local weekday is fwd
+                fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
+
+            return -fwdlw + fwd - 1;
+        }
+
+        // https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+        function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
+            var localWeekday = (7 + weekday - dow) % 7,
+                weekOffset = firstWeekOffset(year, dow, doy),
+                dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
+                resYear,
+                resDayOfYear;
+
+            if (dayOfYear <= 0) {
+                resYear = year - 1;
+                resDayOfYear = daysInYear(resYear) + dayOfYear;
+            } else if (dayOfYear > daysInYear(year)) {
+                resYear = year + 1;
+                resDayOfYear = dayOfYear - daysInYear(year);
+            } else {
+                resYear = year;
+                resDayOfYear = dayOfYear;
+            }
+
+            return {
+                year: resYear,
+                dayOfYear: resDayOfYear,
+            };
+        }
+
+        function weekOfYear(mom, dow, doy) {
+            var weekOffset = firstWeekOffset(mom.year(), dow, doy),
+                week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
+                resWeek,
+                resYear;
+
+            if (week < 1) {
+                resYear = mom.year() - 1;
+                resWeek = week + weeksInYear(resYear, dow, doy);
+            } else if (week > weeksInYear(mom.year(), dow, doy)) {
+                resWeek = week - weeksInYear(mom.year(), dow, doy);
+                resYear = mom.year() + 1;
+            } else {
+                resYear = mom.year();
+                resWeek = week;
+            }
+
+            return {
+                week: resWeek,
+                year: resYear,
+            };
+        }
+
+        function weeksInYear(year, dow, doy) {
+            var weekOffset = firstWeekOffset(year, dow, doy),
+                weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
+            return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
+        }
+
+        // FORMATTING
+
+        addFormatToken('w', ['ww', 2], 'wo', 'week');
+        addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
+
+        // ALIASES
+
+        addUnitAlias('week', 'w');
+        addUnitAlias('isoWeek', 'W');
+
+        // PRIORITIES
+
+        addUnitPriority('week', 5);
+        addUnitPriority('isoWeek', 5);
+
+        // PARSING
+
+        addRegexToken('w', match1to2);
+        addRegexToken('ww', match1to2, match2);
+        addRegexToken('W', match1to2);
+        addRegexToken('WW', match1to2, match2);
+
+        addWeekParseToken(
+            ['w', 'ww', 'W', 'WW'],
+            function (input, week, config, token) {
+                week[token.substr(0, 1)] = toInt(input);
+            }
+        );
+
+        // HELPERS
+
+        // LOCALES
+
+        function localeWeek(mom) {
+            return weekOfYear(mom, this._week.dow, this._week.doy).week;
+        }
+
+        var defaultLocaleWeek = {
+            dow: 0, // Sunday is the first day of the week.
+            doy: 6, // The week that contains Jan 6th is the first week of the year.
+        };
+
+        function localeFirstDayOfWeek() {
+            return this._week.dow;
+        }
+
+        function localeFirstDayOfYear() {
+            return this._week.doy;
+        }
+
+        // MOMENTS
+
+        function getSetWeek(input) {
+            var week = this.localeData().week(this);
+            return input == null ? week : this.add((input - week) * 7, 'd');
+        }
+
+        function getSetISOWeek(input) {
+            var week = weekOfYear(this, 1, 4).week;
+            return input == null ? week : this.add((input - week) * 7, 'd');
+        }
+
+        // FORMATTING
+
+        addFormatToken('d', 0, 'do', 'day');
+
+        addFormatToken('dd', 0, 0, function (format) {
+            return this.localeData().weekdaysMin(this, format);
+        });
+
+        addFormatToken('ddd', 0, 0, function (format) {
+            return this.localeData().weekdaysShort(this, format);
+        });
+
+        addFormatToken('dddd', 0, 0, function (format) {
+            return this.localeData().weekdays(this, format);
+        });
+
+        addFormatToken('e', 0, 0, 'weekday');
+        addFormatToken('E', 0, 0, 'isoWeekday');
+
+        // ALIASES
+
+        addUnitAlias('day', 'd');
+        addUnitAlias('weekday', 'e');
+        addUnitAlias('isoWeekday', 'E');
+
+        // PRIORITY
+        addUnitPriority('day', 11);
+        addUnitPriority('weekday', 11);
+        addUnitPriority('isoWeekday', 11);
+
+        // PARSING
+
+        addRegexToken('d', match1to2);
+        addRegexToken('e', match1to2);
+        addRegexToken('E', match1to2);
+        addRegexToken('dd', function (isStrict, locale) {
+            return locale.weekdaysMinRegex(isStrict);
+        });
+        addRegexToken('ddd', function (isStrict, locale) {
+            return locale.weekdaysShortRegex(isStrict);
+        });
+        addRegexToken('dddd', function (isStrict, locale) {
+            return locale.weekdaysRegex(isStrict);
+        });
+
+        addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
+            var weekday = config._locale.weekdaysParse(input, token, config._strict);
+            // if we didn't get a weekday name, mark the date as invalid
+            if (weekday != null) {
+                week.d = weekday;
+            } else {
+                getParsingFlags(config).invalidWeekday = input;
+            }
+        });
+
+        addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
+            week[token] = toInt(input);
+        });
+
+        // HELPERS
+
+        function parseWeekday(input, locale) {
+            if (typeof input !== 'string') {
+                return input;
+            }
+
+            if (!isNaN(input)) {
+                return parseInt(input, 10);
+            }
+
+            input = locale.weekdaysParse(input);
+            if (typeof input === 'number') {
+                return input;
+            }
+
+            return null;
+        }
+
+        function parseIsoWeekday(input, locale) {
+            if (typeof input === 'string') {
+                return locale.weekdaysParse(input) % 7 || 7;
+            }
+            return isNaN(input) ? null : input;
+        }
+
+        // LOCALES
+        function shiftWeekdays(ws, n) {
+            return ws.slice(n, 7).concat(ws.slice(0, n));
+        }
+
+        var defaultLocaleWeekdays =
+                'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+            defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+            defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+            defaultWeekdaysRegex = matchWord,
+            defaultWeekdaysShortRegex = matchWord,
+            defaultWeekdaysMinRegex = matchWord;
+
+        function localeWeekdays(m, format) {
+            var weekdays = isArray(this._weekdays)
+                ? this._weekdays
+                : this._weekdays[
+                      m && m !== true && this._weekdays.isFormat.test(format)
+                          ? 'format'
+                          : 'standalone'
+                  ];
+            return m === true
+                ? shiftWeekdays(weekdays, this._week.dow)
+                : m
+                ? weekdays[m.day()]
+                : weekdays;
+        }
+
+        function localeWeekdaysShort(m) {
+            return m === true
+                ? shiftWeekdays(this._weekdaysShort, this._week.dow)
+                : m
+                ? this._weekdaysShort[m.day()]
+                : this._weekdaysShort;
+        }
+
+        function localeWeekdaysMin(m) {
+            return m === true
+                ? shiftWeekdays(this._weekdaysMin, this._week.dow)
+                : m
+                ? this._weekdaysMin[m.day()]
+                : this._weekdaysMin;
+        }
+
+        function handleStrictParse$1(weekdayName, format, strict) {
+            var i,
+                ii,
+                mom,
+                llc = weekdayName.toLocaleLowerCase();
+            if (!this._weekdaysParse) {
+                this._weekdaysParse = [];
+                this._shortWeekdaysParse = [];
+                this._minWeekdaysParse = [];
+
+                for (i = 0; i < 7; ++i) {
+                    mom = createUTC([2000, 1]).day(i);
+                    this._minWeekdaysParse[i] = this.weekdaysMin(
+                        mom,
+                        ''
+                    ).toLocaleLowerCase();
+                    this._shortWeekdaysParse[i] = this.weekdaysShort(
+                        mom,
+                        ''
+                    ).toLocaleLowerCase();
+                    this._weekdaysParse[i] = this.weekdays(mom, '').toLocaleLowerCase();
+                }
+            }
+
+            if (strict) {
+                if (format === 'dddd') {
+                    ii = indexOf.call(this._weekdaysParse, llc);
+                    return ii !== -1 ? ii : null;
+                } else if (format === 'ddd') {
+                    ii = indexOf.call(this._shortWeekdaysParse, llc);
+                    return ii !== -1 ? ii : null;
+                } else {
+                    ii = indexOf.call(this._minWeekdaysParse, llc);
+                    return ii !== -1 ? ii : null;
+                }
+            } else {
+                if (format === 'dddd') {
+                    ii = indexOf.call(this._weekdaysParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._shortWeekdaysParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._minWeekdaysParse, llc);
+                    return ii !== -1 ? ii : null;
+                } else if (format === 'ddd') {
+                    ii = indexOf.call(this._shortWeekdaysParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._weekdaysParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._minWeekdaysParse, llc);
+                    return ii !== -1 ? ii : null;
+                } else {
+                    ii = indexOf.call(this._minWeekdaysParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._weekdaysParse, llc);
+                    if (ii !== -1) {
+                        return ii;
+                    }
+                    ii = indexOf.call(this._shortWeekdaysParse, llc);
+                    return ii !== -1 ? ii : null;
+                }
+            }
+        }
+
+        function localeWeekdaysParse(weekdayName, format, strict) {
+            var i, mom, regex;
+
+            if (this._weekdaysParseExact) {
+                return handleStrictParse$1.call(this, weekdayName, format, strict);
+            }
+
+            if (!this._weekdaysParse) {
+                this._weekdaysParse = [];
+                this._minWeekdaysParse = [];
+                this._shortWeekdaysParse = [];
+                this._fullWeekdaysParse = [];
+            }
+
+            for (i = 0; i < 7; i++) {
+                // make the regex if we don't have it already
+
+                mom = createUTC([2000, 1]).day(i);
+                if (strict && !this._fullWeekdaysParse[i]) {
+                    this._fullWeekdaysParse[i] = new RegExp(
+                        '^' + this.weekdays(mom, '').replace('.', '\\.?') + '$',
+                        'i'
+                    );
+                    this._shortWeekdaysParse[i] = new RegExp(
+                        '^' + this.weekdaysShort(mom, '').replace('.', '\\.?') + '$',
+                        'i'
+                    );
+                    this._minWeekdaysParse[i] = new RegExp(
+                        '^' + this.weekdaysMin(mom, '').replace('.', '\\.?') + '$',
+                        'i'
+                    );
+                }
+                if (!this._weekdaysParse[i]) {
+                    regex =
+                        '^' +
+                        this.weekdays(mom, '') +
+                        '|^' +
+                        this.weekdaysShort(mom, '') +
+                        '|^' +
+                        this.weekdaysMin(mom, '');
+                    this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
+                }
+                // test the regex
+                if (
+                    strict &&
+                    format === 'dddd' &&
+                    this._fullWeekdaysParse[i].test(weekdayName)
+                ) {
+                    return i;
+                } else if (
+                    strict &&
+                    format === 'ddd' &&
+                    this._shortWeekdaysParse[i].test(weekdayName)
+                ) {
+                    return i;
+                } else if (
+                    strict &&
+                    format === 'dd' &&
+                    this._minWeekdaysParse[i].test(weekdayName)
+                ) {
+                    return i;
+                } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
+                    return i;
+                }
+            }
+        }
+
+        // MOMENTS
+
+        function getSetDayOfWeek(input) {
+            if (!this.isValid()) {
+                return input != null ? this : NaN;
+            }
+            var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+            if (input != null) {
+                input = parseWeekday(input, this.localeData());
+                return this.add(input - day, 'd');
+            } else {
+                return day;
+            }
+        }
+
+        function getSetLocaleDayOfWeek(input) {
+            if (!this.isValid()) {
+                return input != null ? this : NaN;
+            }
+            var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
+            return input == null ? weekday : this.add(input - weekday, 'd');
+        }
+
+        function getSetISODayOfWeek(input) {
+            if (!this.isValid()) {
+                return input != null ? this : NaN;
+            }
+
+            // behaves the same as moment#day except
+            // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
+            // as a setter, sunday should belong to the previous week.
+
+            if (input != null) {
+                var weekday = parseIsoWeekday(input, this.localeData());
+                return this.day(this.day() % 7 ? weekday : weekday - 7);
+            } else {
+                return this.day() || 7;
+            }
+        }
+
+        function weekdaysRegex(isStrict) {
+            if (this._weekdaysParseExact) {
+                if (!hasOwnProp(this, '_weekdaysRegex')) {
+                    computeWeekdaysParse.call(this);
+                }
+                if (isStrict) {
+                    return this._weekdaysStrictRegex;
+                } else {
+                    return this._weekdaysRegex;
+                }
+            } else {
+                if (!hasOwnProp(this, '_weekdaysRegex')) {
+                    this._weekdaysRegex = defaultWeekdaysRegex;
+                }
+                return this._weekdaysStrictRegex && isStrict
+                    ? this._weekdaysStrictRegex
+                    : this._weekdaysRegex;
+            }
+        }
+
+        function weekdaysShortRegex(isStrict) {
+            if (this._weekdaysParseExact) {
+                if (!hasOwnProp(this, '_weekdaysRegex')) {
+                    computeWeekdaysParse.call(this);
+                }
+                if (isStrict) {
+                    return this._weekdaysShortStrictRegex;
+                } else {
+                    return this._weekdaysShortRegex;
+                }
+            } else {
+                if (!hasOwnProp(this, '_weekdaysShortRegex')) {
+                    this._weekdaysShortRegex = defaultWeekdaysShortRegex;
+                }
+                return this._weekdaysShortStrictRegex && isStrict
+                    ? this._weekdaysShortStrictRegex
+                    : this._weekdaysShortRegex;
+            }
+        }
+
+        function weekdaysMinRegex(isStrict) {
+            if (this._weekdaysParseExact) {
+                if (!hasOwnProp(this, '_weekdaysRegex')) {
+                    computeWeekdaysParse.call(this);
+                }
+                if (isStrict) {
+                    return this._weekdaysMinStrictRegex;
+                } else {
+                    return this._weekdaysMinRegex;
+                }
+            } else {
+                if (!hasOwnProp(this, '_weekdaysMinRegex')) {
+                    this._weekdaysMinRegex = defaultWeekdaysMinRegex;
+                }
+                return this._weekdaysMinStrictRegex && isStrict
+                    ? this._weekdaysMinStrictRegex
+                    : this._weekdaysMinRegex;
+            }
+        }
+
+        function computeWeekdaysParse() {
+            function cmpLenRev(a, b) {
+                return b.length - a.length;
+            }
+
+            var minPieces = [],
+                shortPieces = [],
+                longPieces = [],
+                mixedPieces = [],
+                i,
+                mom,
+                minp,
+                shortp,
+                longp;
+            for (i = 0; i < 7; i++) {
+                // make the regex if we don't have it already
+                mom = createUTC([2000, 1]).day(i);
+                minp = regexEscape(this.weekdaysMin(mom, ''));
+                shortp = regexEscape(this.weekdaysShort(mom, ''));
+                longp = regexEscape(this.weekdays(mom, ''));
+                minPieces.push(minp);
+                shortPieces.push(shortp);
+                longPieces.push(longp);
+                mixedPieces.push(minp);
+                mixedPieces.push(shortp);
+                mixedPieces.push(longp);
+            }
+            // Sorting makes sure if one weekday (or abbr) is a prefix of another it
+            // will match the longer piece.
+            minPieces.sort(cmpLenRev);
+            shortPieces.sort(cmpLenRev);
+            longPieces.sort(cmpLenRev);
+            mixedPieces.sort(cmpLenRev);
+
+            this._weekdaysRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+            this._weekdaysShortRegex = this._weekdaysRegex;
+            this._weekdaysMinRegex = this._weekdaysRegex;
+
+            this._weekdaysStrictRegex = new RegExp(
+                '^(' + longPieces.join('|') + ')',
+                'i'
+            );
+            this._weekdaysShortStrictRegex = new RegExp(
+                '^(' + shortPieces.join('|') + ')',
+                'i'
+            );
+            this._weekdaysMinStrictRegex = new RegExp(
+                '^(' + minPieces.join('|') + ')',
+                'i'
+            );
+        }
+
+        // FORMATTING
+
+        function hFormat() {
+            return this.hours() % 12 || 12;
+        }
+
+        function kFormat() {
+            return this.hours() || 24;
+        }
+
+        addFormatToken('H', ['HH', 2], 0, 'hour');
+        addFormatToken('h', ['hh', 2], 0, hFormat);
+        addFormatToken('k', ['kk', 2], 0, kFormat);
+
+        addFormatToken('hmm', 0, 0, function () {
+            return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
+        });
+
+        addFormatToken('hmmss', 0, 0, function () {
+            return (
+                '' +
+                hFormat.apply(this) +
+                zeroFill(this.minutes(), 2) +
+                zeroFill(this.seconds(), 2)
+            );
+        });
+
+        addFormatToken('Hmm', 0, 0, function () {
+            return '' + this.hours() + zeroFill(this.minutes(), 2);
+        });
+
+        addFormatToken('Hmmss', 0, 0, function () {
+            return (
+                '' +
+                this.hours() +
+                zeroFill(this.minutes(), 2) +
+                zeroFill(this.seconds(), 2)
+            );
+        });
+
+        function meridiem(token, lowercase) {
+            addFormatToken(token, 0, 0, function () {
+                return this.localeData().meridiem(
+                    this.hours(),
+                    this.minutes(),
+                    lowercase
+                );
+            });
+        }
+
+        meridiem('a', true);
+        meridiem('A', false);
+
+        // ALIASES
+
+        addUnitAlias('hour', 'h');
+
+        // PRIORITY
+        addUnitPriority('hour', 13);
+
+        // PARSING
+
+        function matchMeridiem(isStrict, locale) {
+            return locale._meridiemParse;
+        }
+
+        addRegexToken('a', matchMeridiem);
+        addRegexToken('A', matchMeridiem);
+        addRegexToken('H', match1to2);
+        addRegexToken('h', match1to2);
+        addRegexToken('k', match1to2);
+        addRegexToken('HH', match1to2, match2);
+        addRegexToken('hh', match1to2, match2);
+        addRegexToken('kk', match1to2, match2);
+
+        addRegexToken('hmm', match3to4);
+        addRegexToken('hmmss', match5to6);
+        addRegexToken('Hmm', match3to4);
+        addRegexToken('Hmmss', match5to6);
+
+        addParseToken(['H', 'HH'], HOUR);
+        addParseToken(['k', 'kk'], function (input, array, config) {
+            var kInput = toInt(input);
+            array[HOUR] = kInput === 24 ? 0 : kInput;
+        });
+        addParseToken(['a', 'A'], function (input, array, config) {
+            config._isPm = config._locale.isPM(input);
+            config._meridiem = input;
+        });
+        addParseToken(['h', 'hh'], function (input, array, config) {
+            array[HOUR] = toInt(input);
+            getParsingFlags(config).bigHour = true;
+        });
+        addParseToken('hmm', function (input, array, config) {
+            var pos = input.length - 2;
+            array[HOUR] = toInt(input.substr(0, pos));
+            array[MINUTE] = toInt(input.substr(pos));
+            getParsingFlags(config).bigHour = true;
+        });
+        addParseToken('hmmss', function (input, array, config) {
+            var pos1 = input.length - 4,
+                pos2 = input.length - 2;
+            array[HOUR] = toInt(input.substr(0, pos1));
+            array[MINUTE] = toInt(input.substr(pos1, 2));
+            array[SECOND] = toInt(input.substr(pos2));
+            getParsingFlags(config).bigHour = true;
+        });
+        addParseToken('Hmm', function (input, array, config) {
+            var pos = input.length - 2;
+            array[HOUR] = toInt(input.substr(0, pos));
+            array[MINUTE] = toInt(input.substr(pos));
+        });
+        addParseToken('Hmmss', function (input, array, config) {
+            var pos1 = input.length - 4,
+                pos2 = input.length - 2;
+            array[HOUR] = toInt(input.substr(0, pos1));
+            array[MINUTE] = toInt(input.substr(pos1, 2));
+            array[SECOND] = toInt(input.substr(pos2));
+        });
+
+        // LOCALES
+
+        function localeIsPM(input) {
+            // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
+            // Using charAt should be more compatible.
+            return (input + '').toLowerCase().charAt(0) === 'p';
+        }
+
+        var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i,
+            // Setting the hour should keep the time, because the user explicitly
+            // specified which hour they want. So trying to maintain the same hour (in
+            // a new timezone) makes sense. Adding/subtracting hours does not follow
+            // this rule.
+            getSetHour = makeGetSet('Hours', true);
+
+        function localeMeridiem(hours, minutes, isLower) {
+            if (hours > 11) {
+                return isLower ? 'pm' : 'PM';
+            } else {
+                return isLower ? 'am' : 'AM';
+            }
+        }
+
+        var baseConfig = {
+            calendar: defaultCalendar,
+            longDateFormat: defaultLongDateFormat,
+            invalidDate: defaultInvalidDate,
+            ordinal: defaultOrdinal,
+            dayOfMonthOrdinalParse: defaultDayOfMonthOrdinalParse,
+            relativeTime: defaultRelativeTime,
+
+            months: defaultLocaleMonths,
+            monthsShort: defaultLocaleMonthsShort,
+
+            week: defaultLocaleWeek,
+
+            weekdays: defaultLocaleWeekdays,
+            weekdaysMin: defaultLocaleWeekdaysMin,
+            weekdaysShort: defaultLocaleWeekdaysShort,
+
+            meridiemParse: defaultLocaleMeridiemParse,
+        };
+
+        // internal storage for locale config files
+        var locales = {},
+            localeFamilies = {},
+            globalLocale;
+
+        function commonPrefix(arr1, arr2) {
+            var i,
+                minl = Math.min(arr1.length, arr2.length);
+            for (i = 0; i < minl; i += 1) {
+                if (arr1[i] !== arr2[i]) {
+                    return i;
+                }
+            }
+            return minl;
+        }
+
+        function normalizeLocale(key) {
+            return key ? key.toLowerCase().replace('_', '-') : key;
+        }
+
+        // pick the locale from the array
+        // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+        // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+        function chooseLocale(names) {
+            var i = 0,
+                j,
+                next,
+                locale,
+                split;
+
+            while (i < names.length) {
+                split = normalizeLocale(names[i]).split('-');
+                j = split.length;
+                next = normalizeLocale(names[i + 1]);
+                next = next ? next.split('-') : null;
+                while (j > 0) {
+                    locale = loadLocale(split.slice(0, j).join('-'));
+                    if (locale) {
+                        return locale;
+                    }
+                    if (
+                        next &&
+                        next.length >= j &&
+                        commonPrefix(split, next) >= j - 1
+                    ) {
+                        //the next array item is better than a shallower substring of this one
+                        break;
+                    }
+                    j--;
+                }
+                i++;
+            }
+            return globalLocale;
+        }
+
+        function isLocaleNameSane(name) {
+            // Prevent names that look like filesystem paths, i.e contain '/' or '\'
+            return name.match('^[^/\\\\]*$') != null;
+        }
+
+        function loadLocale(name) {
+            var oldLocale = null,
+                aliasedRequire;
+            // TODO: Find a better way to register and load all the locales in Node
+            if (
+                locales[name] === undefined &&
+                'object' !== 'undefined' &&
+                module &&
+                module.exports &&
+                isLocaleNameSane(name)
+            ) {
+                try {
+                    oldLocale = globalLocale._abbr;
+                    aliasedRequire = commonjsRequire;
+                    aliasedRequire('./locale/' + name);
+                    getSetGlobalLocale(oldLocale);
+                } catch (e) {
+                    // mark as not found to avoid repeating expensive file require call causing high CPU
+                    // when trying to find en-US, en_US, en-us for every format call
+                    locales[name] = null; // null means not found
+                }
+            }
+            return locales[name];
+        }
+
+        // This function will load locale and then set the global locale.  If
+        // no arguments are passed in, it will simply return the current global
+        // locale key.
+        function getSetGlobalLocale(key, values) {
+            var data;
+            if (key) {
+                if (isUndefined(values)) {
+                    data = getLocale(key);
+                } else {
+                    data = defineLocale(key, values);
+                }
+
+                if (data) {
+                    // moment.duration._locale = moment._locale = data;
+                    globalLocale = data;
+                } else {
+                    if (typeof console !== 'undefined' && console.warn) {
+                        //warn user if arguments are passed but the locale could not be set
+                        console.warn(
+                            'Locale ' + key + ' not found. Did you forget to load it?'
+                        );
+                    }
+                }
+            }
+
+            return globalLocale._abbr;
+        }
+
+        function defineLocale(name, config) {
+            if (config !== null) {
+                var locale,
+                    parentConfig = baseConfig;
+                config.abbr = name;
+                if (locales[name] != null) {
+                    deprecateSimple(
+                        'defineLocaleOverride',
+                        'use moment.updateLocale(localeName, config) to change ' +
+                            'an existing locale. moment.defineLocale(localeName, ' +
+                            'config) should only be used for creating a new locale ' +
+                            'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.'
+                    );
+                    parentConfig = locales[name]._config;
+                } else if (config.parentLocale != null) {
+                    if (locales[config.parentLocale] != null) {
+                        parentConfig = locales[config.parentLocale]._config;
+                    } else {
+                        locale = loadLocale(config.parentLocale);
+                        if (locale != null) {
+                            parentConfig = locale._config;
+                        } else {
+                            if (!localeFamilies[config.parentLocale]) {
+                                localeFamilies[config.parentLocale] = [];
+                            }
+                            localeFamilies[config.parentLocale].push({
+                                name: name,
+                                config: config,
+                            });
+                            return null;
+                        }
+                    }
+                }
+                locales[name] = new Locale(mergeConfigs(parentConfig, config));
+
+                if (localeFamilies[name]) {
+                    localeFamilies[name].forEach(function (x) {
+                        defineLocale(x.name, x.config);
+                    });
+                }
+
+                // backwards compat for now: also set the locale
+                // make sure we set the locale AFTER all child locales have been
+                // created, so we won't end up with the child locale set.
+                getSetGlobalLocale(name);
+
+                return locales[name];
+            } else {
+                // useful for testing
+                delete locales[name];
+                return null;
+            }
+        }
+
+        function updateLocale(name, config) {
+            if (config != null) {
+                var locale,
+                    tmpLocale,
+                    parentConfig = baseConfig;
+
+                if (locales[name] != null && locales[name].parentLocale != null) {
+                    // Update existing child locale in-place to avoid memory-leaks
+                    locales[name].set(mergeConfigs(locales[name]._config, config));
+                } else {
+                    // MERGE
+                    tmpLocale = loadLocale(name);
+                    if (tmpLocale != null) {
+                        parentConfig = tmpLocale._config;
+                    }
+                    config = mergeConfigs(parentConfig, config);
+                    if (tmpLocale == null) {
+                        // updateLocale is called for creating a new locale
+                        // Set abbr so it will have a name (getters return
+                        // undefined otherwise).
+                        config.abbr = name;
+                    }
+                    locale = new Locale(config);
+                    locale.parentLocale = locales[name];
+                    locales[name] = locale;
+                }
+
+                // backwards compat for now: also set the locale
+                getSetGlobalLocale(name);
+            } else {
+                // pass null for config to unupdate, useful for tests
+                if (locales[name] != null) {
+                    if (locales[name].parentLocale != null) {
+                        locales[name] = locales[name].parentLocale;
+                        if (name === getSetGlobalLocale()) {
+                            getSetGlobalLocale(name);
+                        }
+                    } else if (locales[name] != null) {
+                        delete locales[name];
+                    }
+                }
+            }
+            return locales[name];
+        }
+
+        // returns locale data
+        function getLocale(key) {
+            var locale;
+
+            if (key && key._locale && key._locale._abbr) {
+                key = key._locale._abbr;
+            }
+
+            if (!key) {
+                return globalLocale;
+            }
+
+            if (!isArray(key)) {
+                //short-circuit everything else
+                locale = loadLocale(key);
+                if (locale) {
+                    return locale;
+                }
+                key = [key];
+            }
+
+            return chooseLocale(key);
+        }
+
+        function listLocales() {
+            return keys(locales);
+        }
+
+        function checkOverflow(m) {
+            var overflow,
+                a = m._a;
+
+            if (a && getParsingFlags(m).overflow === -2) {
+                overflow =
+                    a[MONTH] < 0 || a[MONTH] > 11
+                        ? MONTH
+                        : a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH])
+                        ? DATE
+                        : a[HOUR] < 0 ||
+                          a[HOUR] > 24 ||
+                          (a[HOUR] === 24 &&
+                              (a[MINUTE] !== 0 ||
+                                  a[SECOND] !== 0 ||
+                                  a[MILLISECOND] !== 0))
+                        ? HOUR
+                        : a[MINUTE] < 0 || a[MINUTE] > 59
+                        ? MINUTE
+                        : a[SECOND] < 0 || a[SECOND] > 59
+                        ? SECOND
+                        : a[MILLISECOND] < 0 || a[MILLISECOND] > 999
+                        ? MILLISECOND
+                        : -1;
+
+                if (
+                    getParsingFlags(m)._overflowDayOfYear &&
+                    (overflow < YEAR || overflow > DATE)
+                ) {
+                    overflow = DATE;
+                }
+                if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
+                    overflow = WEEK;
+                }
+                if (getParsingFlags(m)._overflowWeekday && overflow === -1) {
+                    overflow = WEEKDAY;
+                }
+
+                getParsingFlags(m).overflow = overflow;
+            }
+
+            return m;
+        }
+
+        // iso 8601 regex
+        // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
+        var extendedIsoRegex =
+                /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+            basicIsoRegex =
+                /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+            tzRegex = /Z|[+-]\d\d(?::?\d\d)?/,
+            isoDates = [
+                ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
+                ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
+                ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
+                ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
+                ['YYYY-DDD', /\d{4}-\d{3}/],
+                ['YYYY-MM', /\d{4}-\d\d/, false],
+                ['YYYYYYMMDD', /[+-]\d{10}/],
+                ['YYYYMMDD', /\d{8}/],
+                ['GGGG[W]WWE', /\d{4}W\d{3}/],
+                ['GGGG[W]WW', /\d{4}W\d{2}/, false],
+                ['YYYYDDD', /\d{7}/],
+                ['YYYYMM', /\d{6}/, false],
+                ['YYYY', /\d{4}/, false],
+            ],
+            // iso time formats and regexes
+            isoTimes = [
+                ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
+                ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
+                ['HH:mm:ss', /\d\d:\d\d:\d\d/],
+                ['HH:mm', /\d\d:\d\d/],
+                ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
+                ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
+                ['HHmmss', /\d\d\d\d\d\d/],
+                ['HHmm', /\d\d\d\d/],
+                ['HH', /\d\d/],
+            ],
+            aspNetJsonRegex = /^\/?Date\((-?\d+)/i,
+            // RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
+            rfc2822 =
+                /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/,
+            obsOffsets = {
+                UT: 0,
+                GMT: 0,
+                EDT: -4 * 60,
+                EST: -5 * 60,
+                CDT: -5 * 60,
+                CST: -6 * 60,
+                MDT: -6 * 60,
+                MST: -7 * 60,
+                PDT: -7 * 60,
+                PST: -8 * 60,
+            };
+
+        // date from iso format
+        function configFromISO(config) {
+            var i,
+                l,
+                string = config._i,
+                match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
+                allowTime,
+                dateFormat,
+                timeFormat,
+                tzFormat,
+                isoDatesLen = isoDates.length,
+                isoTimesLen = isoTimes.length;
+
+            if (match) {
+                getParsingFlags(config).iso = true;
+                for (i = 0, l = isoDatesLen; i < l; i++) {
+                    if (isoDates[i][1].exec(match[1])) {
+                        dateFormat = isoDates[i][0];
+                        allowTime = isoDates[i][2] !== false;
+                        break;
+                    }
+                }
+                if (dateFormat == null) {
+                    config._isValid = false;
+                    return;
+                }
+                if (match[3]) {
+                    for (i = 0, l = isoTimesLen; i < l; i++) {
+                        if (isoTimes[i][1].exec(match[3])) {
+                            // match[2] should be 'T' or space
+                            timeFormat = (match[2] || ' ') + isoTimes[i][0];
+                            break;
+                        }
+                    }
+                    if (timeFormat == null) {
+                        config._isValid = false;
+                        return;
+                    }
+                }
+                if (!allowTime && timeFormat != null) {
+                    config._isValid = false;
+                    return;
+                }
+                if (match[4]) {
+                    if (tzRegex.exec(match[4])) {
+                        tzFormat = 'Z';
+                    } else {
+                        config._isValid = false;
+                        return;
+                    }
+                }
+                config._f = dateFormat + (timeFormat || '') + (tzFormat || '');
+                configFromStringAndFormat(config);
+            } else {
+                config._isValid = false;
+            }
+        }
+
+        function extractFromRFC2822Strings(
+            yearStr,
+            monthStr,
+            dayStr,
+            hourStr,
+            minuteStr,
+            secondStr
+        ) {
+            var result = [
+                untruncateYear(yearStr),
+                defaultLocaleMonthsShort.indexOf(monthStr),
+                parseInt(dayStr, 10),
+                parseInt(hourStr, 10),
+                parseInt(minuteStr, 10),
+            ];
+
+            if (secondStr) {
+                result.push(parseInt(secondStr, 10));
+            }
+
+            return result;
+        }
+
+        function untruncateYear(yearStr) {
+            var year = parseInt(yearStr, 10);
+            if (year <= 49) {
+                return 2000 + year;
+            } else if (year <= 999) {
+                return 1900 + year;
+            }
+            return year;
+        }
+
+        function preprocessRFC2822(s) {
+            // Remove comments and folding whitespace and replace multiple-spaces with a single space
+            return s
+                .replace(/\([^)]*\)|[\n\t]/g, ' ')
+                .replace(/(\s\s+)/g, ' ')
+                .replace(/^\s\s*/, '')
+                .replace(/\s\s*$/, '');
+        }
+
+        function checkWeekday(weekdayStr, parsedInput, config) {
+            if (weekdayStr) {
+                // TODO: Replace the vanilla JS Date object with an independent day-of-week check.
+                var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr),
+                    weekdayActual = new Date(
+                        parsedInput[0],
+                        parsedInput[1],
+                        parsedInput[2]
+                    ).getDay();
+                if (weekdayProvided !== weekdayActual) {
+                    getParsingFlags(config).weekdayMismatch = true;
+                    config._isValid = false;
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function calculateOffset(obsOffset, militaryOffset, numOffset) {
+            if (obsOffset) {
+                return obsOffsets[obsOffset];
+            } else if (militaryOffset) {
+                // the only allowed military tz is Z
+                return 0;
+            } else {
+                var hm = parseInt(numOffset, 10),
+                    m = hm % 100,
+                    h = (hm - m) / 100;
+                return h * 60 + m;
+            }
+        }
+
+        // date and time from ref 2822 format
+        function configFromRFC2822(config) {
+            var match = rfc2822.exec(preprocessRFC2822(config._i)),
+                parsedArray;
+            if (match) {
+                parsedArray = extractFromRFC2822Strings(
+                    match[4],
+                    match[3],
+                    match[2],
+                    match[5],
+                    match[6],
+                    match[7]
+                );
+                if (!checkWeekday(match[1], parsedArray, config)) {
+                    return;
+                }
+
+                config._a = parsedArray;
+                config._tzm = calculateOffset(match[8], match[9], match[10]);
+
+                config._d = createUTCDate.apply(null, config._a);
+                config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+
+                getParsingFlags(config).rfc2822 = true;
+            } else {
+                config._isValid = false;
+            }
+        }
+
+        // date from 1) ASP.NET, 2) ISO, 3) RFC 2822 formats, or 4) optional fallback if parsing isn't strict
+        function configFromString(config) {
+            var matched = aspNetJsonRegex.exec(config._i);
+            if (matched !== null) {
+                config._d = new Date(+matched[1]);
+                return;
+            }
+
+            configFromISO(config);
+            if (config._isValid === false) {
+                delete config._isValid;
+            } else {
+                return;
+            }
+
+            configFromRFC2822(config);
+            if (config._isValid === false) {
+                delete config._isValid;
+            } else {
+                return;
+            }
+
+            if (config._strict) {
+                config._isValid = false;
+            } else {
+                // Final attempt, use Input Fallback
+                hooks.createFromInputFallback(config);
+            }
+        }
+
+        hooks.createFromInputFallback = deprecate(
+            'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+                'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
+                'discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+            function (config) {
+                config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+            }
+        );
+
+        // Pick the first defined of two or three arguments.
+        function defaults(a, b, c) {
+            if (a != null) {
+                return a;
+            }
+            if (b != null) {
+                return b;
+            }
+            return c;
+        }
+
+        function currentDateArray(config) {
+            // hooks is actually the exported moment object
+            var nowValue = new Date(hooks.now());
+            if (config._useUTC) {
+                return [
+                    nowValue.getUTCFullYear(),
+                    nowValue.getUTCMonth(),
+                    nowValue.getUTCDate(),
+                ];
+            }
+            return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+        }
+
+        // convert an array to a date.
+        // the array should mirror the parameters below
+        // note: all values past the year are optional and will default to the lowest possible value.
+        // [year, month, day , hour, minute, second, millisecond]
+        function configFromArray(config) {
+            var i,
+                date,
+                input = [],
+                currentDate,
+                expectedWeekday,
+                yearToUse;
+
+            if (config._d) {
+                return;
+            }
+
+            currentDate = currentDateArray(config);
+
+            //compute day of the year from weeks and weekdays
+            if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+                dayOfYearFromWeekInfo(config);
+            }
+
+            //if the day of the year is set, figure out what it is
+            if (config._dayOfYear != null) {
+                yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+
+                if (
+                    config._dayOfYear > daysInYear(yearToUse) ||
+                    config._dayOfYear === 0
+                ) {
+                    getParsingFlags(config)._overflowDayOfYear = true;
+                }
+
+                date = createUTCDate(yearToUse, 0, config._dayOfYear);
+                config._a[MONTH] = date.getUTCMonth();
+                config._a[DATE] = date.getUTCDate();
+            }
+
+            // Default to current date.
+            // * if no year, month, day of month are given, default to today
+            // * if day of month is given, default month and year
+            // * if month is given, default only year
+            // * if year is given, don't default anything
+            for (i = 0; i < 3 && config._a[i] == null; ++i) {
+                config._a[i] = input[i] = currentDate[i];
+            }
+
+            // Zero out whatever was not defaulted, including time
+            for (; i < 7; i++) {
+                config._a[i] = input[i] =
+                    config._a[i] == null ? (i === 2 ? 1 : 0) : config._a[i];
+            }
+
+            // Check for 24:00:00.000
+            if (
+                config._a[HOUR] === 24 &&
+                config._a[MINUTE] === 0 &&
+                config._a[SECOND] === 0 &&
+                config._a[MILLISECOND] === 0
+            ) {
+                config._nextDay = true;
+                config._a[HOUR] = 0;
+            }
+
+            config._d = (config._useUTC ? createUTCDate : createDate).apply(
+                null,
+                input
+            );
+            expectedWeekday = config._useUTC
+                ? config._d.getUTCDay()
+                : config._d.getDay();
+
+            // Apply timezone offset from input. The actual utcOffset can be changed
+            // with parseZone.
+            if (config._tzm != null) {
+                config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+            }
+
+            if (config._nextDay) {
+                config._a[HOUR] = 24;
+            }
+
+            // check for mismatching day of week
+            if (
+                config._w &&
+                typeof config._w.d !== 'undefined' &&
+                config._w.d !== expectedWeekday
+            ) {
+                getParsingFlags(config).weekdayMismatch = true;
+            }
+        }
+
+        function dayOfYearFromWeekInfo(config) {
+            var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
+
+            w = config._w;
+            if (w.GG != null || w.W != null || w.E != null) {
+                dow = 1;
+                doy = 4;
+
+                // TODO: We need to take the current isoWeekYear, but that depends on
+                // how we interpret now (local, utc, fixed offset). So create
+                // a now version of current config (take local/utc/offset flags, and
+                // create now).
+                weekYear = defaults(
+                    w.GG,
+                    config._a[YEAR],
+                    weekOfYear(createLocal(), 1, 4).year
+                );
+                week = defaults(w.W, 1);
+                weekday = defaults(w.E, 1);
+                if (weekday < 1 || weekday > 7) {
+                    weekdayOverflow = true;
+                }
+            } else {
+                dow = config._locale._week.dow;
+                doy = config._locale._week.doy;
+
+                curWeek = weekOfYear(createLocal(), dow, doy);
+
+                weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
+
+                // Default to current week.
+                week = defaults(w.w, curWeek.week);
+
+                if (w.d != null) {
+                    // weekday -- low day numbers are considered next week
+                    weekday = w.d;
+                    if (weekday < 0 || weekday > 6) {
+                        weekdayOverflow = true;
+                    }
+                } else if (w.e != null) {
+                    // local weekday -- counting starts from beginning of week
+                    weekday = w.e + dow;
+                    if (w.e < 0 || w.e > 6) {
+                        weekdayOverflow = true;
+                    }
+                } else {
+                    // default to beginning of week
+                    weekday = dow;
+                }
+            }
+            if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+                getParsingFlags(config)._overflowWeeks = true;
+            } else if (weekdayOverflow != null) {
+                getParsingFlags(config)._overflowWeekday = true;
+            } else {
+                temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
+                config._a[YEAR] = temp.year;
+                config._dayOfYear = temp.dayOfYear;
+            }
+        }
+
+        // constant that refers to the ISO standard
+        hooks.ISO_8601 = function () {};
+
+        // constant that refers to the RFC 2822 form
+        hooks.RFC_2822 = function () {};
+
+        // date from string and format string
+        function configFromStringAndFormat(config) {
+            // TODO: Move this to another part of the creation flow to prevent circular deps
+            if (config._f === hooks.ISO_8601) {
+                configFromISO(config);
+                return;
+            }
+            if (config._f === hooks.RFC_2822) {
+                configFromRFC2822(config);
+                return;
+            }
+            config._a = [];
+            getParsingFlags(config).empty = true;
+
+            // This array is used to make a Date, either with `new Date` or `Date.UTC`
+            var string = '' + config._i,
+                i,
+                parsedInput,
+                tokens,
+                token,
+                skipped,
+                stringLength = string.length,
+                totalParsedInputLength = 0,
+                era,
+                tokenLen;
+
+            tokens =
+                expandFormat(config._f, config._locale).match(formattingTokens) || [];
+            tokenLen = tokens.length;
+            for (i = 0; i < tokenLen; i++) {
+                token = tokens[i];
+                parsedInput = (string.match(getParseRegexForToken(token, config)) ||
+                    [])[0];
+                if (parsedInput) {
+                    skipped = string.substr(0, string.indexOf(parsedInput));
+                    if (skipped.length > 0) {
+                        getParsingFlags(config).unusedInput.push(skipped);
+                    }
+                    string = string.slice(
+                        string.indexOf(parsedInput) + parsedInput.length
+                    );
+                    totalParsedInputLength += parsedInput.length;
+                }
+                // don't parse if it's not a known token
+                if (formatTokenFunctions[token]) {
+                    if (parsedInput) {
+                        getParsingFlags(config).empty = false;
+                    } else {
+                        getParsingFlags(config).unusedTokens.push(token);
+                    }
+                    addTimeToArrayFromToken(token, parsedInput, config);
+                } else if (config._strict && !parsedInput) {
+                    getParsingFlags(config).unusedTokens.push(token);
+                }
+            }
+
+            // add remaining unparsed input length to the string
+            getParsingFlags(config).charsLeftOver =
+                stringLength - totalParsedInputLength;
+            if (string.length > 0) {
+                getParsingFlags(config).unusedInput.push(string);
+            }
+
+            // clear _12h flag if hour is <= 12
+            if (
+                config._a[HOUR] <= 12 &&
+                getParsingFlags(config).bigHour === true &&
+                config._a[HOUR] > 0
+            ) {
+                getParsingFlags(config).bigHour = undefined;
+            }
+
+            getParsingFlags(config).parsedDateParts = config._a.slice(0);
+            getParsingFlags(config).meridiem = config._meridiem;
+            // handle meridiem
+            config._a[HOUR] = meridiemFixWrap(
+                config._locale,
+                config._a[HOUR],
+                config._meridiem
+            );
+
+            // handle era
+            era = getParsingFlags(config).era;
+            if (era !== null) {
+                config._a[YEAR] = config._locale.erasConvertYear(era, config._a[YEAR]);
+            }
+
+            configFromArray(config);
+            checkOverflow(config);
+        }
+
+        function meridiemFixWrap(locale, hour, meridiem) {
+            var isPm;
+
+            if (meridiem == null) {
+                // nothing to do
+                return hour;
+            }
+            if (locale.meridiemHour != null) {
+                return locale.meridiemHour(hour, meridiem);
+            } else if (locale.isPM != null) {
+                // Fallback
+                isPm = locale.isPM(meridiem);
+                if (isPm && hour < 12) {
+                    hour += 12;
+                }
+                if (!isPm && hour === 12) {
+                    hour = 0;
+                }
+                return hour;
+            } else {
+                // this is not supposed to happen
+                return hour;
+            }
+        }
+
+        // date from string and array of format strings
+        function configFromStringAndArray(config) {
+            var tempConfig,
+                bestMoment,
+                scoreToBeat,
+                i,
+                currentScore,
+                validFormatFound,
+                bestFormatIsValid = false,
+                configfLen = config._f.length;
+
+            if (configfLen === 0) {
+                getParsingFlags(config).invalidFormat = true;
+                config._d = new Date(NaN);
+                return;
+            }
+
+            for (i = 0; i < configfLen; i++) {
+                currentScore = 0;
+                validFormatFound = false;
+                tempConfig = copyConfig({}, config);
+                if (config._useUTC != null) {
+                    tempConfig._useUTC = config._useUTC;
+                }
+                tempConfig._f = config._f[i];
+                configFromStringAndFormat(tempConfig);
+
+                if (isValid(tempConfig)) {
+                    validFormatFound = true;
+                }
+
+                // if there is any input that was not parsed add a penalty for that format
+                currentScore += getParsingFlags(tempConfig).charsLeftOver;
+
+                //or tokens
+                currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
+
+                getParsingFlags(tempConfig).score = currentScore;
+
+                if (!bestFormatIsValid) {
+                    if (
+                        scoreToBeat == null ||
+                        currentScore < scoreToBeat ||
+                        validFormatFound
+                    ) {
+                        scoreToBeat = currentScore;
+                        bestMoment = tempConfig;
+                        if (validFormatFound) {
+                            bestFormatIsValid = true;
+                        }
+                    }
+                } else {
+                    if (currentScore < scoreToBeat) {
+                        scoreToBeat = currentScore;
+                        bestMoment = tempConfig;
+                    }
+                }
+            }
+
+            extend(config, bestMoment || tempConfig);
+        }
+
+        function configFromObject(config) {
+            if (config._d) {
+                return;
+            }
+
+            var i = normalizeObjectUnits(config._i),
+                dayOrDate = i.day === undefined ? i.date : i.day;
+            config._a = map(
+                [i.year, i.month, dayOrDate, i.hour, i.minute, i.second, i.millisecond],
+                function (obj) {
+                    return obj && parseInt(obj, 10);
+                }
+            );
+
+            configFromArray(config);
+        }
+
+        function createFromConfig(config) {
+            var res = new Moment(checkOverflow(prepareConfig(config)));
+            if (res._nextDay) {
+                // Adding is smart enough around DST
+                res.add(1, 'd');
+                res._nextDay = undefined;
+            }
+
+            return res;
+        }
+
+        function prepareConfig(config) {
+            var input = config._i,
+                format = config._f;
+
+            config._locale = config._locale || getLocale(config._l);
+
+            if (input === null || (format === undefined && input === '')) {
+                return createInvalid({ nullInput: true });
+            }
+
+            if (typeof input === 'string') {
+                config._i = input = config._locale.preparse(input);
+            }
+
+            if (isMoment(input)) {
+                return new Moment(checkOverflow(input));
+            } else if (isDate(input)) {
+                config._d = input;
+            } else if (isArray(format)) {
+                configFromStringAndArray(config);
+            } else if (format) {
+                configFromStringAndFormat(config);
+            } else {
+                configFromInput(config);
+            }
+
+            if (!isValid(config)) {
+                config._d = null;
+            }
+
+            return config;
+        }
+
+        function configFromInput(config) {
+            var input = config._i;
+            if (isUndefined(input)) {
+                config._d = new Date(hooks.now());
+            } else if (isDate(input)) {
+                config._d = new Date(input.valueOf());
+            } else if (typeof input === 'string') {
+                configFromString(config);
+            } else if (isArray(input)) {
+                config._a = map(input.slice(0), function (obj) {
+                    return parseInt(obj, 10);
+                });
+                configFromArray(config);
+            } else if (isObject(input)) {
+                configFromObject(config);
+            } else if (isNumber(input)) {
+                // from milliseconds
+                config._d = new Date(input);
+            } else {
+                hooks.createFromInputFallback(config);
+            }
+        }
+
+        function createLocalOrUTC(input, format, locale, strict, isUTC) {
+            var c = {};
+
+            if (format === true || format === false) {
+                strict = format;
+                format = undefined;
+            }
+
+            if (locale === true || locale === false) {
+                strict = locale;
+                locale = undefined;
+            }
+
+            if (
+                (isObject(input) && isObjectEmpty(input)) ||
+                (isArray(input) && input.length === 0)
+            ) {
+                input = undefined;
+            }
+            // object construction must be done this way.
+            // https://github.com/moment/moment/issues/1423
+            c._isAMomentObject = true;
+            c._useUTC = c._isUTC = isUTC;
+            c._l = locale;
+            c._i = input;
+            c._f = format;
+            c._strict = strict;
+
+            return createFromConfig(c);
+        }
+
+        function createLocal(input, format, locale, strict) {
+            return createLocalOrUTC(input, format, locale, strict, false);
+        }
+
+        var prototypeMin = deprecate(
+                'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
+                function () {
+                    var other = createLocal.apply(null, arguments);
+                    if (this.isValid() && other.isValid()) {
+                        return other < this ? this : other;
+                    } else {
+                        return createInvalid();
+                    }
+                }
+            ),
+            prototypeMax = deprecate(
+                'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
+                function () {
+                    var other = createLocal.apply(null, arguments);
+                    if (this.isValid() && other.isValid()) {
+                        return other > this ? this : other;
+                    } else {
+                        return createInvalid();
+                    }
+                }
+            );
+
+        // Pick a moment m from moments so that m[fn](other) is true for all
+        // other. This relies on the function fn to be transitive.
+        //
+        // moments should either be an array of moment objects or an array, whose
+        // first element is an array of moment objects.
+        function pickBy(fn, moments) {
+            var res, i;
+            if (moments.length === 1 && isArray(moments[0])) {
+                moments = moments[0];
+            }
+            if (!moments.length) {
+                return createLocal();
+            }
+            res = moments[0];
+            for (i = 1; i < moments.length; ++i) {
+                if (!moments[i].isValid() || moments[i][fn](res)) {
+                    res = moments[i];
+                }
+            }
+            return res;
+        }
+
+        // TODO: Use [].sort instead?
+        function min() {
+            var args = [].slice.call(arguments, 0);
+
+            return pickBy('isBefore', args);
+        }
+
+        function max() {
+            var args = [].slice.call(arguments, 0);
+
+            return pickBy('isAfter', args);
+        }
+
+        var now = function () {
+            return Date.now ? Date.now() : +new Date();
+        };
+
+        var ordering = [
+            'year',
+            'quarter',
+            'month',
+            'week',
+            'day',
+            'hour',
+            'minute',
+            'second',
+            'millisecond',
+        ];
+
+        function isDurationValid(m) {
+            var key,
+                unitHasDecimal = false,
+                i,
+                orderLen = ordering.length;
+            for (key in m) {
+                if (
+                    hasOwnProp(m, key) &&
+                    !(
+                        indexOf.call(ordering, key) !== -1 &&
+                        (m[key] == null || !isNaN(m[key]))
+                    )
+                ) {
+                    return false;
+                }
+            }
+
+            for (i = 0; i < orderLen; ++i) {
+                if (m[ordering[i]]) {
+                    if (unitHasDecimal) {
+                        return false; // only allow non-integers for smallest unit
+                    }
+                    if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) {
+                        unitHasDecimal = true;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        function isValid$1() {
+            return this._isValid;
+        }
+
+        function createInvalid$1() {
+            return createDuration(NaN);
+        }
+
+        function Duration(duration) {
+            var normalizedInput = normalizeObjectUnits(duration),
+                years = normalizedInput.year || 0,
+                quarters = normalizedInput.quarter || 0,
+                months = normalizedInput.month || 0,
+                weeks = normalizedInput.week || normalizedInput.isoWeek || 0,
+                days = normalizedInput.day || 0,
+                hours = normalizedInput.hour || 0,
+                minutes = normalizedInput.minute || 0,
+                seconds = normalizedInput.second || 0,
+                milliseconds = normalizedInput.millisecond || 0;
+
+            this._isValid = isDurationValid(normalizedInput);
+
+            // representation for dateAddRemove
+            this._milliseconds =
+                +milliseconds +
+                seconds * 1e3 + // 1000
+                minutes * 6e4 + // 1000 * 60
+                hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
+            // Because of dateAddRemove treats 24 hours as different from a
+            // day when working around DST, we need to store them separately
+            this._days = +days + weeks * 7;
+            // It is impossible to translate months into days without knowing
+            // which months you are are talking about, so we have to store
+            // it separately.
+            this._months = +months + quarters * 3 + years * 12;
+
+            this._data = {};
+
+            this._locale = getLocale();
+
+            this._bubble();
+        }
+
+        function isDuration(obj) {
+            return obj instanceof Duration;
+        }
+
+        function absRound(number) {
+            if (number < 0) {
+                return Math.round(-1 * number) * -1;
+            } else {
+                return Math.round(number);
+            }
+        }
+
+        // compare two arrays, return the number of differences
+        function compareArrays(array1, array2, dontConvert) {
+            var len = Math.min(array1.length, array2.length),
+                lengthDiff = Math.abs(array1.length - array2.length),
+                diffs = 0,
+                i;
+            for (i = 0; i < len; i++) {
+                if (
+                    (dontConvert && array1[i] !== array2[i]) ||
+                    (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))
+                ) {
+                    diffs++;
+                }
+            }
+            return diffs + lengthDiff;
+        }
+
+        // FORMATTING
+
+        function offset(token, separator) {
+            addFormatToken(token, 0, 0, function () {
+                var offset = this.utcOffset(),
+                    sign = '+';
+                if (offset < 0) {
+                    offset = -offset;
+                    sign = '-';
+                }
+                return (
+                    sign +
+                    zeroFill(~~(offset / 60), 2) +
+                    separator +
+                    zeroFill(~~offset % 60, 2)
+                );
+            });
+        }
+
+        offset('Z', ':');
+        offset('ZZ', '');
+
+        // PARSING
+
+        addRegexToken('Z', matchShortOffset);
+        addRegexToken('ZZ', matchShortOffset);
+        addParseToken(['Z', 'ZZ'], function (input, array, config) {
+            config._useUTC = true;
+            config._tzm = offsetFromString(matchShortOffset, input);
+        });
+
+        // HELPERS
+
+        // timezone chunker
+        // '+10:00' > ['10',  '00']
+        // '-1530'  > ['-15', '30']
+        var chunkOffset = /([\+\-]|\d\d)/gi;
+
+        function offsetFromString(matcher, string) {
+            var matches = (string || '').match(matcher),
+                chunk,
+                parts,
+                minutes;
+
+            if (matches === null) {
+                return null;
+            }
+
+            chunk = matches[matches.length - 1] || [];
+            parts = (chunk + '').match(chunkOffset) || ['-', 0, 0];
+            minutes = +(parts[1] * 60) + toInt(parts[2]);
+
+            return minutes === 0 ? 0 : parts[0] === '+' ? minutes : -minutes;
+        }
+
+        // Return a moment from input, that is local/utc/zone equivalent to model.
+        function cloneWithOffset(input, model) {
+            var res, diff;
+            if (model._isUTC) {
+                res = model.clone();
+                diff =
+                    (isMoment(input) || isDate(input)
+                        ? input.valueOf()
+                        : createLocal(input).valueOf()) - res.valueOf();
+                // Use low-level api, because this fn is low-level api.
+                res._d.setTime(res._d.valueOf() + diff);
+                hooks.updateOffset(res, false);
+                return res;
+            } else {
+                return createLocal(input).local();
+            }
+        }
+
+        function getDateOffset(m) {
+            // On Firefox.24 Date#getTimezoneOffset returns a floating point.
+            // https://github.com/moment/moment/pull/1871
+            return -Math.round(m._d.getTimezoneOffset());
+        }
+
+        // HOOKS
+
+        // This function will be called whenever a moment is mutated.
+        // It is intended to keep the offset in sync with the timezone.
+        hooks.updateOffset = function () {};
+
+        // MOMENTS
+
+        // keepLocalTime = true means only change the timezone, without
+        // affecting the local hour. So 5:31:26 +0300 --[utcOffset(2, true)]-->
+        // 5:31:26 +0200 It is possible that 5:31:26 doesn't exist with offset
+        // +0200, so we adjust the time as needed, to be valid.
+        //
+        // Keeping the time actually adds/subtracts (one hour)
+        // from the actual represented time. That is why we call updateOffset
+        // a second time. In case it wants us to change the offset again
+        // _changeInProgress == true case, then we have to adjust, because
+        // there is no such time in the given timezone.
+        function getSetOffset(input, keepLocalTime, keepMinutes) {
+            var offset = this._offset || 0,
+                localAdjust;
+            if (!this.isValid()) {
+                return input != null ? this : NaN;
+            }
+            if (input != null) {
+                if (typeof input === 'string') {
+                    input = offsetFromString(matchShortOffset, input);
+                    if (input === null) {
+                        return this;
+                    }
+                } else if (Math.abs(input) < 16 && !keepMinutes) {
+                    input = input * 60;
+                }
+                if (!this._isUTC && keepLocalTime) {
+                    localAdjust = getDateOffset(this);
+                }
+                this._offset = input;
+                this._isUTC = true;
+                if (localAdjust != null) {
+                    this.add(localAdjust, 'm');
+                }
+                if (offset !== input) {
+                    if (!keepLocalTime || this._changeInProgress) {
+                        addSubtract(
+                            this,
+                            createDuration(input - offset, 'm'),
+                            1,
+                            false
+                        );
+                    } else if (!this._changeInProgress) {
+                        this._changeInProgress = true;
+                        hooks.updateOffset(this, true);
+                        this._changeInProgress = null;
+                    }
+                }
+                return this;
+            } else {
+                return this._isUTC ? offset : getDateOffset(this);
+            }
+        }
+
+        function getSetZone(input, keepLocalTime) {
+            if (input != null) {
+                if (typeof input !== 'string') {
+                    input = -input;
+                }
+
+                this.utcOffset(input, keepLocalTime);
+
+                return this;
+            } else {
+                return -this.utcOffset();
+            }
+        }
+
+        function setOffsetToUTC(keepLocalTime) {
+            return this.utcOffset(0, keepLocalTime);
+        }
+
+        function setOffsetToLocal(keepLocalTime) {
+            if (this._isUTC) {
+                this.utcOffset(0, keepLocalTime);
+                this._isUTC = false;
+
+                if (keepLocalTime) {
+                    this.subtract(getDateOffset(this), 'm');
+                }
+            }
+            return this;
+        }
+
+        function setOffsetToParsedOffset() {
+            if (this._tzm != null) {
+                this.utcOffset(this._tzm, false, true);
+            } else if (typeof this._i === 'string') {
+                var tZone = offsetFromString(matchOffset, this._i);
+                if (tZone != null) {
+                    this.utcOffset(tZone);
+                } else {
+                    this.utcOffset(0, true);
+                }
+            }
+            return this;
+        }
+
+        function hasAlignedHourOffset(input) {
+            if (!this.isValid()) {
+                return false;
+            }
+            input = input ? createLocal(input).utcOffset() : 0;
+
+            return (this.utcOffset() - input) % 60 === 0;
+        }
+
+        function isDaylightSavingTime() {
+            return (
+                this.utcOffset() > this.clone().month(0).utcOffset() ||
+                this.utcOffset() > this.clone().month(5).utcOffset()
+            );
+        }
+
+        function isDaylightSavingTimeShifted() {
+            if (!isUndefined(this._isDSTShifted)) {
+                return this._isDSTShifted;
+            }
+
+            var c = {},
+                other;
+
+            copyConfig(c, this);
+            c = prepareConfig(c);
+
+            if (c._a) {
+                other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
+                this._isDSTShifted =
+                    this.isValid() && compareArrays(c._a, other.toArray()) > 0;
+            } else {
+                this._isDSTShifted = false;
+            }
+
+            return this._isDSTShifted;
+        }
+
+        function isLocal() {
+            return this.isValid() ? !this._isUTC : false;
+        }
+
+        function isUtcOffset() {
+            return this.isValid() ? this._isUTC : false;
+        }
+
+        function isUtc() {
+            return this.isValid() ? this._isUTC && this._offset === 0 : false;
+        }
+
+        // ASP.NET json date format regex
+        var aspNetRegex = /^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/,
+            // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+            // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
+            // and further modified to allow for strings containing both week and day
+            isoRegex =
+                /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
+
+        function createDuration(input, key) {
+            var duration = input,
+                // matching against regexp is expensive, do it on demand
+                match = null,
+                sign,
+                ret,
+                diffRes;
+
+            if (isDuration(input)) {
+                duration = {
+                    ms: input._milliseconds,
+                    d: input._days,
+                    M: input._months,
+                };
+            } else if (isNumber(input) || !isNaN(+input)) {
+                duration = {};
+                if (key) {
+                    duration[key] = +input;
+                } else {
+                    duration.milliseconds = +input;
+                }
+            } else if ((match = aspNetRegex.exec(input))) {
+                sign = match[1] === '-' ? -1 : 1;
+                duration = {
+                    y: 0,
+                    d: toInt(match[DATE]) * sign,
+                    h: toInt(match[HOUR]) * sign,
+                    m: toInt(match[MINUTE]) * sign,
+                    s: toInt(match[SECOND]) * sign,
+                    ms: toInt(absRound(match[MILLISECOND] * 1000)) * sign, // the millisecond decimal point is included in the match
+                };
+            } else if ((match = isoRegex.exec(input))) {
+                sign = match[1] === '-' ? -1 : 1;
+                duration = {
+                    y: parseIso(match[2], sign),
+                    M: parseIso(match[3], sign),
+                    w: parseIso(match[4], sign),
+                    d: parseIso(match[5], sign),
+                    h: parseIso(match[6], sign),
+                    m: parseIso(match[7], sign),
+                    s: parseIso(match[8], sign),
+                };
+            } else if (duration == null) {
+                // checks for null or undefined
+                duration = {};
+            } else if (
+                typeof duration === 'object' &&
+                ('from' in duration || 'to' in duration)
+            ) {
+                diffRes = momentsDifference(
+                    createLocal(duration.from),
+                    createLocal(duration.to)
+                );
+
+                duration = {};
+                duration.ms = diffRes.milliseconds;
+                duration.M = diffRes.months;
+            }
+
+            ret = new Duration(duration);
+
+            if (isDuration(input) && hasOwnProp(input, '_locale')) {
+                ret._locale = input._locale;
+            }
+
+            if (isDuration(input) && hasOwnProp(input, '_isValid')) {
+                ret._isValid = input._isValid;
+            }
+
+            return ret;
+        }
+
+        createDuration.fn = Duration.prototype;
+        createDuration.invalid = createInvalid$1;
+
+        function parseIso(inp, sign) {
+            // We'd normally use ~~inp for this, but unfortunately it also
+            // converts floats to ints.
+            // inp may be undefined, so careful calling replace on it.
+            var res = inp && parseFloat(inp.replace(',', '.'));
+            // apply sign while we're at it
+            return (isNaN(res) ? 0 : res) * sign;
+        }
+
+        function positiveMomentsDifference(base, other) {
+            var res = {};
+
+            res.months =
+                other.month() - base.month() + (other.year() - base.year()) * 12;
+            if (base.clone().add(res.months, 'M').isAfter(other)) {
+                --res.months;
+            }
+
+            res.milliseconds = +other - +base.clone().add(res.months, 'M');
+
+            return res;
+        }
+
+        function momentsDifference(base, other) {
+            var res;
+            if (!(base.isValid() && other.isValid())) {
+                return { milliseconds: 0, months: 0 };
+            }
+
+            other = cloneWithOffset(other, base);
+            if (base.isBefore(other)) {
+                res = positiveMomentsDifference(base, other);
+            } else {
+                res = positiveMomentsDifference(other, base);
+                res.milliseconds = -res.milliseconds;
+                res.months = -res.months;
+            }
+
+            return res;
+        }
+
+        // TODO: remove 'name' arg after deprecation is removed
+        function createAdder(direction, name) {
+            return function (val, period) {
+                var dur, tmp;
+                //invert the arguments, but complain about it
+                if (period !== null && !isNaN(+period)) {
+                    deprecateSimple(
+                        name,
+                        'moment().' +
+                            name +
+                            '(period, number) is deprecated. Please use moment().' +
+                            name +
+                            '(number, period). ' +
+                            'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.'
+                    );
+                    tmp = val;
+                    val = period;
+                    period = tmp;
+                }
+
+                dur = createDuration(val, period);
+                addSubtract(this, dur, direction);
+                return this;
+            };
+        }
+
+        function addSubtract(mom, duration, isAdding, updateOffset) {
+            var milliseconds = duration._milliseconds,
+                days = absRound(duration._days),
+                months = absRound(duration._months);
+
+            if (!mom.isValid()) {
+                // No op
+                return;
+            }
+
+            updateOffset = updateOffset == null ? true : updateOffset;
+
+            if (months) {
+                setMonth(mom, get(mom, 'Month') + months * isAdding);
+            }
+            if (days) {
+                set$1(mom, 'Date', get(mom, 'Date') + days * isAdding);
+            }
+            if (milliseconds) {
+                mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+            }
+            if (updateOffset) {
+                hooks.updateOffset(mom, days || months);
+            }
+        }
+
+        var add = createAdder(1, 'add'),
+            subtract = createAdder(-1, 'subtract');
+
+        function isString(input) {
+            return typeof input === 'string' || input instanceof String;
+        }
+
+        // type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | void; // null | undefined
+        function isMomentInput(input) {
+            return (
+                isMoment(input) ||
+                isDate(input) ||
+                isString(input) ||
+                isNumber(input) ||
+                isNumberOrStringArray(input) ||
+                isMomentInputObject(input) ||
+                input === null ||
+                input === undefined
+            );
+        }
+
+        function isMomentInputObject(input) {
+            var objectTest = isObject(input) && !isObjectEmpty(input),
+                propertyTest = false,
+                properties = [
+                    'years',
+                    'year',
+                    'y',
+                    'months',
+                    'month',
+                    'M',
+                    'days',
+                    'day',
+                    'd',
+                    'dates',
+                    'date',
+                    'D',
+                    'hours',
+                    'hour',
+                    'h',
+                    'minutes',
+                    'minute',
+                    'm',
+                    'seconds',
+                    'second',
+                    's',
+                    'milliseconds',
+                    'millisecond',
+                    'ms',
+                ],
+                i,
+                property,
+                propertyLen = properties.length;
+
+            for (i = 0; i < propertyLen; i += 1) {
+                property = properties[i];
+                propertyTest = propertyTest || hasOwnProp(input, property);
+            }
+
+            return objectTest && propertyTest;
+        }
+
+        function isNumberOrStringArray(input) {
+            var arrayTest = isArray(input),
+                dataTypeTest = false;
+            if (arrayTest) {
+                dataTypeTest =
+                    input.filter(function (item) {
+                        return !isNumber(item) && isString(input);
+                    }).length === 0;
+            }
+            return arrayTest && dataTypeTest;
+        }
+
+        function isCalendarSpec(input) {
+            var objectTest = isObject(input) && !isObjectEmpty(input),
+                propertyTest = false,
+                properties = [
+                    'sameDay',
+                    'nextDay',
+                    'lastDay',
+                    'nextWeek',
+                    'lastWeek',
+                    'sameElse',
+                ],
+                i,
+                property;
+
+            for (i = 0; i < properties.length; i += 1) {
+                property = properties[i];
+                propertyTest = propertyTest || hasOwnProp(input, property);
+            }
+
+            return objectTest && propertyTest;
+        }
+
+        function getCalendarFormat(myMoment, now) {
+            var diff = myMoment.diff(now, 'days', true);
+            return diff < -6
+                ? 'sameElse'
+                : diff < -1
+                ? 'lastWeek'
+                : diff < 0
+                ? 'lastDay'
+                : diff < 1
+                ? 'sameDay'
+                : diff < 2
+                ? 'nextDay'
+                : diff < 7
+                ? 'nextWeek'
+                : 'sameElse';
+        }
+
+        function calendar$1(time, formats) {
+            // Support for single parameter, formats only overload to the calendar function
+            if (arguments.length === 1) {
+                if (!arguments[0]) {
+                    time = undefined;
+                    formats = undefined;
+                } else if (isMomentInput(arguments[0])) {
+                    time = arguments[0];
+                    formats = undefined;
+                } else if (isCalendarSpec(arguments[0])) {
+                    formats = arguments[0];
+                    time = undefined;
+                }
+            }
+            // We want to compare the start of today, vs this.
+            // Getting start-of-today depends on whether we're local/utc/offset or not.
+            var now = time || createLocal(),
+                sod = cloneWithOffset(now, this).startOf('day'),
+                format = hooks.calendarFormat(this, sod) || 'sameElse',
+                output =
+                    formats &&
+                    (isFunction(formats[format])
+                        ? formats[format].call(this, now)
+                        : formats[format]);
+
+            return this.format(
+                output || this.localeData().calendar(format, this, createLocal(now))
+            );
+        }
+
+        function clone() {
+            return new Moment(this);
+        }
+
+        function isAfter(input, units) {
+            var localInput = isMoment(input) ? input : createLocal(input);
+            if (!(this.isValid() && localInput.isValid())) {
+                return false;
+            }
+            units = normalizeUnits(units) || 'millisecond';
+            if (units === 'millisecond') {
+                return this.valueOf() > localInput.valueOf();
+            } else {
+                return localInput.valueOf() < this.clone().startOf(units).valueOf();
+            }
+        }
+
+        function isBefore(input, units) {
+            var localInput = isMoment(input) ? input : createLocal(input);
+            if (!(this.isValid() && localInput.isValid())) {
+                return false;
+            }
+            units = normalizeUnits(units) || 'millisecond';
+            if (units === 'millisecond') {
+                return this.valueOf() < localInput.valueOf();
+            } else {
+                return this.clone().endOf(units).valueOf() < localInput.valueOf();
+            }
+        }
+
+        function isBetween(from, to, units, inclusivity) {
+            var localFrom = isMoment(from) ? from : createLocal(from),
+                localTo = isMoment(to) ? to : createLocal(to);
+            if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) {
+                return false;
+            }
+            inclusivity = inclusivity || '()';
+            return (
+                (inclusivity[0] === '('
+                    ? this.isAfter(localFrom, units)
+                    : !this.isBefore(localFrom, units)) &&
+                (inclusivity[1] === ')'
+                    ? this.isBefore(localTo, units)
+                    : !this.isAfter(localTo, units))
+            );
+        }
+
+        function isSame(input, units) {
+            var localInput = isMoment(input) ? input : createLocal(input),
+                inputMs;
+            if (!(this.isValid() && localInput.isValid())) {
+                return false;
+            }
+            units = normalizeUnits(units) || 'millisecond';
+            if (units === 'millisecond') {
+                return this.valueOf() === localInput.valueOf();
+            } else {
+                inputMs = localInput.valueOf();
+                return (
+                    this.clone().startOf(units).valueOf() <= inputMs &&
+                    inputMs <= this.clone().endOf(units).valueOf()
+                );
+            }
+        }
+
+        function isSameOrAfter(input, units) {
+            return this.isSame(input, units) || this.isAfter(input, units);
+        }
+
+        function isSameOrBefore(input, units) {
+            return this.isSame(input, units) || this.isBefore(input, units);
+        }
+
+        function diff(input, units, asFloat) {
+            var that, zoneDelta, output;
+
+            if (!this.isValid()) {
+                return NaN;
+            }
+
+            that = cloneWithOffset(input, this);
+
+            if (!that.isValid()) {
+                return NaN;
+            }
+
+            zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
+
+            units = normalizeUnits(units);
+
+            switch (units) {
+                case 'year':
+                    output = monthDiff(this, that) / 12;
+                    break;
+                case 'month':
+                    output = monthDiff(this, that);
+                    break;
+                case 'quarter':
+                    output = monthDiff(this, that) / 3;
+                    break;
+                case 'second':
+                    output = (this - that) / 1e3;
+                    break; // 1000
+                case 'minute':
+                    output = (this - that) / 6e4;
+                    break; // 1000 * 60
+                case 'hour':
+                    output = (this - that) / 36e5;
+                    break; // 1000 * 60 * 60
+                case 'day':
+                    output = (this - that - zoneDelta) / 864e5;
+                    break; // 1000 * 60 * 60 * 24, negate dst
+                case 'week':
+                    output = (this - that - zoneDelta) / 6048e5;
+                    break; // 1000 * 60 * 60 * 24 * 7, negate dst
+                default:
+                    output = this - that;
+            }
+
+            return asFloat ? output : absFloor(output);
+        }
+
+        function monthDiff(a, b) {
+            if (a.date() < b.date()) {
+                // end-of-month calculations work correct when the start month has more
+                // days than the end month.
+                return -monthDiff(b, a);
+            }
+            // difference in months
+            var wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()),
+                // b is in (anchor - 1 month, anchor + 1 month)
+                anchor = a.clone().add(wholeMonthDiff, 'months'),
+                anchor2,
+                adjust;
+
+            if (b - anchor < 0) {
+                anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
+                // linear across the month
+                adjust = (b - anchor) / (anchor - anchor2);
+            } else {
+                anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
+                // linear across the month
+                adjust = (b - anchor) / (anchor2 - anchor);
+            }
+
+            //check for negative zero, return zero if negative zero
+            return -(wholeMonthDiff + adjust) || 0;
+        }
+
+        hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+        hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
+
+        function toString() {
+            return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+        }
+
+        function toISOString(keepOffset) {
+            if (!this.isValid()) {
+                return null;
+            }
+            var utc = keepOffset !== true,
+                m = utc ? this.clone().utc() : this;
+            if (m.year() < 0 || m.year() > 9999) {
+                return formatMoment(
+                    m,
+                    utc
+                        ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
+                        : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ'
+                );
+            }
+            if (isFunction(Date.prototype.toISOString)) {
+                // native implementation is ~50x faster, use it when we can
+                if (utc) {
+                    return this.toDate().toISOString();
+                } else {
+                    return new Date(this.valueOf() + this.utcOffset() * 60 * 1000)
+                        .toISOString()
+                        .replace('Z', formatMoment(m, 'Z'));
+                }
+            }
+            return formatMoment(
+                m,
+                utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ'
+            );
+        }
+
+        /**
+         * Return a human readable representation of a moment that can
+         * also be evaluated to get a new moment which is the same
+         *
+         * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
+         */
+        function inspect() {
+            if (!this.isValid()) {
+                return 'moment.invalid(/* ' + this._i + ' */)';
+            }
+            var func = 'moment',
+                zone = '',
+                prefix,
+                year,
+                datetime,
+                suffix;
+            if (!this.isLocal()) {
+                func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
+                zone = 'Z';
+            }
+            prefix = '[' + func + '("]';
+            year = 0 <= this.year() && this.year() <= 9999 ? 'YYYY' : 'YYYYYY';
+            datetime = '-MM-DD[T]HH:mm:ss.SSS';
+            suffix = zone + '[")]';
+
+            return this.format(prefix + year + datetime + suffix);
+        }
+
+        function format(inputString) {
+            if (!inputString) {
+                inputString = this.isUtc()
+                    ? hooks.defaultFormatUtc
+                    : hooks.defaultFormat;
+            }
+            var output = formatMoment(this, inputString);
+            return this.localeData().postformat(output);
+        }
+
+        function from(time, withoutSuffix) {
+            if (
+                this.isValid() &&
+                ((isMoment(time) && time.isValid()) || createLocal(time).isValid())
+            ) {
+                return createDuration({ to: this, from: time })
+                    .locale(this.locale())
+                    .humanize(!withoutSuffix);
+            } else {
+                return this.localeData().invalidDate();
+            }
+        }
+
+        function fromNow(withoutSuffix) {
+            return this.from(createLocal(), withoutSuffix);
+        }
+
+        function to(time, withoutSuffix) {
+            if (
+                this.isValid() &&
+                ((isMoment(time) && time.isValid()) || createLocal(time).isValid())
+            ) {
+                return createDuration({ from: this, to: time })
+                    .locale(this.locale())
+                    .humanize(!withoutSuffix);
+            } else {
+                return this.localeData().invalidDate();
+            }
+        }
+
+        function toNow(withoutSuffix) {
+            return this.to(createLocal(), withoutSuffix);
+        }
+
+        // If passed a locale key, it will set the locale for this
+        // instance.  Otherwise, it will return the locale configuration
+        // variables for this instance.
+        function locale(key) {
+            var newLocaleData;
+
+            if (key === undefined) {
+                return this._locale._abbr;
+            } else {
+                newLocaleData = getLocale(key);
+                if (newLocaleData != null) {
+                    this._locale = newLocaleData;
+                }
+                return this;
+            }
+        }
+
+        var lang = deprecate(
+            'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
+            function (key) {
+                if (key === undefined) {
+                    return this.localeData();
+                } else {
+                    return this.locale(key);
+                }
+            }
+        );
+
+        function localeData() {
+            return this._locale;
+        }
+
+        var MS_PER_SECOND = 1000,
+            MS_PER_MINUTE = 60 * MS_PER_SECOND,
+            MS_PER_HOUR = 60 * MS_PER_MINUTE,
+            MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
+
+        // actual modulo - handles negative numbers (for dates before 1970):
+        function mod$1(dividend, divisor) {
+            return ((dividend % divisor) + divisor) % divisor;
+        }
+
+        function localStartOfDate(y, m, d) {
+            // the date constructor remaps years 0-99 to 1900-1999
+            if (y < 100 && y >= 0) {
+                // preserve leap years using a full 400 year cycle, then reset
+                return new Date(y + 400, m, d) - MS_PER_400_YEARS;
+            } else {
+                return new Date(y, m, d).valueOf();
+            }
+        }
+
+        function utcStartOfDate(y, m, d) {
+            // Date.UTC remaps years 0-99 to 1900-1999
+            if (y < 100 && y >= 0) {
+                // preserve leap years using a full 400 year cycle, then reset
+                return Date.UTC(y + 400, m, d) - MS_PER_400_YEARS;
+            } else {
+                return Date.UTC(y, m, d);
+            }
+        }
+
+        function startOf(units) {
+            var time, startOfDate;
+            units = normalizeUnits(units);
+            if (units === undefined || units === 'millisecond' || !this.isValid()) {
+                return this;
+            }
+
+            startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+
+            switch (units) {
+                case 'year':
+                    time = startOfDate(this.year(), 0, 1);
+                    break;
+                case 'quarter':
+                    time = startOfDate(
+                        this.year(),
+                        this.month() - (this.month() % 3),
+                        1
+                    );
+                    break;
+                case 'month':
+                    time = startOfDate(this.year(), this.month(), 1);
+                    break;
+                case 'week':
+                    time = startOfDate(
+                        this.year(),
+                        this.month(),
+                        this.date() - this.weekday()
+                    );
+                    break;
+                case 'isoWeek':
+                    time = startOfDate(
+                        this.year(),
+                        this.month(),
+                        this.date() - (this.isoWeekday() - 1)
+                    );
+                    break;
+                case 'day':
+                case 'date':
+                    time = startOfDate(this.year(), this.month(), this.date());
+                    break;
+                case 'hour':
+                    time = this._d.valueOf();
+                    time -= mod$1(
+                        time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE),
+                        MS_PER_HOUR
+                    );
+                    break;
+                case 'minute':
+                    time = this._d.valueOf();
+                    time -= mod$1(time, MS_PER_MINUTE);
+                    break;
+                case 'second':
+                    time = this._d.valueOf();
+                    time -= mod$1(time, MS_PER_SECOND);
+                    break;
+            }
+
+            this._d.setTime(time);
+            hooks.updateOffset(this, true);
+            return this;
+        }
+
+        function endOf(units) {
+            var time, startOfDate;
+            units = normalizeUnits(units);
+            if (units === undefined || units === 'millisecond' || !this.isValid()) {
+                return this;
+            }
+
+            startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+
+            switch (units) {
+                case 'year':
+                    time = startOfDate(this.year() + 1, 0, 1) - 1;
+                    break;
+                case 'quarter':
+                    time =
+                        startOfDate(
+                            this.year(),
+                            this.month() - (this.month() % 3) + 3,
+                            1
+                        ) - 1;
+                    break;
+                case 'month':
+                    time = startOfDate(this.year(), this.month() + 1, 1) - 1;
+                    break;
+                case 'week':
+                    time =
+                        startOfDate(
+                            this.year(),
+                            this.month(),
+                            this.date() - this.weekday() + 7
+                        ) - 1;
+                    break;
+                case 'isoWeek':
+                    time =
+                        startOfDate(
+                            this.year(),
+                            this.month(),
+                            this.date() - (this.isoWeekday() - 1) + 7
+                        ) - 1;
+                    break;
+                case 'day':
+                case 'date':
+                    time = startOfDate(this.year(), this.month(), this.date() + 1) - 1;
+                    break;
+                case 'hour':
+                    time = this._d.valueOf();
+                    time +=
+                        MS_PER_HOUR -
+                        mod$1(
+                            time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE),
+                            MS_PER_HOUR
+                        ) -
+                        1;
+                    break;
+                case 'minute':
+                    time = this._d.valueOf();
+                    time += MS_PER_MINUTE - mod$1(time, MS_PER_MINUTE) - 1;
+                    break;
+                case 'second':
+                    time = this._d.valueOf();
+                    time += MS_PER_SECOND - mod$1(time, MS_PER_SECOND) - 1;
+                    break;
+            }
+
+            this._d.setTime(time);
+            hooks.updateOffset(this, true);
+            return this;
+        }
+
+        function valueOf() {
+            return this._d.valueOf() - (this._offset || 0) * 60000;
+        }
+
+        function unix() {
+            return Math.floor(this.valueOf() / 1000);
+        }
+
+        function toDate() {
+            return new Date(this.valueOf());
+        }
+
+        function toArray() {
+            var m = this;
+            return [
+                m.year(),
+                m.month(),
+                m.date(),
+                m.hour(),
+                m.minute(),
+                m.second(),
+                m.millisecond(),
+            ];
+        }
+
+        function toObject() {
+            var m = this;
+            return {
+                years: m.year(),
+                months: m.month(),
+                date: m.date(),
+                hours: m.hours(),
+                minutes: m.minutes(),
+                seconds: m.seconds(),
+                milliseconds: m.milliseconds(),
+            };
+        }
+
+        function toJSON() {
+            // new Date(NaN).toJSON() === null
+            return this.isValid() ? this.toISOString() : null;
+        }
+
+        function isValid$2() {
+            return isValid(this);
+        }
+
+        function parsingFlags() {
+            return extend({}, getParsingFlags(this));
+        }
+
+        function invalidAt() {
+            return getParsingFlags(this).overflow;
+        }
+
+        function creationData() {
+            return {
+                input: this._i,
+                format: this._f,
+                locale: this._locale,
+                isUTC: this._isUTC,
+                strict: this._strict,
+            };
+        }
+
+        addFormatToken('N', 0, 0, 'eraAbbr');
+        addFormatToken('NN', 0, 0, 'eraAbbr');
+        addFormatToken('NNN', 0, 0, 'eraAbbr');
+        addFormatToken('NNNN', 0, 0, 'eraName');
+        addFormatToken('NNNNN', 0, 0, 'eraNarrow');
+
+        addFormatToken('y', ['y', 1], 'yo', 'eraYear');
+        addFormatToken('y', ['yy', 2], 0, 'eraYear');
+        addFormatToken('y', ['yyy', 3], 0, 'eraYear');
+        addFormatToken('y', ['yyyy', 4], 0, 'eraYear');
+
+        addRegexToken('N', matchEraAbbr);
+        addRegexToken('NN', matchEraAbbr);
+        addRegexToken('NNN', matchEraAbbr);
+        addRegexToken('NNNN', matchEraName);
+        addRegexToken('NNNNN', matchEraNarrow);
+
+        addParseToken(
+            ['N', 'NN', 'NNN', 'NNNN', 'NNNNN'],
+            function (input, array, config, token) {
+                var era = config._locale.erasParse(input, token, config._strict);
+                if (era) {
+                    getParsingFlags(config).era = era;
+                } else {
+                    getParsingFlags(config).invalidEra = input;
+                }
+            }
+        );
+
+        addRegexToken('y', matchUnsigned);
+        addRegexToken('yy', matchUnsigned);
+        addRegexToken('yyy', matchUnsigned);
+        addRegexToken('yyyy', matchUnsigned);
+        addRegexToken('yo', matchEraYearOrdinal);
+
+        addParseToken(['y', 'yy', 'yyy', 'yyyy'], YEAR);
+        addParseToken(['yo'], function (input, array, config, token) {
+            var match;
+            if (config._locale._eraYearOrdinalRegex) {
+                match = input.match(config._locale._eraYearOrdinalRegex);
+            }
+
+            if (config._locale.eraYearOrdinalParse) {
+                array[YEAR] = config._locale.eraYearOrdinalParse(input, match);
+            } else {
+                array[YEAR] = parseInt(input, 10);
+            }
+        });
+
+        function localeEras(m, format) {
+            var i,
+                l,
+                date,
+                eras = this._eras || getLocale('en')._eras;
+            for (i = 0, l = eras.length; i < l; ++i) {
+                switch (typeof eras[i].since) {
+                    case 'string':
+                        // truncate time
+                        date = hooks(eras[i].since).startOf('day');
+                        eras[i].since = date.valueOf();
+                        break;
+                }
+
+                switch (typeof eras[i].until) {
+                    case 'undefined':
+                        eras[i].until = +Infinity;
+                        break;
+                    case 'string':
+                        // truncate time
+                        date = hooks(eras[i].until).startOf('day').valueOf();
+                        eras[i].until = date.valueOf();
+                        break;
+                }
+            }
+            return eras;
+        }
+
+        function localeErasParse(eraName, format, strict) {
+            var i,
+                l,
+                eras = this.eras(),
+                name,
+                abbr,
+                narrow;
+            eraName = eraName.toUpperCase();
+
+            for (i = 0, l = eras.length; i < l; ++i) {
+                name = eras[i].name.toUpperCase();
+                abbr = eras[i].abbr.toUpperCase();
+                narrow = eras[i].narrow.toUpperCase();
+
+                if (strict) {
+                    switch (format) {
+                        case 'N':
+                        case 'NN':
+                        case 'NNN':
+                            if (abbr === eraName) {
+                                return eras[i];
+                            }
+                            break;
+
+                        case 'NNNN':
+                            if (name === eraName) {
+                                return eras[i];
+                            }
+                            break;
+
+                        case 'NNNNN':
+                            if (narrow === eraName) {
+                                return eras[i];
+                            }
+                            break;
+                    }
+                } else if ([name, abbr, narrow].indexOf(eraName) >= 0) {
+                    return eras[i];
+                }
+            }
+        }
+
+        function localeErasConvertYear(era, year) {
+            var dir = era.since <= era.until ? +1 : -1;
+            if (year === undefined) {
+                return hooks(era.since).year();
+            } else {
+                return hooks(era.since).year() + (year - era.offset) * dir;
+            }
+        }
+
+        function getEraName() {
+            var i,
+                l,
+                val,
+                eras = this.localeData().eras();
+            for (i = 0, l = eras.length; i < l; ++i) {
+                // truncate time
+                val = this.clone().startOf('day').valueOf();
+
+                if (eras[i].since <= val && val <= eras[i].until) {
+                    return eras[i].name;
+                }
+                if (eras[i].until <= val && val <= eras[i].since) {
+                    return eras[i].name;
+                }
+            }
+
+            return '';
+        }
+
+        function getEraNarrow() {
+            var i,
+                l,
+                val,
+                eras = this.localeData().eras();
+            for (i = 0, l = eras.length; i < l; ++i) {
+                // truncate time
+                val = this.clone().startOf('day').valueOf();
+
+                if (eras[i].since <= val && val <= eras[i].until) {
+                    return eras[i].narrow;
+                }
+                if (eras[i].until <= val && val <= eras[i].since) {
+                    return eras[i].narrow;
+                }
+            }
+
+            return '';
+        }
+
+        function getEraAbbr() {
+            var i,
+                l,
+                val,
+                eras = this.localeData().eras();
+            for (i = 0, l = eras.length; i < l; ++i) {
+                // truncate time
+                val = this.clone().startOf('day').valueOf();
+
+                if (eras[i].since <= val && val <= eras[i].until) {
+                    return eras[i].abbr;
+                }
+                if (eras[i].until <= val && val <= eras[i].since) {
+                    return eras[i].abbr;
+                }
+            }
+
+            return '';
+        }
+
+        function getEraYear() {
+            var i,
+                l,
+                dir,
+                val,
+                eras = this.localeData().eras();
+            for (i = 0, l = eras.length; i < l; ++i) {
+                dir = eras[i].since <= eras[i].until ? +1 : -1;
+
+                // truncate time
+                val = this.clone().startOf('day').valueOf();
+
+                if (
+                    (eras[i].since <= val && val <= eras[i].until) ||
+                    (eras[i].until <= val && val <= eras[i].since)
+                ) {
+                    return (
+                        (this.year() - hooks(eras[i].since).year()) * dir +
+                        eras[i].offset
+                    );
+                }
+            }
+
+            return this.year();
+        }
+
+        function erasNameRegex(isStrict) {
+            if (!hasOwnProp(this, '_erasNameRegex')) {
+                computeErasParse.call(this);
+            }
+            return isStrict ? this._erasNameRegex : this._erasRegex;
+        }
+
+        function erasAbbrRegex(isStrict) {
+            if (!hasOwnProp(this, '_erasAbbrRegex')) {
+                computeErasParse.call(this);
+            }
+            return isStrict ? this._erasAbbrRegex : this._erasRegex;
+        }
+
+        function erasNarrowRegex(isStrict) {
+            if (!hasOwnProp(this, '_erasNarrowRegex')) {
+                computeErasParse.call(this);
+            }
+            return isStrict ? this._erasNarrowRegex : this._erasRegex;
+        }
+
+        function matchEraAbbr(isStrict, locale) {
+            return locale.erasAbbrRegex(isStrict);
+        }
+
+        function matchEraName(isStrict, locale) {
+            return locale.erasNameRegex(isStrict);
+        }
+
+        function matchEraNarrow(isStrict, locale) {
+            return locale.erasNarrowRegex(isStrict);
+        }
+
+        function matchEraYearOrdinal(isStrict, locale) {
+            return locale._eraYearOrdinalRegex || matchUnsigned;
+        }
+
+        function computeErasParse() {
+            var abbrPieces = [],
+                namePieces = [],
+                narrowPieces = [],
+                mixedPieces = [],
+                i,
+                l,
+                eras = this.eras();
+
+            for (i = 0, l = eras.length; i < l; ++i) {
+                namePieces.push(regexEscape(eras[i].name));
+                abbrPieces.push(regexEscape(eras[i].abbr));
+                narrowPieces.push(regexEscape(eras[i].narrow));
+
+                mixedPieces.push(regexEscape(eras[i].name));
+                mixedPieces.push(regexEscape(eras[i].abbr));
+                mixedPieces.push(regexEscape(eras[i].narrow));
+            }
+
+            this._erasRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+            this._erasNameRegex = new RegExp('^(' + namePieces.join('|') + ')', 'i');
+            this._erasAbbrRegex = new RegExp('^(' + abbrPieces.join('|') + ')', 'i');
+            this._erasNarrowRegex = new RegExp(
+                '^(' + narrowPieces.join('|') + ')',
+                'i'
+            );
+        }
+
+        // FORMATTING
+
+        addFormatToken(0, ['gg', 2], 0, function () {
+            return this.weekYear() % 100;
+        });
+
+        addFormatToken(0, ['GG', 2], 0, function () {
+            return this.isoWeekYear() % 100;
+        });
+
+        function addWeekYearFormatToken(token, getter) {
+            addFormatToken(0, [token, token.length], 0, getter);
+        }
+
+        addWeekYearFormatToken('gggg', 'weekYear');
+        addWeekYearFormatToken('ggggg', 'weekYear');
+        addWeekYearFormatToken('GGGG', 'isoWeekYear');
+        addWeekYearFormatToken('GGGGG', 'isoWeekYear');
+
+        // ALIASES
+
+        addUnitAlias('weekYear', 'gg');
+        addUnitAlias('isoWeekYear', 'GG');
+
+        // PRIORITY
+
+        addUnitPriority('weekYear', 1);
+        addUnitPriority('isoWeekYear', 1);
+
+        // PARSING
+
+        addRegexToken('G', matchSigned);
+        addRegexToken('g', matchSigned);
+        addRegexToken('GG', match1to2, match2);
+        addRegexToken('gg', match1to2, match2);
+        addRegexToken('GGGG', match1to4, match4);
+        addRegexToken('gggg', match1to4, match4);
+        addRegexToken('GGGGG', match1to6, match6);
+        addRegexToken('ggggg', match1to6, match6);
+
+        addWeekParseToken(
+            ['gggg', 'ggggg', 'GGGG', 'GGGGG'],
+            function (input, week, config, token) {
+                week[token.substr(0, 2)] = toInt(input);
+            }
+        );
+
+        addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
+            week[token] = hooks.parseTwoDigitYear(input);
+        });
+
+        // MOMENTS
+
+        function getSetWeekYear(input) {
+            return getSetWeekYearHelper.call(
+                this,
+                input,
+                this.week(),
+                this.weekday(),
+                this.localeData()._week.dow,
+                this.localeData()._week.doy
+            );
+        }
+
+        function getSetISOWeekYear(input) {
+            return getSetWeekYearHelper.call(
+                this,
+                input,
+                this.isoWeek(),
+                this.isoWeekday(),
+                1,
+                4
+            );
+        }
+
+        function getISOWeeksInYear() {
+            return weeksInYear(this.year(), 1, 4);
+        }
+
+        function getISOWeeksInISOWeekYear() {
+            return weeksInYear(this.isoWeekYear(), 1, 4);
+        }
+
+        function getWeeksInYear() {
+            var weekInfo = this.localeData()._week;
+            return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
+        }
+
+        function getWeeksInWeekYear() {
+            var weekInfo = this.localeData()._week;
+            return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
+        }
+
+        function getSetWeekYearHelper(input, week, weekday, dow, doy) {
+            var weeksTarget;
+            if (input == null) {
+                return weekOfYear(this, dow, doy).year;
+            } else {
+                weeksTarget = weeksInYear(input, dow, doy);
+                if (week > weeksTarget) {
+                    week = weeksTarget;
+                }
+                return setWeekAll.call(this, input, week, weekday, dow, doy);
+            }
+        }
+
+        function setWeekAll(weekYear, week, weekday, dow, doy) {
+            var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
+                date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
+
+            this.year(date.getUTCFullYear());
+            this.month(date.getUTCMonth());
+            this.date(date.getUTCDate());
+            return this;
+        }
+
+        // FORMATTING
+
+        addFormatToken('Q', 0, 'Qo', 'quarter');
+
+        // ALIASES
+
+        addUnitAlias('quarter', 'Q');
+
+        // PRIORITY
+
+        addUnitPriority('quarter', 7);
+
+        // PARSING
+
+        addRegexToken('Q', match1);
+        addParseToken('Q', function (input, array) {
+            array[MONTH] = (toInt(input) - 1) * 3;
+        });
+
+        // MOMENTS
+
+        function getSetQuarter(input) {
+            return input == null
+                ? Math.ceil((this.month() + 1) / 3)
+                : this.month((input - 1) * 3 + (this.month() % 3));
+        }
+
+        // FORMATTING
+
+        addFormatToken('D', ['DD', 2], 'Do', 'date');
+
+        // ALIASES
+
+        addUnitAlias('date', 'D');
+
+        // PRIORITY
+        addUnitPriority('date', 9);
+
+        // PARSING
+
+        addRegexToken('D', match1to2);
+        addRegexToken('DD', match1to2, match2);
+        addRegexToken('Do', function (isStrict, locale) {
+            // TODO: Remove "ordinalParse" fallback in next major release.
+            return isStrict
+                ? locale._dayOfMonthOrdinalParse || locale._ordinalParse
+                : locale._dayOfMonthOrdinalParseLenient;
+        });
+
+        addParseToken(['D', 'DD'], DATE);
+        addParseToken('Do', function (input, array) {
+            array[DATE] = toInt(input.match(match1to2)[0]);
+        });
+
+        // MOMENTS
+
+        var getSetDayOfMonth = makeGetSet('Date', true);
+
+        // FORMATTING
+
+        addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
+
+        // ALIASES
+
+        addUnitAlias('dayOfYear', 'DDD');
+
+        // PRIORITY
+        addUnitPriority('dayOfYear', 4);
+
+        // PARSING
+
+        addRegexToken('DDD', match1to3);
+        addRegexToken('DDDD', match3);
+        addParseToken(['DDD', 'DDDD'], function (input, array, config) {
+            config._dayOfYear = toInt(input);
+        });
+
+        // HELPERS
+
+        // MOMENTS
+
+        function getSetDayOfYear(input) {
+            var dayOfYear =
+                Math.round(
+                    (this.clone().startOf('day') - this.clone().startOf('year')) / 864e5
+                ) + 1;
+            return input == null ? dayOfYear : this.add(input - dayOfYear, 'd');
+        }
+
+        // FORMATTING
+
+        addFormatToken('m', ['mm', 2], 0, 'minute');
+
+        // ALIASES
+
+        addUnitAlias('minute', 'm');
+
+        // PRIORITY
+
+        addUnitPriority('minute', 14);
+
+        // PARSING
+
+        addRegexToken('m', match1to2);
+        addRegexToken('mm', match1to2, match2);
+        addParseToken(['m', 'mm'], MINUTE);
+
+        // MOMENTS
+
+        var getSetMinute = makeGetSet('Minutes', false);
+
+        // FORMATTING
+
+        addFormatToken('s', ['ss', 2], 0, 'second');
+
+        // ALIASES
+
+        addUnitAlias('second', 's');
+
+        // PRIORITY
+
+        addUnitPriority('second', 15);
+
+        // PARSING
+
+        addRegexToken('s', match1to2);
+        addRegexToken('ss', match1to2, match2);
+        addParseToken(['s', 'ss'], SECOND);
+
+        // MOMENTS
+
+        var getSetSecond = makeGetSet('Seconds', false);
+
+        // FORMATTING
+
+        addFormatToken('S', 0, 0, function () {
+            return ~~(this.millisecond() / 100);
+        });
+
+        addFormatToken(0, ['SS', 2], 0, function () {
+            return ~~(this.millisecond() / 10);
+        });
+
+        addFormatToken(0, ['SSS', 3], 0, 'millisecond');
+        addFormatToken(0, ['SSSS', 4], 0, function () {
+            return this.millisecond() * 10;
+        });
+        addFormatToken(0, ['SSSSS', 5], 0, function () {
+            return this.millisecond() * 100;
+        });
+        addFormatToken(0, ['SSSSSS', 6], 0, function () {
+            return this.millisecond() * 1000;
+        });
+        addFormatToken(0, ['SSSSSSS', 7], 0, function () {
+            return this.millisecond() * 10000;
+        });
+        addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
+            return this.millisecond() * 100000;
+        });
+        addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
+            return this.millisecond() * 1000000;
+        });
+
+        // ALIASES
+
+        addUnitAlias('millisecond', 'ms');
+
+        // PRIORITY
+
+        addUnitPriority('millisecond', 16);
+
+        // PARSING
+
+        addRegexToken('S', match1to3, match1);
+        addRegexToken('SS', match1to3, match2);
+        addRegexToken('SSS', match1to3, match3);
+
+        var token, getSetMillisecond;
+        for (token = 'SSSS'; token.length <= 9; token += 'S') {
+            addRegexToken(token, matchUnsigned);
+        }
+
+        function parseMs(input, array) {
+            array[MILLISECOND] = toInt(('0.' + input) * 1000);
+        }
+
+        for (token = 'S'; token.length <= 9; token += 'S') {
+            addParseToken(token, parseMs);
+        }
+
+        getSetMillisecond = makeGetSet('Milliseconds', false);
+
+        // FORMATTING
+
+        addFormatToken('z', 0, 0, 'zoneAbbr');
+        addFormatToken('zz', 0, 0, 'zoneName');
+
+        // MOMENTS
+
+        function getZoneAbbr() {
+            return this._isUTC ? 'UTC' : '';
+        }
+
+        function getZoneName() {
+            return this._isUTC ? 'Coordinated Universal Time' : '';
+        }
+
+        var proto = Moment.prototype;
+
+        proto.add = add;
+        proto.calendar = calendar$1;
+        proto.clone = clone;
+        proto.diff = diff;
+        proto.endOf = endOf;
+        proto.format = format;
+        proto.from = from;
+        proto.fromNow = fromNow;
+        proto.to = to;
+        proto.toNow = toNow;
+        proto.get = stringGet;
+        proto.invalidAt = invalidAt;
+        proto.isAfter = isAfter;
+        proto.isBefore = isBefore;
+        proto.isBetween = isBetween;
+        proto.isSame = isSame;
+        proto.isSameOrAfter = isSameOrAfter;
+        proto.isSameOrBefore = isSameOrBefore;
+        proto.isValid = isValid$2;
+        proto.lang = lang;
+        proto.locale = locale;
+        proto.localeData = localeData;
+        proto.max = prototypeMax;
+        proto.min = prototypeMin;
+        proto.parsingFlags = parsingFlags;
+        proto.set = stringSet;
+        proto.startOf = startOf;
+        proto.subtract = subtract;
+        proto.toArray = toArray;
+        proto.toObject = toObject;
+        proto.toDate = toDate;
+        proto.toISOString = toISOString;
+        proto.inspect = inspect;
+        if (typeof Symbol !== 'undefined' && Symbol.for != null) {
+            proto[Symbol.for('nodejs.util.inspect.custom')] = function () {
+                return 'Moment<' + this.format() + '>';
+            };
+        }
+        proto.toJSON = toJSON;
+        proto.toString = toString;
+        proto.unix = unix;
+        proto.valueOf = valueOf;
+        proto.creationData = creationData;
+        proto.eraName = getEraName;
+        proto.eraNarrow = getEraNarrow;
+        proto.eraAbbr = getEraAbbr;
+        proto.eraYear = getEraYear;
+        proto.year = getSetYear;
+        proto.isLeapYear = getIsLeapYear;
+        proto.weekYear = getSetWeekYear;
+        proto.isoWeekYear = getSetISOWeekYear;
+        proto.quarter = proto.quarters = getSetQuarter;
+        proto.month = getSetMonth;
+        proto.daysInMonth = getDaysInMonth;
+        proto.week = proto.weeks = getSetWeek;
+        proto.isoWeek = proto.isoWeeks = getSetISOWeek;
+        proto.weeksInYear = getWeeksInYear;
+        proto.weeksInWeekYear = getWeeksInWeekYear;
+        proto.isoWeeksInYear = getISOWeeksInYear;
+        proto.isoWeeksInISOWeekYear = getISOWeeksInISOWeekYear;
+        proto.date = getSetDayOfMonth;
+        proto.day = proto.days = getSetDayOfWeek;
+        proto.weekday = getSetLocaleDayOfWeek;
+        proto.isoWeekday = getSetISODayOfWeek;
+        proto.dayOfYear = getSetDayOfYear;
+        proto.hour = proto.hours = getSetHour;
+        proto.minute = proto.minutes = getSetMinute;
+        proto.second = proto.seconds = getSetSecond;
+        proto.millisecond = proto.milliseconds = getSetMillisecond;
+        proto.utcOffset = getSetOffset;
+        proto.utc = setOffsetToUTC;
+        proto.local = setOffsetToLocal;
+        proto.parseZone = setOffsetToParsedOffset;
+        proto.hasAlignedHourOffset = hasAlignedHourOffset;
+        proto.isDST = isDaylightSavingTime;
+        proto.isLocal = isLocal;
+        proto.isUtcOffset = isUtcOffset;
+        proto.isUtc = isUtc;
+        proto.isUTC = isUtc;
+        proto.zoneAbbr = getZoneAbbr;
+        proto.zoneName = getZoneName;
+        proto.dates = deprecate(
+            'dates accessor is deprecated. Use date instead.',
+            getSetDayOfMonth
+        );
+        proto.months = deprecate(
+            'months accessor is deprecated. Use month instead',
+            getSetMonth
+        );
+        proto.years = deprecate(
+            'years accessor is deprecated. Use year instead',
+            getSetYear
+        );
+        proto.zone = deprecate(
+            'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
+            getSetZone
+        );
+        proto.isDSTShifted = deprecate(
+            'isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information',
+            isDaylightSavingTimeShifted
+        );
+
+        function createUnix(input) {
+            return createLocal(input * 1000);
+        }
+
+        function createInZone() {
+            return createLocal.apply(null, arguments).parseZone();
+        }
+
+        function preParsePostFormat(string) {
+            return string;
+        }
+
+        var proto$1 = Locale.prototype;
+
+        proto$1.calendar = calendar;
+        proto$1.longDateFormat = longDateFormat;
+        proto$1.invalidDate = invalidDate;
+        proto$1.ordinal = ordinal;
+        proto$1.preparse = preParsePostFormat;
+        proto$1.postformat = preParsePostFormat;
+        proto$1.relativeTime = relativeTime;
+        proto$1.pastFuture = pastFuture;
+        proto$1.set = set;
+        proto$1.eras = localeEras;
+        proto$1.erasParse = localeErasParse;
+        proto$1.erasConvertYear = localeErasConvertYear;
+        proto$1.erasAbbrRegex = erasAbbrRegex;
+        proto$1.erasNameRegex = erasNameRegex;
+        proto$1.erasNarrowRegex = erasNarrowRegex;
+
+        proto$1.months = localeMonths;
+        proto$1.monthsShort = localeMonthsShort;
+        proto$1.monthsParse = localeMonthsParse;
+        proto$1.monthsRegex = monthsRegex;
+        proto$1.monthsShortRegex = monthsShortRegex;
+        proto$1.week = localeWeek;
+        proto$1.firstDayOfYear = localeFirstDayOfYear;
+        proto$1.firstDayOfWeek = localeFirstDayOfWeek;
+
+        proto$1.weekdays = localeWeekdays;
+        proto$1.weekdaysMin = localeWeekdaysMin;
+        proto$1.weekdaysShort = localeWeekdaysShort;
+        proto$1.weekdaysParse = localeWeekdaysParse;
+
+        proto$1.weekdaysRegex = weekdaysRegex;
+        proto$1.weekdaysShortRegex = weekdaysShortRegex;
+        proto$1.weekdaysMinRegex = weekdaysMinRegex;
+
+        proto$1.isPM = localeIsPM;
+        proto$1.meridiem = localeMeridiem;
+
+        function get$1(format, index, field, setter) {
+            var locale = getLocale(),
+                utc = createUTC().set(setter, index);
+            return locale[field](utc, format);
+        }
+
+        function listMonthsImpl(format, index, field) {
+            if (isNumber(format)) {
+                index = format;
+                format = undefined;
+            }
+
+            format = format || '';
+
+            if (index != null) {
+                return get$1(format, index, field, 'month');
+            }
+
+            var i,
+                out = [];
+            for (i = 0; i < 12; i++) {
+                out[i] = get$1(format, i, field, 'month');
+            }
+            return out;
+        }
+
+        // ()
+        // (5)
+        // (fmt, 5)
+        // (fmt)
+        // (true)
+        // (true, 5)
+        // (true, fmt, 5)
+        // (true, fmt)
+        function listWeekdaysImpl(localeSorted, format, index, field) {
+            if (typeof localeSorted === 'boolean') {
+                if (isNumber(format)) {
+                    index = format;
+                    format = undefined;
+                }
+
+                format = format || '';
+            } else {
+                format = localeSorted;
+                index = format;
+                localeSorted = false;
+
+                if (isNumber(format)) {
+                    index = format;
+                    format = undefined;
+                }
+
+                format = format || '';
+            }
+
+            var locale = getLocale(),
+                shift = localeSorted ? locale._week.dow : 0,
+                i,
+                out = [];
+
+            if (index != null) {
+                return get$1(format, (index + shift) % 7, field, 'day');
+            }
+
+            for (i = 0; i < 7; i++) {
+                out[i] = get$1(format, (i + shift) % 7, field, 'day');
+            }
+            return out;
+        }
+
+        function listMonths(format, index) {
+            return listMonthsImpl(format, index, 'months');
+        }
+
+        function listMonthsShort(format, index) {
+            return listMonthsImpl(format, index, 'monthsShort');
+        }
+
+        function listWeekdays(localeSorted, format, index) {
+            return listWeekdaysImpl(localeSorted, format, index, 'weekdays');
+        }
+
+        function listWeekdaysShort(localeSorted, format, index) {
+            return listWeekdaysImpl(localeSorted, format, index, 'weekdaysShort');
+        }
+
+        function listWeekdaysMin(localeSorted, format, index) {
+            return listWeekdaysImpl(localeSorted, format, index, 'weekdaysMin');
+        }
+
+        getSetGlobalLocale('en', {
+            eras: [
+                {
+                    since: '0001-01-01',
+                    until: +Infinity,
+                    offset: 1,
+                    name: 'Anno Domini',
+                    narrow: 'AD',
+                    abbr: 'AD',
+                },
+                {
+                    since: '0000-12-31',
+                    until: -Infinity,
+                    offset: 1,
+                    name: 'Before Christ',
+                    narrow: 'BC',
+                    abbr: 'BC',
+                },
+            ],
+            dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
+            ordinal: function (number) {
+                var b = number % 10,
+                    output =
+                        toInt((number % 100) / 10) === 1
+                            ? 'th'
+                            : b === 1
+                            ? 'st'
+                            : b === 2
+                            ? 'nd'
+                            : b === 3
+                            ? 'rd'
+                            : 'th';
+                return number + output;
+            },
+        });
+
+        // Side effect imports
+
+        hooks.lang = deprecate(
+            'moment.lang is deprecated. Use moment.locale instead.',
+            getSetGlobalLocale
+        );
+        hooks.langData = deprecate(
+            'moment.langData is deprecated. Use moment.localeData instead.',
+            getLocale
+        );
+
+        var mathAbs = Math.abs;
+
+        function abs() {
+            var data = this._data;
+
+            this._milliseconds = mathAbs(this._milliseconds);
+            this._days = mathAbs(this._days);
+            this._months = mathAbs(this._months);
+
+            data.milliseconds = mathAbs(data.milliseconds);
+            data.seconds = mathAbs(data.seconds);
+            data.minutes = mathAbs(data.minutes);
+            data.hours = mathAbs(data.hours);
+            data.months = mathAbs(data.months);
+            data.years = mathAbs(data.years);
+
+            return this;
+        }
+
+        function addSubtract$1(duration, input, value, direction) {
+            var other = createDuration(input, value);
+
+            duration._milliseconds += direction * other._milliseconds;
+            duration._days += direction * other._days;
+            duration._months += direction * other._months;
+
+            return duration._bubble();
+        }
+
+        // supports only 2.0-style add(1, 's') or add(duration)
+        function add$1(input, value) {
+            return addSubtract$1(this, input, value, 1);
+        }
+
+        // supports only 2.0-style subtract(1, 's') or subtract(duration)
+        function subtract$1(input, value) {
+            return addSubtract$1(this, input, value, -1);
+        }
+
+        function absCeil(number) {
+            if (number < 0) {
+                return Math.floor(number);
+            } else {
+                return Math.ceil(number);
+            }
+        }
+
+        function bubble() {
+            var milliseconds = this._milliseconds,
+                days = this._days,
+                months = this._months,
+                data = this._data,
+                seconds,
+                minutes,
+                hours,
+                years,
+                monthsFromDays;
+
+            // if we have a mix of positive and negative values, bubble down first
+            // check: https://github.com/moment/moment/issues/2166
+            if (
+                !(
+                    (milliseconds >= 0 && days >= 0 && months >= 0) ||
+                    (milliseconds <= 0 && days <= 0 && months <= 0)
+                )
+            ) {
+                milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
+                days = 0;
+                months = 0;
+            }
+
+            // The following code bubbles up values, see the tests for
+            // examples of what that means.
+            data.milliseconds = milliseconds % 1000;
+
+            seconds = absFloor(milliseconds / 1000);
+            data.seconds = seconds % 60;
+
+            minutes = absFloor(seconds / 60);
+            data.minutes = minutes % 60;
+
+            hours = absFloor(minutes / 60);
+            data.hours = hours % 24;
+
+            days += absFloor(hours / 24);
+
+            // convert days to months
+            monthsFromDays = absFloor(daysToMonths(days));
+            months += monthsFromDays;
+            days -= absCeil(monthsToDays(monthsFromDays));
+
+            // 12 months -> 1 year
+            years = absFloor(months / 12);
+            months %= 12;
+
+            data.days = days;
+            data.months = months;
+            data.years = years;
+
+            return this;
+        }
+
+        function daysToMonths(days) {
+            // 400 years have 146097 days (taking into account leap year rules)
+            // 400 years have 12 months === 4800
+            return (days * 4800) / 146097;
+        }
+
+        function monthsToDays(months) {
+            // the reverse of daysToMonths
+            return (months * 146097) / 4800;
+        }
+
+        function as(units) {
+            if (!this.isValid()) {
+                return NaN;
+            }
+            var days,
+                months,
+                milliseconds = this._milliseconds;
+
+            units = normalizeUnits(units);
+
+            if (units === 'month' || units === 'quarter' || units === 'year') {
+                days = this._days + milliseconds / 864e5;
+                months = this._months + daysToMonths(days);
+                switch (units) {
+                    case 'month':
+                        return months;
+                    case 'quarter':
+                        return months / 3;
+                    case 'year':
+                        return months / 12;
+                }
+            } else {
+                // handle milliseconds separately because of floating point math errors (issue #1867)
+                days = this._days + Math.round(monthsToDays(this._months));
+                switch (units) {
+                    case 'week':
+                        return days / 7 + milliseconds / 6048e5;
+                    case 'day':
+                        return days + milliseconds / 864e5;
+                    case 'hour':
+                        return days * 24 + milliseconds / 36e5;
+                    case 'minute':
+                        return days * 1440 + milliseconds / 6e4;
+                    case 'second':
+                        return days * 86400 + milliseconds / 1000;
+                    // Math.floor prevents floating point math errors here
+                    case 'millisecond':
+                        return Math.floor(days * 864e5) + milliseconds;
+                    default:
+                        throw new Error('Unknown unit ' + units);
+                }
+            }
+        }
+
+        // TODO: Use this.as('ms')?
+        function valueOf$1() {
+            if (!this.isValid()) {
+                return NaN;
+            }
+            return (
+                this._milliseconds +
+                this._days * 864e5 +
+                (this._months % 12) * 2592e6 +
+                toInt(this._months / 12) * 31536e6
+            );
+        }
+
+        function makeAs(alias) {
+            return function () {
+                return this.as(alias);
+            };
+        }
+
+        var asMilliseconds = makeAs('ms'),
+            asSeconds = makeAs('s'),
+            asMinutes = makeAs('m'),
+            asHours = makeAs('h'),
+            asDays = makeAs('d'),
+            asWeeks = makeAs('w'),
+            asMonths = makeAs('M'),
+            asQuarters = makeAs('Q'),
+            asYears = makeAs('y');
+
+        function clone$1() {
+            return createDuration(this);
+        }
+
+        function get$2(units) {
+            units = normalizeUnits(units);
+            return this.isValid() ? this[units + 's']() : NaN;
+        }
+
+        function makeGetter(name) {
+            return function () {
+                return this.isValid() ? this._data[name] : NaN;
+            };
+        }
+
+        var milliseconds = makeGetter('milliseconds'),
+            seconds = makeGetter('seconds'),
+            minutes = makeGetter('minutes'),
+            hours = makeGetter('hours'),
+            days = makeGetter('days'),
+            months = makeGetter('months'),
+            years = makeGetter('years');
+
+        function weeks() {
+            return absFloor(this.days() / 7);
+        }
+
+        var round = Math.round,
+            thresholds = {
+                ss: 44, // a few seconds to seconds
+                s: 45, // seconds to minute
+                m: 45, // minutes to hour
+                h: 22, // hours to day
+                d: 26, // days to month/week
+                w: null, // weeks to month
+                M: 11, // months to year
+            };
+
+        // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
+        function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
+            return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+        }
+
+        function relativeTime$1(posNegDuration, withoutSuffix, thresholds, locale) {
+            var duration = createDuration(posNegDuration).abs(),
+                seconds = round(duration.as('s')),
+                minutes = round(duration.as('m')),
+                hours = round(duration.as('h')),
+                days = round(duration.as('d')),
+                months = round(duration.as('M')),
+                weeks = round(duration.as('w')),
+                years = round(duration.as('y')),
+                a =
+                    (seconds <= thresholds.ss && ['s', seconds]) ||
+                    (seconds < thresholds.s && ['ss', seconds]) ||
+                    (minutes <= 1 && ['m']) ||
+                    (minutes < thresholds.m && ['mm', minutes]) ||
+                    (hours <= 1 && ['h']) ||
+                    (hours < thresholds.h && ['hh', hours]) ||
+                    (days <= 1 && ['d']) ||
+                    (days < thresholds.d && ['dd', days]);
+
+            if (thresholds.w != null) {
+                a =
+                    a ||
+                    (weeks <= 1 && ['w']) ||
+                    (weeks < thresholds.w && ['ww', weeks]);
+            }
+            a = a ||
+                (months <= 1 && ['M']) ||
+                (months < thresholds.M && ['MM', months]) ||
+                (years <= 1 && ['y']) || ['yy', years];
+
+            a[2] = withoutSuffix;
+            a[3] = +posNegDuration > 0;
+            a[4] = locale;
+            return substituteTimeAgo.apply(null, a);
+        }
+
+        // This function allows you to set the rounding function for relative time strings
+        function getSetRelativeTimeRounding(roundingFunction) {
+            if (roundingFunction === undefined) {
+                return round;
+            }
+            if (typeof roundingFunction === 'function') {
+                round = roundingFunction;
+                return true;
+            }
+            return false;
+        }
+
+        // This function allows you to set a threshold for relative time strings
+        function getSetRelativeTimeThreshold(threshold, limit) {
+            if (thresholds[threshold] === undefined) {
+                return false;
+            }
+            if (limit === undefined) {
+                return thresholds[threshold];
+            }
+            thresholds[threshold] = limit;
+            if (threshold === 's') {
+                thresholds.ss = limit - 1;
+            }
+            return true;
+        }
+
+        function humanize(argWithSuffix, argThresholds) {
+            if (!this.isValid()) {
+                return this.localeData().invalidDate();
+            }
+
+            var withSuffix = false,
+                th = thresholds,
+                locale,
+                output;
+
+            if (typeof argWithSuffix === 'object') {
+                argThresholds = argWithSuffix;
+                argWithSuffix = false;
+            }
+            if (typeof argWithSuffix === 'boolean') {
+                withSuffix = argWithSuffix;
+            }
+            if (typeof argThresholds === 'object') {
+                th = Object.assign({}, thresholds, argThresholds);
+                if (argThresholds.s != null && argThresholds.ss == null) {
+                    th.ss = argThresholds.s - 1;
+                }
+            }
+
+            locale = this.localeData();
+            output = relativeTime$1(this, !withSuffix, th, locale);
+
+            if (withSuffix) {
+                output = locale.pastFuture(+this, output);
+            }
+
+            return locale.postformat(output);
+        }
+
+        var abs$1 = Math.abs;
+
+        function sign(x) {
+            return (x > 0) - (x < 0) || +x;
+        }
+
+        function toISOString$1() {
+            // for ISO strings we do not use the normal bubbling rules:
+            //  * milliseconds bubble up until they become hours
+            //  * days do not bubble at all
+            //  * months bubble up until they become years
+            // This is because there is no context-free conversion between hours and days
+            // (think of clock changes)
+            // and also not between days and months (28-31 days per month)
+            if (!this.isValid()) {
+                return this.localeData().invalidDate();
+            }
+
+            var seconds = abs$1(this._milliseconds) / 1000,
+                days = abs$1(this._days),
+                months = abs$1(this._months),
+                minutes,
+                hours,
+                years,
+                s,
+                total = this.asSeconds(),
+                totalSign,
+                ymSign,
+                daysSign,
+                hmsSign;
+
+            if (!total) {
+                // this is the same as C#'s (Noda) and python (isodate)...
+                // but not other JS (goog.date)
+                return 'P0D';
+            }
+
+            // 3600 seconds -> 60 minutes -> 1 hour
+            minutes = absFloor(seconds / 60);
+            hours = absFloor(minutes / 60);
+            seconds %= 60;
+            minutes %= 60;
+
+            // 12 months -> 1 year
+            years = absFloor(months / 12);
+            months %= 12;
+
+            // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+            s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
+
+            totalSign = total < 0 ? '-' : '';
+            ymSign = sign(this._months) !== sign(total) ? '-' : '';
+            daysSign = sign(this._days) !== sign(total) ? '-' : '';
+            hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
+
+            return (
+                totalSign +
+                'P' +
+                (years ? ymSign + years + 'Y' : '') +
+                (months ? ymSign + months + 'M' : '') +
+                (days ? daysSign + days + 'D' : '') +
+                (hours || minutes || seconds ? 'T' : '') +
+                (hours ? hmsSign + hours + 'H' : '') +
+                (minutes ? hmsSign + minutes + 'M' : '') +
+                (seconds ? hmsSign + s + 'S' : '')
+            );
+        }
+
+        var proto$2 = Duration.prototype;
+
+        proto$2.isValid = isValid$1;
+        proto$2.abs = abs;
+        proto$2.add = add$1;
+        proto$2.subtract = subtract$1;
+        proto$2.as = as;
+        proto$2.asMilliseconds = asMilliseconds;
+        proto$2.asSeconds = asSeconds;
+        proto$2.asMinutes = asMinutes;
+        proto$2.asHours = asHours;
+        proto$2.asDays = asDays;
+        proto$2.asWeeks = asWeeks;
+        proto$2.asMonths = asMonths;
+        proto$2.asQuarters = asQuarters;
+        proto$2.asYears = asYears;
+        proto$2.valueOf = valueOf$1;
+        proto$2._bubble = bubble;
+        proto$2.clone = clone$1;
+        proto$2.get = get$2;
+        proto$2.milliseconds = milliseconds;
+        proto$2.seconds = seconds;
+        proto$2.minutes = minutes;
+        proto$2.hours = hours;
+        proto$2.days = days;
+        proto$2.weeks = weeks;
+        proto$2.months = months;
+        proto$2.years = years;
+        proto$2.humanize = humanize;
+        proto$2.toISOString = toISOString$1;
+        proto$2.toString = toISOString$1;
+        proto$2.toJSON = toISOString$1;
+        proto$2.locale = locale;
+        proto$2.localeData = localeData;
+
+        proto$2.toIsoString = deprecate(
+            'toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)',
+            toISOString$1
+        );
+        proto$2.lang = lang;
+
+        // FORMATTING
+
+        addFormatToken('X', 0, 0, 'unix');
+        addFormatToken('x', 0, 0, 'valueOf');
+
+        // PARSING
+
+        addRegexToken('x', matchSigned);
+        addRegexToken('X', matchTimestamp);
+        addParseToken('X', function (input, array, config) {
+            config._d = new Date(parseFloat(input) * 1000);
+        });
+        addParseToken('x', function (input, array, config) {
+            config._d = new Date(toInt(input));
+        });
+
+        //! moment.js
+
+        hooks.version = '2.29.2';
+
+        setHookCallback(createLocal);
+
+        hooks.fn = proto;
+        hooks.min = min;
+        hooks.max = max;
+        hooks.now = now;
+        hooks.utc = createUTC;
+        hooks.unix = createUnix;
+        hooks.months = listMonths;
+        hooks.isDate = isDate;
+        hooks.locale = getSetGlobalLocale;
+        hooks.invalid = createInvalid;
+        hooks.duration = createDuration;
+        hooks.isMoment = isMoment;
+        hooks.weekdays = listWeekdays;
+        hooks.parseZone = createInZone;
+        hooks.localeData = getLocale;
+        hooks.isDuration = isDuration;
+        hooks.monthsShort = listMonthsShort;
+        hooks.weekdaysMin = listWeekdaysMin;
+        hooks.defineLocale = defineLocale;
+        hooks.updateLocale = updateLocale;
+        hooks.locales = listLocales;
+        hooks.weekdaysShort = listWeekdaysShort;
+        hooks.normalizeUnits = normalizeUnits;
+        hooks.relativeTimeRounding = getSetRelativeTimeRounding;
+        hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
+        hooks.calendarFormat = getCalendarFormat;
+        hooks.prototype = proto;
+
+        // currently HTML5 input type only supports 24-hour formats
+        hooks.HTML5_FMT = {
+            DATETIME_LOCAL: 'YYYY-MM-DDTHH:mm', // <input type="datetime-local" />
+            DATETIME_LOCAL_SECONDS: 'YYYY-MM-DDTHH:mm:ss', // <input type="datetime-local" step="1" />
+            DATETIME_LOCAL_MS: 'YYYY-MM-DDTHH:mm:ss.SSS', // <input type="datetime-local" step="0.001" />
+            DATE: 'YYYY-MM-DD', // <input type="date" />
+            TIME: 'HH:mm', // <input type="time" />
+            TIME_SECONDS: 'HH:mm:ss', // <input type="time" step="1" />
+            TIME_MS: 'HH:mm:ss.SSS', // <input type="time" step="0.001" />
+            WEEK: 'GGGG-[W]WW', // <input type="week" />
+            MONTH: 'YYYY-MM', // <input type="month" />
+        };
+
+        return hooks;
+
+    })));
+    }(moment$1));
+
+    var moment = moment$1.exports;
+
+    (function (module, exports) {
+    (function (global, factory) {
+       typeof commonjsRequire === 'function' ? factory(moment$1.exports) :
+       factory(global.moment);
+    }(commonjsGlobal, (function (moment) {
+        //! moment.js locale configuration
+
+        var pt = moment.defineLocale('pt', {
+            months: 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split(
+                '_'
+            ),
+            monthsShort: 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
+            weekdays:
+                'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split(
+                    '_'
+                ),
+            weekdaysShort: 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
+            weekdaysMin: 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
+            weekdaysParseExact: true,
+            longDateFormat: {
+                LT: 'HH:mm',
+                LTS: 'HH:mm:ss',
+                L: 'DD/MM/YYYY',
+                LL: 'D [de] MMMM [de] YYYY',
+                LLL: 'D [de] MMMM [de] YYYY HH:mm',
+                LLLL: 'dddd, D [de] MMMM [de] YYYY HH:mm',
+            },
+            calendar: {
+                sameDay: '[Hoje às] LT',
+                nextDay: '[Amanhã às] LT',
+                nextWeek: 'dddd [às] LT',
+                lastDay: '[Ontem às] LT',
+                lastWeek: function () {
+                    return this.day() === 0 || this.day() === 6
+                        ? '[Último] dddd [às] LT' // Saturday + Sunday
+                        : '[Última] dddd [às] LT'; // Monday - Friday
+                },
+                sameElse: 'L',
+            },
+            relativeTime: {
+                future: 'em %s',
+                past: 'há %s',
+                s: 'segundos',
+                ss: '%d segundos',
+                m: 'um minuto',
+                mm: '%d minutos',
+                h: 'uma hora',
+                hh: '%d horas',
+                d: 'um dia',
+                dd: '%d dias',
+                w: 'uma semana',
+                ww: '%d semanas',
+                M: 'um mês',
+                MM: '%d meses',
+                y: 'um ano',
+                yy: '%d anos',
+            },
+            dayOfMonthOrdinalParse: /\d{1,2}º/,
+            ordinal: '%dº',
+            week: {
+                dow: 1, // Monday is the first day of the week.
+                doy: 4, // The week that contains Jan 4th is the first week of the year.
+            },
+        });
+
+        return pt;
+
+    })));
+    }());
+
+    /* src\components\Navbar.svelte generated by Svelte v3.47.0 */
+
+    const file$a = "src\\components\\Navbar.svelte";
+
+    function create_fragment$a(ctx) {
+    	let nav;
+    	let a0;
+    	let i0;
+    	let t0;
+    	let form;
+    	let div1;
+    	let input;
+    	let t1;
+    	let div0;
+    	let button;
+    	let i1;
+    	let t2;
+    	let div4;
+    	let ul;
+    	let li;
+    	let a1;
+    	let i2;
+    	let t3;
+    	let a2;
+    	let img;
+    	let img_src_value;
+    	let img_alt_value;
+    	let t4;
+    	let span;
+    	let t5_value = /*user*/ ctx[0].instagram + "";
+    	let t5;
+    	let t6;
+    	let div3;
+    	let a3;
+    	let i3;
+    	let t7;
+    	let a3_href_value;
+    	let t8;
+    	let a4;
+    	let i4;
+    	let t9;
+    	let t10;
+    	let div2;
+    	let t11;
+    	let a5;
+    	let t12;
+    	let t13;
+    	let a6;
+    	let t14;
+    	let t15;
+    	let a7;
+    	let t16;
+
+    	const block = {
+    		c: function create() {
+    			nav = element("nav");
+    			a0 = element("a");
+    			i0 = element("i");
+    			t0 = space();
+    			form = element("form");
+    			div1 = element("div");
+    			input = element("input");
+    			t1 = space();
+    			div0 = element("div");
+    			button = element("button");
+    			i1 = element("i");
+    			t2 = space();
+    			div4 = element("div");
+    			ul = element("ul");
+    			li = element("li");
+    			a1 = element("a");
+    			i2 = element("i");
+    			t3 = space();
+    			a2 = element("a");
+    			img = element("img");
+    			t4 = space();
+    			span = element("span");
+    			t5 = text(t5_value);
+    			t6 = space();
+    			div3 = element("div");
+    			a3 = element("a");
+    			i3 = element("i");
+    			t7 = text(" Perfil");
+    			t8 = space();
+    			a4 = element("a");
+    			i4 = element("i");
+    			t9 = text(" Principal");
+    			t10 = space();
+    			div2 = element("div");
+    			t11 = space();
+    			a5 = element("a");
+    			t12 = text("Configurações e Privacidade");
+    			t13 = space();
+    			a6 = element("a");
+    			t14 = text("Ajuda");
+    			t15 = space();
+    			a7 = element("a");
+    			t16 = text("Sair");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			nav = claim_element(nodes, "NAV", { class: true });
+    			var nav_nodes = children(nav);
+    			a0 = claim_element(nav_nodes, "A", { class: true, href: true });
+    			var a0_nodes = children(a0);
+    			i0 = claim_element(a0_nodes, "I", { class: true });
+    			children(i0).forEach(detach_dev);
+    			a0_nodes.forEach(detach_dev);
+    			t0 = claim_space(nav_nodes);
+    			form = claim_element(nav_nodes, "FORM", { class: true });
+    			var form_nodes = children(form);
+    			div1 = claim_element(form_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+
+    			input = claim_element(div1_nodes, "INPUT", {
+    				type: true,
+    				class: true,
+    				placeholder: true,
+    				"aria-label": true
+    			});
+
+    			t1 = claim_space(div1_nodes);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			button = claim_element(div0_nodes, "BUTTON", { class: true, type: true });
+    			var button_nodes = children(button);
+    			i1 = claim_element(button_nodes, "I", { class: true, "data-feather": true });
+    			children(i1).forEach(detach_dev);
+    			button_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			form_nodes.forEach(detach_dev);
+    			t2 = claim_space(nav_nodes);
+    			div4 = claim_element(nav_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			ul = claim_element(div4_nodes, "UL", { class: true });
+    			var ul_nodes = children(ul);
+    			li = claim_element(ul_nodes, "LI", { class: true });
+    			var li_nodes = children(li);
+
+    			a1 = claim_element(li_nodes, "A", {
+    				class: true,
+    				href: true,
+    				"data-toggle": true
+    			});
+
+    			var a1_nodes = children(a1);
+    			i2 = claim_element(a1_nodes, "I", { class: true, "data-feather": true });
+    			children(i2).forEach(detach_dev);
+    			a1_nodes.forEach(detach_dev);
+    			t3 = claim_space(li_nodes);
+
+    			a2 = claim_element(li_nodes, "A", {
+    				class: true,
+    				href: true,
+    				"data-toggle": true
+    			});
+
+    			var a2_nodes = children(a2);
+    			img = claim_element(a2_nodes, "IMG", { src: true, class: true, alt: true });
+    			t4 = claim_space(a2_nodes);
+    			span = claim_element(a2_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t5 = claim_text(span_nodes, t5_value);
+    			span_nodes.forEach(detach_dev);
+    			a2_nodes.forEach(detach_dev);
+    			t6 = claim_space(li_nodes);
+    			div3 = claim_element(li_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			a3 = claim_element(div3_nodes, "A", { class: true, href: true });
+    			var a3_nodes = children(a3);
+    			i3 = claim_element(a3_nodes, "I", { class: true, "data-feather": true });
+    			children(i3).forEach(detach_dev);
+    			t7 = claim_text(a3_nodes, " Perfil");
+    			a3_nodes.forEach(detach_dev);
+    			t8 = claim_space(div3_nodes);
+    			a4 = claim_element(div3_nodes, "A", { class: true, href: true });
+    			var a4_nodes = children(a4);
+    			i4 = claim_element(a4_nodes, "I", { class: true, "data-feather": true });
+    			children(i4).forEach(detach_dev);
+    			t9 = claim_text(a4_nodes, " Principal");
+    			a4_nodes.forEach(detach_dev);
+    			t10 = claim_space(div3_nodes);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			children(div2).forEach(detach_dev);
+    			t11 = claim_space(div3_nodes);
+    			a5 = claim_element(div3_nodes, "A", { class: true, href: true });
+    			var a5_nodes = children(a5);
+    			t12 = claim_text(a5_nodes, "Configurações e Privacidade");
+    			a5_nodes.forEach(detach_dev);
+    			t13 = claim_space(div3_nodes);
+    			a6 = claim_element(div3_nodes, "A", { class: true, href: true });
+    			var a6_nodes = children(a6);
+    			t14 = claim_text(a6_nodes, "Ajuda");
+    			a6_nodes.forEach(detach_dev);
+    			t15 = claim_space(div3_nodes);
+    			a7 = claim_element(div3_nodes, "A", { class: true, href: true });
+    			var a7_nodes = children(a7);
+    			t16 = claim_text(a7_nodes, "Sair");
+    			a7_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			li_nodes.forEach(detach_dev);
+    			ul_nodes.forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			nav_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(i0, "class", "hamburger align-self-center");
+    			add_location(i0, file$a, 6, 4, 145);
+    			attr_dev(a0, "class", "sidebar-toggle");
+    			attr_dev(a0, "href", "/");
+    			add_location(a0, file$a, 5, 2, 104);
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "class", "form-control");
+    			attr_dev(input, "placeholder", "Pesquisar");
+    			attr_dev(input, "aria-label", "Search");
+    			add_location(input, file$a, 11, 6, 297);
+    			attr_dev(i1, "class", "align-middle");
+    			attr_dev(i1, "data-feather", "search");
+    			add_location(i1, file$a, 19, 10, 522);
+    			attr_dev(button, "class", "btn");
+    			attr_dev(button, "type", "button");
+    			add_location(button, file$a, 18, 8, 476);
+    			attr_dev(div0, "class", "input-group-append");
+    			add_location(div0, file$a, 17, 6, 434);
+    			attr_dev(div1, "class", "input-group input-group-navbar");
+    			add_location(div1, file$a, 10, 4, 245);
+    			attr_dev(form, "class", "d-none d-sm-inline-block");
+    			add_location(form, file$a, 9, 2, 200);
+    			attr_dev(i2, "class", "align-middle");
+    			attr_dev(i2, "data-feather", "settings");
+    			add_location(i2, file$a, 132, 10, 4813);
+    			attr_dev(a1, "class", "nav-icon dropdown-toggle d-inline-block d-sm-none");
+    			attr_dev(a1, "href", "/");
+    			attr_dev(a1, "data-toggle", "dropdown");
+    			add_location(a1, file$a, 127, 8, 4665);
+    			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "class", "avatar img-fluid rounded-circle mr-1");
+    			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[0].instagram);
+    			add_location(img, file$a, 140, 10, 5037);
+    			attr_dev(span, "class", "text-dark");
+    			add_location(span, file$a, 144, 13, 5175);
+    			attr_dev(a2, "class", "nav-link dropdown-toggle d-none d-sm-inline-block");
+    			attr_dev(a2, "href", "/");
+    			attr_dev(a2, "data-toggle", "dropdown");
+    			add_location(a2, file$a, 135, 8, 4889);
+    			attr_dev(i3, "class", "align-middle mr-1");
+    			attr_dev(i3, "data-feather", "user");
+    			add_location(i3, file$a, 148, 13, 5369);
+    			attr_dev(a3, "class", "dropdown-item");
+    			attr_dev(a3, "href", a3_href_value = "/" + /*user*/ ctx[0].instagram);
+    			add_location(a3, file$a, 147, 10, 5305);
+    			attr_dev(i4, "class", "align-middle mr-1");
+    			attr_dev(i4, "data-feather", "pie-chart");
+    			add_location(i4, file$a, 151, 13, 5512);
+    			attr_dev(a4, "class", "dropdown-item");
+    			attr_dev(a4, "href", "/dashboard");
+    			add_location(a4, file$a, 150, 10, 5455);
+    			attr_dev(div2, "class", "dropdown-divider");
+    			add_location(div2, file$a, 153, 10, 5606);
+    			attr_dev(a5, "class", "dropdown-item");
+    			attr_dev(a5, "href", "/settings");
+    			add_location(a5, file$a, 154, 10, 5650);
+    			attr_dev(a6, "class", "dropdown-item");
+    			attr_dev(a6, "href", "/copyright");
+    			add_location(a6, file$a, 157, 10, 5761);
+    			attr_dev(a7, "class", "dropdown-item");
+    			attr_dev(a7, "href", "/");
+    			add_location(a7, file$a, 158, 10, 5825);
+    			attr_dev(div3, "class", "dropdown-menu dropdown-menu-right");
+    			add_location(div3, file$a, 146, 8, 5246);
+    			attr_dev(li, "class", "nav-item dropdown");
+    			add_location(li, file$a, 126, 6, 4625);
+    			attr_dev(ul, "class", "navbar-nav navbar-align");
+    			add_location(ul, file$a, 26, 4, 676);
+    			attr_dev(div4, "class", "navbar-collapse collapse");
+    			add_location(div4, file$a, 25, 2, 632);
+    			attr_dev(nav, "class", "navbar navbar-expand navbar-light navbar-bg");
+    			add_location(nav, file$a, 4, 0, 43);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, nav, anchor);
+    			append_hydration_dev(nav, a0);
+    			append_hydration_dev(a0, i0);
+    			append_hydration_dev(nav, t0);
+    			append_hydration_dev(nav, form);
+    			append_hydration_dev(form, div1);
+    			append_hydration_dev(div1, input);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, button);
+    			append_hydration_dev(button, i1);
+    			append_hydration_dev(nav, t2);
+    			append_hydration_dev(nav, div4);
+    			append_hydration_dev(div4, ul);
+    			append_hydration_dev(ul, li);
+    			append_hydration_dev(li, a1);
+    			append_hydration_dev(a1, i2);
+    			append_hydration_dev(li, t3);
+    			append_hydration_dev(li, a2);
+    			append_hydration_dev(a2, img);
+    			append_hydration_dev(a2, t4);
+    			append_hydration_dev(a2, span);
+    			append_hydration_dev(span, t5);
+    			append_hydration_dev(li, t6);
+    			append_hydration_dev(li, div3);
+    			append_hydration_dev(div3, a3);
+    			append_hydration_dev(a3, i3);
+    			append_hydration_dev(a3, t7);
+    			append_hydration_dev(div3, t8);
+    			append_hydration_dev(div3, a4);
+    			append_hydration_dev(a4, i4);
+    			append_hydration_dev(a4, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div3, t11);
+    			append_hydration_dev(div3, a5);
+    			append_hydration_dev(a5, t12);
+    			append_hydration_dev(div3, t13);
+    			append_hydration_dev(div3, a6);
+    			append_hydration_dev(a6, t14);
+    			append_hydration_dev(div3, t15);
+    			append_hydration_dev(div3, a7);
+    			append_hydration_dev(a7, t16);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*user*/ 1 && !src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (dirty & /*user*/ 1 && img_alt_value !== (img_alt_value = /*user*/ ctx[0].instagram)) {
+    				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if (dirty & /*user*/ 1 && t5_value !== (t5_value = /*user*/ ctx[0].instagram + "")) set_data_dev(t5, t5_value);
+
+    			if (dirty & /*user*/ 1 && a3_href_value !== (a3_href_value = "/" + /*user*/ ctx[0].instagram)) {
+    				attr_dev(a3, "href", a3_href_value);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(nav);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$a.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$a($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Navbar', slots, []);
+    	let { user } = $$props;
+    	const writable_props = ['user'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Navbar> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
+    	};
+
+    	$$self.$capture_state = () => ({ user });
+
+    	$$self.$inject_state = $$props => {
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [user];
+    }
+
+    class Navbar extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$a, create_fragment$a, safe_not_equal, { user: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Navbar",
+    			options,
+    			id: create_fragment$a.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*user*/ ctx[0] === undefined && !('user' in props)) {
+    			console.warn("<Navbar> was created without expected prop 'user'");
+    		}
+    	}
+
+    	get user() {
+    		throw new Error("<Navbar>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set user(value) {
+    		throw new Error("<Navbar>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\pages\Dashboard.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$6 } = globals;
+    const file$9 = "src\\pages\\Dashboard.svelte";
+
+    function get_each_context$3(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[11] = list[i];
+    	return child_ctx;
+    }
+
+    // (262:14) {:else}
+    function create_else_block_1(ctx) {
+    	let div;
+    	let img;
+    	let img_src_value;
+    	let t0;
+    	let h1;
+    	let t1;
+    	let t2;
+    	let a;
+    	let t3;
+    	let t4;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			img = element("img");
+    			t0 = space();
+    			h1 = element("h1");
+    			t1 = text("Crie seu primeiro Produto ou Serviço");
+    			t2 = space();
+    			a = element("a");
+    			t3 = text("Criar");
+    			t4 = space();
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { style: true });
+    			var div_nodes = children(div);
+    			img = claim_element(div_nodes, "IMG", { alt: true, src: true, width: true });
+    			t0 = claim_space(div_nodes);
+    			h1 = claim_element(div_nodes, "H1", {});
+    			var h1_nodes = children(h1);
+    			t1 = claim_text(h1_nodes, "Crie seu primeiro Produto ou Serviço");
+    			h1_nodes.forEach(detach_dev);
+    			t2 = claim_space(div_nodes);
+    			a = claim_element(div_nodes, "A", { href: true, class: true });
+    			var a_nodes = children(a);
+    			t3 = claim_text(a_nodes, "Criar");
+    			a_nodes.forEach(detach_dev);
+    			t4 = claim_space(div_nodes);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(img, "alt", "");
+    			if (!src_url_equal(img.src, img_src_value = "img/upload.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "width", "300px");
+    			add_location(img, file$9, 265, 18, 9411);
+    			add_location(h1, file$9, 266, 18, 9480);
+    			attr_dev(a, "href", "/addlink");
+    			attr_dev(a, "class", "btn btn-primary");
+    			add_location(a, file$9, 267, 18, 9545);
+    			set_style(div, "display", "flex");
+    			set_style(div, "flex-direction", "column");
+    			set_style(div, "justify-content", "center");
+    			set_style(div, "align-items", "center");
+    			add_location(div, file$9, 262, 16, 9264);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, img);
+    			append_hydration_dev(div, t0);
+    			append_hydration_dev(div, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div, t2);
+    			append_hydration_dev(div, a);
+    			append_hydration_dev(a, t3);
+    			append_hydration_dev(div, t4);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_1.name,
+    		type: "else",
+    		source: "(262:14) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (231:16) {:else}
+    function create_else_block$5(ctx) {
+    	let div1;
+    	let div0;
+    	let small0;
+    	let t0_value = moment(/*link*/ ctx[11].created_date).startOf("hour").fromNow() + "";
+    	let t0;
+    	let t1;
+    	let p0;
+    	let strong;
+    	let t2_value = /*link*/ ctx[11].title + "";
+    	let t2;
+    	let t3;
+    	let p1;
+    	let t4_value = /*link*/ ctx[11].description + "";
+    	let t4;
+    	let t5;
+    	let small1;
+    	let t6_value = moment(/*link*/ ctx[11].created_date).calendar() + "";
+    	let t6;
+    	let br;
+    	let t7;
+    	let a0;
+    	let t8;
+    	let a0_href_value;
+    	let t9;
+    	let a1;
+    	let t10;
+    	let a1_href_value;
+    	let t11;
+    	let button;
+    	let t12;
+    	let mounted;
+    	let dispose;
+
+    	function click_handler_2() {
+    		return /*click_handler_2*/ ctx[6](/*link*/ ctx[11]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			small0 = element("small");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			p0 = element("p");
+    			strong = element("strong");
+    			t2 = text(t2_value);
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text(t4_value);
+    			t5 = space();
+    			small1 = element("small");
+    			t6 = text(t6_value);
+    			br = element("br");
+    			t7 = space();
+    			a0 = element("a");
+    			t8 = text("Go to link");
+    			t9 = space();
+    			a1 = element("a");
+    			t10 = text("Edit");
+    			t11 = space();
+    			button = element("button");
+    			t12 = text("Delete");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div1 = claim_element(nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			small0 = claim_element(div0_nodes, "SMALL", { class: true });
+    			var small0_nodes = children(small0);
+    			t0 = claim_text(small0_nodes, t0_value);
+    			small0_nodes.forEach(detach_dev);
+    			t1 = claim_space(div0_nodes);
+    			p0 = claim_element(div0_nodes, "P", { class: true });
+    			var p0_nodes = children(p0);
+    			strong = claim_element(p0_nodes, "STRONG", {});
+    			var strong_nodes = children(strong);
+    			t2 = claim_text(strong_nodes, t2_value);
+    			strong_nodes.forEach(detach_dev);
+    			p0_nodes.forEach(detach_dev);
+    			t3 = claim_space(div0_nodes);
+    			p1 = claim_element(div0_nodes, "P", {});
+    			var p1_nodes = children(p1);
+    			t4 = claim_text(p1_nodes, t4_value);
+    			p1_nodes.forEach(detach_dev);
+    			t5 = claim_space(div0_nodes);
+    			small1 = claim_element(div0_nodes, "SMALL", { class: true });
+    			var small1_nodes = children(small1);
+    			t6 = claim_text(small1_nodes, t6_value);
+    			small1_nodes.forEach(detach_dev);
+    			br = claim_element(div0_nodes, "BR", {});
+    			t7 = claim_space(div0_nodes);
+    			a0 = claim_element(div0_nodes, "A", { href: true, class: true });
+    			var a0_nodes = children(a0);
+    			t8 = claim_text(a0_nodes, "Go to link");
+    			a0_nodes.forEach(detach_dev);
+    			t9 = claim_space(div0_nodes);
+    			a1 = claim_element(div0_nodes, "A", { href: true, class: true });
+    			var a1_nodes = children(a1);
+    			t10 = claim_text(a1_nodes, "Edit");
+    			a1_nodes.forEach(detach_dev);
+    			t11 = claim_space(div0_nodes);
+    			button = claim_element(div0_nodes, "BUTTON", { class: true });
+    			var button_nodes = children(button);
+    			t12 = claim_text(button_nodes, "Delete");
+    			button_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(small0, "class", "float-right text-navy");
+    			add_location(small0, file$9, 233, 22, 8063);
+    			add_location(strong, file$9, 238, 38, 8307);
+    			attr_dev(p0, "class", "mb-2");
+    			add_location(p0, file$9, 238, 22, 8291);
+    			add_location(p1, file$9, 239, 22, 8364);
+    			attr_dev(small1, "class", "text-muted");
+    			add_location(small1, file$9, 242, 22, 8463);
+    			add_location(br, file$9, 244, 23, 8585);
+    			attr_dev(a0, "href", a0_href_value = /*link*/ ctx[11].url);
+    			attr_dev(a0, "class", "btn btn-sm btn-success mt-1");
+    			add_location(a0, file$9, 245, 22, 8615);
+    			attr_dev(a1, "href", a1_href_value = /*link*/ ctx[11].url);
+    			attr_dev(a1, "class", "btn btn-sm btn-primary mt-1");
+    			add_location(a1, file$9, 248, 22, 8758);
+    			attr_dev(button, "class", "btn btn-sm btn-danger mt-1");
+    			add_location(button, file$9, 251, 22, 8895);
+    			attr_dev(div0, "class", "media-body");
+    			add_location(div0, file$9, 232, 20, 8015);
+    			attr_dev(div1, "class", "media");
+    			add_location(div1, file$9, 231, 18, 7974);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, small0);
+    			append_hydration_dev(small0, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p0);
+    			append_hydration_dev(p0, strong);
+    			append_hydration_dev(strong, t2);
+    			append_hydration_dev(div0, t3);
+    			append_hydration_dev(div0, p1);
+    			append_hydration_dev(p1, t4);
+    			append_hydration_dev(div0, t5);
+    			append_hydration_dev(div0, small1);
+    			append_hydration_dev(small1, t6);
+    			append_hydration_dev(div0, br);
+    			append_hydration_dev(div0, t7);
+    			append_hydration_dev(div0, a0);
+    			append_hydration_dev(a0, t8);
+    			append_hydration_dev(div0, t9);
+    			append_hydration_dev(div0, a1);
+    			append_hydration_dev(a1, t10);
+    			append_hydration_dev(div0, t11);
+    			append_hydration_dev(div0, button);
+    			append_hydration_dev(button, t12);
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", click_handler_2, false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			if (dirty & /*user*/ 1 && t0_value !== (t0_value = moment(/*link*/ ctx[11].created_date).startOf("hour").fromNow() + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*user*/ 1 && t2_value !== (t2_value = /*link*/ ctx[11].title + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*user*/ 1 && t4_value !== (t4_value = /*link*/ ctx[11].description + "")) set_data_dev(t4, t4_value);
+    			if (dirty & /*user*/ 1 && t6_value !== (t6_value = moment(/*link*/ ctx[11].created_date).calendar() + "")) set_data_dev(t6, t6_value);
+
+    			if (dirty & /*user*/ 1 && a0_href_value !== (a0_href_value = /*link*/ ctx[11].url)) {
+    				attr_dev(a0, "href", a0_href_value);
+    			}
+
+    			if (dirty & /*user*/ 1 && a1_href_value !== (a1_href_value = /*link*/ ctx[11].url)) {
+    				attr_dev(a1, "href", a1_href_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$5.name,
+    		type: "else",
+    		source: "(231:16) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (186:16) {#if link.image != null && link.image != ""}
+    function create_if_block$6(ctx) {
+    	let div2;
+    	let div1;
+    	let small0;
+    	let t0_value = moment(/*link*/ ctx[11].created_date).startOf("hour").fromNow() + "";
+    	let t0;
+    	let t1;
+    	let p0;
+    	let strong;
+    	let t2_value = /*link*/ ctx[11].title + "";
+    	let t2;
+    	let t3;
+    	let p1;
+    	let t4_value = /*link*/ ctx[11].description + "";
+    	let t4;
+    	let t5;
+    	let div0;
+    	let img;
+    	let img_src_value;
+    	let img_alt_value;
+    	let t6;
+    	let small1;
+    	let t7_value = moment(/*link*/ ctx[11].created_date).calendar() + "";
+    	let t7;
+    	let br;
+    	let t8;
+    	let a;
+    	let t9;
+    	let a_href_value;
+    	let t10;
+    	let button0;
+    	let t11;
+    	let t12;
+    	let button1;
+    	let t13;
+    	let mounted;
+    	let dispose;
+
+    	function click_handler() {
+    		return /*click_handler*/ ctx[4](/*link*/ ctx[11]);
+    	}
+
+    	function click_handler_1() {
+    		return /*click_handler_1*/ ctx[5](/*link*/ ctx[11]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			div1 = element("div");
+    			small0 = element("small");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			p0 = element("p");
+    			strong = element("strong");
+    			t2 = text(t2_value);
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text(t4_value);
+    			t5 = space();
+    			div0 = element("div");
+    			img = element("img");
+    			t6 = space();
+    			small1 = element("small");
+    			t7 = text(t7_value);
+    			br = element("br");
+    			t8 = space();
+    			a = element("a");
+    			t9 = text("Ir para página");
+    			t10 = space();
+    			button0 = element("button");
+    			t11 = text("Editar");
+    			t12 = space();
+    			button1 = element("button");
+    			t13 = text("Apagar");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div2 = claim_element(nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			div1 = claim_element(div2_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			small0 = claim_element(div1_nodes, "SMALL", { class: true });
+    			var small0_nodes = children(small0);
+    			t0 = claim_text(small0_nodes, t0_value);
+    			small0_nodes.forEach(detach_dev);
+    			t1 = claim_space(div1_nodes);
+    			p0 = claim_element(div1_nodes, "P", { class: true });
+    			var p0_nodes = children(p0);
+    			strong = claim_element(p0_nodes, "STRONG", {});
+    			var strong_nodes = children(strong);
+    			t2 = claim_text(strong_nodes, t2_value);
+    			strong_nodes.forEach(detach_dev);
+    			p0_nodes.forEach(detach_dev);
+    			t3 = claim_space(div1_nodes);
+    			p1 = claim_element(div1_nodes, "P", {});
+    			var p1_nodes = children(p1);
+    			t4 = claim_text(p1_nodes, t4_value);
+    			p1_nodes.forEach(detach_dev);
+    			t5 = claim_space(div1_nodes);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true, style: true });
+    			var div0_nodes = children(div0);
+
+    			img = claim_element(div0_nodes, "IMG", {
+    				src: true,
+    				style: true,
+    				height: true,
+    				alt: true
+    			});
+
+    			div0_nodes.forEach(detach_dev);
+    			t6 = claim_space(div1_nodes);
+    			small1 = claim_element(div1_nodes, "SMALL", { class: true });
+    			var small1_nodes = children(small1);
+    			t7 = claim_text(small1_nodes, t7_value);
+    			small1_nodes.forEach(detach_dev);
+    			br = claim_element(div1_nodes, "BR", {});
+    			t8 = claim_space(div1_nodes);
+    			a = claim_element(div1_nodes, "A", { href: true, class: true });
+    			var a_nodes = children(a);
+    			t9 = claim_text(a_nodes, "Ir para página");
+    			a_nodes.forEach(detach_dev);
+    			t10 = claim_space(div1_nodes);
+    			button0 = claim_element(div1_nodes, "BUTTON", { class: true });
+    			var button0_nodes = children(button0);
+    			t11 = claim_text(button0_nodes, "Editar");
+    			button0_nodes.forEach(detach_dev);
+    			t12 = claim_space(div1_nodes);
+    			button1 = claim_element(div1_nodes, "BUTTON", { class: true });
+    			var button1_nodes = children(button1);
+    			t13 = claim_text(button1_nodes, "Apagar");
+    			button1_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(small0, "class", "float-right text-navy");
+    			add_location(small0, file$9, 188, 22, 6267);
+    			add_location(strong, file$9, 193, 38, 6511);
+    			attr_dev(p0, "class", "mb-2");
+    			add_location(p0, file$9, 193, 22, 6495);
+    			add_location(p1, file$9, 194, 22, 6568);
+    			if (!src_url_equal(img.src, img_src_value = /*link*/ ctx[11].image)) attr_dev(img, "src", img_src_value);
+    			set_style(img, "margin", "10px");
+    			attr_dev(img, "height", "200px");
+    			attr_dev(img, "alt", img_alt_value = /*link*/ ctx[11].title);
+    			add_location(img, file$9, 202, 24, 6838);
+    			attr_dev(div0, "class", "row no-gutters mt-1");
+    			set_style(div0, "display", "flex");
+    			set_style(div0, "flex-wrap", "wrap");
+    			add_location(div0, file$9, 198, 22, 6669);
+    			attr_dev(small1, "class", "text-muted");
+    			add_location(small1, file$9, 210, 22, 7103);
+    			add_location(br, file$9, 212, 23, 7225);
+    			attr_dev(a, "href", a_href_value = /*link*/ ctx[11].url);
+    			attr_dev(a, "class", "btn btn-sm btn-success mt-1");
+    			add_location(a, file$9, 213, 22, 7255);
+    			attr_dev(button0, "class", "btn btn-sm btn-primary mt-1");
+    			add_location(button0, file$9, 216, 22, 7402);
+    			attr_dev(button1, "class", "btn btn-sm btn-danger mt-1");
+    			add_location(button1, file$9, 222, 22, 7648);
+    			attr_dev(div1, "class", "media-body");
+    			add_location(div1, file$9, 187, 20, 6219);
+    			attr_dev(div2, "class", "media");
+    			add_location(div2, file$9, 186, 18, 6178);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div2, anchor);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, small0);
+    			append_hydration_dev(small0, t0);
+    			append_hydration_dev(div1, t1);
+    			append_hydration_dev(div1, p0);
+    			append_hydration_dev(p0, strong);
+    			append_hydration_dev(strong, t2);
+    			append_hydration_dev(div1, t3);
+    			append_hydration_dev(div1, p1);
+    			append_hydration_dev(p1, t4);
+    			append_hydration_dev(div1, t5);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, img);
+    			append_hydration_dev(div1, t6);
+    			append_hydration_dev(div1, small1);
+    			append_hydration_dev(small1, t7);
+    			append_hydration_dev(div1, br);
+    			append_hydration_dev(div1, t8);
+    			append_hydration_dev(div1, a);
+    			append_hydration_dev(a, t9);
+    			append_hydration_dev(div1, t10);
+    			append_hydration_dev(div1, button0);
+    			append_hydration_dev(button0, t11);
+    			append_hydration_dev(div1, t12);
+    			append_hydration_dev(div1, button1);
+    			append_hydration_dev(button1, t13);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(button0, "click", click_handler, false, false, false),
+    					listen_dev(button1, "click", click_handler_1, false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			if (dirty & /*user*/ 1 && t0_value !== (t0_value = moment(/*link*/ ctx[11].created_date).startOf("hour").fromNow() + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*user*/ 1 && t2_value !== (t2_value = /*link*/ ctx[11].title + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*user*/ 1 && t4_value !== (t4_value = /*link*/ ctx[11].description + "")) set_data_dev(t4, t4_value);
+
+    			if (dirty & /*user*/ 1 && !src_url_equal(img.src, img_src_value = /*link*/ ctx[11].image)) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (dirty & /*user*/ 1 && img_alt_value !== (img_alt_value = /*link*/ ctx[11].title)) {
+    				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if (dirty & /*user*/ 1 && t7_value !== (t7_value = moment(/*link*/ ctx[11].created_date).calendar() + "")) set_data_dev(t7, t7_value);
+
+    			if (dirty & /*user*/ 1 && a_href_value !== (a_href_value = /*link*/ ctx[11].url)) {
+    				attr_dev(a, "href", a_href_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$6.name,
+    		type: "if",
+    		source: "(186:16) {#if link.image != null && link.image != \\\"\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (185:14) {#each user.links as link}
+    function create_each_block$3(ctx) {
+    	let t;
+    	let hr;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*link*/ ctx[11].image != null && /*link*/ ctx[11].image != "") return create_if_block$6;
+    		return create_else_block$5;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			t = space();
+    			hr = element("hr");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			if_block.l(nodes);
+    			t = claim_space(nodes);
+    			hr = claim_element(nodes, "HR", {});
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			add_location(hr, file$9, 260, 16, 9217);
+    		},
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_hydration_dev(target, t, anchor);
+    			insert_hydration_dev(target, hr, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(t.parentNode, t);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(hr);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$3.name,
+    		type: "each",
+    		source: "(185:14) {#each user.links as link}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$9(ctx) {
+    	let div22;
+    	let navbar;
+    	let t0;
+    	let main;
+    	let div21;
+    	let div20;
+    	let div15;
+    	let div4;
+    	let div3;
+    	let img;
+    	let img_src_value;
+    	let img_alt_value;
+    	let t1;
+    	let h4;
+    	let t2_value = /*user*/ ctx[0].instagram + "";
+    	let t2;
+    	let t3;
+    	let input;
+    	let input_value_value;
+    	let t4;
+    	let div0;
+    	let button;
+    	let span0;
+    	let t5;
+    	let t6;
+    	let t7;
+    	let div1;
+    	let t8;
+    	let t9_value = (/*user*/ ctx[0].total_links || 0) + "";
+    	let t9;
+    	let t10;
+    	let div2;
+    	let a0;
+    	let t11;
+    	let t12;
+    	let a1;
+    	let t13;
+    	let t14;
+    	let a2;
+    	let span1;
+    	let t15;
+    	let a2_href_value;
+    	let t16;
+    	let div14;
+    	let div8;
+    	let div7;
+    	let div6;
+    	let a3;
+    	let i;
+    	let t17;
+    	let div5;
+    	let a4;
+    	let t18;
+    	let t19;
+    	let h5;
+    	let t20;
+    	let t21;
+    	let div13;
+    	let div10;
+    	let div9;
+    	let p0;
+    	let strong0;
+    	let t22;
+    	let t23;
+    	let p1;
+    	let t24_value = /*user*/ ctx[0].views + "";
+    	let t24;
+    	let t25;
+    	let hr0;
+    	let t26;
+    	let div12;
+    	let div11;
+    	let p2;
+    	let strong1;
+    	let t27;
+    	let t28;
+    	let p3;
+    	let t29;
+    	let t30;
+    	let hr1;
+    	let t31;
+    	let div16;
+    	let t32;
+    	let div19;
+    	let div18;
+    	let div17;
+    	let t33;
+    	let footer;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	navbar = new Navbar({
+    			props: { user: /*user*/ ctx[0] },
+    			$$inline: true
+    		});
+
+    	let each_value = /*user*/ ctx[0].links;
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
+    	}
+
+    	let each_1_else = null;
+
+    	if (!each_value.length) {
+    		each_1_else = create_else_block_1(ctx);
+    	}
+
+    	footer = new Footer({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			div22 = element("div");
+    			create_component(navbar.$$.fragment);
+    			t0 = space();
+    			main = element("main");
+    			div21 = element("div");
+    			div20 = element("div");
+    			div15 = element("div");
+    			div4 = element("div");
+    			div3 = element("div");
+    			img = element("img");
+    			t1 = space();
+    			h4 = element("h4");
+    			t2 = text(t2_value);
+    			t3 = space();
+    			input = element("input");
+    			t4 = space();
+    			div0 = element("div");
+    			button = element("button");
+    			span0 = element("span");
+    			t5 = text("Copiar Link");
+    			t6 = text("\r\n                  Copiar");
+    			t7 = space();
+    			div1 = element("div");
+    			t8 = text("Total de Produtos e Serviços oferecidos : ");
+    			t9 = text(t9_value);
+    			t10 = space();
+    			div2 = element("div");
+    			a0 = element("a");
+    			t11 = text("Adicionar Produto/Serviço");
+    			t12 = space();
+    			a1 = element("a");
+    			t13 = text("Adicionar Agenda");
+    			t14 = space();
+    			a2 = element("a");
+    			span1 = element("span");
+    			t15 = text(" Instagram");
+    			t16 = space();
+    			div14 = element("div");
+    			div8 = element("div");
+    			div7 = element("div");
+    			div6 = element("div");
+    			a3 = element("a");
+    			i = element("i");
+    			t17 = space();
+    			div5 = element("div");
+    			a4 = element("a");
+    			t18 = text("View all");
+    			t19 = space();
+    			h5 = element("h5");
+    			t20 = text("Estatísticas");
+    			t21 = space();
+    			div13 = element("div");
+    			div10 = element("div");
+    			div9 = element("div");
+    			p0 = element("p");
+    			strong0 = element("strong");
+    			t22 = text("Total de visitas");
+    			t23 = space();
+    			p1 = element("p");
+    			t24 = text(t24_value);
+    			t25 = space();
+    			hr0 = element("hr");
+    			t26 = space();
+    			div12 = element("div");
+    			div11 = element("div");
+    			p2 = element("p");
+    			strong1 = element("strong");
+    			t27 = text("Total de Cliques");
+    			t28 = space();
+    			p3 = element("p");
+    			t29 = text(/*clicks*/ ctx[1]);
+    			t30 = space();
+    			hr1 = element("hr");
+    			t31 = space();
+    			div16 = element("div");
+    			t32 = space();
+    			div19 = element("div");
+    			div18 = element("div");
+    			div17 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			if (each_1_else) {
+    				each_1_else.c();
+    			}
+
+    			t33 = space();
+    			create_component(footer.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div22 = claim_element(nodes, "DIV", { class: true });
+    			var div22_nodes = children(div22);
+    			claim_component(navbar.$$.fragment, div22_nodes);
+    			t0 = claim_space(div22_nodes);
+    			main = claim_element(div22_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div21 = claim_element(main_nodes, "DIV", { class: true });
+    			var div21_nodes = children(div21);
+    			div20 = claim_element(div21_nodes, "DIV", { class: true });
+    			var div20_nodes = children(div20);
+    			div15 = claim_element(div20_nodes, "DIV", { class: true });
+    			var div15_nodes = children(div15);
+    			div4 = claim_element(div15_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			div3 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+
+    			img = claim_element(div3_nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true
+    			});
+
+    			t1 = claim_space(div3_nodes);
+    			h4 = claim_element(div3_nodes, "H4", { class: true });
+    			var h4_nodes = children(h4);
+    			t2 = claim_text(h4_nodes, t2_value);
+    			h4_nodes.forEach(detach_dev);
+    			t3 = claim_space(div3_nodes);
+    			input = claim_element(div3_nodes, "INPUT", { type: true, id: true, style: true });
+    			t4 = claim_space(div3_nodes);
+    			div0 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			button = claim_element(div0_nodes, "BUTTON", { class: true });
+    			var button_nodes = children(button);
+    			span0 = claim_element(button_nodes, "SPAN", { class: true, id: true });
+    			var span0_nodes = children(span0);
+    			t5 = claim_text(span0_nodes, "Copiar Link");
+    			span0_nodes.forEach(detach_dev);
+    			t6 = claim_text(button_nodes, "\r\n                  Copiar");
+    			button_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t7 = claim_space(div3_nodes);
+    			div1 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			t8 = claim_text(div1_nodes, "Total de Produtos e Serviços oferecidos : ");
+    			t9 = claim_text(div1_nodes, t9_value);
+    			div1_nodes.forEach(detach_dev);
+    			t10 = claim_space(div3_nodes);
+    			div2 = claim_element(div3_nodes, "DIV", {});
+    			var div2_nodes = children(div2);
+    			a0 = claim_element(div2_nodes, "A", { class: true, replace: true, href: true });
+    			var a0_nodes = children(a0);
+    			t11 = claim_text(a0_nodes, "Adicionar Produto/Serviço");
+    			a0_nodes.forEach(detach_dev);
+    			t12 = claim_space(div2_nodes);
+    			a1 = claim_element(div2_nodes, "A", { class: true, replace: true, href: true });
+    			var a1_nodes = children(a1);
+    			t13 = claim_text(a1_nodes, "Adicionar Agenda");
+    			a1_nodes.forEach(detach_dev);
+    			t14 = claim_space(div2_nodes);
+    			a2 = claim_element(div2_nodes, "A", { class: true, target: true, href: true });
+    			var a2_nodes = children(a2);
+    			span1 = claim_element(a2_nodes, "SPAN", { "data-feather": true });
+    			children(span1).forEach(detach_dev);
+    			t15 = claim_text(a2_nodes, " Instagram");
+    			a2_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			t16 = claim_space(div15_nodes);
+    			div14 = claim_element(div15_nodes, "DIV", { class: true });
+    			var div14_nodes = children(div14);
+    			div8 = claim_element(div14_nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			div7 = claim_element(div8_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			div6 = claim_element(div7_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+
+    			a3 = claim_element(div6_nodes, "A", {
+    				href: true,
+    				"data-toggle": true,
+    				"data-display": true
+    			});
+
+    			var a3_nodes = children(a3);
+    			i = claim_element(a3_nodes, "I", { class: true, "data-feather": true });
+    			children(i).forEach(detach_dev);
+    			a3_nodes.forEach(detach_dev);
+    			t17 = claim_space(div6_nodes);
+    			div5 = claim_element(div6_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			a4 = claim_element(div5_nodes, "A", { class: true, href: true });
+    			var a4_nodes = children(a4);
+    			t18 = claim_text(a4_nodes, "View all");
+    			a4_nodes.forEach(detach_dev);
+    			div5_nodes.forEach(detach_dev);
+    			div6_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			t19 = claim_space(div8_nodes);
+    			h5 = claim_element(div8_nodes, "H5", { class: true });
+    			var h5_nodes = children(h5);
+    			t20 = claim_text(h5_nodes, "Estatísticas");
+    			h5_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			t21 = claim_space(div14_nodes);
+    			div13 = claim_element(div14_nodes, "DIV", { class: true });
+    			var div13_nodes = children(div13);
+    			div10 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div10_nodes = children(div10);
+    			div9 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div9_nodes = children(div9);
+    			p0 = claim_element(div9_nodes, "P", { class: true });
+    			var p0_nodes = children(p0);
+    			strong0 = claim_element(p0_nodes, "STRONG", {});
+    			var strong0_nodes = children(strong0);
+    			t22 = claim_text(strong0_nodes, "Total de visitas");
+    			strong0_nodes.forEach(detach_dev);
+    			p0_nodes.forEach(detach_dev);
+    			t23 = claim_space(div9_nodes);
+    			p1 = claim_element(div9_nodes, "P", { class: true });
+    			var p1_nodes = children(p1);
+    			t24 = claim_text(p1_nodes, t24_value);
+    			p1_nodes.forEach(detach_dev);
+    			div9_nodes.forEach(detach_dev);
+    			div10_nodes.forEach(detach_dev);
+    			t25 = claim_space(div13_nodes);
+    			hr0 = claim_element(div13_nodes, "HR", { class: true });
+    			t26 = claim_space(div13_nodes);
+    			div12 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div12_nodes = children(div12);
+    			div11 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div11_nodes = children(div11);
+    			p2 = claim_element(div11_nodes, "P", { class: true });
+    			var p2_nodes = children(p2);
+    			strong1 = claim_element(p2_nodes, "STRONG", {});
+    			var strong1_nodes = children(strong1);
+    			t27 = claim_text(strong1_nodes, "Total de Cliques");
+    			strong1_nodes.forEach(detach_dev);
+    			p2_nodes.forEach(detach_dev);
+    			t28 = claim_space(div11_nodes);
+    			p3 = claim_element(div11_nodes, "P", { class: true });
+    			var p3_nodes = children(p3);
+    			t29 = claim_text(p3_nodes, /*clicks*/ ctx[1]);
+    			p3_nodes.forEach(detach_dev);
+    			div11_nodes.forEach(detach_dev);
+    			div12_nodes.forEach(detach_dev);
+    			t30 = claim_space(div13_nodes);
+    			hr1 = claim_element(div13_nodes, "HR", { class: true });
+    			div13_nodes.forEach(detach_dev);
+    			div14_nodes.forEach(detach_dev);
+    			div15_nodes.forEach(detach_dev);
+    			t31 = claim_space(div20_nodes);
+    			div16 = claim_element(div20_nodes, "DIV", { class: true });
+    			var div16_nodes = children(div16);
+    			div16_nodes.forEach(detach_dev);
+    			t32 = claim_space(div20_nodes);
+    			div19 = claim_element(div20_nodes, "DIV", { class: true });
+    			var div19_nodes = children(div19);
+    			div18 = claim_element(div19_nodes, "DIV", { class: true });
+    			var div18_nodes = children(div18);
+    			div17 = claim_element(div18_nodes, "DIV", { class: true });
+    			var div17_nodes = children(div17);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(div17_nodes);
+    			}
+
+    			if (each_1_else) {
+    				each_1_else.l(div17_nodes);
+    			}
+
+    			div17_nodes.forEach(detach_dev);
+    			div18_nodes.forEach(detach_dev);
+    			div19_nodes.forEach(detach_dev);
+    			div20_nodes.forEach(detach_dev);
+    			div21_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			t33 = claim_space(div22_nodes);
+    			claim_component(footer.$$.fragment, div22_nodes);
+    			div22_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[0].instagram);
+    			attr_dev(img, "class", "img-fluid rounded-circle mb-2");
+    			attr_dev(img, "width", "128");
+    			attr_dev(img, "height", "128");
+    			add_location(img, file$9, 75, 14, 2275);
+    			attr_dev(h4, "class", "card-title mb-0");
+    			add_location(h4, file$9, 82, 14, 2496);
+    			attr_dev(input, "type", "text");
+    			input.value = input_value_value = `https://vitrinedacasa.com.br/${/*user*/ ctx[0].instagram}`;
+    			attr_dev(input, "id", "myInput");
+    			set_style(input, "border", "none");
+    			set_style(input, "width", "100%");
+    			set_style(input, "text-align", "center");
+    			set_style(input, "margin", "5px");
+    			set_style(input, "pointer-events", "none");
+    			add_location(input, file$9, 84, 14, 2563);
+    			attr_dev(span0, "class", "tooltiptext svelte-4rq2pt");
+    			attr_dev(span0, "id", "myTooltip");
+    			add_location(span0, file$9, 97, 18, 3088);
+    			attr_dev(button, "class", "btn btn-sm btn-success");
+    			add_location(button, file$9, 91, 16, 2873);
+    			attr_dev(div0, "class", "tooltip svelte-4rq2pt");
+    			add_location(div0, file$9, 90, 14, 2834);
+    			attr_dev(div1, "class", "text-muted mb-2");
+    			add_location(div1, file$9, 103, 14, 3280);
+    			attr_dev(a0, "class", "btn btn-primary btn-sm");
+    			attr_dev(a0, "replace", "");
+    			attr_dev(a0, "href", "/addlink");
+    			add_location(a0, file$9, 108, 16, 3455);
+    			attr_dev(a1, "class", "btn btn-primary btn-sm");
+    			attr_dev(a1, "replace", "");
+    			attr_dev(a1, "href", "/addschedule");
+    			add_location(a1, file$9, 114, 16, 3663);
+    			attr_dev(span1, "data-feather", "instagram");
+    			add_location(span1, file$9, 124, 19, 4051);
+    			attr_dev(a2, "class", "btn btn-danger btn-sm");
+    			attr_dev(a2, "target", "_blank");
+    			attr_dev(a2, "href", a2_href_value = "https://www.instagram.com/" + /*user*/ ctx[0].instagram + "/");
+    			add_location(a2, file$9, 120, 16, 3866);
+    			add_location(div2, file$9, 107, 14, 3432);
+    			attr_dev(div3, "class", "card-body text-center");
+    			add_location(div3, file$9, 74, 12, 2224);
+    			attr_dev(div4, "class", "card mb-3");
+    			add_location(div4, file$9, 73, 10, 2187);
+    			attr_dev(i, "class", "align-middle");
+    			attr_dev(i, "data-feather", "more-horizontal");
+    			add_location(i, file$9, 139, 20, 4542);
+    			attr_dev(a3, "href", "/dashboard");
+    			attr_dev(a3, "data-toggle", "dropdown");
+    			attr_dev(a3, "data-display", "static");
+    			add_location(a3, file$9, 134, 18, 4371);
+    			attr_dev(a4, "class", "dropdown-item");
+    			attr_dev(a4, "href", "/dashboard");
+    			add_location(a4, file$9, 143, 20, 4714);
+    			attr_dev(div5, "class", "dropdown-menu dropdown-menu-right");
+    			add_location(div5, file$9, 142, 18, 4645);
+    			attr_dev(div6, "class", "dropdown show");
+    			add_location(div6, file$9, 133, 16, 4324);
+    			attr_dev(div7, "class", "card-actions float-right");
+    			add_location(div7, file$9, 132, 14, 4268);
+    			attr_dev(h5, "class", "card-title mb-0");
+    			add_location(h5, file$9, 147, 14, 4857);
+    			attr_dev(div8, "class", "card-header");
+    			add_location(div8, file$9, 131, 12, 4227);
+    			add_location(strong0, file$9, 152, 34, 5072);
+    			attr_dev(p0, "class", "my-1");
+    			add_location(p0, file$9, 152, 18, 5056);
+    			attr_dev(p1, "class", "text-info");
+    			add_location(p1, file$9, 153, 18, 5129);
+    			attr_dev(div9, "class", "media-body");
+    			add_location(div9, file$9, 151, 16, 5012);
+    			attr_dev(div10, "class", "media");
+    			add_location(div10, file$9, 150, 14, 4975);
+    			attr_dev(hr0, "class", "my-2");
+    			add_location(hr0, file$9, 157, 14, 5230);
+    			add_location(strong1, file$9, 161, 34, 5364);
+    			attr_dev(p2, "class", "my-1");
+    			add_location(p2, file$9, 161, 18, 5348);
+    			attr_dev(p3, "class", "text-warning");
+    			add_location(p3, file$9, 162, 18, 5421);
+    			attr_dev(div11, "class", "media-body");
+    			add_location(div11, file$9, 160, 16, 5304);
+    			attr_dev(div12, "class", "media");
+    			add_location(div12, file$9, 159, 14, 5267);
+    			attr_dev(hr1, "class", "my-2");
+    			add_location(hr1, file$9, 166, 14, 5521);
+    			attr_dev(div13, "class", "card-body");
+    			add_location(div13, file$9, 149, 12, 4936);
+    			attr_dev(div14, "class", "card mb-3");
+    			add_location(div14, file$9, 130, 10, 4190);
+    			attr_dev(div15, "class", "col-12 col-md-5 col-lg-3");
+    			add_location(div15, file$9, 72, 8, 2137);
+    			attr_dev(div16, "class", "col-12 col-md-7 col-lg-5");
+    			add_location(div16, file$9, 177, 8, 5866);
+    			attr_dev(div17, "class", "card-body h-100");
+    			add_location(div17, file$9, 183, 12, 6025);
+    			attr_dev(div18, "class", "card");
+    			add_location(div18, file$9, 182, 10, 5993);
+    			attr_dev(div19, "class", "col-12 col-md-12 col-lg-4");
+    			add_location(div19, file$9, 181, 8, 5942);
+    			attr_dev(div20, "class", "row");
+    			add_location(div20, file$9, 70, 6, 2100);
+    			attr_dev(div21, "class", "container-fluid p-0");
+    			add_location(div21, file$9, 69, 4, 2059);
+    			attr_dev(main, "class", "content");
+    			add_location(main, file$9, 68, 2, 2031);
+    			attr_dev(div22, "class", "main");
+    			add_location(div22, file$9, 65, 0, 1984);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div22, anchor);
+    			mount_component(navbar, div22, null);
+    			append_hydration_dev(div22, t0);
+    			append_hydration_dev(div22, main);
+    			append_hydration_dev(main, div21);
+    			append_hydration_dev(div21, div20);
+    			append_hydration_dev(div20, div15);
+    			append_hydration_dev(div15, div4);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, img);
+    			append_hydration_dev(div3, t1);
+    			append_hydration_dev(div3, h4);
+    			append_hydration_dev(h4, t2);
+    			append_hydration_dev(div3, t3);
+    			append_hydration_dev(div3, input);
+    			append_hydration_dev(div3, t4);
+    			append_hydration_dev(div3, div0);
+    			append_hydration_dev(div0, button);
+    			append_hydration_dev(button, span0);
+    			append_hydration_dev(span0, t5);
+    			append_hydration_dev(button, t6);
+    			append_hydration_dev(div3, t7);
+    			append_hydration_dev(div3, div1);
+    			append_hydration_dev(div1, t8);
+    			append_hydration_dev(div1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, a0);
+    			append_hydration_dev(a0, t11);
+    			append_hydration_dev(div2, t12);
+    			append_hydration_dev(div2, a1);
+    			append_hydration_dev(a1, t13);
+    			append_hydration_dev(div2, t14);
+    			append_hydration_dev(div2, a2);
+    			append_hydration_dev(a2, span1);
+    			append_hydration_dev(a2, t15);
+    			append_hydration_dev(div15, t16);
+    			append_hydration_dev(div15, div14);
+    			append_hydration_dev(div14, div8);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div6);
+    			append_hydration_dev(div6, a3);
+    			append_hydration_dev(a3, i);
+    			append_hydration_dev(div6, t17);
+    			append_hydration_dev(div6, div5);
+    			append_hydration_dev(div5, a4);
+    			append_hydration_dev(a4, t18);
+    			append_hydration_dev(div8, t19);
+    			append_hydration_dev(div8, h5);
+    			append_hydration_dev(h5, t20);
+    			append_hydration_dev(div14, t21);
+    			append_hydration_dev(div14, div13);
+    			append_hydration_dev(div13, div10);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, p0);
+    			append_hydration_dev(p0, strong0);
+    			append_hydration_dev(strong0, t22);
+    			append_hydration_dev(div9, t23);
+    			append_hydration_dev(div9, p1);
+    			append_hydration_dev(p1, t24);
+    			append_hydration_dev(div13, t25);
+    			append_hydration_dev(div13, hr0);
+    			append_hydration_dev(div13, t26);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, p2);
+    			append_hydration_dev(p2, strong1);
+    			append_hydration_dev(strong1, t27);
+    			append_hydration_dev(div11, t28);
+    			append_hydration_dev(div11, p3);
+    			append_hydration_dev(p3, t29);
+    			append_hydration_dev(div13, t30);
+    			append_hydration_dev(div13, hr1);
+    			append_hydration_dev(div20, t31);
+    			append_hydration_dev(div20, div16);
+    			append_hydration_dev(div20, t32);
+    			append_hydration_dev(div20, div19);
+    			append_hydration_dev(div19, div18);
+    			append_hydration_dev(div18, div17);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div17, null);
+    			}
+
+    			if (each_1_else) {
+    				each_1_else.m(div17, null);
+    			}
+
+    			append_hydration_dev(div22, t33);
+    			mount_component(footer, div22, null);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(button, "click", myFunction, false, false, false),
+    					listen_dev(button, "mouseout", outFunc, false, false, false),
+    					listen_dev(button, "blur", outFunc, false, false, false),
+    					action_destroyer(link.call(null, a0)),
+    					action_destroyer(link.call(null, a1))
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const navbar_changes = {};
+    			if (dirty & /*user*/ 1) navbar_changes.user = /*user*/ ctx[0];
+    			navbar.$set(navbar_changes);
+
+    			if (!current || dirty & /*user*/ 1 && !src_url_equal(img.src, img_src_value = /*user*/ ctx[0].dp)) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (!current || dirty & /*user*/ 1 && img_alt_value !== (img_alt_value = /*user*/ ctx[0].instagram)) {
+    				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if ((!current || dirty & /*user*/ 1) && t2_value !== (t2_value = /*user*/ ctx[0].instagram + "")) set_data_dev(t2, t2_value);
+
+    			if (!current || dirty & /*user*/ 1 && input_value_value !== (input_value_value = `https://vitrinedacasa.com.br/${/*user*/ ctx[0].instagram}`) && input.value !== input_value_value) {
+    				prop_dev(input, "value", input_value_value);
+    			}
+
+    			if ((!current || dirty & /*user*/ 1) && t9_value !== (t9_value = (/*user*/ ctx[0].total_links || 0) + "")) set_data_dev(t9, t9_value);
+
+    			if (!current || dirty & /*user*/ 1 && a2_href_value !== (a2_href_value = "https://www.instagram.com/" + /*user*/ ctx[0].instagram + "/")) {
+    				attr_dev(a2, "href", a2_href_value);
+    			}
+
+    			if ((!current || dirty & /*user*/ 1) && t24_value !== (t24_value = /*user*/ ctx[0].views + "")) set_data_dev(t24, t24_value);
+    			if (!current || dirty & /*clicks*/ 2) set_data_dev(t29, /*clicks*/ ctx[1]);
+
+    			if (dirty & /*deleteLink, user, editlink, moment*/ 13) {
+    				each_value = /*user*/ ctx[0].links;
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$3(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$3(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div17, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+
+    				if (!each_value.length && each_1_else) {
+    					each_1_else.p(ctx, dirty);
+    				} else if (!each_value.length) {
+    					each_1_else = create_else_block_1(ctx);
+    					each_1_else.c();
+    					each_1_else.m(div17, null);
+    				} else if (each_1_else) {
+    					each_1_else.d(1);
+    					each_1_else = null;
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(navbar.$$.fragment, local);
+    			transition_in(footer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(navbar.$$.fragment, local);
+    			transition_out(footer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div22);
+    			destroy_component(navbar);
+    			destroy_each(each_blocks, detaching);
+    			if (each_1_else) each_1_else.d();
+    			destroy_component(footer);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$9.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function myFunction() {
+    	var copyText = document.getElementById("myInput");
+    	copyText.select();
+    	copyText.setSelectionRange(0, 99999);
+    	document.execCommand("copy");
+    	var tooltip = document.getElementById("myTooltip");
+    	tooltip.innerHTML = "Copied: " + copyText.value;
+    }
+
+    function outFunc() {
+    	var tooltip = document.getElementById("myTooltip");
+    	tooltip.innerHTML = "Copy to clipboard";
+    }
+
+    function instance$9($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Dashboard', slots, []);
+    	let user = {};
+    	let clicks = 0;
+    	moment.locale('pt');
+
+    	onMount(() => {
+    		getinfo();
+    	});
+
+    	const unsubscribe = userStore.subscribe(async data => {
+    		console.log(user);
+    		$$invalidate(0, user = data.user);
+
+    		if (user.links) for (var i = 0; i < user.links.length; i++) {
+    			$$invalidate(1, clicks = clicks + user.links[i].clicks);
+    		}
+    	});
+
+    	onDestroy(unsubscribe);
+    	let status = -1;
+    	let mssg = "";
+
+    	const deleteLink = async a => {
+    		if (!confirm("Are you sure you want to delete this ?")) {
+    			return;
+    		}
+
+    		let res = await deletelink(a);
+    		status = res.status;
+    		mssg = res.mssg;
+    	};
+
+    	const editlink = async a => {
+    		await userStore.update(currUser => {
+    			console.log("updated");
+
+    			return {
+    				token: currUser.token,
+    				user: currUser.user,
+    				link: a
+    			};
+    		});
+
+    		document.location.href = "/editlink";
+    	};
+
+    	const editschedule = async a => {
+    		await userStore.update(currUser => {
+    			console.log("updated");
+
+    			return {
+    				token: currUser.token,
+    				user: currUser.user,
+    				schedule: a
+    			};
+    		});
+
+    		document.location.href = "/editschedule";
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$6.warn(`<Dashboard> was created with unknown prop '${key}'`);
+    	});
+
+    	const click_handler = link => {
+    		editlink(link);
+    	};
+
+    	const click_handler_1 = link => {
+    		deleteLink(link._id);
+    	};
+
+    	const click_handler_2 = link => {
+    		deleteLink(link._id);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		link,
+    		moment,
+    		userStore,
+    		NavBar: Navbar,
+    		Footer,
+    		deletelink,
+    		getinfo,
+    		onDestroy,
+    		onMount,
+    		user,
+    		clicks,
+    		unsubscribe,
+    		status,
+    		mssg,
+    		deleteLink,
+    		editlink,
+    		editschedule,
+    		myFunction,
+    		outFunc
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('user' in $$props) $$invalidate(0, user = $$props.user);
+    		if ('clicks' in $$props) $$invalidate(1, clicks = $$props.clicks);
+    		if ('status' in $$props) status = $$props.status;
+    		if ('mssg' in $$props) mssg = $$props.mssg;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		user,
+    		clicks,
+    		deleteLink,
+    		editlink,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2
+    	];
+    }
+
+    class Dashboard extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$9, create_fragment$9, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Dashboard",
+    			options,
+    			id: create_fragment$9.name
+    		});
+    	}
+    }
+
+    /* src\pages\AddLink.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$5 } = globals;
+    const file$8 = "src\\pages\\AddLink.svelte";
+
+    // (64:20) {:else}
+    function create_else_block$4(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			img = claim_element(nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true
+    			});
+
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Not found user");
+    			attr_dev(img, "class", "img-fluid");
+    			attr_dev(img, "width", "132");
+    			attr_dev(img, "height", "132");
+    			add_location(img, file$8, 64, 22, 2121);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*image*/ 8 && !src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$4.name,
+    		type: "else",
+    		source: "(64:20) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (60:20) {#if loading}
+    function create_if_block$5(ctx) {
+    	let div;
+    	let span;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			t = text("Carregando...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div_nodes = children(div);
+    			span = claim_element(div_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t = claim_text(span_nodes, "Carregando...");
+    			span_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "sr-only");
+    			add_location(span, file$8, 61, 24, 1996);
+    			attr_dev(div, "class", "spinner-border text-primary");
+    			attr_dev(div, "role", "status");
+    			add_location(div, file$8, 60, 22, 1915);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$5.name,
+    		type: "if",
+    		source: "(60:20) {#if loading}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$8(ctx) {
+    	let div14;
+    	let main;
+    	let div13;
+    	let div12;
+    	let div11;
+    	let div10;
+    	let div0;
+    	let h1;
+    	let t0;
+    	let t1;
+    	let p;
+    	let t2;
+    	let t3;
+    	let div9;
+    	let div8;
+    	let div7;
+    	let div1;
+    	let t4;
+    	let form;
+    	let div2;
+    	let label0;
+    	let t5;
+    	let t6;
+    	let input0;
+    	let t7;
+    	let div3;
+    	let label1;
+    	let t8;
+    	let t9;
+    	let input1;
+    	let t10;
+    	let div4;
+    	let label2;
+    	let t11;
+    	let t12;
+    	let textarea;
+    	let t13;
+    	let div5;
+    	let label3;
+    	let t14;
+    	let t15;
+    	let input2;
+    	let t16;
+    	let div6;
+    	let button;
+    	let t17;
+    	let t18;
+    	let alert;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*loading*/ ctx[0]) return create_if_block$5;
+    		return create_else_block$4;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	alert = new Alert({
+    			props: {
+    				mssg: /*mssg*/ ctx[2],
+    				status: /*status*/ ctx[1]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			div14 = element("div");
+    			main = element("main");
+    			div13 = element("div");
+    			div12 = element("div");
+    			div11 = element("div");
+    			div10 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t0 = text("Criar página de produto ou serviço");
+    			t1 = space();
+    			p = element("p");
+    			t2 = text("Digite os detalhes");
+    			t3 = space();
+    			div9 = element("div");
+    			div8 = element("div");
+    			div7 = element("div");
+    			div1 = element("div");
+    			if_block.c();
+    			t4 = space();
+    			form = element("form");
+    			div2 = element("div");
+    			label0 = element("label");
+    			t5 = text("Titulo");
+    			t6 = space();
+    			input0 = element("input");
+    			t7 = space();
+    			div3 = element("div");
+    			label1 = element("label");
+    			t8 = text("Url");
+    			t9 = space();
+    			input1 = element("input");
+    			t10 = space();
+    			div4 = element("div");
+    			label2 = element("label");
+    			t11 = text("Descrição");
+    			t12 = space();
+    			textarea = element("textarea");
+    			t13 = space();
+    			div5 = element("div");
+    			label3 = element("label");
+    			t14 = text("Carregue uma imagem (se desejar)");
+    			t15 = space();
+    			input2 = element("input");
+    			t16 = space();
+    			div6 = element("div");
+    			button = element("button");
+    			t17 = text("Criar Página");
+    			t18 = space();
+    			create_component(alert.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div14 = claim_element(nodes, "DIV", { class: true });
+    			var div14_nodes = children(div14);
+    			main = claim_element(div14_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div13 = claim_element(main_nodes, "DIV", { class: true });
+    			var div13_nodes = children(div13);
+    			div12 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div12_nodes = children(div12);
+    			div11 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div11_nodes = children(div11);
+    			div10 = claim_element(div11_nodes, "DIV", { class: true });
+    			var div10_nodes = children(div10);
+    			div0 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t0 = claim_text(h1_nodes, "Criar página de produto ou serviço");
+    			h1_nodes.forEach(detach_dev);
+    			t1 = claim_space(div0_nodes);
+    			p = claim_element(div0_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t2 = claim_text(p_nodes, "Digite os detalhes");
+    			p_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t3 = claim_space(div10_nodes);
+    			div9 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div9_nodes = children(div9);
+    			div8 = claim_element(div9_nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			div7 = claim_element(div8_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			div1 = claim_element(div7_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			if_block.l(div1_nodes);
+    			div1_nodes.forEach(detach_dev);
+    			t4 = claim_space(div7_nodes);
+    			form = claim_element(div7_nodes, "FORM", {});
+    			var form_nodes = children(form);
+    			div2 = claim_element(form_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			label0 = claim_element(div2_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t5 = claim_text(label0_nodes, "Titulo");
+    			label0_nodes.forEach(detach_dev);
+    			t6 = claim_space(div2_nodes);
+
+    			input0 = claim_element(div2_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div2_nodes.forEach(detach_dev);
+    			t7 = claim_space(form_nodes);
+    			div3 = claim_element(form_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			label1 = claim_element(div3_nodes, "LABEL", { for: true });
+    			var label1_nodes = children(label1);
+    			t8 = claim_text(label1_nodes, "Url");
+    			label1_nodes.forEach(detach_dev);
+    			t9 = claim_space(div3_nodes);
+
+    			input1 = claim_element(div3_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div3_nodes.forEach(detach_dev);
+    			t10 = claim_space(form_nodes);
+    			div4 = claim_element(form_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			label2 = claim_element(div4_nodes, "LABEL", { for: true });
+    			var label2_nodes = children(label2);
+    			t11 = claim_text(label2_nodes, "Descrição");
+    			label2_nodes.forEach(detach_dev);
+    			t12 = claim_space(div4_nodes);
+    			textarea = claim_element(div4_nodes, "TEXTAREA", { class: true, placeholder: true });
+    			children(textarea).forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			t13 = claim_space(form_nodes);
+    			div5 = claim_element(form_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			label3 = claim_element(div5_nodes, "LABEL", { for: true });
+    			var label3_nodes = children(label3);
+    			t14 = claim_text(label3_nodes, "Carregue uma imagem (se desejar)");
+    			label3_nodes.forEach(detach_dev);
+    			t15 = claim_space(div5_nodes);
+    			input2 = claim_element(div5_nodes, "INPUT", { id: true, name: true, type: true });
+    			div5_nodes.forEach(detach_dev);
+    			t16 = claim_space(form_nodes);
+    			div6 = claim_element(form_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+    			button = claim_element(div6_nodes, "BUTTON", { type: true, class: true });
+    			var button_nodes = children(button);
+    			t17 = claim_text(button_nodes, "Criar Página");
+    			button_nodes.forEach(detach_dev);
+    			div6_nodes.forEach(detach_dev);
+    			form_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			div9_nodes.forEach(detach_dev);
+    			div10_nodes.forEach(detach_dev);
+    			div11_nodes.forEach(detach_dev);
+    			div12_nodes.forEach(detach_dev);
+    			div13_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div14_nodes.forEach(detach_dev);
+    			t18 = claim_space(nodes);
+    			claim_component(alert.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "h2");
+    			add_location(h1, file$8, 51, 14, 1572);
+    			attr_dev(p, "class", "lead");
+    			add_location(p, file$8, 52, 14, 1642);
+    			attr_dev(div0, "class", "text-center mt-4");
+    			add_location(div0, file$8, 50, 12, 1526);
+    			attr_dev(div1, "class", "text-center");
+    			add_location(div1, file$8, 58, 18, 1831);
+    			attr_dev(label0, "for", "");
+    			add_location(label0, file$8, 75, 22, 2522);
+    			attr_dev(input0, "class", "form-control form-control-lg");
+    			attr_dev(input0, "type", "text");
+    			input0.required = true;
+    			attr_dev(input0, "placeholder", "Produto ou Serviço");
+    			add_location(input0, file$8, 76, 22, 2574);
+    			attr_dev(div2, "class", "form-group");
+    			add_location(div2, file$8, 74, 20, 2474);
+    			attr_dev(label1, "for", "");
+    			add_location(label1, file$8, 85, 22, 2944);
+    			attr_dev(input1, "class", "form-control form-control-lg");
+    			attr_dev(input1, "type", "text");
+    			input1.required = true;
+    			attr_dev(input1, "placeholder", "https://vitrinedacasa.com.br/usuario/urldoproduto");
+    			add_location(input1, file$8, 86, 22, 2993);
+    			attr_dev(div3, "class", "form-group");
+    			add_location(div3, file$8, 84, 20, 2896);
+    			attr_dev(label2, "for", "");
+    			add_location(label2, file$8, 95, 22, 3392);
+    			attr_dev(textarea, "class", "form-control form-control-lg");
+    			attr_dev(textarea, "placeholder", "Descreva o que você está oferecendo, seja objetivo com o seu cliente.");
+    			add_location(textarea, file$8, 96, 22, 3447);
+    			attr_dev(div4, "class", "form-group");
+    			add_location(div4, file$8, 94, 20, 3344);
+    			attr_dev(label3, "for", "");
+    			add_location(label3, file$8, 103, 22, 3806);
+    			attr_dev(input2, "id", "file");
+    			attr_dev(input2, "name", "file");
+    			attr_dev(input2, "type", "file");
+    			add_location(input2, file$8, 104, 22, 3884);
+    			attr_dev(div5, "class", "form-group");
+    			add_location(div5, file$8, 102, 20, 3758);
+    			attr_dev(button, "type", "submit");
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$8, 112, 22, 4171);
+    			attr_dev(div6, "class", "text-center mt-3");
+    			add_location(div6, file$8, 111, 20, 4117);
+    			add_location(form, file$8, 73, 18, 2425);
+    			attr_dev(div7, "class", "m-sm-4");
+    			add_location(div7, file$8, 57, 16, 1791);
+    			attr_dev(div8, "class", "card-body");
+    			add_location(div8, file$8, 56, 14, 1750);
+    			attr_dev(div9, "class", "card");
+    			add_location(div9, file$8, 55, 12, 1716);
+    			attr_dev(div10, "class", "d-table-cell align-middle");
+    			add_location(div10, file$8, 49, 10, 1473);
+    			attr_dev(div11, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div11, file$8, 48, 8, 1398);
+    			attr_dev(div12, "class", "row h-100");
+    			add_location(div12, file$8, 47, 6, 1365);
+    			attr_dev(div13, "class", "container d-flex flex-column");
+    			add_location(div13, file$8, 46, 4, 1315);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$8, 45, 2, 1276);
+    			attr_dev(div14, "class", "main d-flex justify-content-center w-100");
+    			add_location(div14, file$8, 44, 0, 1218);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div14, anchor);
+    			append_hydration_dev(div14, main);
+    			append_hydration_dev(main, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t2);
+    			append_hydration_dev(div10, t3);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div1);
+    			if_block.m(div1, null);
+    			append_hydration_dev(div7, t4);
+    			append_hydration_dev(div7, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t5);
+    			append_hydration_dev(div2, t6);
+    			append_hydration_dev(div2, input0);
+    			set_input_value(input0, /*link*/ ctx[4].title);
+    			append_hydration_dev(form, t7);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t8);
+    			append_hydration_dev(div3, t9);
+    			append_hydration_dev(div3, input1);
+    			set_input_value(input1, /*link*/ ctx[4].url);
+    			append_hydration_dev(form, t10);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t11);
+    			append_hydration_dev(div4, t12);
+    			append_hydration_dev(div4, textarea);
+    			set_input_value(textarea, /*link*/ ctx[4].description);
+    			append_hydration_dev(form, t13);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t14);
+    			append_hydration_dev(div5, t15);
+    			append_hydration_dev(div5, input2);
+    			append_hydration_dev(form, t16);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, button);
+    			append_hydration_dev(button, t17);
+    			insert_hydration_dev(target, t18, anchor);
+    			mount_component(alert, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[7]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[8]),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[9]),
+    					listen_dev(input2, "change", /*drop*/ ctx[5], false, false, false),
+    					listen_dev(form, "submit", /*dispatch*/ ctx[6], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div1, null);
+    				}
+    			}
+
+    			if (dirty & /*link*/ 16 && input0.value !== /*link*/ ctx[4].title) {
+    				set_input_value(input0, /*link*/ ctx[4].title);
+    			}
+
+    			if (dirty & /*link*/ 16 && input1.value !== /*link*/ ctx[4].url) {
+    				set_input_value(input1, /*link*/ ctx[4].url);
+    			}
+
+    			if (dirty & /*link*/ 16) {
+    				set_input_value(textarea, /*link*/ ctx[4].description);
+    			}
+
+    			const alert_changes = {};
+    			if (dirty & /*mssg*/ 4) alert_changes.mssg = /*mssg*/ ctx[2];
+    			if (dirty & /*status*/ 2) alert_changes.status = /*status*/ ctx[1];
+    			alert.$set(alert_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(alert.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(alert.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div14);
+    			if_block.d();
+    			if (detaching) detach_dev(t18);
+    			destroy_component(alert, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$8.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$8($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('AddLink', slots, []);
+    	let loading = false;
+    	let status = -1;
+    	let mssg = "";
+    	let image = "https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
+
+    	let link = {
+    		url: "",
+    		title: "",
+    		image: "",
+    		description: "",
+    		clicks: 0,
+    		likes: 0
+    	};
+
+    	const drop = async e => {
+    		$$invalidate(0, loading = true);
+    		const files = e.target.files;
+    		const data = new FormData();
+    		data.append("file", files[0]);
+    		data.append("upload_preset", "vitrinedacasa");
+    		const res = await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload", { method: "POST", body: data });
+    		$$invalidate(0, loading = false);
+    		const file = await res.json();
+    		$$invalidate(4, link.image = file.secure_url, link);
+    		$$invalidate(3, image = file.secure_url);
+    	};
+
+    	const dispatch = async e => {
+    		e.preventDefault();
+    		let res = await addlink(link);
+    		$$invalidate(1, status = res.status);
+    		$$invalidate(2, mssg = res.mssg);
+    		console.log(res);
+    		document.location.href = "/dashboard";
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$5.warn(`<AddLink> was created with unknown prop '${key}'`);
+    	});
+
+    	function input0_input_handler() {
+    		link.title = this.value;
+    		$$invalidate(4, link);
+    	}
+
+    	function input1_input_handler() {
+    		link.url = this.value;
+    		$$invalidate(4, link);
+    	}
+
+    	function textarea_input_handler() {
+    		link.description = this.value;
+    		$$invalidate(4, link);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		Alert,
+    		addlink,
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		link,
+    		drop,
+    		dispatch
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('loading' in $$props) $$invalidate(0, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('image' in $$props) $$invalidate(3, image = $$props.image);
+    		if ('link' in $$props) $$invalidate(4, link = $$props.link);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		link,
+    		drop,
+    		dispatch,
+    		input0_input_handler,
+    		input1_input_handler,
+    		textarea_input_handler
+    	];
+    }
+
+    class AddLink extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$8, create_fragment$8, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "AddLink",
+    			options,
+    			id: create_fragment$8.name
+    		});
+    	}
+    }
+
+    /* src\pages\EditLink.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$4 } = globals;
+    const file$7 = "src\\pages\\EditLink.svelte";
+
+    function get_each_context$2(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[15] = list[i];
+    	return child_ctx;
+    }
+
+    // (74:20) {:else}
+    function create_else_block$3(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			img = claim_element(nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true
+    			});
+
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Not found user");
+    			attr_dev(img, "class", "img-fluid");
+    			attr_dev(img, "width", "132");
+    			attr_dev(img, "height", "132");
+    			add_location(img, file$7, 74, 22, 2503);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*image*/ 8 && !src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$3.name,
+    		type: "else",
+    		source: "(74:20) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (70:20) {#if loading}
+    function create_if_block$4(ctx) {
+    	let div;
+    	let span;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			t = text("Carregando...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div_nodes = children(div);
+    			span = claim_element(div_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t = claim_text(span_nodes, "Carregando...");
+    			span_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "sr-only");
+    			add_location(span, file$7, 71, 24, 2378);
+    			attr_dev(div, "class", "spinner-border text-primary");
+    			attr_dev(div, "role", "status");
+    			add_location(div, file$7, 70, 22, 2297);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$4.name,
+    		type: "if",
+    		source: "(70:20) {#if loading}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (137:23) {#each types as type(type)}
+    function create_each_block$2(key_1, ctx) {
+    	let option;
+    	let t_value = /*type*/ ctx[15] + "";
+    	let t;
+
+    	const block = {
+    		key: key_1,
+    		first: null,
+    		c: function create() {
+    			option = element("option");
+    			t = text(t_value);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			option = claim_element(nodes, "OPTION", {});
+    			var option_nodes = children(option);
+    			t = claim_text(option_nodes, t_value);
+    			option_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			option.__value = /*type*/ ctx[15];
+    			option.value = option.__value;
+    			add_location(option, file$7, 137, 26, 5175);
+    			this.first = option;
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, option, anchor);
+    			append_hydration_dev(option, t);
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(option);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$2.name,
+    		type: "each",
+    		source: "(137:23) {#each types as type(type)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$7(ctx) {
+    	let navbar;
+    	let t0;
+    	let div16;
+    	let main;
+    	let div15;
+    	let div14;
+    	let div13;
+    	let div12;
+    	let div0;
+    	let h1;
+    	let t1;
+    	let t2;
+    	let p;
+    	let t3;
+    	let t4;
+    	let div11;
+    	let div10;
+    	let div9;
+    	let div1;
+    	let t5;
+    	let form;
+    	let div2;
+    	let label0;
+    	let t6;
+    	let t7;
+    	let input0;
+    	let t8;
+    	let div3;
+    	let label1;
+    	let t9;
+    	let t10;
+    	let input1;
+    	let t11;
+    	let div4;
+    	let label2;
+    	let t12;
+    	let t13;
+    	let input2;
+    	let t14;
+    	let div5;
+    	let label3;
+    	let t15;
+    	let t16;
+    	let input3;
+    	let t17;
+    	let div6;
+    	let label4;
+    	let t18;
+    	let t19;
+    	let input4;
+    	let t20;
+    	let div7;
+    	let label5;
+    	let t21;
+    	let t22;
+    	let select;
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
+    	let t23;
+    	let div8;
+    	let button;
+    	let t24;
+    	let t25;
+    	let alert;
+    	let t26;
+    	let footer;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	navbar = new Navbar({
+    			props: { user: /*user*/ ctx[5] },
+    			$$inline: true
+    		});
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*loading*/ ctx[0]) return create_if_block$4;
+    		return create_else_block$3;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+    	let each_value = /*types*/ ctx[6];
+    	validate_each_argument(each_value);
+    	const get_key = ctx => /*type*/ ctx[15];
+    	validate_each_keys(ctx, each_value, get_each_context$2, get_key);
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		let child_ctx = get_each_context$2(ctx, each_value, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block$2(key, child_ctx));
+    	}
+
+    	alert = new Alert({
+    			props: {
+    				mssg: /*mssg*/ ctx[2],
+    				status: /*status*/ ctx[1]
+    			},
+    			$$inline: true
+    		});
+
+    	footer = new Footer({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(navbar.$$.fragment);
+    			t0 = space();
+    			div16 = element("div");
+    			main = element("main");
+    			div15 = element("div");
+    			div14 = element("div");
+    			div13 = element("div");
+    			div12 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t1 = text("Multiplique as possibilidades");
+    			t2 = space();
+    			p = element("p");
+    			t3 = text("Uma página personalizada para seu Produto ou Serviço");
+    			t4 = space();
+    			div11 = element("div");
+    			div10 = element("div");
+    			div9 = element("div");
+    			div1 = element("div");
+    			if_block.c();
+    			t5 = space();
+    			form = element("form");
+    			div2 = element("div");
+    			label0 = element("label");
+    			t6 = text("Url");
+    			t7 = space();
+    			input0 = element("input");
+    			t8 = space();
+    			div3 = element("div");
+    			label1 = element("label");
+    			t9 = text("Título");
+    			t10 = space();
+    			input1 = element("input");
+    			t11 = space();
+    			div4 = element("div");
+    			label2 = element("label");
+    			t12 = text("Carregue uma imagem (se desejar)");
+    			t13 = space();
+    			input2 = element("input");
+    			t14 = space();
+    			div5 = element("div");
+    			label3 = element("label");
+    			t15 = text("Descrição");
+    			t16 = space();
+    			input3 = element("input");
+    			t17 = space();
+    			div6 = element("div");
+    			label4 = element("label");
+    			t18 = text("Preço");
+    			t19 = space();
+    			input4 = element("input");
+    			t20 = space();
+    			div7 = element("div");
+    			label5 = element("label");
+    			t21 = text("Tipo");
+    			t22 = space();
+    			select = element("select");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t23 = space();
+    			div8 = element("div");
+    			button = element("button");
+    			t24 = text("Salvar");
+    			t25 = space();
+    			create_component(alert.$$.fragment);
+    			t26 = space();
+    			create_component(footer.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			claim_component(navbar.$$.fragment, nodes);
+    			t0 = claim_space(nodes);
+    			div16 = claim_element(nodes, "DIV", { class: true });
+    			var div16_nodes = children(div16);
+    			main = claim_element(div16_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div15 = claim_element(main_nodes, "DIV", { class: true });
+    			var div15_nodes = children(div15);
+    			div14 = claim_element(div15_nodes, "DIV", { class: true });
+    			var div14_nodes = children(div14);
+    			div13 = claim_element(div14_nodes, "DIV", { class: true });
+    			var div13_nodes = children(div13);
+    			div12 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div12_nodes = children(div12);
+    			div0 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t1 = claim_text(h1_nodes, "Multiplique as possibilidades");
+    			h1_nodes.forEach(detach_dev);
+    			t2 = claim_space(div0_nodes);
+    			p = claim_element(div0_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t3 = claim_text(p_nodes, "Uma página personalizada para seu Produto ou Serviço");
+    			p_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t4 = claim_space(div12_nodes);
+    			div11 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div11_nodes = children(div11);
+    			div10 = claim_element(div11_nodes, "DIV", { class: true });
+    			var div10_nodes = children(div10);
+    			div9 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div9_nodes = children(div9);
+    			div1 = claim_element(div9_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			if_block.l(div1_nodes);
+    			div1_nodes.forEach(detach_dev);
+    			t5 = claim_space(div9_nodes);
+    			form = claim_element(div9_nodes, "FORM", {});
+    			var form_nodes = children(form);
+    			div2 = claim_element(form_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			label0 = claim_element(div2_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t6 = claim_text(label0_nodes, "Url");
+    			label0_nodes.forEach(detach_dev);
+    			t7 = claim_space(div2_nodes);
+
+    			input0 = claim_element(div2_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div2_nodes.forEach(detach_dev);
+    			t8 = claim_space(form_nodes);
+    			div3 = claim_element(form_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			label1 = claim_element(div3_nodes, "LABEL", { for: true });
+    			var label1_nodes = children(label1);
+    			t9 = claim_text(label1_nodes, "Título");
+    			label1_nodes.forEach(detach_dev);
+    			t10 = claim_space(div3_nodes);
+
+    			input1 = claim_element(div3_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div3_nodes.forEach(detach_dev);
+    			t11 = claim_space(form_nodes);
+    			div4 = claim_element(form_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			label2 = claim_element(div4_nodes, "LABEL", { for: true });
+    			var label2_nodes = children(label2);
+    			t12 = claim_text(label2_nodes, "Carregue uma imagem (se desejar)");
+    			label2_nodes.forEach(detach_dev);
+    			t13 = claim_space(div4_nodes);
+    			input2 = claim_element(div4_nodes, "INPUT", { id: true, name: true, type: true });
+    			div4_nodes.forEach(detach_dev);
+    			t14 = claim_space(form_nodes);
+    			div5 = claim_element(form_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			label3 = claim_element(div5_nodes, "LABEL", { for: true });
+    			var label3_nodes = children(label3);
+    			t15 = claim_text(label3_nodes, "Descrição");
+    			label3_nodes.forEach(detach_dev);
+    			t16 = claim_space(div5_nodes);
+
+    			input3 = claim_element(div5_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div5_nodes.forEach(detach_dev);
+    			t17 = claim_space(form_nodes);
+    			div6 = claim_element(form_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+    			label4 = claim_element(div6_nodes, "LABEL", { for: true });
+    			var label4_nodes = children(label4);
+    			t18 = claim_text(label4_nodes, "Preço");
+    			label4_nodes.forEach(detach_dev);
+    			t19 = claim_space(div6_nodes);
+    			input4 = claim_element(div6_nodes, "INPUT", { class: true, type: true });
+    			div6_nodes.forEach(detach_dev);
+    			t20 = claim_space(form_nodes);
+    			div7 = claim_element(form_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			label5 = claim_element(div7_nodes, "LABEL", { for: true });
+    			var label5_nodes = children(label5);
+    			t21 = claim_text(label5_nodes, "Tipo");
+    			label5_nodes.forEach(detach_dev);
+    			t22 = claim_space(div7_nodes);
+    			select = claim_element(div7_nodes, "SELECT", { class: true });
+    			var select_nodes = children(select);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(select_nodes);
+    			}
+
+    			select_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			t23 = claim_space(form_nodes);
+    			div8 = claim_element(form_nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			button = claim_element(div8_nodes, "BUTTON", { type: true, class: true });
+    			var button_nodes = children(button);
+    			t24 = claim_text(button_nodes, "Salvar");
+    			button_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			form_nodes.forEach(detach_dev);
+    			div9_nodes.forEach(detach_dev);
+    			div10_nodes.forEach(detach_dev);
+    			div11_nodes.forEach(detach_dev);
+    			div12_nodes.forEach(detach_dev);
+    			div13_nodes.forEach(detach_dev);
+    			div14_nodes.forEach(detach_dev);
+    			div15_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div16_nodes.forEach(detach_dev);
+    			t25 = claim_space(nodes);
+    			claim_component(alert.$$.fragment, nodes);
+    			t26 = claim_space(nodes);
+    			claim_component(footer.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "h2");
+    			add_location(h1, file$7, 61, 14, 1925);
+    			attr_dev(p, "class", "lead");
+    			add_location(p, file$7, 62, 14, 1990);
+    			attr_dev(div0, "class", "text-center mt-4");
+    			add_location(div0, file$7, 60, 12, 1879);
+    			attr_dev(div1, "class", "text-center");
+    			add_location(div1, file$7, 68, 18, 2213);
+    			attr_dev(label0, "for", "");
+    			add_location(label0, file$7, 85, 22, 2904);
+    			attr_dev(input0, "class", "form-control form-control-lg");
+    			attr_dev(input0, "type", "text");
+    			input0.required = true;
+    			attr_dev(input0, "placeholder", "https://itesmesankar.herokuapp.com/");
+    			add_location(input0, file$7, 86, 22, 2953);
+    			attr_dev(div2, "class", "form-group");
+    			add_location(div2, file$7, 84, 20, 2856);
+    			attr_dev(label1, "for", "");
+    			add_location(label1, file$7, 95, 22, 3338);
+    			attr_dev(input1, "class", "form-control form-control-lg");
+    			attr_dev(input1, "type", "text");
+    			input1.required = true;
+    			attr_dev(input1, "placeholder", "Nome do Produto ou Serviço");
+    			add_location(input1, file$7, 96, 22, 3390);
+    			attr_dev(div3, "class", "form-group");
+    			add_location(div3, file$7, 94, 20, 3290);
+    			attr_dev(label2, "for", "");
+    			add_location(label2, file$7, 105, 22, 3768);
+    			attr_dev(input2, "id", "file");
+    			attr_dev(input2, "name", "file");
+    			attr_dev(input2, "type", "file");
+    			add_location(input2, file$7, 106, 22, 3846);
+    			attr_dev(div4, "class", "form-group");
+    			add_location(div4, file$7, 104, 20, 3720);
+    			attr_dev(label3, "for", "");
+    			add_location(label3, file$7, 114, 22, 4127);
+    			attr_dev(input3, "class", "form-control form-control-lg");
+    			attr_dev(input3, "type", "text");
+    			attr_dev(input3, "placeholder", "Descreva o que você está oferecendo, seja objetivo com o seu cliente.");
+    			add_location(input3, file$7, 115, 22, 4182);
+    			attr_dev(div5, "class", "form-group");
+    			add_location(div5, file$7, 113, 20, 4079);
+    			attr_dev(label4, "for", "");
+    			add_location(label4, file$7, 123, 22, 4575);
+    			attr_dev(input4, "class", "form-control form-control-lg");
+    			attr_dev(input4, "type", "tel");
+    			add_location(input4, file$7, 124, 22, 4626);
+    			attr_dev(div6, "class", "form-group");
+    			add_location(div6, file$7, 122, 20, 4527);
+    			attr_dev(label5, "for", "");
+    			add_location(label5, file$7, 131, 22, 4903);
+    			attr_dev(select, "class", "form-control form-control-lg");
+    			if (/*link*/ ctx[4].type === void 0) add_render_callback(() => /*select_change_handler*/ ctx[13].call(select));
+    			add_location(select, file$7, 132, 22, 4953);
+    			attr_dev(div7, "class", "form-group");
+    			add_location(div7, file$7, 130, 20, 4855);
+    			attr_dev(button, "type", "submit");
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$7, 142, 22, 5367);
+    			attr_dev(div8, "class", "text-center mt-3");
+    			add_location(div8, file$7, 141, 20, 5313);
+    			add_location(form, file$7, 83, 18, 2807);
+    			attr_dev(div9, "class", "m-sm-4");
+    			add_location(div9, file$7, 67, 16, 2173);
+    			attr_dev(div10, "class", "card-body");
+    			add_location(div10, file$7, 66, 14, 2132);
+    			attr_dev(div11, "class", "card");
+    			add_location(div11, file$7, 65, 12, 2098);
+    			attr_dev(div12, "class", "d-table-cell align-middle");
+    			add_location(div12, file$7, 59, 10, 1826);
+    			attr_dev(div13, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div13, file$7, 58, 8, 1751);
+    			attr_dev(div14, "class", "row h-100");
+    			add_location(div14, file$7, 57, 6, 1718);
+    			attr_dev(div15, "class", "container d-flex flex-column");
+    			add_location(div15, file$7, 56, 4, 1668);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$7, 55, 2, 1629);
+    			attr_dev(div16, "class", "main d-flex justify-content-center w-100");
+    			add_location(div16, file$7, 54, 0, 1571);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(navbar, target, anchor);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, div16, anchor);
+    			append_hydration_dev(div16, main);
+    			append_hydration_dev(main, div15);
+    			append_hydration_dev(div15, div14);
+    			append_hydration_dev(div14, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div0, t2);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t3);
+    			append_hydration_dev(div12, t4);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div1);
+    			if_block.m(div1, null);
+    			append_hydration_dev(div9, t5);
+    			append_hydration_dev(div9, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, input0);
+    			set_input_value(input0, /*link*/ ctx[4].url);
+    			append_hydration_dev(form, t8);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, input1);
+    			set_input_value(input1, /*link*/ ctx[4].title);
+    			append_hydration_dev(form, t11);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t12);
+    			append_hydration_dev(div4, t13);
+    			append_hydration_dev(div4, input2);
+    			append_hydration_dev(form, t14);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t15);
+    			append_hydration_dev(div5, t16);
+    			append_hydration_dev(div5, input3);
+    			set_input_value(input3, /*link*/ ctx[4].description);
+    			append_hydration_dev(form, t17);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, label4);
+    			append_hydration_dev(label4, t18);
+    			append_hydration_dev(div6, t19);
+    			append_hydration_dev(div6, input4);
+    			set_input_value(input4, /*link*/ ctx[4].price);
+    			append_hydration_dev(form, t20);
+    			append_hydration_dev(form, div7);
+    			append_hydration_dev(div7, label5);
+    			append_hydration_dev(label5, t21);
+    			append_hydration_dev(div7, t22);
+    			append_hydration_dev(div7, select);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(select, null);
+    			}
+
+    			select_option(select, /*link*/ ctx[4].type);
+    			append_hydration_dev(form, t23);
+    			append_hydration_dev(form, div8);
+    			append_hydration_dev(div8, button);
+    			append_hydration_dev(button, t24);
+    			insert_hydration_dev(target, t25, anchor);
+    			mount_component(alert, target, anchor);
+    			insert_hydration_dev(target, t26, anchor);
+    			mount_component(footer, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[9]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[10]),
+    					listen_dev(input2, "change", /*drop*/ ctx[7], false, false, false),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[11]),
+    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[12]),
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[13]),
+    					listen_dev(form, "submit", /*dispatch*/ ctx[8], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const navbar_changes = {};
+    			if (dirty & /*user*/ 32) navbar_changes.user = /*user*/ ctx[5];
+    			navbar.$set(navbar_changes);
+
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div1, null);
+    				}
+    			}
+
+    			if (dirty & /*link, types*/ 80 && input0.value !== /*link*/ ctx[4].url) {
+    				set_input_value(input0, /*link*/ ctx[4].url);
+    			}
+
+    			if (dirty & /*link, types*/ 80 && input1.value !== /*link*/ ctx[4].title) {
+    				set_input_value(input1, /*link*/ ctx[4].title);
+    			}
+
+    			if (dirty & /*link, types*/ 80 && input3.value !== /*link*/ ctx[4].description) {
+    				set_input_value(input3, /*link*/ ctx[4].description);
+    			}
+
+    			if (dirty & /*link, types*/ 80) {
+    				set_input_value(input4, /*link*/ ctx[4].price);
+    			}
+
+    			if (dirty & /*types*/ 64) {
+    				each_value = /*types*/ ctx[6];
+    				validate_each_argument(each_value);
+    				validate_each_keys(ctx, each_value, get_each_context$2, get_key);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, select, destroy_block, create_each_block$2, null, get_each_context$2);
+    			}
+
+    			if (dirty & /*link, types*/ 80) {
+    				select_option(select, /*link*/ ctx[4].type);
+    			}
+
+    			const alert_changes = {};
+    			if (dirty & /*mssg*/ 4) alert_changes.mssg = /*mssg*/ ctx[2];
+    			if (dirty & /*status*/ 2) alert_changes.status = /*status*/ ctx[1];
+    			alert.$set(alert_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(navbar.$$.fragment, local);
+    			transition_in(alert.$$.fragment, local);
+    			transition_in(footer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(navbar.$$.fragment, local);
+    			transition_out(alert.$$.fragment, local);
+    			transition_out(footer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(navbar, detaching);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div16);
+    			if_block.d();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d();
+    			}
+
+    			if (detaching) detach_dev(t25);
+    			destroy_component(alert, detaching);
+    			if (detaching) detach_dev(t26);
+    			destroy_component(footer, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$7.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$7($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('EditLink', slots, []);
+    	let loading = false;
+    	let status = -1;
+    	let mssg = "";
+    	let image = "https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
+    	let link;
+    	let user;
+    	let types = ['Serviço', 'Produto'];
+
+    	const unsubscribe = userStore.subscribe(data => {
+    		console.log(data);
+    		$$invalidate(4, link = data.link);
+    		$$invalidate(5, user = data.user);
+
+    		$$invalidate(3, image = link.image != "" || link.image != null
+    		? link.image
+    		: image);
+    	});
+
+    	const drop = async e => {
+    		$$invalidate(0, loading = true);
+    		const files = e.target.files;
+    		const data = new FormData();
+    		data.append("file", files[0]);
+    		data.append("upload_preset", "vitrinedacasa");
+    		const res = await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload", { method: "POST", body: data });
+    		$$invalidate(0, loading = false);
+    		const file = await res.json();
+    		$$invalidate(4, link.image = file.secure_url, link);
+    		$$invalidate(3, image = file.secure_url);
+    	};
+
+    	const dispatch = async e => {
+    		e.preventDefault();
+    		let res = await addlink(link);
+    		$$invalidate(1, status = res.status);
+    		$$invalidate(2, mssg = res.mssg);
+    		console.log(res);
+    		document.location.href = "/dashboard";
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<EditLink> was created with unknown prop '${key}'`);
+    	});
+
+    	function input0_input_handler() {
+    		link.url = this.value;
+    		$$invalidate(4, link);
+    		$$invalidate(6, types);
+    	}
+
+    	function input1_input_handler() {
+    		link.title = this.value;
+    		$$invalidate(4, link);
+    		$$invalidate(6, types);
+    	}
+
+    	function input3_input_handler() {
+    		link.description = this.value;
+    		$$invalidate(4, link);
+    		$$invalidate(6, types);
+    	}
+
+    	function input4_input_handler() {
+    		link.price = this.value;
+    		$$invalidate(4, link);
+    		$$invalidate(6, types);
+    	}
+
+    	function select_change_handler() {
+    		link.type = select_value(this);
+    		$$invalidate(4, link);
+    		$$invalidate(6, types);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		Alert,
+    		addlink,
+    		userStore,
+    		NavBar: Navbar,
+    		Footer,
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		link,
+    		user,
+    		types,
+    		unsubscribe,
+    		drop,
+    		dispatch
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('loading' in $$props) $$invalidate(0, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('image' in $$props) $$invalidate(3, image = $$props.image);
+    		if ('link' in $$props) $$invalidate(4, link = $$props.link);
+    		if ('user' in $$props) $$invalidate(5, user = $$props.user);
+    		if ('types' in $$props) $$invalidate(6, types = $$props.types);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		link,
+    		user,
+    		types,
+    		drop,
+    		dispatch,
+    		input0_input_handler,
+    		input1_input_handler,
+    		input3_input_handler,
+    		input4_input_handler,
+    		select_change_handler
+    	];
+    }
+
+    class EditLink extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "EditLink",
+    			options,
+    			id: create_fragment$7.name
+    		});
+    	}
+    }
+
+    /* src\pages\AddSchedule.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$3 } = globals;
+    const file$6 = "src\\pages\\AddSchedule.svelte";
+
+    // (64:20) {:else}
+    function create_else_block$2(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			img = claim_element(nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true
+    			});
+
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Not found user");
+    			attr_dev(img, "class", "img-fluid");
+    			attr_dev(img, "width", "132");
+    			attr_dev(img, "height", "132");
+    			add_location(img, file$6, 64, 22, 2141);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*image*/ 8 && !src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$2.name,
+    		type: "else",
+    		source: "(64:20) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (60:20) {#if loading}
+    function create_if_block$3(ctx) {
+    	let div;
+    	let span;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			t = text("Carregando...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div_nodes = children(div);
+    			span = claim_element(div_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t = claim_text(span_nodes, "Carregando...");
+    			span_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "sr-only");
+    			add_location(span, file$6, 61, 24, 2016);
+    			attr_dev(div, "class", "spinner-border text-primary");
+    			attr_dev(div, "role", "status");
+    			add_location(div, file$6, 60, 22, 1935);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$3.name,
+    		type: "if",
+    		source: "(60:20) {#if loading}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$6(ctx) {
+    	let div14;
+    	let main;
+    	let div13;
+    	let div12;
+    	let div11;
+    	let div10;
+    	let div0;
+    	let h1;
+    	let t0;
+    	let t1;
+    	let p;
+    	let t2;
+    	let t3;
+    	let div9;
+    	let div8;
+    	let div7;
+    	let div1;
+    	let t4;
+    	let form;
+    	let div2;
+    	let label0;
+    	let t5;
+    	let t6;
+    	let input0;
+    	let t7;
+    	let div3;
+    	let label1;
+    	let t8;
+    	let t9;
+    	let input1;
+    	let t10;
+    	let div4;
+    	let label2;
+    	let t11;
+    	let t12;
+    	let textarea;
+    	let t13;
+    	let div5;
+    	let label3;
+    	let t14;
+    	let t15;
+    	let input2;
+    	let t16;
+    	let div6;
+    	let button;
+    	let t17;
+    	let t18;
+    	let alert;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*loading*/ ctx[0]) return create_if_block$3;
+    		return create_else_block$2;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	alert = new Alert({
+    			props: {
+    				mssg: /*mssg*/ ctx[2],
+    				status: /*status*/ ctx[1]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			div14 = element("div");
+    			main = element("main");
+    			div13 = element("div");
+    			div12 = element("div");
+    			div11 = element("div");
+    			div10 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t0 = text("Abra uma agenda para seus clientes");
+    			t1 = space();
+    			p = element("p");
+    			t2 = text("Digite os detalhes");
+    			t3 = space();
+    			div9 = element("div");
+    			div8 = element("div");
+    			div7 = element("div");
+    			div1 = element("div");
+    			if_block.c();
+    			t4 = space();
+    			form = element("form");
+    			div2 = element("div");
+    			label0 = element("label");
+    			t5 = text("Titulo");
+    			t6 = space();
+    			input0 = element("input");
+    			t7 = space();
+    			div3 = element("div");
+    			label1 = element("label");
+    			t8 = text("Url");
+    			t9 = space();
+    			input1 = element("input");
+    			t10 = space();
+    			div4 = element("div");
+    			label2 = element("label");
+    			t11 = text("Descrição");
+    			t12 = space();
+    			textarea = element("textarea");
+    			t13 = space();
+    			div5 = element("div");
+    			label3 = element("label");
+    			t14 = text("Carregue uma imagem (se desejar)");
+    			t15 = space();
+    			input2 = element("input");
+    			t16 = space();
+    			div6 = element("div");
+    			button = element("button");
+    			t17 = text("Criar Página");
+    			t18 = space();
+    			create_component(alert.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div14 = claim_element(nodes, "DIV", { class: true });
+    			var div14_nodes = children(div14);
+    			main = claim_element(div14_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div13 = claim_element(main_nodes, "DIV", { class: true });
+    			var div13_nodes = children(div13);
+    			div12 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div12_nodes = children(div12);
+    			div11 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div11_nodes = children(div11);
+    			div10 = claim_element(div11_nodes, "DIV", { class: true });
+    			var div10_nodes = children(div10);
+    			div0 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t0 = claim_text(h1_nodes, "Abra uma agenda para seus clientes");
+    			h1_nodes.forEach(detach_dev);
+    			t1 = claim_space(div0_nodes);
+    			p = claim_element(div0_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t2 = claim_text(p_nodes, "Digite os detalhes");
+    			p_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t3 = claim_space(div10_nodes);
+    			div9 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div9_nodes = children(div9);
+    			div8 = claim_element(div9_nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			div7 = claim_element(div8_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			div1 = claim_element(div7_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			if_block.l(div1_nodes);
+    			div1_nodes.forEach(detach_dev);
+    			t4 = claim_space(div7_nodes);
+    			form = claim_element(div7_nodes, "FORM", {});
+    			var form_nodes = children(form);
+    			div2 = claim_element(form_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			label0 = claim_element(div2_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t5 = claim_text(label0_nodes, "Titulo");
+    			label0_nodes.forEach(detach_dev);
+    			t6 = claim_space(div2_nodes);
+
+    			input0 = claim_element(div2_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div2_nodes.forEach(detach_dev);
+    			t7 = claim_space(form_nodes);
+    			div3 = claim_element(form_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			label1 = claim_element(div3_nodes, "LABEL", { for: true });
+    			var label1_nodes = children(label1);
+    			t8 = claim_text(label1_nodes, "Url");
+    			label1_nodes.forEach(detach_dev);
+    			t9 = claim_space(div3_nodes);
+
+    			input1 = claim_element(div3_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div3_nodes.forEach(detach_dev);
+    			t10 = claim_space(form_nodes);
+    			div4 = claim_element(form_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			label2 = claim_element(div4_nodes, "LABEL", { for: true });
+    			var label2_nodes = children(label2);
+    			t11 = claim_text(label2_nodes, "Descrição");
+    			label2_nodes.forEach(detach_dev);
+    			t12 = claim_space(div4_nodes);
+    			textarea = claim_element(div4_nodes, "TEXTAREA", { class: true, placeholder: true });
+    			children(textarea).forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			t13 = claim_space(form_nodes);
+    			div5 = claim_element(form_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			label3 = claim_element(div5_nodes, "LABEL", { for: true });
+    			var label3_nodes = children(label3);
+    			t14 = claim_text(label3_nodes, "Carregue uma imagem (se desejar)");
+    			label3_nodes.forEach(detach_dev);
+    			t15 = claim_space(div5_nodes);
+    			input2 = claim_element(div5_nodes, "INPUT", { id: true, name: true, type: true });
+    			div5_nodes.forEach(detach_dev);
+    			t16 = claim_space(form_nodes);
+    			div6 = claim_element(form_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+    			button = claim_element(div6_nodes, "BUTTON", { type: true, class: true });
+    			var button_nodes = children(button);
+    			t17 = claim_text(button_nodes, "Criar Página");
+    			button_nodes.forEach(detach_dev);
+    			div6_nodes.forEach(detach_dev);
+    			form_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			div9_nodes.forEach(detach_dev);
+    			div10_nodes.forEach(detach_dev);
+    			div11_nodes.forEach(detach_dev);
+    			div12_nodes.forEach(detach_dev);
+    			div13_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div14_nodes.forEach(detach_dev);
+    			t18 = claim_space(nodes);
+    			claim_component(alert.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "h2");
+    			add_location(h1, file$6, 51, 14, 1592);
+    			attr_dev(p, "class", "lead");
+    			add_location(p, file$6, 52, 14, 1662);
+    			attr_dev(div0, "class", "text-center mt-4");
+    			add_location(div0, file$6, 50, 12, 1546);
+    			attr_dev(div1, "class", "text-center");
+    			add_location(div1, file$6, 58, 18, 1851);
+    			attr_dev(label0, "for", "");
+    			add_location(label0, file$6, 75, 22, 2542);
+    			attr_dev(input0, "class", "form-control form-control-lg");
+    			attr_dev(input0, "type", "text");
+    			input0.required = true;
+    			attr_dev(input0, "placeholder", "Produto ou Serviço");
+    			add_location(input0, file$6, 76, 22, 2594);
+    			attr_dev(div2, "class", "form-group");
+    			add_location(div2, file$6, 74, 20, 2494);
+    			attr_dev(label1, "for", "");
+    			add_location(label1, file$6, 85, 22, 2968);
+    			attr_dev(input1, "class", "form-control form-control-lg");
+    			attr_dev(input1, "type", "text");
+    			input1.required = true;
+    			attr_dev(input1, "placeholder", "https://vitrinedacasa.com.br/usuario/urldoproduto");
+    			add_location(input1, file$6, 86, 22, 3017);
+    			attr_dev(div3, "class", "form-group");
+    			add_location(div3, file$6, 84, 20, 2920);
+    			attr_dev(label2, "for", "");
+    			add_location(label2, file$6, 95, 22, 3420);
+    			attr_dev(textarea, "class", "form-control form-control-lg");
+    			attr_dev(textarea, "placeholder", "Descreva o que você está oferecendo, seja objetivo com o seu cliente.");
+    			add_location(textarea, file$6, 96, 22, 3475);
+    			attr_dev(div4, "class", "form-group");
+    			add_location(div4, file$6, 94, 20, 3372);
+    			attr_dev(label3, "for", "");
+    			add_location(label3, file$6, 103, 22, 3838);
+    			attr_dev(input2, "id", "file");
+    			attr_dev(input2, "name", "file");
+    			attr_dev(input2, "type", "file");
+    			add_location(input2, file$6, 104, 22, 3916);
+    			attr_dev(div5, "class", "form-group");
+    			add_location(div5, file$6, 102, 20, 3790);
+    			attr_dev(button, "type", "submit");
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$6, 112, 22, 4203);
+    			attr_dev(div6, "class", "text-center mt-3");
+    			add_location(div6, file$6, 111, 20, 4149);
+    			add_location(form, file$6, 73, 18, 2445);
+    			attr_dev(div7, "class", "m-sm-4");
+    			add_location(div7, file$6, 57, 16, 1811);
+    			attr_dev(div8, "class", "card-body");
+    			add_location(div8, file$6, 56, 14, 1770);
+    			attr_dev(div9, "class", "card");
+    			add_location(div9, file$6, 55, 12, 1736);
+    			attr_dev(div10, "class", "d-table-cell align-middle");
+    			add_location(div10, file$6, 49, 10, 1493);
+    			attr_dev(div11, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div11, file$6, 48, 8, 1418);
+    			attr_dev(div12, "class", "row h-100");
+    			add_location(div12, file$6, 47, 6, 1385);
+    			attr_dev(div13, "class", "container d-flex flex-column");
+    			add_location(div13, file$6, 46, 4, 1335);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$6, 45, 2, 1296);
+    			attr_dev(div14, "class", "main d-flex justify-content-center w-100");
+    			add_location(div14, file$6, 44, 0, 1238);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div14, anchor);
+    			append_hydration_dev(div14, main);
+    			append_hydration_dev(main, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t2);
+    			append_hydration_dev(div10, t3);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div8);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div1);
+    			if_block.m(div1, null);
+    			append_hydration_dev(div7, t4);
+    			append_hydration_dev(div7, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t5);
+    			append_hydration_dev(div2, t6);
+    			append_hydration_dev(div2, input0);
+    			set_input_value(input0, /*schedule*/ ctx[4].title);
+    			append_hydration_dev(form, t7);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t8);
+    			append_hydration_dev(div3, t9);
+    			append_hydration_dev(div3, input1);
+    			set_input_value(input1, /*schedule*/ ctx[4].url);
+    			append_hydration_dev(form, t10);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t11);
+    			append_hydration_dev(div4, t12);
+    			append_hydration_dev(div4, textarea);
+    			set_input_value(textarea, /*schedule*/ ctx[4].description);
+    			append_hydration_dev(form, t13);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t14);
+    			append_hydration_dev(div5, t15);
+    			append_hydration_dev(div5, input2);
+    			append_hydration_dev(form, t16);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, button);
+    			append_hydration_dev(button, t17);
+    			insert_hydration_dev(target, t18, anchor);
+    			mount_component(alert, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[7]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[8]),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[9]),
+    					listen_dev(input2, "change", /*drop*/ ctx[5], false, false, false),
+    					listen_dev(form, "submit", /*dispatch*/ ctx[6], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div1, null);
+    				}
+    			}
+
+    			if (dirty & /*schedule*/ 16 && input0.value !== /*schedule*/ ctx[4].title) {
+    				set_input_value(input0, /*schedule*/ ctx[4].title);
+    			}
+
+    			if (dirty & /*schedule*/ 16 && input1.value !== /*schedule*/ ctx[4].url) {
+    				set_input_value(input1, /*schedule*/ ctx[4].url);
+    			}
+
+    			if (dirty & /*schedule*/ 16) {
+    				set_input_value(textarea, /*schedule*/ ctx[4].description);
+    			}
+
+    			const alert_changes = {};
+    			if (dirty & /*mssg*/ 4) alert_changes.mssg = /*mssg*/ ctx[2];
+    			if (dirty & /*status*/ 2) alert_changes.status = /*status*/ ctx[1];
+    			alert.$set(alert_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(alert.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(alert.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div14);
+    			if_block.d();
+    			if (detaching) detach_dev(t18);
+    			destroy_component(alert, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$6.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$6($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('AddSchedule', slots, []);
+    	let loading = false;
+    	let status = -1;
+    	let mssg = "";
+    	let image = "https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
+
+    	let schedule = {
+    		url: "",
+    		title: "",
+    		image: "",
+    		description: "",
+    		clicks: 0,
+    		likes: 0
+    	};
+
+    	const drop = async e => {
+    		$$invalidate(0, loading = true);
+    		const files = e.target.files;
+    		const data = new FormData();
+    		data.append("file", files[0]);
+    		data.append("upload_preset", "vitrinedacasa");
+    		const res = await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload", { method: "POST", body: data });
+    		$$invalidate(0, loading = false);
+    		const file = await res.json();
+    		$$invalidate(4, schedule.image = file.secure_url, schedule);
+    		$$invalidate(3, image = file.secure_url);
+    	};
+
+    	const dispatch = async e => {
+    		e.preventDefault();
+    		let res = await addschedule(schedule);
+    		$$invalidate(1, status = res.status);
+    		$$invalidate(2, mssg = res.mssg);
+    		console.log(res);
+    		document.location.href = "/dashboard";
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<AddSchedule> was created with unknown prop '${key}'`);
+    	});
+
+    	function input0_input_handler() {
+    		schedule.title = this.value;
+    		$$invalidate(4, schedule);
+    	}
+
+    	function input1_input_handler() {
+    		schedule.url = this.value;
+    		$$invalidate(4, schedule);
+    	}
+
+    	function textarea_input_handler() {
+    		schedule.description = this.value;
+    		$$invalidate(4, schedule);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		Alert,
+    		addschedule,
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		schedule,
+    		drop,
+    		dispatch
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('loading' in $$props) $$invalidate(0, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('image' in $$props) $$invalidate(3, image = $$props.image);
+    		if ('schedule' in $$props) $$invalidate(4, schedule = $$props.schedule);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		schedule,
+    		drop,
+    		dispatch,
+    		input0_input_handler,
+    		input1_input_handler,
+    		textarea_input_handler
+    	];
+    }
+
+    class AddSchedule extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "AddSchedule",
+    			options,
+    			id: create_fragment$6.name
+    		});
+    	}
+    }
+
+    /* src\pages\EditSchedule.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$2 } = globals;
+    const file$5 = "src\\pages\\EditSchedule.svelte";
+
+    function get_each_context$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[15] = list[i];
+    	return child_ctx;
+    }
+
+    // (74:20) {:else}
+    function create_else_block$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			img = claim_element(nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true
+    			});
+
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			if (!src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Not found user");
+    			attr_dev(img, "class", "img-fluid");
+    			attr_dev(img, "width", "132");
+    			attr_dev(img, "height", "132");
+    			add_location(img, file$5, 74, 22, 2543);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*image*/ 8 && !src_url_equal(img.src, img_src_value = /*image*/ ctx[3])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$1.name,
+    		type: "else",
+    		source: "(74:20) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (70:20) {#if loading}
+    function create_if_block$2(ctx) {
+    	let div;
+    	let span;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			t = text("Carregando...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true, role: true });
+    			var div_nodes = children(div);
+    			span = claim_element(div_nodes, "SPAN", { class: true });
+    			var span_nodes = children(span);
+    			t = claim_text(span_nodes, "Carregando...");
+    			span_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(span, "class", "sr-only");
+    			add_location(span, file$5, 71, 24, 2418);
+    			attr_dev(div, "class", "spinner-border text-primary");
+    			attr_dev(div, "role", "status");
+    			add_location(div, file$5, 70, 22, 2337);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			append_hydration_dev(div, span);
+    			append_hydration_dev(span, t);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(70:20) {#if loading}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (137:23) {#each types as type(type)}
+    function create_each_block$1(key_1, ctx) {
+    	let option;
+    	let t_value = /*type*/ ctx[15] + "";
+    	let t;
+
+    	const block = {
+    		key: key_1,
+    		first: null,
+    		c: function create() {
+    			option = element("option");
+    			t = text(t_value);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			option = claim_element(nodes, "OPTION", {});
+    			var option_nodes = children(option);
+    			t = claim_text(option_nodes, t_value);
+    			option_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			option.__value = /*type*/ ctx[15];
+    			option.value = option.__value;
+    			add_location(option, file$5, 137, 26, 5235);
+    			this.first = option;
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, option, anchor);
+    			append_hydration_dev(option, t);
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(option);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$1.name,
+    		type: "each",
+    		source: "(137:23) {#each types as type(type)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$5(ctx) {
+    	let navbar;
+    	let t0;
+    	let div16;
+    	let main;
+    	let div15;
+    	let div14;
+    	let div13;
+    	let div12;
+    	let div0;
+    	let h1;
+    	let t1;
+    	let t2;
+    	let p;
+    	let t3;
+    	let t4;
+    	let div11;
+    	let div10;
+    	let div9;
+    	let div1;
+    	let t5;
+    	let form;
+    	let div2;
+    	let label0;
+    	let t6;
+    	let t7;
+    	let input0;
+    	let t8;
+    	let div3;
+    	let label1;
+    	let t9;
+    	let t10;
+    	let input1;
+    	let t11;
+    	let div4;
+    	let label2;
+    	let t12;
+    	let t13;
+    	let input2;
+    	let t14;
+    	let div5;
+    	let label3;
+    	let t15;
+    	let t16;
+    	let input3;
+    	let t17;
+    	let div6;
+    	let label4;
+    	let t18;
+    	let t19;
+    	let input4;
+    	let t20;
+    	let div7;
+    	let label5;
+    	let t21;
+    	let t22;
+    	let select;
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
+    	let t23;
+    	let div8;
+    	let button;
+    	let t24;
+    	let t25;
+    	let alert;
+    	let t26;
+    	let footer;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	navbar = new Navbar({
+    			props: { user: /*user*/ ctx[5] },
+    			$$inline: true
+    		});
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*loading*/ ctx[0]) return create_if_block$2;
+    		return create_else_block$1;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+    	let each_value = /*types*/ ctx[6];
+    	validate_each_argument(each_value);
+    	const get_key = ctx => /*type*/ ctx[15];
+    	validate_each_keys(ctx, each_value, get_each_context$1, get_key);
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		let child_ctx = get_each_context$1(ctx, each_value, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block$1(key, child_ctx));
+    	}
+
+    	alert = new Alert({
+    			props: {
+    				mssg: /*mssg*/ ctx[2],
+    				status: /*status*/ ctx[1]
+    			},
+    			$$inline: true
+    		});
+
+    	footer = new Footer({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(navbar.$$.fragment);
+    			t0 = space();
+    			div16 = element("div");
+    			main = element("main");
+    			div15 = element("div");
+    			div14 = element("div");
+    			div13 = element("div");
+    			div12 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t1 = text("Multiplique as possibilidades");
+    			t2 = space();
+    			p = element("p");
+    			t3 = text("Uma página personalizada para seu Produto ou Serviço");
+    			t4 = space();
+    			div11 = element("div");
+    			div10 = element("div");
+    			div9 = element("div");
+    			div1 = element("div");
+    			if_block.c();
+    			t5 = space();
+    			form = element("form");
+    			div2 = element("div");
+    			label0 = element("label");
+    			t6 = text("Url");
+    			t7 = space();
+    			input0 = element("input");
+    			t8 = space();
+    			div3 = element("div");
+    			label1 = element("label");
+    			t9 = text("Título");
+    			t10 = space();
+    			input1 = element("input");
+    			t11 = space();
+    			div4 = element("div");
+    			label2 = element("label");
+    			t12 = text("Carregue uma imagem (se desejar)");
+    			t13 = space();
+    			input2 = element("input");
+    			t14 = space();
+    			div5 = element("div");
+    			label3 = element("label");
+    			t15 = text("Descrição");
+    			t16 = space();
+    			input3 = element("input");
+    			t17 = space();
+    			div6 = element("div");
+    			label4 = element("label");
+    			t18 = text("Preço");
+    			t19 = space();
+    			input4 = element("input");
+    			t20 = space();
+    			div7 = element("div");
+    			label5 = element("label");
+    			t21 = text("Tipo");
+    			t22 = space();
+    			select = element("select");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t23 = space();
+    			div8 = element("div");
+    			button = element("button");
+    			t24 = text("Salvar");
+    			t25 = space();
+    			create_component(alert.$$.fragment);
+    			t26 = space();
+    			create_component(footer.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			claim_component(navbar.$$.fragment, nodes);
+    			t0 = claim_space(nodes);
+    			div16 = claim_element(nodes, "DIV", { class: true });
+    			var div16_nodes = children(div16);
+    			main = claim_element(div16_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div15 = claim_element(main_nodes, "DIV", { class: true });
+    			var div15_nodes = children(div15);
+    			div14 = claim_element(div15_nodes, "DIV", { class: true });
+    			var div14_nodes = children(div14);
+    			div13 = claim_element(div14_nodes, "DIV", { class: true });
+    			var div13_nodes = children(div13);
+    			div12 = claim_element(div13_nodes, "DIV", { class: true });
+    			var div12_nodes = children(div12);
+    			div0 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t1 = claim_text(h1_nodes, "Multiplique as possibilidades");
+    			h1_nodes.forEach(detach_dev);
+    			t2 = claim_space(div0_nodes);
+    			p = claim_element(div0_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t3 = claim_text(p_nodes, "Uma página personalizada para seu Produto ou Serviço");
+    			p_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t4 = claim_space(div12_nodes);
+    			div11 = claim_element(div12_nodes, "DIV", { class: true });
+    			var div11_nodes = children(div11);
+    			div10 = claim_element(div11_nodes, "DIV", { class: true });
+    			var div10_nodes = children(div10);
+    			div9 = claim_element(div10_nodes, "DIV", { class: true });
+    			var div9_nodes = children(div9);
+    			div1 = claim_element(div9_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			if_block.l(div1_nodes);
+    			div1_nodes.forEach(detach_dev);
+    			t5 = claim_space(div9_nodes);
+    			form = claim_element(div9_nodes, "FORM", {});
+    			var form_nodes = children(form);
+    			div2 = claim_element(form_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			label0 = claim_element(div2_nodes, "LABEL", { for: true });
+    			var label0_nodes = children(label0);
+    			t6 = claim_text(label0_nodes, "Url");
+    			label0_nodes.forEach(detach_dev);
+    			t7 = claim_space(div2_nodes);
+
+    			input0 = claim_element(div2_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div2_nodes.forEach(detach_dev);
+    			t8 = claim_space(form_nodes);
+    			div3 = claim_element(form_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			label1 = claim_element(div3_nodes, "LABEL", { for: true });
+    			var label1_nodes = children(label1);
+    			t9 = claim_text(label1_nodes, "Título");
+    			label1_nodes.forEach(detach_dev);
+    			t10 = claim_space(div3_nodes);
+
+    			input1 = claim_element(div3_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div3_nodes.forEach(detach_dev);
+    			t11 = claim_space(form_nodes);
+    			div4 = claim_element(form_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			label2 = claim_element(div4_nodes, "LABEL", { for: true });
+    			var label2_nodes = children(label2);
+    			t12 = claim_text(label2_nodes, "Carregue uma imagem (se desejar)");
+    			label2_nodes.forEach(detach_dev);
+    			t13 = claim_space(div4_nodes);
+    			input2 = claim_element(div4_nodes, "INPUT", { id: true, name: true, type: true });
+    			div4_nodes.forEach(detach_dev);
+    			t14 = claim_space(form_nodes);
+    			div5 = claim_element(form_nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			label3 = claim_element(div5_nodes, "LABEL", { for: true });
+    			var label3_nodes = children(label3);
+    			t15 = claim_text(label3_nodes, "Descrição");
+    			label3_nodes.forEach(detach_dev);
+    			t16 = claim_space(div5_nodes);
+
+    			input3 = claim_element(div5_nodes, "INPUT", {
+    				class: true,
+    				type: true,
+    				placeholder: true
+    			});
+
+    			div5_nodes.forEach(detach_dev);
+    			t17 = claim_space(form_nodes);
+    			div6 = claim_element(form_nodes, "DIV", { class: true });
+    			var div6_nodes = children(div6);
+    			label4 = claim_element(div6_nodes, "LABEL", { for: true });
+    			var label4_nodes = children(label4);
+    			t18 = claim_text(label4_nodes, "Preço");
+    			label4_nodes.forEach(detach_dev);
+    			t19 = claim_space(div6_nodes);
+    			input4 = claim_element(div6_nodes, "INPUT", { class: true, type: true });
+    			div6_nodes.forEach(detach_dev);
+    			t20 = claim_space(form_nodes);
+    			div7 = claim_element(form_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			label5 = claim_element(div7_nodes, "LABEL", { for: true });
+    			var label5_nodes = children(label5);
+    			t21 = claim_text(label5_nodes, "Tipo");
+    			label5_nodes.forEach(detach_dev);
+    			t22 = claim_space(div7_nodes);
+    			select = claim_element(div7_nodes, "SELECT", { class: true });
+    			var select_nodes = children(select);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(select_nodes);
+    			}
+
+    			select_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			t23 = claim_space(form_nodes);
+    			div8 = claim_element(form_nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			button = claim_element(div8_nodes, "BUTTON", { type: true, class: true });
+    			var button_nodes = children(button);
+    			t24 = claim_text(button_nodes, "Salvar");
+    			button_nodes.forEach(detach_dev);
+    			div8_nodes.forEach(detach_dev);
+    			form_nodes.forEach(detach_dev);
+    			div9_nodes.forEach(detach_dev);
+    			div10_nodes.forEach(detach_dev);
+    			div11_nodes.forEach(detach_dev);
+    			div12_nodes.forEach(detach_dev);
+    			div13_nodes.forEach(detach_dev);
+    			div14_nodes.forEach(detach_dev);
+    			div15_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div16_nodes.forEach(detach_dev);
+    			t25 = claim_space(nodes);
+    			claim_component(alert.$$.fragment, nodes);
+    			t26 = claim_space(nodes);
+    			claim_component(footer.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "h2");
+    			add_location(h1, file$5, 61, 14, 1965);
+    			attr_dev(p, "class", "lead");
+    			add_location(p, file$5, 62, 14, 2030);
+    			attr_dev(div0, "class", "text-center mt-4");
+    			add_location(div0, file$5, 60, 12, 1919);
+    			attr_dev(div1, "class", "text-center");
+    			add_location(div1, file$5, 68, 18, 2253);
+    			attr_dev(label0, "for", "");
+    			add_location(label0, file$5, 85, 22, 2944);
+    			attr_dev(input0, "class", "form-control form-control-lg");
+    			attr_dev(input0, "type", "text");
+    			input0.required = true;
+    			attr_dev(input0, "placeholder", "https://itesmesankar.herokuapp.com/");
+    			add_location(input0, file$5, 86, 22, 2993);
+    			attr_dev(div2, "class", "form-group");
+    			add_location(div2, file$5, 84, 20, 2896);
+    			attr_dev(label1, "for", "");
+    			add_location(label1, file$5, 95, 22, 3382);
+    			attr_dev(input1, "class", "form-control form-control-lg");
+    			attr_dev(input1, "type", "text");
+    			input1.required = true;
+    			attr_dev(input1, "placeholder", "Nome do Produto ou Serviço");
+    			add_location(input1, file$5, 96, 22, 3434);
+    			attr_dev(div3, "class", "form-group");
+    			add_location(div3, file$5, 94, 20, 3334);
+    			attr_dev(label2, "for", "");
+    			add_location(label2, file$5, 105, 22, 3816);
+    			attr_dev(input2, "id", "file");
+    			attr_dev(input2, "name", "file");
+    			attr_dev(input2, "type", "file");
+    			add_location(input2, file$5, 106, 22, 3894);
+    			attr_dev(div4, "class", "form-group");
+    			add_location(div4, file$5, 104, 20, 3768);
+    			attr_dev(label3, "for", "");
+    			add_location(label3, file$5, 114, 22, 4175);
+    			attr_dev(input3, "class", "form-control form-control-lg");
+    			attr_dev(input3, "type", "text");
+    			attr_dev(input3, "placeholder", "Descreva o que você está oferecendo, seja objetivo com o seu cliente.");
+    			add_location(input3, file$5, 115, 22, 4230);
+    			attr_dev(div5, "class", "form-group");
+    			add_location(div5, file$5, 113, 20, 4127);
+    			attr_dev(label4, "for", "");
+    			add_location(label4, file$5, 123, 22, 4627);
+    			attr_dev(input4, "class", "form-control form-control-lg");
+    			attr_dev(input4, "type", "tel");
+    			add_location(input4, file$5, 124, 22, 4678);
+    			attr_dev(div6, "class", "form-group");
+    			add_location(div6, file$5, 122, 20, 4579);
+    			attr_dev(label5, "for", "");
+    			add_location(label5, file$5, 131, 22, 4959);
+    			attr_dev(select, "class", "form-control form-control-lg");
+    			if (/*schedule*/ ctx[4].type === void 0) add_render_callback(() => /*select_change_handler*/ ctx[13].call(select));
+    			add_location(select, file$5, 132, 22, 5009);
+    			attr_dev(div7, "class", "form-group");
+    			add_location(div7, file$5, 130, 20, 4911);
+    			attr_dev(button, "type", "submit");
+    			attr_dev(button, "class", "btn btn-lg btn-primary");
+    			add_location(button, file$5, 142, 22, 5427);
+    			attr_dev(div8, "class", "text-center mt-3");
+    			add_location(div8, file$5, 141, 20, 5373);
+    			add_location(form, file$5, 83, 18, 2847);
+    			attr_dev(div9, "class", "m-sm-4");
+    			add_location(div9, file$5, 67, 16, 2213);
+    			attr_dev(div10, "class", "card-body");
+    			add_location(div10, file$5, 66, 14, 2172);
+    			attr_dev(div11, "class", "card");
+    			add_location(div11, file$5, 65, 12, 2138);
+    			attr_dev(div12, "class", "d-table-cell align-middle");
+    			add_location(div12, file$5, 59, 10, 1866);
+    			attr_dev(div13, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div13, file$5, 58, 8, 1791);
+    			attr_dev(div14, "class", "row h-100");
+    			add_location(div14, file$5, 57, 6, 1758);
+    			attr_dev(div15, "class", "container d-flex flex-column");
+    			add_location(div15, file$5, 56, 4, 1708);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$5, 55, 2, 1669);
+    			attr_dev(div16, "class", "main d-flex justify-content-center w-100");
+    			add_location(div16, file$5, 54, 0, 1611);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(navbar, target, anchor);
+    			insert_hydration_dev(target, t0, anchor);
+    			insert_hydration_dev(target, div16, anchor);
+    			append_hydration_dev(div16, main);
+    			append_hydration_dev(main, div15);
+    			append_hydration_dev(div15, div14);
+    			append_hydration_dev(div14, div13);
+    			append_hydration_dev(div13, div12);
+    			append_hydration_dev(div12, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t1);
+    			append_hydration_dev(div0, t2);
+    			append_hydration_dev(div0, p);
+    			append_hydration_dev(p, t3);
+    			append_hydration_dev(div12, t4);
+    			append_hydration_dev(div12, div11);
+    			append_hydration_dev(div11, div10);
+    			append_hydration_dev(div10, div9);
+    			append_hydration_dev(div9, div1);
+    			if_block.m(div1, null);
+    			append_hydration_dev(div9, t5);
+    			append_hydration_dev(div9, form);
+    			append_hydration_dev(form, div2);
+    			append_hydration_dev(div2, label0);
+    			append_hydration_dev(label0, t6);
+    			append_hydration_dev(div2, t7);
+    			append_hydration_dev(div2, input0);
+    			set_input_value(input0, /*schedule*/ ctx[4].url);
+    			append_hydration_dev(form, t8);
+    			append_hydration_dev(form, div3);
+    			append_hydration_dev(div3, label1);
+    			append_hydration_dev(label1, t9);
+    			append_hydration_dev(div3, t10);
+    			append_hydration_dev(div3, input1);
+    			set_input_value(input1, /*schedule*/ ctx[4].title);
+    			append_hydration_dev(form, t11);
+    			append_hydration_dev(form, div4);
+    			append_hydration_dev(div4, label2);
+    			append_hydration_dev(label2, t12);
+    			append_hydration_dev(div4, t13);
+    			append_hydration_dev(div4, input2);
+    			append_hydration_dev(form, t14);
+    			append_hydration_dev(form, div5);
+    			append_hydration_dev(div5, label3);
+    			append_hydration_dev(label3, t15);
+    			append_hydration_dev(div5, t16);
+    			append_hydration_dev(div5, input3);
+    			set_input_value(input3, /*schedule*/ ctx[4].description);
+    			append_hydration_dev(form, t17);
+    			append_hydration_dev(form, div6);
+    			append_hydration_dev(div6, label4);
+    			append_hydration_dev(label4, t18);
+    			append_hydration_dev(div6, t19);
+    			append_hydration_dev(div6, input4);
+    			set_input_value(input4, /*schedule*/ ctx[4].price);
+    			append_hydration_dev(form, t20);
+    			append_hydration_dev(form, div7);
+    			append_hydration_dev(div7, label5);
+    			append_hydration_dev(label5, t21);
+    			append_hydration_dev(div7, t22);
+    			append_hydration_dev(div7, select);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(select, null);
+    			}
+
+    			select_option(select, /*schedule*/ ctx[4].type);
+    			append_hydration_dev(form, t23);
+    			append_hydration_dev(form, div8);
+    			append_hydration_dev(div8, button);
+    			append_hydration_dev(button, t24);
+    			insert_hydration_dev(target, t25, anchor);
+    			mount_component(alert, target, anchor);
+    			insert_hydration_dev(target, t26, anchor);
+    			mount_component(footer, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[9]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[10]),
+    					listen_dev(input2, "change", /*drop*/ ctx[7], false, false, false),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[11]),
+    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[12]),
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[13]),
+    					listen_dev(form, "submit", /*dispatch*/ ctx[8], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const navbar_changes = {};
+    			if (dirty & /*user*/ 32) navbar_changes.user = /*user*/ ctx[5];
+    			navbar.$set(navbar_changes);
+
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div1, null);
+    				}
+    			}
+
+    			if (dirty & /*schedule, types*/ 80 && input0.value !== /*schedule*/ ctx[4].url) {
+    				set_input_value(input0, /*schedule*/ ctx[4].url);
+    			}
+
+    			if (dirty & /*schedule, types*/ 80 && input1.value !== /*schedule*/ ctx[4].title) {
+    				set_input_value(input1, /*schedule*/ ctx[4].title);
+    			}
+
+    			if (dirty & /*schedule, types*/ 80 && input3.value !== /*schedule*/ ctx[4].description) {
+    				set_input_value(input3, /*schedule*/ ctx[4].description);
+    			}
+
+    			if (dirty & /*schedule, types*/ 80) {
+    				set_input_value(input4, /*schedule*/ ctx[4].price);
+    			}
+
+    			if (dirty & /*types*/ 64) {
+    				each_value = /*types*/ ctx[6];
+    				validate_each_argument(each_value);
+    				validate_each_keys(ctx, each_value, get_each_context$1, get_key);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, select, destroy_block, create_each_block$1, null, get_each_context$1);
+    			}
+
+    			if (dirty & /*schedule, types*/ 80) {
+    				select_option(select, /*schedule*/ ctx[4].type);
+    			}
+
+    			const alert_changes = {};
+    			if (dirty & /*mssg*/ 4) alert_changes.mssg = /*mssg*/ ctx[2];
+    			if (dirty & /*status*/ 2) alert_changes.status = /*status*/ ctx[1];
+    			alert.$set(alert_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(navbar.$$.fragment, local);
+    			transition_in(alert.$$.fragment, local);
+    			transition_in(footer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(navbar.$$.fragment, local);
+    			transition_out(alert.$$.fragment, local);
+    			transition_out(footer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(navbar, detaching);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div16);
+    			if_block.d();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d();
+    			}
+
+    			if (detaching) detach_dev(t25);
+    			destroy_component(alert, detaching);
+    			if (detaching) detach_dev(t26);
+    			destroy_component(footer, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$5.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('EditSchedule', slots, []);
+    	let loading = false;
+    	let status = -1;
+    	let mssg = "";
+    	let image = "https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
+    	let schedule;
+    	let user;
+    	let types = ['Serviço', 'Produto'];
+
+    	const unsubscribe = userStore.subscribe(data => {
+    		console.log(data);
+    		$$invalidate(4, schedule = data.schedule);
+    		$$invalidate(5, user = data.user);
+
+    		$$invalidate(3, image = schedule.image != "" || schedule.image != null
+    		? schedule.image
+    		: image);
+    	});
+
+    	const drop = async e => {
+    		$$invalidate(0, loading = true);
+    		const files = e.target.files;
+    		const data = new FormData();
+    		data.append("file", files[0]);
+    		data.append("upload_preset", "vitrinedacasa");
+    		const res = await fetch("https://api.cloudinary.com/v1_1/sankarkvs/image/upload", { method: "POST", body: data });
+    		$$invalidate(0, loading = false);
+    		const file = await res.json();
+    		$$invalidate(4, schedule.image = file.secure_url, schedule);
+    		$$invalidate(3, image = file.secure_url);
+    	};
+
+    	const dispatch = async e => {
+    		e.preventDefault();
+    		let res = await addschedule(schedule);
+    		$$invalidate(1, status = res.status);
+    		$$invalidate(2, mssg = res.mssg);
+    		console.log(res);
+    		document.location.href = "/dashboard";
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<EditSchedule> was created with unknown prop '${key}'`);
+    	});
+
+    	function input0_input_handler() {
+    		schedule.url = this.value;
+    		$$invalidate(4, schedule);
+    		$$invalidate(6, types);
+    	}
+
+    	function input1_input_handler() {
+    		schedule.title = this.value;
+    		$$invalidate(4, schedule);
+    		$$invalidate(6, types);
+    	}
+
+    	function input3_input_handler() {
+    		schedule.description = this.value;
+    		$$invalidate(4, schedule);
+    		$$invalidate(6, types);
+    	}
+
+    	function input4_input_handler() {
+    		schedule.price = this.value;
+    		$$invalidate(4, schedule);
+    		$$invalidate(6, types);
+    	}
+
+    	function select_change_handler() {
+    		schedule.type = select_value(this);
+    		$$invalidate(4, schedule);
+    		$$invalidate(6, types);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		Alert,
+    		addschedule,
+    		userStore,
+    		NavBar: Navbar,
+    		Footer,
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		schedule,
+    		user,
+    		types,
+    		unsubscribe,
+    		drop,
+    		dispatch
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('loading' in $$props) $$invalidate(0, loading = $$props.loading);
+    		if ('status' in $$props) $$invalidate(1, status = $$props.status);
+    		if ('mssg' in $$props) $$invalidate(2, mssg = $$props.mssg);
+    		if ('image' in $$props) $$invalidate(3, image = $$props.image);
+    		if ('schedule' in $$props) $$invalidate(4, schedule = $$props.schedule);
+    		if ('user' in $$props) $$invalidate(5, user = $$props.user);
+    		if ('types' in $$props) $$invalidate(6, types = $$props.types);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		loading,
+    		status,
+    		mssg,
+    		image,
+    		schedule,
+    		user,
+    		types,
+    		drop,
+    		dispatch,
+    		input0_input_handler,
+    		input1_input_handler,
+    		input3_input_handler,
+    		input4_input_handler,
+    		select_change_handler
+    	];
+    }
+
+    class EditSchedule extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "EditSchedule",
+    			options,
+    			id: create_fragment$5.name
+    		});
+    	}
+    }
+
+    /* src\components\Card.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1$1 } = globals;
+    const file$4 = "src\\components\\Card.svelte";
+
+    // (14:4) {#if link.image !== null && link.image !== ""}
+    function create_if_block$1(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			img = claim_element(nodes, "IMG", {
+    				class: true,
+    				style: true,
+    				src: true,
+    				alt: true
+    			});
+
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(img, "class", "card-img-top");
+    			set_style(img, "max-height", "250px");
+    			if (!src_url_equal(img.src, img_src_value = /*link*/ ctx[0].image)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Not available");
+    			add_location(img, file$4, 14, 6, 401);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*link*/ 1 && !src_url_equal(img.src, img_src_value = /*link*/ ctx[0].image)) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(14:4) {#if link.image !== null && link.image !== \\\"\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$4(ctx) {
+    	let div3;
+    	let div2;
+    	let t0;
+    	let div0;
+    	let h5;
+    	let t1_value = /*link*/ ctx[0].title + "";
+    	let t1;
+    	let t2;
+    	let hr;
+    	let t3;
+    	let div1;
+    	let p;
+    	let t4_value = /*link*/ ctx[0].description.substr(0, 100) + "..." + "";
+    	let t4;
+    	let t5;
+    	let a;
+    	let t6;
+    	let a_href_value;
+    	let mounted;
+    	let dispose;
+    	let if_block = /*link*/ ctx[0].image !== null && /*link*/ ctx[0].image !== "" && create_if_block$1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div3 = element("div");
+    			div2 = element("div");
+    			if (if_block) if_block.c();
+    			t0 = space();
+    			div0 = element("div");
+    			h5 = element("h5");
+    			t1 = text(t1_value);
+    			t2 = space();
+    			hr = element("hr");
+    			t3 = space();
+    			div1 = element("div");
+    			p = element("p");
+    			t4 = text(t4_value);
+    			t5 = space();
+    			a = element("a");
+    			t6 = text("Entre");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div3 = claim_element(nodes, "DIV", { style: true });
+    			var div3_nodes = children(div3);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			if (if_block) if_block.l(div2_nodes);
+    			t0 = claim_space(div2_nodes);
+    			div0 = claim_element(div2_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h5 = claim_element(div0_nodes, "H5", { class: true });
+    			var h5_nodes = children(h5);
+    			t1 = claim_text(h5_nodes, t1_value);
+    			h5_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t2 = claim_space(div2_nodes);
+    			hr = claim_element(div2_nodes, "HR", { class: true });
+    			t3 = claim_space(div2_nodes);
+    			div1 = claim_element(div2_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			p = claim_element(div1_nodes, "P", { class: true });
+    			var p_nodes = children(p);
+    			t4 = claim_text(p_nodes, t4_value);
+    			p_nodes.forEach(detach_dev);
+    			t5 = claim_space(div1_nodes);
+    			a = claim_element(div1_nodes, "A", { href: true, target: true, class: true });
+    			var a_nodes = children(a);
+    			t6 = claim_text(a_nodes, "Entre");
+    			a_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h5, "class", "card-title mb-0");
+    			add_location(h5, file$4, 22, 6, 586);
+    			attr_dev(div0, "class", "card-header");
+    			add_location(div0, file$4, 21, 4, 553);
+    			attr_dev(hr, "class", "mb-0");
+    			add_location(hr, file$4, 24, 4, 649);
+    			attr_dev(p, "class", "card-text");
+    			add_location(p, file$4, 26, 6, 705);
+    			attr_dev(a, "href", a_href_value = /*link*/ ctx[0].url);
+    			attr_dev(a, "target", "_blank");
+    			attr_dev(a, "class", "btn btn-primary");
+    			add_location(a, file$4, 29, 6, 797);
+    			attr_dev(div1, "class", "card-body");
+    			add_location(div1, file$4, 25, 4, 674);
+    			attr_dev(div2, "class", "card sankarcard");
+    			add_location(div2, file$4, 12, 2, 312);
+    			set_style(div3, "margin", "10px");
+    			set_style(div3, "max-width", "400px");
+    			add_location(div3, file$4, 11, 0, 265);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div3, anchor);
+    			append_hydration_dev(div3, div2);
+    			if (if_block) if_block.m(div2, null);
+    			append_hydration_dev(div2, t0);
+    			append_hydration_dev(div2, div0);
+    			append_hydration_dev(div0, h5);
+    			append_hydration_dev(h5, t1);
+    			append_hydration_dev(div2, t2);
+    			append_hydration_dev(div2, hr);
+    			append_hydration_dev(div2, t3);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, p);
+    			append_hydration_dev(p, t4);
+    			append_hydration_dev(div1, t5);
+    			append_hydration_dev(div1, a);
+    			append_hydration_dev(a, t6);
+
+    			if (!mounted) {
+    				dispose = listen_dev(a, "click", /*redirect*/ ctx[1], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*link*/ ctx[0].image !== null && /*link*/ ctx[0].image !== "") {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block$1(ctx);
+    					if_block.c();
+    					if_block.m(div2, t0);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
+    			if (dirty & /*link*/ 1 && t1_value !== (t1_value = /*link*/ ctx[0].title + "")) set_data_dev(t1, t1_value);
+    			if (dirty & /*link*/ 1 && t4_value !== (t4_value = /*link*/ ctx[0].description.substr(0, 100) + "..." + "")) set_data_dev(t4, t4_value);
+
+    			if (dirty & /*link*/ 1 && a_href_value !== (a_href_value = /*link*/ ctx[0].url)) {
+    				attr_dev(a, "href", a_href_value);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div3);
+    			if (if_block) if_block.d();
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$4.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Card', slots, []);
+    	let { link } = $$props;
+    	let { name } = $$props;
+
+    	const redirect = async () => {
+    		await axios.post("/api/user/clickadd", { instagram: name, _id: link._id }).then(res => console.log("done"));
+    	};
+
+    	const writable_props = ['link', 'name'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<Card> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('link' in $$props) $$invalidate(0, link = $$props.link);
+    		if ('name' in $$props) $$invalidate(2, name = $$props.name);
+    	};
+
+    	$$self.$capture_state = () => ({ link, name, axios, redirect });
+
+    	$$self.$inject_state = $$props => {
+    		if ('link' in $$props) $$invalidate(0, link = $$props.link);
+    		if ('name' in $$props) $$invalidate(2, name = $$props.name);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [link, redirect, name];
+    }
+
+    class Card extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { link: 0, name: 2 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Card",
+    			options,
+    			id: create_fragment$4.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*link*/ ctx[0] === undefined && !('link' in props)) {
+    			console_1$1.warn("<Card> was created without expected prop 'link'");
+    		}
+
+    		if (/*name*/ ctx[2] === undefined && !('name' in props)) {
+    			console_1$1.warn("<Card> was created without expected prop 'name'");
+    		}
+    	}
+
+    	get link() {
+    		throw new Error("<Card>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set link(value) {
+    		throw new Error("<Card>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get name() {
+    		throw new Error("<Card>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set name(value) {
+    		throw new Error("<Card>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\components\Loading.svelte generated by Svelte v3.47.0 */
+
+    const file$3 = "src\\components\\Loading.svelte";
+
+    function create_fragment$3(ctx) {
+    	let div3;
+    	let div0;
+    	let t0;
+    	let div1;
+    	let t1;
+    	let div2;
+    	let t2;
+    	let h1;
+    	let t3;
+
+    	const block = {
+    		c: function create() {
+    			div3 = element("div");
+    			div0 = element("div");
+    			t0 = space();
+    			div1 = element("div");
+    			t1 = space();
+    			div2 = element("div");
+    			t2 = space();
+    			h1 = element("h1");
+    			t3 = text("Wait for it...");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div3 = claim_element(nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			div0 = claim_element(div3_nodes, "DIV", { class: true });
+    			children(div0).forEach(detach_dev);
+    			t0 = claim_space(div3_nodes);
+    			div1 = claim_element(div3_nodes, "DIV", { class: true });
+    			children(div1).forEach(detach_dev);
+    			t1 = claim_space(div3_nodes);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			children(div2).forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			t2 = claim_space(nodes);
+    			h1 = claim_element(nodes, "H1", { style: true });
+    			var h1_nodes = children(h1);
+    			t3 = claim_text(h1_nodes, "Wait for it...");
+    			h1_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(div0, "class", "line svelte-1wgo5po");
+    			add_location(div0, file$3, 1, 2, 24);
+    			attr_dev(div1, "class", "line svelte-1wgo5po");
+    			add_location(div1, file$3, 2, 2, 48);
+    			attr_dev(div2, "class", "line svelte-1wgo5po");
+    			add_location(div2, file$3, 3, 2, 72);
+    			attr_dev(div3, "class", "load-1 svelte-1wgo5po");
+    			add_location(div3, file$3, 0, 0, 0);
+    			set_style(h1, "text-align", "center");
+    			add_location(h1, file$3, 6, 0, 104);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div3, anchor);
+    			append_hydration_dev(div3, div0);
+    			append_hydration_dev(div3, t0);
+    			append_hydration_dev(div3, div1);
+    			append_hydration_dev(div3, t1);
+    			append_hydration_dev(div3, div2);
+    			insert_hydration_dev(target, t2, anchor);
+    			insert_hydration_dev(target, h1, anchor);
+    			append_hydration_dev(h1, t3);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div3);
+    			if (detaching) detach_dev(t2);
+    			if (detaching) detach_dev(h1);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$3.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$3($$self, $$props) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Loading', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Loading> was created with unknown prop '${key}'`);
+    	});
+
+    	return [];
+    }
+
+    class Loading extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Loading",
+    			options,
+    			id: create_fragment$3.name
+    		});
+    	}
+    }
+
+    /* src\pages\Display.svelte generated by Svelte v3.47.0 */
+
+    const { console: console_1 } = globals;
+    const file$2 = "src\\pages\\Display.svelte";
+
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[3] = list[i];
+    	return child_ctx;
+    }
+
+    // (62:0) {:else}
+    function create_else_block(ctx) {
+    	let div1;
+    	let div0;
+    	let loading;
+    	let current;
+    	loading = new Loading({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			create_component(loading.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div1 = claim_element(nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			div0 = claim_element(div1_nodes, "DIV", { style: true });
+    			var div0_nodes = children(div0);
+    			claim_component(loading.$$.fragment, div0_nodes);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			set_style(div0, "margin-left", "50%");
+    			set_style(div0, "margin-top", "50vh");
+    			set_style(div0, "transform", "translate(-50%,-50%)");
+    			add_location(div0, file$2, 63, 4, 1966);
+    			attr_dev(div1, "class", "row");
+    			add_location(div1, file$2, 62, 2, 1943);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div1, anchor);
+    			append_hydration_dev(div1, div0);
+    			mount_component(loading, div0, null);
+    			current = true;
+    		},
+    		p: noop,
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(loading.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(loading.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			destroy_component(loading);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(62:0) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (24:0) {#if user != null}
+    function create_if_block(ctx) {
+    	let div8;
+    	let homenav;
+    	let t0;
+    	let div7;
+    	let div5;
+    	let div4;
+    	let div0;
+    	let h50;
+    	let t1;
+    	let t2;
+    	let div3;
+    	let img;
+    	let img_src_value;
+    	let img_alt_value;
+    	let t3;
+    	let h51;
+    	let t4_value = /*user*/ ctx[1].instagram + "";
+    	let t4;
+    	let t5;
+    	let div1;
+    	let t6;
+    	let t7_value = /*user*/ ctx[1].total_links + "";
+    	let t7;
+    	let t8;
+    	let div2;
+    	let a;
+    	let span;
+    	let t9;
+    	let a_href_value;
+    	let t10;
+    	let div6;
+    	let t11;
+    	let footer;
+    	let current;
+    	homenav = new HomeNav({ $$inline: true });
+    	let each_value = /*links*/ ctx[2];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	footer = new Footer({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			div8 = element("div");
+    			create_component(homenav.$$.fragment);
+    			t0 = space();
+    			div7 = element("div");
+    			div5 = element("div");
+    			div4 = element("div");
+    			div0 = element("div");
+    			h50 = element("h5");
+    			t1 = text("Detalhes do Perfil");
+    			t2 = space();
+    			div3 = element("div");
+    			img = element("img");
+    			t3 = space();
+    			h51 = element("h5");
+    			t4 = text(t4_value);
+    			t5 = space();
+    			div1 = element("div");
+    			t6 = text("Opções : ");
+    			t7 = text(t7_value);
+    			t8 = space();
+    			div2 = element("div");
+    			a = element("a");
+    			span = element("span");
+    			t9 = text("Instagram");
+    			t10 = space();
+    			div6 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t11 = space();
+    			create_component(footer.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div8 = claim_element(nodes, "DIV", { class: true });
+    			var div8_nodes = children(div8);
+    			claim_component(homenav.$$.fragment, div8_nodes);
+    			t0 = claim_space(div8_nodes);
+    			div7 = claim_element(div8_nodes, "DIV", { class: true });
+    			var div7_nodes = children(div7);
+    			div5 = claim_element(div7_nodes, "DIV", { class: true, style: true });
+    			var div5_nodes = children(div5);
+    			div4 = claim_element(div5_nodes, "DIV", { class: true, style: true });
+    			var div4_nodes = children(div4);
+    			div0 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h50 = claim_element(div0_nodes, "H5", { class: true });
+    			var h50_nodes = children(h50);
+    			t1 = claim_text(h50_nodes, "Detalhes do Perfil");
+    			h50_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			t2 = claim_space(div4_nodes);
+    			div3 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+
+    			img = claim_element(div3_nodes, "IMG", {
+    				src: true,
+    				alt: true,
+    				class: true,
+    				width: true,
+    				height: true
+    			});
+
+    			t3 = claim_space(div3_nodes);
+    			h51 = claim_element(div3_nodes, "H5", { class: true });
+    			var h51_nodes = children(h51);
+    			t4 = claim_text(h51_nodes, t4_value);
+    			h51_nodes.forEach(detach_dev);
+    			t5 = claim_space(div3_nodes);
+    			div1 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			t6 = claim_text(div1_nodes, "Opções : ");
+    			t7 = claim_text(div1_nodes, t7_value);
+    			div1_nodes.forEach(detach_dev);
+    			t8 = claim_space(div3_nodes);
+    			div2 = claim_element(div3_nodes, "DIV", {});
+    			var div2_nodes = children(div2);
+    			a = claim_element(div2_nodes, "A", { class: true, href: true });
+    			var a_nodes = children(a);
+    			span = claim_element(a_nodes, "SPAN", { "data-feather": true });
+    			children(span).forEach(detach_dev);
+    			t9 = claim_text(a_nodes, "Instagram");
+    			a_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			div5_nodes.forEach(detach_dev);
+    			t10 = claim_space(div7_nodes);
+    			div6 = claim_element(div7_nodes, "DIV", { class: true, style: true });
+    			var div6_nodes = children(div6);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(div6_nodes);
+    			}
+
+    			div6_nodes.forEach(detach_dev);
+    			div7_nodes.forEach(detach_dev);
+    			t11 = claim_space(div8_nodes);
+    			claim_component(footer.$$.fragment, div8_nodes);
+    			div8_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h50, "class", "card-title mb-0");
+    			add_location(h50, file$2, 30, 12, 965);
+    			attr_dev(div0, "class", "card-header");
+    			add_location(div0, file$2, 29, 10, 926);
+    			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[1].dp)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[1].instagram);
+    			attr_dev(img, "class", "img-fluid rounded-circle mb-2");
+    			attr_dev(img, "width", "128");
+    			attr_dev(img, "height", "128");
+    			add_location(img, file$2, 33, 12, 1095);
+    			attr_dev(h51, "class", "card-title mb-0");
+    			add_location(h51, file$2, 40, 12, 1302);
+    			attr_dev(div1, "class", "text-muted mb-2");
+    			add_location(div1, file$2, 41, 12, 1365);
+    			attr_dev(span, "data-feather", "instagram");
+    			add_location(span, file$2, 47, 17, 1608);
+    			attr_dev(a, "class", "btn btn-danger btn-sm");
+    			attr_dev(a, "href", a_href_value = "https://www.instagram.com/" + /*user*/ ctx[1].instagram + "/");
+    			add_location(a, file$2, 44, 14, 1464);
+    			add_location(div2, file$2, 43, 12, 1443);
+    			attr_dev(div3, "class", "card-body text-center");
+    			add_location(div3, file$2, 32, 10, 1046);
+    			attr_dev(div4, "class", "card mb-2");
+    			set_style(div4, "min-width", "300px");
+    			add_location(div4, file$2, 28, 8, 867);
+    			attr_dev(div5, "class", "row");
+    			set_style(div5, "justify-content", "center");
+    			add_location(div5, file$2, 27, 6, 809);
+    			attr_dev(div6, "class", "row");
+    			set_style(div6, "justify-content", "center");
+    			add_location(div6, file$2, 53, 6, 1746);
+    			attr_dev(div7, "class", "content");
+    			add_location(div7, file$2, 26, 4, 780);
+    			attr_dev(div8, "class", "main");
+    			add_location(div8, file$2, 24, 2, 739);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div8, anchor);
+    			mount_component(homenav, div8, null);
+    			append_hydration_dev(div8, t0);
+    			append_hydration_dev(div8, div7);
+    			append_hydration_dev(div7, div5);
+    			append_hydration_dev(div5, div4);
+    			append_hydration_dev(div4, div0);
+    			append_hydration_dev(div0, h50);
+    			append_hydration_dev(h50, t1);
+    			append_hydration_dev(div4, t2);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, img);
+    			append_hydration_dev(div3, t3);
+    			append_hydration_dev(div3, h51);
+    			append_hydration_dev(h51, t4);
+    			append_hydration_dev(div3, t5);
+    			append_hydration_dev(div3, div1);
+    			append_hydration_dev(div1, t6);
+    			append_hydration_dev(div1, t7);
+    			append_hydration_dev(div3, t8);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, a);
+    			append_hydration_dev(a, span);
+    			append_hydration_dev(a, t9);
+    			append_hydration_dev(div7, t10);
+    			append_hydration_dev(div7, div6);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div6, null);
+    			}
+
+    			append_hydration_dev(div8, t11);
+    			mount_component(footer, div8, null);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (!current || dirty & /*user*/ 2 && !src_url_equal(img.src, img_src_value = /*user*/ ctx[1].dp)) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (!current || dirty & /*user*/ 2 && img_alt_value !== (img_alt_value = /*user*/ ctx[1].instagram)) {
+    				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if ((!current || dirty & /*user*/ 2) && t4_value !== (t4_value = /*user*/ ctx[1].instagram + "")) set_data_dev(t4, t4_value);
+    			if ((!current || dirty & /*user*/ 2) && t7_value !== (t7_value = /*user*/ ctx[1].total_links + "")) set_data_dev(t7, t7_value);
+
+    			if (!current || dirty & /*user*/ 2 && a_href_value !== (a_href_value = "https://www.instagram.com/" + /*user*/ ctx[1].instagram + "/")) {
+    				attr_dev(a, "href", a_href_value);
+    			}
+
+    			if (dirty & /*links, name*/ 5) {
+    				each_value = /*links*/ ctx[2];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(div6, null);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value.length; i < each_blocks.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(homenav.$$.fragment, local);
+
+    			for (let i = 0; i < each_value.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			transition_in(footer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(homenav.$$.fragment, local);
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			transition_out(footer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div8);
+    			destroy_component(homenav);
+    			destroy_each(each_blocks, detaching);
+    			destroy_component(footer);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(24:0) {#if user != null}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (55:8) {#each links as link}
+    function create_each_block(ctx) {
+    	let card;
+    	let current;
+
+    	card = new Card({
+    			props: {
+    				link: /*link*/ ctx[3],
+    				name: /*name*/ ctx[0]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(card.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			claim_component(card.$$.fragment, nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(card, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const card_changes = {};
+    			if (dirty & /*links*/ 4) card_changes.link = /*link*/ ctx[3];
+    			if (dirty & /*name*/ 1) card_changes.name = /*name*/ ctx[0];
+    			card.$set(card_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(card.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(card.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(card, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(55:8) {#each links as link}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$2(ctx) {
+    	let current_block_type_index;
+    	let if_block;
+    	let if_block_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block, create_else_block];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*user*/ ctx[1] != null) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			if_block.l(nodes);
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_hydration_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$2.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Display', slots, []);
+    	let { name } = $$props;
+    	let user;
+    	let links = [];
+
+    	onMount(async () => {
+    		console.log(name);
+    		$$invalidate(1, user = await displayuser(name));
+    		if (user === null) document.location.href = "notfound";
+    		$$invalidate(2, links = user.links);
+    		console.log(user);
+    		axios.post("/api/user/viewadd", { instagram: name }).then(res => console.log("Done"));
+    	});
+
+    	const writable_props = ['name'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<Display> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('name' in $$props) $$invalidate(0, name = $$props.name);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		Card,
+    		HomeNav,
+    		Footer,
+    		onMount,
+    		displayuser,
+    		Loading,
+    		axios,
+    		name,
+    		user,
+    		links
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('name' in $$props) $$invalidate(0, name = $$props.name);
+    		if ('user' in $$props) $$invalidate(1, user = $$props.user);
+    		if ('links' in $$props) $$invalidate(2, links = $$props.links);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [name, user, links];
+    }
+
+    class Display extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, { name: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Display",
+    			options,
+    			id: create_fragment$2.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*name*/ ctx[0] === undefined && !('name' in props)) {
+    			console_1.warn("<Display> was created without expected prop 'name'");
+    		}
+    	}
+
+    	get name() {
+    		throw new Error("<Display>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set name(value) {
+    		throw new Error("<Display>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\pages\Page404.svelte generated by Svelte v3.47.0 */
+
+    const file$1 = "src\\pages\\Page404.svelte";
+
+    function create_fragment$1(ctx) {
+    	let div5;
+    	let main;
+    	let div4;
+    	let div3;
+    	let div2;
+    	let div1;
+    	let div0;
+    	let h1;
+    	let t0;
+    	let t1;
+    	let p0;
+    	let t2;
+    	let t3;
+    	let p1;
+    	let t4;
+    	let t5;
+    	let a;
+    	let t6;
+
+    	const block = {
+    		c: function create() {
+    			div5 = element("div");
+    			main = element("main");
+    			div4 = element("div");
+    			div3 = element("div");
+    			div2 = element("div");
+    			div1 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			t0 = text("404");
+    			t1 = space();
+    			p0 = element("p");
+    			t2 = text("Página não encontrada.");
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text("A página que você está procurando pode ter sido removida.");
+    			t5 = space();
+    			a = element("a");
+    			t6 = text("Voltar para o Início");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div5 = claim_element(nodes, "DIV", { class: true });
+    			var div5_nodes = children(div5);
+    			main = claim_element(div5_nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			div4 = claim_element(main_nodes, "DIV", { class: true });
+    			var div4_nodes = children(div4);
+    			div3 = claim_element(div4_nodes, "DIV", { class: true });
+    			var div3_nodes = children(div3);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			div1 = claim_element(div2_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			h1 = claim_element(div0_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t0 = claim_text(h1_nodes, "404");
+    			h1_nodes.forEach(detach_dev);
+    			t1 = claim_space(div0_nodes);
+    			p0 = claim_element(div0_nodes, "P", { class: true });
+    			var p0_nodes = children(p0);
+    			t2 = claim_text(p0_nodes, "Página não encontrada.");
+    			p0_nodes.forEach(detach_dev);
+    			t3 = claim_space(div0_nodes);
+    			p1 = claim_element(div0_nodes, "P", { class: true });
+    			var p1_nodes = children(p1);
+    			t4 = claim_text(p1_nodes, "A página que você está procurando pode ter sido removida.");
+    			p1_nodes.forEach(detach_dev);
+    			t5 = claim_space(div0_nodes);
+    			a = claim_element(div0_nodes, "A", { href: true, class: true });
+    			var a_nodes = children(a);
+    			t6 = claim_text(a_nodes, "Voltar para o Início");
+    			a_nodes.forEach(detach_dev);
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			div4_nodes.forEach(detach_dev);
+    			main_nodes.forEach(detach_dev);
+    			div5_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(h1, "class", "display-1 font-weight-bold");
+    			add_location(h1, file$1, 7, 14, 349);
+    			attr_dev(p0, "class", "h1");
+    			add_location(p0, file$1, 8, 14, 412);
+    			attr_dev(p1, "class", "h2 font-weight-normal mt-3 mb-4");
+    			add_location(p1, file$1, 9, 14, 468);
+    			attr_dev(a, "href", "/");
+    			attr_dev(a, "class", "btn btn-primary btn-lg");
+    			add_location(a, file$1, 12, 14, 623);
+    			attr_dev(div0, "class", "text-center");
+    			add_location(div0, file$1, 6, 12, 308);
+    			attr_dev(div1, "class", "d-table-cell align-middle");
+    			add_location(div1, file$1, 5, 10, 255);
+    			attr_dev(div2, "class", "col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100");
+    			add_location(div2, file$1, 4, 8, 180);
+    			attr_dev(div3, "class", "row h-100");
+    			add_location(div3, file$1, 3, 6, 147);
+    			attr_dev(div4, "class", "container d-flex flex-column");
+    			add_location(div4, file$1, 2, 4, 97);
+    			attr_dev(main, "class", "content d-flex p-0");
+    			add_location(main, file$1, 1, 2, 58);
+    			attr_dev(div5, "class", "main d-flex justify-content-center w-100");
+    			add_location(div5, file$1, 0, 0, 0);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div5, anchor);
+    			append_hydration_dev(div5, main);
+    			append_hydration_dev(main, div4);
+    			append_hydration_dev(div4, div3);
+    			append_hydration_dev(div3, div2);
+    			append_hydration_dev(div2, div1);
+    			append_hydration_dev(div1, div0);
+    			append_hydration_dev(div0, h1);
+    			append_hydration_dev(h1, t0);
+    			append_hydration_dev(div0, t1);
+    			append_hydration_dev(div0, p0);
+    			append_hydration_dev(p0, t2);
+    			append_hydration_dev(div0, t3);
+    			append_hydration_dev(div0, p1);
+    			append_hydration_dev(p1, t4);
+    			append_hydration_dev(div0, t5);
+    			append_hydration_dev(div0, a);
+    			append_hydration_dev(a, t6);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div5);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$1.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$1($$self, $$props) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Page404', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Page404> was created with unknown prop '${key}'`);
+    	});
+
+    	return [];
+    }
+
+    class Page404 extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Page404",
+    			options,
+    			id: create_fragment$1.name
+    		});
+    	}
+    }
+
+    /* src\App.svelte generated by Svelte v3.47.0 */
+    const file = "src\\App.svelte";
+
+    // (19:4) <Route path="/">
+    function create_default_slot_2(ctx) {
+    	let home;
+    	let current;
+    	home = new Home({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(home.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			claim_component(home.$$.fragment, nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(home, target, anchor);
+    			current = true;
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(home.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(home.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(home, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_2.name,
+    		type: "slot",
+    		source: "(19:4) <Route path=\\\"/\\\">",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (29:4) <Route path="/:name" let:params>
+    function create_default_slot_1(ctx) {
+    	let display;
+    	let current;
+
+    	display = new Display({
+    			props: { name: /*params*/ ctx[1].name },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(display.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			claim_component(display.$$.fragment, nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(display, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const display_changes = {};
+    			if (dirty & /*params*/ 2) display_changes.name = /*params*/ ctx[1].name;
+    			display.$set(display_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(display.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(display.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(display, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_1.name,
+    		type: "slot",
+    		source: "(29:4) <Route path=\\\"/:name\\\" let:params>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (17:0) <Router {url}>
+    function create_default_slot(ctx) {
+    	let div;
+    	let route0;
+    	let t0;
+    	let route1;
+    	let t1;
+    	let route2;
+    	let t2;
+    	let route3;
+    	let t3;
+    	let route4;
+    	let t4;
+    	let route5;
+    	let t5;
+    	let route6;
+    	let t6;
+    	let route7;
+    	let t7;
+    	let route8;
+    	let t8;
+    	let route9;
+    	let t9;
+    	let route10;
+    	let t10;
+    	let route11;
+    	let current;
+
+    	route0 = new Route({
+    			props: {
+    				path: "/",
+    				$$slots: { default: [create_default_slot_2] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	route1 = new Route({
+    			props: { path: "/login", component: Login },
+    			$$inline: true
+    		});
+
+    	route2 = new Route({
+    			props: { path: "/register", component: Register },
+    			$$inline: true
+    		});
+
+    	route3 = new Route({
+    			props: {
+    				path: "/resetpassword",
+    				component: ResetPassword
+    			},
+    			$$inline: true
+    		});
+
+    	route4 = new Route({
+    			props: { path: "/dashboard", component: Dashboard },
+    			$$inline: true
+    		});
+
+    	route5 = new Route({
+    			props: { path: "/addlink", component: AddLink },
+    			$$inline: true
+    		});
+
+    	route6 = new Route({
+    			props: { path: "/editlink", component: EditLink },
+    			$$inline: true
+    		});
+
+    	route7 = new Route({
+    			props: {
+    				path: "/addschedule",
+    				component: AddSchedule
+    			},
+    			$$inline: true
+    		});
+
+    	route8 = new Route({
+    			props: {
+    				path: "/editschedule",
+    				component: EditSchedule
+    			},
+    			$$inline: true
+    		});
+
+    	route9 = new Route({
+    			props: { path: "/notfound", component: Page404 },
+    			$$inline: true
+    		});
+
+    	route10 = new Route({
+    			props: {
+    				path: "/:name",
+    				$$slots: {
+    					default: [
+    						create_default_slot_1,
+    						({ params }) => ({ 1: params }),
+    						({ params }) => params ? 2 : 0
+    					]
+    				},
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	route11 = new Route({
+    			props: { path: "*", component: Page404 },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			create_component(route0.$$.fragment);
+    			t0 = space();
+    			create_component(route1.$$.fragment);
+    			t1 = space();
+    			create_component(route2.$$.fragment);
+    			t2 = space();
+    			create_component(route3.$$.fragment);
+    			t3 = space();
+    			create_component(route4.$$.fragment);
+    			t4 = space();
+    			create_component(route5.$$.fragment);
+    			t5 = space();
+    			create_component(route6.$$.fragment);
+    			t6 = space();
+    			create_component(route7.$$.fragment);
+    			t7 = space();
+    			create_component(route8.$$.fragment);
+    			t8 = space();
+    			create_component(route9.$$.fragment);
+    			t9 = space();
+    			create_component(route10.$$.fragment);
+    			t10 = space();
+    			create_component(route11.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", {});
+    			var div_nodes = children(div);
+    			claim_component(route0.$$.fragment, div_nodes);
+    			t0 = claim_space(div_nodes);
+    			claim_component(route1.$$.fragment, div_nodes);
+    			t1 = claim_space(div_nodes);
+    			claim_component(route2.$$.fragment, div_nodes);
+    			t2 = claim_space(div_nodes);
+    			claim_component(route3.$$.fragment, div_nodes);
+    			t3 = claim_space(div_nodes);
+    			claim_component(route4.$$.fragment, div_nodes);
+    			t4 = claim_space(div_nodes);
+    			claim_component(route5.$$.fragment, div_nodes);
+    			t5 = claim_space(div_nodes);
+    			claim_component(route6.$$.fragment, div_nodes);
+    			t6 = claim_space(div_nodes);
+    			claim_component(route7.$$.fragment, div_nodes);
+    			t7 = claim_space(div_nodes);
+    			claim_component(route8.$$.fragment, div_nodes);
+    			t8 = claim_space(div_nodes);
+    			claim_component(route9.$$.fragment, div_nodes);
+    			t9 = claim_space(div_nodes);
+    			claim_component(route10.$$.fragment, div_nodes);
+    			t10 = claim_space(div_nodes);
+    			claim_component(route11.$$.fragment, div_nodes);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			add_location(div, file, 17, 2, 689);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_hydration_dev(target, div, anchor);
+    			mount_component(route0, div, null);
+    			append_hydration_dev(div, t0);
+    			mount_component(route1, div, null);
+    			append_hydration_dev(div, t1);
+    			mount_component(route2, div, null);
+    			append_hydration_dev(div, t2);
+    			mount_component(route3, div, null);
+    			append_hydration_dev(div, t3);
+    			mount_component(route4, div, null);
+    			append_hydration_dev(div, t4);
+    			mount_component(route5, div, null);
+    			append_hydration_dev(div, t5);
+    			mount_component(route6, div, null);
+    			append_hydration_dev(div, t6);
+    			mount_component(route7, div, null);
+    			append_hydration_dev(div, t7);
+    			mount_component(route8, div, null);
+    			append_hydration_dev(div, t8);
+    			mount_component(route9, div, null);
+    			append_hydration_dev(div, t9);
+    			mount_component(route10, div, null);
+    			append_hydration_dev(div, t10);
+    			mount_component(route11, div, null);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const route0_changes = {};
+
+    			if (dirty & /*$$scope*/ 4) {
+    				route0_changes.$$scope = { dirty, ctx };
+    			}
+
+    			route0.$set(route0_changes);
+    			const route10_changes = {};
+
+    			if (dirty & /*$$scope, params*/ 6) {
+    				route10_changes.$$scope = { dirty, ctx };
+    			}
+
+    			route10.$set(route10_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(route0.$$.fragment, local);
+    			transition_in(route1.$$.fragment, local);
+    			transition_in(route2.$$.fragment, local);
+    			transition_in(route3.$$.fragment, local);
+    			transition_in(route4.$$.fragment, local);
+    			transition_in(route5.$$.fragment, local);
+    			transition_in(route6.$$.fragment, local);
+    			transition_in(route7.$$.fragment, local);
+    			transition_in(route8.$$.fragment, local);
+    			transition_in(route9.$$.fragment, local);
+    			transition_in(route10.$$.fragment, local);
+    			transition_in(route11.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(route0.$$.fragment, local);
+    			transition_out(route1.$$.fragment, local);
+    			transition_out(route2.$$.fragment, local);
+    			transition_out(route3.$$.fragment, local);
+    			transition_out(route4.$$.fragment, local);
+    			transition_out(route5.$$.fragment, local);
+    			transition_out(route6.$$.fragment, local);
+    			transition_out(route7.$$.fragment, local);
+    			transition_out(route8.$$.fragment, local);
+    			transition_out(route9.$$.fragment, local);
+    			transition_out(route10.$$.fragment, local);
+    			transition_out(route11.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_component(route0);
+    			destroy_component(route1);
+    			destroy_component(route2);
+    			destroy_component(route3);
+    			destroy_component(route4);
+    			destroy_component(route5);
+    			destroy_component(route6);
+    			destroy_component(route7);
+    			destroy_component(route8);
+    			destroy_component(route9);
+    			destroy_component(route10);
+    			destroy_component(route11);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot.name,
+    		type: "slot",
+    		source: "(17:0) <Router {url}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment(ctx) {
+    	let router;
+    	let current;
+
+    	router = new Router({
+    			props: {
+    				url: /*url*/ ctx[0],
+    				$$slots: { default: [create_default_slot] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(router.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			claim_component(router.$$.fragment, nodes);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(router, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const router_changes = {};
+    			if (dirty & /*url*/ 1) router_changes.url = /*url*/ ctx[0];
+
+    			if (dirty & /*$$scope*/ 4) {
+    				router_changes.$$scope = { dirty, ctx };
+    			}
+
+    			router.$set(router_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(router.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(router.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(router, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('App', slots, []);
+    	let { url = "" } = $$props;
+    	const writable_props = ['url'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('url' in $$props) $$invalidate(0, url = $$props.url);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		Router,
+    		Route,
+    		Link,
+    		Home,
+    		Login,
+    		Register,
+    		ResetPassword,
+    		Dashboard,
+    		AddLink,
+    		EditLink,
+    		AddSchedule,
+    		EditSchedule,
+    		Display,
+    		Page404,
+    		url
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('url' in $$props) $$invalidate(0, url = $$props.url);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [url];
+    }
+
+    class App extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance, create_fragment, safe_not_equal, { url: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "App",
+    			options,
+    			id: create_fragment.name
+    		});
+    	}
+
+    	get url() {
+    		throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set url(value) {
+    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    const app = new App({
+      target: document.body,
+      hydrate: true,
+    });
+
+    return app;
+
+})();
 //# sourceMappingURL=bundle.js.map

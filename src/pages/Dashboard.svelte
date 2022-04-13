@@ -70,7 +70,7 @@
     <div class="container-fluid p-0">
       <div class="row">
         
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-md-5 col-lg-3">
           <div class="card mb-3">
             <div class="card-body text-center">
               <img
@@ -175,11 +175,11 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-5">
+        <div class="col-12 col-md-7 col-lg-5">
         
         </div>
 
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-md-12 col-lg-4">
           <div class="card">
             <div class="card-body h-100">
               {#each user.links as link}
