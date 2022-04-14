@@ -16,6 +16,11 @@
     if (user === null) document.location.href = "notfound";
     links = user.links;
     styles['warning_color'] = user.style.warning_color;
+    styles['background_color'] = user.style.background_color;
+    styles['text_color'] = user.style.text_color;
+    styles['font_family'] = user.style.font_family;
+    styles['font_size'] = user.style.font_size;
+
     axios
       .post("/api/user/viewadd", { instagram: name })
       .then((res) => console.log("Done"));
@@ -28,6 +33,12 @@
   
   .btn-danger {
     background: var(--warning_color, #d9534f)!important;
+  }
+  .main {
+    font-family: var(--font_family);
+    color: var(--text_color);
+    background: var(--background_color);
+    font-size: var(--font_size)px;
   }
 </style>
 {#if user != null}

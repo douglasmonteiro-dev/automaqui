@@ -205,22 +205,23 @@
               <h5 class="card-title mb-0">Configurações</h5>
             </div>
             <div class="card-body">
-              <label>
-                <input style="padding:0" type="color" bind:value={user.style['primary_color']} /> 
-                Primária
-              </label>
-              <label>
-                <input style="padding:0" type="color" bind:value={user.style['secondary_color']} /> 
-                Secundária
-              </label>
-              <label>
-                <input style="padding:0" type="color" bind:value={user.style['warning_color']} /> 
-                Alerta
-              </label>
-              <label>
-                <input style="padding:0" type="color" bind:value={user.style['header_color']} /> 
-                Cabeçalho
-              </label>
+              <div class="media">
+                <div class="media-body">
+                  <p class="my-1"><strong>Agendamentos Pendentes</strong></p>
+                  <p class="text-info">{user.views}</p>
+                </div>
+              </div>
+
+              <hr class="my-2" />
+              
+              <div class="media">
+                <div class="media-body">
+                  <p class="my-1"><strong>Pedidos Pendentes</strong></p>
+                  <p class="text-warning">{clicks}</p>
+                </div>
+              </div>
+
+              <hr class="my-2" />
             </div>
           </div>
         </div>
