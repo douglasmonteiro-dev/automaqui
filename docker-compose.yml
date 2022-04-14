@@ -1,18 +1,19 @@
 version: '3'
 
 services:
-  server:
-    image: server
+  server-vitrine:
+    image: server-vitrine
     build: 
       dockerfile: Dockerfile
     environment:
       PORT: 3000
     command:
       - npm 
-      - start
+      - run 
+      - dev
     volumes:
-      - .:/server
-      - node_modules:/server/node_modules
+      - .:/server-vitrine
+      - node_modules:/server-vitrine/node_modules
     ports:
       - "3000:3001"
     links:

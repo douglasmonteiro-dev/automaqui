@@ -6,7 +6,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "node server.js",
-    "start:docker": "docker-compose up --build servervitrinedacasa"
+    "start:docker": "docker-compose up --build server-vitrine"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.3",
