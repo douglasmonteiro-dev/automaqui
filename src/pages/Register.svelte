@@ -141,7 +141,7 @@
                       <label for="">Cor do Texto</label>
                       <input
                         class="form-control form-control-lg"
-                        type="text"
+                        type="color"
                         bind:value={user.text_color}
                         required
                         placeholder="cor do texto"/>
