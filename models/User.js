@@ -23,7 +23,11 @@ const userSchema = new Schema({
     primary_color: { type: String, default: "blue" },
     secondary_color: { type: String, default: "yellow" },
     warning_color: { type: String, default: "red" },
-    header_color: { type: String, default: "gray" }
+    header_color: { type: String, default: "gray" },
+    background_color: { type: String, default: "white" },
+    text_color: { type: String, default: "black" },
+    font_family: { type: String, default: "Roboto" },
+    font_size: { type: String, default: "16px" }
   },
   total_links: { type: Number, default: 0 },
   resetpassword:{type:String,default:null}

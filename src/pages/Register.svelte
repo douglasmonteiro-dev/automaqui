@@ -17,13 +17,18 @@
       primary_color: "blue",
       secondary_color: "green",
       warning_color: "red",
-      header_color: "#eff2f6"
+      header_color: "lightgray",
+      background_color: "white",
+      text_color: "black",
+      font_family: "roboto",
+      font_size: "16"
     },
     twitter: "",
     email: "",
     dp: "",
   };
   let loading = false;
+
   function getPhoto(a) {
     loading = true;
     dp = generator.generateRandomAvatar();
@@ -113,6 +118,33 @@
                         required
                         placeholder="usuario"
                       />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nome da Fonte</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="text"
+                        bind:value={user.font_family}
+                        required
+                        placeholder="nome da fonte"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Tamanho da Fonte</label>
+                      <input 
+                        class="form-control form-control-lg"
+                        type="number"
+                        bind:value={user.font_size}
+                        required
+                        placeholder="tamanho da fonte em pixels"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Texto</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="text"
+                        bind:value={user.text_color}
+                        required
+                        placeholder="cor do texto"/>
                     </div>
                     
                     <div class="form-group">
