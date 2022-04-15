@@ -12,11 +12,12 @@ var generator = require("generate-password");
 var nodemailer = require("nodemailer");
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
+  console.log('req.body: ', req.body);
   const { dp, email, password, instagram, facebook, twitter, style, name } = req.body;
   const salt = await bc.genSalt(10);
   const hashed = await bc.hash(password, salt);
   const userExist = await User.findOne({ instagram: instagram });
+  console.log('userExist: ', userExist);
   if (userExist) {
     return res.status(500).json({ status: 1, mssg: "User already exists" });
   }

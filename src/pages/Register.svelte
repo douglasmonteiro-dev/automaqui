@@ -54,6 +54,7 @@
       body: JSON.stringify(user),
     })
       .then(function (response) {
+        console.log('response', response);
         return response.json();
       })
       .then(function (data) {
