@@ -115,6 +115,10 @@
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={user.instagram}
+                        on:change={() => {
+                          user.instagram = user.instagram.toLowerCase();
+                          getPhoto(user.instagram);
+                        }}
                         required
                         placeholder="usuario"
                       />
@@ -124,7 +128,7 @@
                       <input
                         class="form-control form-control-lg"
                         type="text"
-                        bind:value={user.font_family}
+                        bind:value={user.style.font_family}
                         required
                         placeholder="nome da fonte"/>
                     </div>
@@ -133,7 +137,7 @@
                       <input 
                         class="form-control form-control-lg"
                         type="number"
-                        bind:value={user.font_size}
+                        bind:value={user.style.font_size}
                         required
                         placeholder="tamanho da fonte em pixels"/>
                     </div>
@@ -142,7 +146,7 @@
                       <input
                         class="form-control form-control-lg"
                         type="color"
-                        bind:value={user.text_color}
+                        bind:value={user.style.text_color}
                         required
                         placeholder="cor do texto"/>
                     </div>
@@ -153,6 +157,16 @@
                         class="form-control form-control-lg"
                         type="color"
                         bind:value={user.style.header_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Background</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.background_color}
                         required
                         placeholder="cor"
                       />

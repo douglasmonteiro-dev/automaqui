@@ -13,7 +13,7 @@ var nodemailer = require("nodemailer");
 
 router.post("/register", async (req, res) => {
   console.log(req.body);
-  const { dp, email, password, instagram, facebook, twitter } = req.body;
+  const { dp, email, password, instagram, facebook, twitter, style, name } = req.body;
   const salt = await bc.genSalt(10);
   const hashed = await bc.hash(password, salt);
   const userExist = await User.findOne({ instagram: instagram });
@@ -31,6 +31,8 @@ router.post("/register", async (req, res) => {
     facebook,
     twitter,
     dp,
+    style,
+    name
   });
   try {
     const addedUser = await newUser.save();
