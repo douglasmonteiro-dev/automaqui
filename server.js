@@ -22,7 +22,7 @@ const connect = mongoose
     authSource: "vitrine"
 
   })
-  .then(() => console.log("Mondo db connected...."))
+  .then(() => console.log("Mongo db connected...."))
   .catch((err) => console.log(err));
 
 app.use("/api/user", require("./routes/user"));
