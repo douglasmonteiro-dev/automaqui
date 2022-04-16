@@ -20,7 +20,7 @@
   <div class="container">
     <a class="navbar-brand landing-brand" href="/">
       <img src="/img/link.png" alt="vitrinedacasa" height="34px" />
-      {user ? user.instagram : "Vitrine da Casa"}
+      {user ? user.name : "Vitrine da Casa"}
     </a>
 
     <!-- <ul class="navbar-nav ml-auto">
