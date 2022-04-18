@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  server-vitrine:
-    image: server-vitrine
+  servervitrine:
+    image: servervitrine
     build: 
       dockerfile: Dockerfile
     environment:
@@ -11,20 +11,20 @@ services:
       - npm 
       - start
     volumes:
-      - .:/server-vitrine
-      - node_modules:/server-vitrine/node_modules
+      - .:/servervitrine
+      - node_modules:/servervitrine/node_modules
     ports:
       - "3000:3000"
-#     links:
-#       - mongodb
-#     depends_on:
-#       - mongodb
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
       
-#   mongodb:
-#     image: mongo
-#     restart: always
-#     ports:
-#       - 27017:27017
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
     
-# volumes:
-#   node_modules: {}
+volumes:
+  node_modules: {}

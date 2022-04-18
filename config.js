@@ -15,7 +15,7 @@ module.exports = {
       }),
     }),
   ],
-  jwt_secret: process.env.jwt_secret,
-  mongouri: process.env.mongouri,
-  port: process.env.port
+  jwt_secret: '12d3s1ds2ds3s1adadassaasa23',//process.env.jwt_secret,
+  mongouri: 'mongodb://uservitrine:senhavitrine@vps14938.publiccloud.com.br:27017', //process.env.mongouri,
+  port: 3000//process.env.port
 };

@@ -2,9 +2,9 @@ FROM node:16-slim
 
 RUN apt-get update 
 
-WORKDIR /server-vitrine/
+WORKDIR /servervitrine/
 
-COPY package*.json  /server-vitrine/
+COPY package*.json  /servervitrine/
 
 RUN npm install
 
