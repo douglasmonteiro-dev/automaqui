@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "env-cmd rollup -c",
+    "build": "rollup -c",
     "dev": "env-cmd rollup -c -w",
     "start": "node server.js",
     "start:docker": "docker-compose up --build servervitrine"
