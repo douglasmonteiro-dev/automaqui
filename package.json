@@ -5,8 +5,8 @@
   "scripts": {
     "build": "env-cmd rollup -c",
     "dev": "env-cmd rollup -c -w",
-    "start": "env-cmd node server.js",
-    "start:docker": "env-cmd docker-compose up --build servervitrine"
+    "start": "node server.js",
+    "start:docker": "docker-compose up --build servervitrine"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.3",
