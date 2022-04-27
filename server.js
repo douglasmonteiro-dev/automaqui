@@ -19,8 +19,6 @@ const connect = mongoose
     serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     family: 4, // Use IPv4, skip trying IPv6
-    authSource: "vitrine"
-
   })
   .then(() => console.log("Mongo db connected...."))
   .catch((err) => console.log(err));

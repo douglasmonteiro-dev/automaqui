@@ -19,7 +19,7 @@
 <nav class="navbar navbar-expand-md navbar-light landing-navbar" style="{cssVarStyles}">
   <div class="container">
     <a class="navbar-brand landing-brand" href="/">
-      <img src="/img/link.png" alt="vitrinedacasa" height="34px" />
+      <img src="{user ? user.logo : "/img/link.png"}" alt="vitrinedacasa" height="34px" />
       {user ? user.name : "Vitrine da Casa"}
     </a>
 
@@ -41,12 +41,12 @@
                 target="_blank">Support</a
               >
             </li>
-    </ul> -->
-    <a
+    </ul>  -->
+    <!-- <a
       href="/register"
       target="_blank"
       class="btn btn-lg btn-success my-2 my-sm-0 ml-3">Registrar</a
-    >
+    > -->
   </div>
 </nav>
 <!-- <script>

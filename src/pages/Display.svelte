@@ -59,7 +59,7 @@
               height="128"
             />
             <h5 class="card-title mb-0">{user.instagram}</h5>
-            <div class="text-muted mb-2">Opções : {user.total_links}</div>
+            <div class="text-muted mb-2">Itens Disponíveis : {user.total_links}</div>
 
             <div>
               <a
