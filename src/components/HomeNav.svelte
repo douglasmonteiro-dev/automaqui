@@ -14,12 +14,17 @@
   .navbar.landing-navbar {
     background: var(--header_color, #eff2f6)!important;
   }
-  
+  .header-text {
+    color: var(--text_color, #000)!important;
+    font-size: var(--font_size, 1.5rem)!important;
+    font-family: var(--font_family, 'Roboto', sans-serif)!important;
+    font-weight: 600;
+  }
 </style>
 <nav class="navbar navbar-expand-md navbar-light landing-navbar" style="{cssVarStyles}">
   <div class="container">
-    <a class="navbar-brand landing-brand" href="/">
-      <img src="{user ? user.logo : "/img/link.png"}" alt="vitrinedacasa" height="34px" />
+    <a class="navbar-brand landing-brand header-text" href="/">
+      <img src="{user ? user.logo : "/img/link.png"}" alt="vitrinedacasa" height="100px" />
       {user ? user.name : "Vitrine da Casa"}
     </a>
 

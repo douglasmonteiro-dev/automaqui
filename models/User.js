@@ -16,6 +16,7 @@ const userSchema = new Schema({
   instagram: { type: String, required: true },
   facebook: String,
   twitter: String,
+  logo: String,
   views: { type: Number, default: 0 },
   links: [linkSchema],
   schedules: [scheduleSchema],
