@@ -4,7 +4,7 @@
   <div class="line" />
 </div>
 
-<h1 style="text-align:center">Wait for it...</h1>
+<h1 style="text-align:center">Aguarde...</h1>
 
 <style>
 
