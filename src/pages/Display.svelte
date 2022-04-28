@@ -36,9 +36,7 @@
   }
   .main {
     font-family: var(--font_family);
-    color: var(--text_color);
     background: var(--background_color);
-    font-size: var(--font_size)px;
   }
 </style>
 {#if user != null}

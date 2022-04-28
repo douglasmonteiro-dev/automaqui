@@ -9,9 +9,6 @@
       .post("/api/user/clickadd", { instagram: name, _id: link._id })
       .then((res) => console.log("done", res));
   };
-  console.log("link: ", link);
-  console.log("name: ", name);
-  console.log("user: ", user);
   let styles = {};
   onMount(async () => {
     styles['primary_color'] = user.style.primary_color;
@@ -49,7 +46,7 @@
         on:click={redirect}
         href={link.url}
         target="_blank"
-        class="btn btn-primary">Entre</a
+        class="btn btn-primary">Agendar</a
       >
     </div>
   </div>

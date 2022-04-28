@@ -2593,6 +2593,7 @@ var app = (function () {
     	: "Vitrine da Casa") + "";
 
     	let t1;
+    	let a_href_value;
 
     	const block = {
     		c: function create() {
@@ -2622,10 +2623,10 @@ var app = (function () {
     		h: function hydrate() {
     			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[0] ? /*user*/ ctx[0].logo : "/img/link.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "vitrinedacasa");
-    			attr_dev(img, "height", "100px");
-    			add_location(img, file$k, 26, 6, 807);
+    			attr_dev(img, "height", "80px");
+    			add_location(img, file$k, 26, 6, 840);
     			attr_dev(a, "class", "navbar-brand landing-brand header-text svelte-1iljb1");
-    			attr_dev(a, "href", "/");
+    			attr_dev(a, "href", a_href_value = /*user*/ ctx[0] ? `/${/*user*/ ctx[0].instagram}` : "/");
     			add_location(a, file$k, 25, 4, 740);
     			attr_dev(div, "class", "container");
     			add_location(div, file$k, 24, 2, 711);
@@ -2649,6 +2650,10 @@ var app = (function () {
     			if (dirty & /*user*/ 1 && t1_value !== (t1_value = (/*user*/ ctx[0]
     			? /*user*/ ctx[0].name
     			: "Vitrine da Casa") + "")) set_data_dev(t1, t1_value);
+
+    			if (dirty & /*user*/ 1 && a_href_value !== (a_href_value = /*user*/ ctx[0] ? `/${/*user*/ ctx[0].instagram}` : "/")) {
+    				attr_dev(a, "href", a_href_value);
+    			}
 
     			if (dirty & /*cssVarStyles*/ 2) {
     				attr_dev(nav, "style", /*cssVarStyles*/ ctx[1]);
@@ -21621,7 +21626,7 @@ var app = (function () {
     const { Object: Object_1$1, console: console_1$1 } = globals;
     const file$4 = "src\\components\\Card.svelte";
 
-    // (32:4) {#if link.image !== null && link.image !== ""}
+    // (29:4) {#if link.image !== null && link.image !== ""}
     function create_if_block$1(ctx) {
     	let img;
     	let img_src_value;
@@ -21646,7 +21651,7 @@ var app = (function () {
     			set_style(img, "max-height", "375px");
     			if (!src_url_equal(img.src, img_src_value = /*link*/ ctx[0].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Not available");
-    			add_location(img, file$4, 32, 6, 935);
+    			add_location(img, file$4, 29, 6, 839);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, img, anchor);
@@ -21665,7 +21670,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(32:4) {#if link.image !== null && link.image !== \\\"\\\"}",
+    		source: "(29:4) {#if link.image !== null && link.image !== \\\"\\\"}",
     		ctx
     	});
 
@@ -21712,7 +21717,7 @@ var app = (function () {
     			t4 = text(t4_value);
     			t5 = space();
     			a = element("a");
-    			t6 = text("Entre");
+    			t6 = text("Agendar");
     			this.h();
     		},
     		l: function claim(nodes) {
@@ -21741,7 +21746,7 @@ var app = (function () {
     			t5 = claim_space(div1_nodes);
     			a = claim_element(div1_nodes, "A", { href: true, target: true, class: true });
     			var a_nodes = children(a);
-    			t6 = claim_text(a_nodes, "Entre");
+    			t6 = claim_text(a_nodes, "Agendar");
     			a_nodes.forEach(detach_dev);
     			div1_nodes.forEach(detach_dev);
     			div2_nodes.forEach(detach_dev);
@@ -21750,23 +21755,23 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(h5, "class", "card-title mb-0");
-    			add_location(h5, file$4, 40, 6, 1120);
+    			add_location(h5, file$4, 37, 6, 1024);
     			attr_dev(div0, "class", "card-header");
-    			add_location(div0, file$4, 39, 4, 1087);
+    			add_location(div0, file$4, 36, 4, 991);
     			attr_dev(hr, "class", "mb-0");
-    			add_location(hr, file$4, 42, 4, 1183);
+    			add_location(hr, file$4, 39, 4, 1087);
     			attr_dev(p, "class", "card-text");
-    			add_location(p, file$4, 44, 6, 1239);
+    			add_location(p, file$4, 41, 6, 1143);
     			attr_dev(a, "href", a_href_value = /*link*/ ctx[0].url);
     			attr_dev(a, "target", "_blank");
     			attr_dev(a, "class", "btn btn-primary svelte-ttx3kl");
-    			add_location(a, file$4, 47, 6, 1331);
+    			add_location(a, file$4, 44, 6, 1235);
     			attr_dev(div1, "class", "card-body");
-    			add_location(div1, file$4, 43, 4, 1208);
+    			add_location(div1, file$4, 40, 4, 1112);
     			attr_dev(div2, "class", "card sankarcard");
-    			add_location(div2, file$4, 30, 2, 846);
+    			add_location(div2, file$4, 27, 2, 750);
     			attr_dev(div3, "style", /*cssVarStyles*/ ctx[1]);
-    			add_location(div3, file$4, 29, 0, 814);
+    			add_location(div3, file$4, 26, 0, 718);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div3, anchor);
@@ -21849,9 +21854,6 @@ var app = (function () {
     		await axios.post("/api/user/clickadd", { instagram: name, _id: link._id }).then(res => console.log("done", res));
     	};
 
-    	console.log("link: ", link);
-    	console.log("name: ", name);
-    	console.log("user: ", user);
     	let styles = {};
 
     	onMount(async () => {
@@ -22083,7 +22085,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (82:0) {:else}
+    // (80:0) {:else}
     function create_else_block(ctx) {
     	let div1;
     	let div0;
@@ -22112,9 +22114,9 @@ var app = (function () {
     			set_style(div0, "margin-left", "50%");
     			set_style(div0, "margin-top", "50vh");
     			set_style(div0, "transform", "translate(-50%,-50%)");
-    			add_location(div0, file$2, 83, 4, 2650);
+    			add_location(div0, file$2, 81, 4, 2583);
     			attr_dev(div1, "class", "row");
-    			add_location(div1, file$2, 82, 2, 2627);
+    			add_location(div1, file$2, 80, 2, 2560);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div1, anchor);
@@ -22142,14 +22144,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(82:0) {:else}",
+    		source: "(80:0) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (44:0) {#if user != null}
+    // (42:0) {#if user != null}
     function create_if_block(ctx) {
     	let div8;
     	let homenav;
@@ -22313,41 +22315,41 @@ var app = (function () {
     		},
     		h: function hydrate() {
     			attr_dev(h50, "class", "card-title mb-0");
-    			add_location(h50, file$2, 50, 12, 1636);
+    			add_location(h50, file$2, 48, 12, 1569);
     			attr_dev(div0, "class", "card-header");
-    			add_location(div0, file$2, 49, 10, 1597);
+    			add_location(div0, file$2, 47, 10, 1530);
     			if (!src_url_equal(img.src, img_src_value = /*user*/ ctx[1].dp)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*user*/ ctx[1].instagram);
     			attr_dev(img, "class", "img-fluid rounded-circle mb-2");
     			attr_dev(img, "width", "128");
     			attr_dev(img, "height", "128");
-    			add_location(img, file$2, 53, 12, 1762);
+    			add_location(img, file$2, 51, 12, 1695);
     			attr_dev(h51, "class", "card-title mb-0");
-    			add_location(h51, file$2, 60, 12, 1969);
+    			add_location(h51, file$2, 58, 12, 1902);
     			attr_dev(div1, "class", "text-muted mb-2");
-    			add_location(div1, file$2, 61, 12, 2032);
+    			add_location(div1, file$2, 59, 12, 1965);
     			attr_dev(span, "data-feather", "instagram");
-    			add_location(span, file$2, 67, 17, 2286);
-    			attr_dev(a, "class", "btn btn-danger btn-sm svelte-lm8q3k");
+    			add_location(span, file$2, 65, 17, 2219);
+    			attr_dev(a, "class", "btn btn-danger btn-sm svelte-1ki720i");
     			attr_dev(a, "href", a_href_value = "https://www.instagram.com/" + /*user*/ ctx[1].instagram + "/");
-    			add_location(a, file$2, 64, 14, 2142);
-    			add_location(div2, file$2, 63, 12, 2121);
+    			add_location(a, file$2, 62, 14, 2075);
+    			add_location(div2, file$2, 61, 12, 2054);
     			attr_dev(div3, "class", "card-body text-center");
-    			add_location(div3, file$2, 52, 10, 1713);
+    			add_location(div3, file$2, 50, 10, 1646);
     			attr_dev(div4, "class", "card mb-2");
     			set_style(div4, "min-width", "300px");
-    			add_location(div4, file$2, 48, 8, 1538);
+    			add_location(div4, file$2, 46, 8, 1471);
     			attr_dev(div5, "class", "row");
     			set_style(div5, "justify-content", "center");
-    			add_location(div5, file$2, 47, 6, 1480);
+    			add_location(div5, file$2, 45, 6, 1413);
     			attr_dev(div6, "class", "row");
     			set_style(div6, "justify-content", "center");
-    			add_location(div6, file$2, 73, 6, 2424);
+    			add_location(div6, file$2, 71, 6, 2357);
     			attr_dev(div7, "class", "content");
-    			add_location(div7, file$2, 46, 4, 1451);
-    			attr_dev(div8, "class", "main svelte-lm8q3k");
+    			add_location(div7, file$2, 44, 4, 1384);
+    			attr_dev(div8, "class", "main svelte-1ki720i");
     			attr_dev(div8, "style", /*cssVarStyles*/ ctx[3]);
-    			add_location(div8, file$2, 44, 2, 1380);
+    			add_location(div8, file$2, 42, 2, 1313);
     		},
     		m: function mount(target, anchor) {
     			insert_hydration_dev(target, div8, anchor);
@@ -22471,14 +22473,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(44:0) {#if user != null}",
+    		source: "(42:0) {#if user != null}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (75:8) {#each links as link}
+    // (73:8) {#each links as link}
     function create_each_block(ctx) {
     	let card;
     	let current;
@@ -22528,7 +22530,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(75:8) {#each links as link}",
+    		source: "(73:8) {#each links as link}",
     		ctx
     	});
 

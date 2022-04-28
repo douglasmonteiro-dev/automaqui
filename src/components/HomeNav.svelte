@@ -23,8 +23,8 @@
 </style>
 <nav class="navbar navbar-expand-md navbar-light landing-navbar" style="{cssVarStyles}">
   <div class="container">
-    <a class="navbar-brand landing-brand header-text" href="/">
-      <img src="{user ? user.logo : "/img/link.png"}" alt="vitrinedacasa" height="100px" />
+    <a class="navbar-brand landing-brand header-text" href="{user ? `/${user.instagram}`: "/"}">
+      <img src="{user ? user.logo : "/img/link.png"}" alt="vitrinedacasa" height="80px" />
       {user ? user.name : "Vitrine da Casa"}
     </a>
 
