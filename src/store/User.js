@@ -23,7 +23,7 @@ function loadFromLocalStorage() {
 const persistedState = loadFromLocalStorage();
 
 const userStore = writable(
-  persistedState || { token: null, user: null, link: null }
+  persistedState || { token: null, user: null, link: null, schedule: null }
 );
 
 userStore.subscribe((val) => saveToLocalStorage(val));

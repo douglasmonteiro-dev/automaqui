@@ -1,20 +1,35 @@
 <script>
   export let link;
   export let name;
+  export let user;
+  import { onMount } from "svelte";
   import axios from "axios";
   const redirect = async () => {
     await axios
       .post("/api/user/clickadd", { instagram: name, _id: link._id })
-      .then((res) => console.log("done"));
+      .then((res) => console.log("done", res));
   };
+  let styles = {};
+  onMount(async () => {
+    styles['primary_color'] = user.style.primary_color;
+  });
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
 </script>
-
-<div style="margin:10px;max-width: 400px;">
+<style>
+  .btn-primary {
+    background: var(--primary_color, #007bff)!important;
+    border-color: var(--primary_color, #007bff)!important;
+    width: 100%;
+  }
+</style>
+<div style="{cssVarStyles}">
   <div class="card sankarcard">
     {#if link.image !== null && link.image !== ""}
       <img
         class="card-img-top"
-        style="max-height: 250px;"
+        style="max-height: 375px;"
         src={link.image}
         alt="Not available"
       />
@@ -31,7 +46,7 @@
         on:click={redirect}
         href={link.url}
         target="_blank"
-        class="btn btn-primary">Visit</a
+        class="btn btn-primary">Agendar</a
       >
     </div>
   </div>

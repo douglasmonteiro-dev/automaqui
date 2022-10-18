@@ -1,15 +1,38 @@
-<nav class="navbar navbar-expand-md navbar-light landing-navbar">
+<script>
+  import { onMount } from "svelte";
+  export let user;
+  let styles = {}
+  onMount(async () => {
+    console.log('user: ', user);
+    styles = user.style;
+  });
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
+</script>
+<style>
+  .navbar.landing-navbar {
+    background: var(--header_color, #eff2f6)!important;
+  }
+  .header-text {
+    color: var(--text_color, #000)!important;
+    font-size: var(--font_size, 1.5rem)!important;
+    font-family: var(--font_family, 'Roboto', sans-serif)!important;
+    font-weight: 600;
+  }
+</style>
+<nav class="navbar navbar-expand-md navbar-light landing-navbar" style="{cssVarStyles}">
   <div class="container">
-    <a class="navbar-brand landing-brand" href="/">
-      <img src="/img/link.png" alt="LnkInBio" height="34px" />
-      Automaqui
+    <a class="navbar-brand landing-brand header-text" href="{user ? `/${user.instagram}`: "/"}">
+      <img src="{user ? user.logo : "/img/link.png"}" alt="vitrinedacasa" height="80px" />
+      {user ? user.name : "Vitrine da Casa"}
     </a>
 
     <!-- <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
         <a
           class="nav-link text-lg px-lg-3"
-          href="https://github.com/kvssankar"
+          href="https://github.com/vitrinedacasa"
           target="_blank"
         >
           <span class="d-inline-block d-md-none">GitHub</span>
@@ -23,11 +46,16 @@
                 target="_blank">Support</a
               >
             </li>
-    </ul> -->
-    <a
+    </ul>  -->
+    <!-- <a
       href="/register"
       target="_blank"
       class="btn btn-lg btn-success my-2 my-sm-0 ml-3">Registrar</a
-    >
+    > -->
   </div>
 </nav>
+<!-- <script>
+  $: cssVarStyles = Object.entries(styles)
+		.map(([key, value]) => `--${key}:${value}`)
+		.join(';');
+</script> -->

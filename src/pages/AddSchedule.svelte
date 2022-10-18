@@ -1,12 +1,12 @@
 <script>
   import Alert from "../components/Alert.svelte";
-  import { addlink } from "../actions/User";
+  import { addschedule } from "../actions/User";
   let loading = false;
   let status = -1;
   let mssg = "";
   let image =
     "https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
-  let link = {
+  let schedule = {
     url: "",
     title: "",
     image: "",
@@ -14,13 +14,6 @@
     clicks: 0,
     likes: 0,
   };
-  let types = [
-      'Link',
-      'Whatsapp',
-      'Agendamento',
-      'Orçamento',
-      'Pedido'
-    ] 
   const drop = async (e) => {
     loading = true;
     const files = e.target.files;
@@ -36,12 +29,12 @@
     );
     loading = false;
     const file = await res.json();
-    link.image = file.secure_url;
+    schedule.image = file.secure_url;
     image = file.secure_url;
   };
   const dispatch = async (e) => {
     e.preventDefault();
-    let res = await addlink(link);
+    let res = await addschedule(schedule);
     status = res.status;
     mssg = res.mssg;
     console.log(res);
@@ -56,7 +49,7 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
           <div class="d-table-cell align-middle">
             <div class="text-center mt-4">
-              <h1 class="h2">Criar página de produto ou serviço</h1>
+              <h1 class="h2">Abra uma agenda para seus clientes</h1>
               <p class="lead">Digite os detalhes</p>
             </div>
 
@@ -84,28 +77,17 @@
                       <input
                         class="form-control form-control-lg"
                         type="text"
-                        bind:value={link.title}
+                        bind:value={schedule.title}
                         required
                         placeholder="Produto ou Serviço"
                       />
-                    </div>
-                    <div class="form-group">
-                      <label for="">Tipo</label>
-                      <select
-                        class="form-control form-control-lg"
-                        bind:value={link.type}
-                      >
-                      	{#each types as type(type)}
-                          <option>{type}</option>
-                     		{/each}
-                      </select>
                     </div>
                     <div class="form-group">
                       <label for="">Url</label>
                       <input
                         class="form-control form-control-lg"
                         type="text"
-                        bind:value={link.url}
+                        bind:value={schedule.url}
                         required
                         placeholder="https://vitrinedacasa.com.br/usuario/urldoproduto"
                       />
@@ -114,7 +96,7 @@
                       <label for="">Descrição</label>
                       <textarea
                         class="form-control form-control-lg"
-                        bind:value={link.description}
+                        bind:value={schedule.description}
                         placeholder="Descreva o que você está oferecendo, seja objetivo com o seu cliente."
                       />
                     </div>

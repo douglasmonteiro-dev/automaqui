@@ -11158,6 +11158,7 @@ a.badge-soft-dark:focus {
 }
 .card {
   margin-bottom: 24px;
+  margin: 10px;
   box-shadow: 0 0 0.875rem 0 rgba(41, 48, 66, 0.05);
 }
 .card-header {

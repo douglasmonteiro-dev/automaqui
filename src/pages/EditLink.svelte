@@ -12,6 +12,10 @@
     "https://www.lifewire.com/thmb/P856-0hi4lmA2xinYWyaEpRIckw=/1920x1326/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg";
   let link;
   let user;
+  let types = [
+      'Serviço',
+      'Produto'
+    ] 
   const unsubscribe = userStore.subscribe((data) => {
     console.log(data);
     link = data.link;
@@ -23,14 +27,15 @@
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
-    data.append("upload_preset", "kvssankar");
+    data.append("upload_preset", "vitrinedacasa");
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/sankarkvs/image/upload",
+      "https://api.cloudinary.com/v1_1/vitrinedacasa/image/upload",
       {
         method: "POST",
         body: data,
       }
     );
+    
     loading = false;
     const file = await res.json();
     link.image = file.secure_url;
@@ -114,6 +119,25 @@
                         bind:value={link.description}
                         placeholder="Descreva o que você está oferecendo, seja objetivo com o seu cliente."
                       />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Preço</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="tel"
+                        bind:value={link.price}
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Tipo</label>
+                      <select
+                        class="form-control form-control-lg"
+                        bind:value={link.type}
+                      >
+                      	{#each types as type(type)}
+                          <option>{type}</option>
+                     		{/each}
+                      </select>
                     </div>
                     <div class="text-center mt-3">
                       <button type="submit" class="btn btn-lg btn-primary"

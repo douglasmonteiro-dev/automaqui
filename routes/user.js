@@ -7,15 +7,17 @@ const verify = require("../verify");
 
 const { User } = require("../models/User");
 const { Link } = require("../models/Link");
+const { Schedule } = require("../models/Schedule");
 var generator = require("generate-password");
 var nodemailer = require("nodemailer");
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
-  const { dp, email, password, instagram, facebook, twitter } = req.body;
+  console.log('req.body: ', req.body);
+  const { dp, email, password, instagram, facebook, twitter, logo, style, name } = req.body;
   const salt = await bc.genSalt(10);
   const hashed = await bc.hash(password, salt);
   const userExist = await User.findOne({ instagram: instagram });
+  console.log('userExist: ', userExist);
   if (userExist) {
     return res.status(500).json({ status: 1, mssg: "User already exists" });
   }
@@ -29,7 +31,10 @@ router.post("/register", async (req, res) => {
     email,
     facebook,
     twitter,
+    logo,
     dp,
+    style,
+    name
   });
   try {
     const addedUser = await newUser.save();
@@ -43,6 +48,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { instagram, password } = req.body;
   const userExist = await User.findOne({ instagram: instagram });
+  console.log('userExist', userExist);
   if (!userExist)
     return res.status(500).json({ status: 1, mssg: "User does not exists" });
   const validPassword = await bc.compare(password, userExist.password);
@@ -54,7 +60,7 @@ router.post("/login", async (req, res) => {
 
 //links routes
 
-router.post("/add", verify, async (req, res) => {
+router.post("/addlink", verify, async (req, res) => {
   const { url, title, image, description } = req.body;
   const newLink = new Link({ url, title, image, description });
   User.findByIdAndUpdate(
@@ -74,7 +80,7 @@ router.post("/add", verify, async (req, res) => {
     });
 });
 
-router.post("/update", verify, async (req, res) => {
+router.post("/updatelink", verify, async (req, res) => {
   const { link } = req.body;
   User.findOneAndUpdate(
     { _id: req.user._id, "links._id": link._id },
@@ -87,11 +93,59 @@ router.post("/update", verify, async (req, res) => {
     );
 });
 
-router.post("/delete", verify, async (req, res) => {
+router.post("/deletelink", verify, async (req, res) => {
   const { _id } = req.body;
   await User.findByIdAndUpdate(
     req.user._id,
     { $pull: { links: { _id: _id } } },
+    { new: true }
+  )
+    .then((data) => res.json({ mssg: "Successfully deleted" }))
+    .catch((err) =>
+      res.status(500).json({ status: 1, mssg: "Something went wrong" })
+    );
+});
+
+//schedule routes
+
+router.post("/addschedule", verify, async (req, res) => {
+  const { url, title, image, description } = req.body;
+  const newSchedule = new Schedule({ url, title, image, description });
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $push: { schedules: newSchedule }, $inc: { total_schedules: 1 } },
+    { new: true }
+  )
+    .then((data) => {
+      data.schedules = data.schedules.sort(function (a, b) {
+        return new Date(b.created_date) - new Date(a.created_date);
+      });
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ status: 1, mssg: "Something went wrong" });
+    });
+});
+
+router.post("/updateschedule", verify, async (req, res) => {
+  const { schedule } = req.body;
+  User.findOneAndUpdate(
+    { _id: req.user._id, "schedules._id": schedule._id },
+    { $set: { "schedules.$": schedule } },
+    { new: true }
+  )
+    .then((data) => res.json(data))
+    .catch((err) =>
+      res.status(500).json({ status: 1, mssg: "Something went wrong" })
+    );
+});
+
+router.post("/deleteschedule", verify, async (req, res) => {
+  const { _id } = req.body;
+  await User.findByIdAndUpdate(
+    req.user._id,
+    { $pull: { schedules: { _id: _id } } },
     { new: true }
   )
     .then((data) => res.json({ mssg: "Successfully deleted" }))

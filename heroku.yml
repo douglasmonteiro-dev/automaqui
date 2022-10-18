@@ -1,0 +1,8 @@
+build:
+  docker:
+    servervitrine: Dockerfile
+  config:
+    PORT: 3000
+
+run:
+  servervitrine: npm run start

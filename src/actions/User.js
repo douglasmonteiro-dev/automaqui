@@ -74,7 +74,7 @@ export const addlink = async (a) => {
   if (token) config.headers["auth-token"] = token;
   console.log(a);
   axios
-    .post("/api/user/add", a, config)
+    .post("/api/user/addlink", a, config)
     .then((res) => {
       status = 0;
       mssg = "Successfully added";
@@ -101,7 +101,61 @@ export const deletelink = async (a) => {
   if (token) config.headers["auth-token"] = token;
   console.log(a);
   axios
-    .post("/api/user/delete", { _id: a }, config)
+    .post("/api/user/deletelink", { _id: a }, config)
+    .then((res) => {
+      status = 0;
+      mssg = "Successfully added";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  await getinfo();
+  return { status, mssg };
+};
+
+export const addschedule = async (a) => {
+  let token = "";
+  let status = 1,
+    mssg = "Something went wrong";
+  userStore.subscribe((data) => {
+    token = data.token;
+  });
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
+  };
+  if (token) config.headers["auth-token"] = token;
+  console.log(a);
+  axios
+    .post("/api/user/addschedule", a, config)
+    .then((res) => {
+      status = 0;
+      mssg = "Successfully added";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  await getinfo();
+  return { status, mssg };
+};
+
+export const deleteschedule = async (a) => {
+  let token = "";
+  let status = 1,
+    mssg = "Something went wrong";
+  userStore.subscribe((data) => {
+    token = data.token;
+  });
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
+  };
+  if (token) config.headers["auth-token"] = token;
+  console.log(a);
+  axios
+    .post("/api/user/deleteschedule", { _id: a }, config)
     .then((res) => {
       status = 0;
       mssg = "Successfully added";

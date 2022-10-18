@@ -13,11 +13,23 @@
     password: "",
     instagram: "",
     facebook: "",
+    style: { 
+      primary_color: "blue",
+      secondary_color: "green",
+      warning_color: "red",
+      header_color: "lightgray",
+      background_color: "white",
+      text_color: "black",
+      font_family: "roboto",
+      font_size: "16"
+    },
     twitter: "",
+    logo: "",
     email: "",
     dp: "",
   };
   let loading = false;
+
   function getPhoto(a) {
     loading = true;
     dp = generator.generateRandomAvatar();
@@ -26,6 +38,42 @@
   }
   let status = -1;
   let mssg = "";
+  const dropImage = async (e) => {
+    loading = true;
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "vitrinedacasa");
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/vitrinedacasa/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+    loading = false;
+    const file = await res.json();
+    user.dp = file.secure_url;
+    dp = file.secure_url;
+  };
+  const dropLogo = async (e) => {
+    loading = true;
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "vitrinedacasa");
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/vitrinedacasa/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+    loading = false;
+    const file = await res.json();
+    user.logo = file.secure_url;
+    logo = file.secure_url;
+  };
   const register = (e) => {
     console.log(JSON.stringify(user));
     e.preventDefault();
@@ -43,10 +91,11 @@
       body: JSON.stringify(user),
     })
       .then(function (response) {
+        console.log('response', response);
         return response.json();
       })
       .then(function (data) {
-        mssg = "Sussessfully registered";
+        mssg = "Registrado com Sucesso";
         status = 0;
         userStore.update((currUser) => {
           return { token: data.token, user: data.user };
@@ -89,18 +138,126 @@
                   </div>
                   <form on:submit={register}>
                     <div class="form-group">
+                      <label for="">Nome do Usuário</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="text"
+                        bind:value={user.name}
+                        required
+                        placeholder="nome"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Carregue uma logo (se desejar)</label>
+                      <input
+                        id="file"
+                        name="file"
+                        type="file"
+                        on:change={dropLogo}
+                      />
+                    </div>
+                    <div class="form-group">
                       <label for="">Usuário do Instagram</label>
                       <input
-                        on:change={() => {
-                          getPhoto(user.instagram);
-                        }}
                         class="form-control form-control-lg"
                         type="text"
                         bind:value={user.instagram}
+                        on:change={() => {
+                          user.instagram = user.instagram.toLowerCase();
+                          getPhoto(user.instagram);
+                        }}
                         required
                         placeholder="usuario"
                       />
                     </div>
+                    <div class="form-group">
+                      <label for="">Carregue uma imagem de capa (se desejar)</label>
+                      <input
+                        id="file"
+                        name="file"
+                        type="file"
+                        on:change={dropImage}
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nome da Fonte</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="text"
+                        bind:value={user.style.font_family}
+                        required
+                        placeholder="nome da fonte"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Tamanho da Fonte</label>
+                      <input 
+                        class="form-control form-control-lg"
+                        type="number"
+                        bind:value={user.style.font_size}
+                        required
+                        placeholder="tamanho da fonte em pixels"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Texto</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.text_color}
+                        required
+                        placeholder="cor do texto"/>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="">Cor do Cabeçalho</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.header_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Background</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.background_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Botão</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.primary_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Botão Secundário</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.secondary_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="">Cor do Botão de Alerta</label>
+                      <input
+                        class="form-control form-control-lg"
+                        type="color"
+                        bind:value={user.style.warning_color}
+                        required
+                        placeholder="cor"
+                      />
+                    </div>
+                    
                     <div class="form-group">
                       <label for="">E-mail para recuperação</label>
                       <input

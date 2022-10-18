@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 
-const linkSchema = new Schema({
+const scheduleSchema = new Schema({
   url: String,
   title: String,
   image: String,
@@ -9,11 +9,11 @@ const linkSchema = new Schema({
   price: { type: Number, default: 0 },
   options: [{ type: String, default: "" }],
   type: { type: String, default: "" },
-  clicks: { type: Number, default: 0 },
-  likes: { type: Number, default: 0 },
+  pendingScheduled: { type: Number, default: 0 },
+  confirmScheduled: { type: Number, default: 0 },
   created_date: { type: Date, default: Date.now },
 });
 
-const Link = mongoose.model("link", linkSchema);
+const Schedule = mongoose.model("schedule", scheduleSchema);
 
-module.exports = { Link, linkSchema };
+module.exports = { Schedule, scheduleSchema };

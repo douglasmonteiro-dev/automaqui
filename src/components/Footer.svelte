@@ -7,7 +7,7 @@
             <a class="text-muted" href="https://github.com/douglasmonteiro-dev">Github</a>
           </li>
           <!-- <li class="list-inline-item">
-            <a class="text-muted" href="https://www.linkedin.com/in/sankarkvs/">Linkedin</a>
+            <a class="text-muted" href="https://www.linkedin.com/in/vitrinedacasa/">Linkedin</a>
           </li>
           <li class="list-inline-item">
             <a class="text-muted" href="https://www.instagram.com/kvs_sk/">Instagram</a>

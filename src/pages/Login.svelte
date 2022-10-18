@@ -44,7 +44,7 @@
         console.log(data);
         if (data.status && data.status == 1) {
           status = 1;
-          mssg = data.mssg;
+          mssg = "Erro";
           return;
         }
         userStore.update((currUser) => {
@@ -54,7 +54,7 @@
       })
       .catch((error) => {
         status = 1;
-        mssg = error.mssg;
+        mssg = "Tivemos algum problema, por favor tente novamente";
       });
   };
 </script>
